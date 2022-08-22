@@ -7,6 +7,6 @@ The instructions are to be used in conjunction with the original presentation sl
 ## Practices
 
 1. [Install Remote Server Administration Tools](Practices\Install-Remote-Server-Administration-Tools.md)
+1. [Create a custom Microsoft Management Console](Practices\Create-a-custom-Microsoft-Management-Console.md)
 
 ## Labs
-
