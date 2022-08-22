@@ -41,9 +41,15 @@ Perform these steps on CL1.
     * RSAT: Server Manager
 
     ````powershell
-    Add-WindowsCapability -Online -Name 'Rsat.ActiveDirectory.DS-LDS.Tools*'
-    Add-WindowsCapability -Online -Name 'Rsat.FileServices.Tools*'
-    Add-WindowsCapability -Online -Name 'Rsat.ServerManager.Tools'
+    <# 
+        Add-WindowsCapability does not support wildcards. Therefore, we use
+        pipelines with the Get | Add pattern
+    #>
+    Get-WindowsCapability -Online -Name 'Rsat.ActiveDirectory.DS-LDS.Tools*' |
+    Add-WindowsCapability -Online
+    Get-WindowsCapability -Online -Name 'Rsat.FileServices.Tools*' | 
+    Add-WindowsCapability -Online
+    # With the File Services tools, Server Manager is installed automatically
     ````
 
 1. If required, restart the computer.
