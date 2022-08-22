@@ -17,3 +17,4 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Install Remote Server Administration Tools   | CL1       | Install-RemoteServerAdministrationTools.ps1 |
 | Create a custom Microsoft Management Console | CL1       | New-CustomMMC.ps1                           |
 | Explore Server Manager                       | CL1       | Add-ServerManagerServers.ps1                |
+| Install Windows Admin Center using a script  | VN1-GW1   | Install-AdminCenter.ps1                     |
