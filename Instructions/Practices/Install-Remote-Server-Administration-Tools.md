@@ -7,7 +7,7 @@
 
 ## Introduction
 
-In this practice, you will install the Remote Server Administration Tools on CL1.
+Install the Remote Server Administration Tools for Active Directory Domain Services, File Services, and the Server Manager on CL1.
 
 ## Instructions
 
