@@ -9,7 +9,7 @@
 * VN1-RCA
 * CL1
 
-## Introduction
+## Task
 
 On CL1, in Server Manager, add VN1-Core1, VN1-DC1, VN1-FS1, VN1-GW1, and WIN-VN1-RCA and explore Server Manager.
 

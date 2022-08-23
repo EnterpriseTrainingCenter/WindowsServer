@@ -6,7 +6,7 @@
 * VN1-RCA
 * VN1-GW1
 
-## Introduction
+## Task
 
 On VN1-GW1, to install Windows Admin Center, run **C:\LabResources\Solutions\Install-AdminCenter.ps1**.
 

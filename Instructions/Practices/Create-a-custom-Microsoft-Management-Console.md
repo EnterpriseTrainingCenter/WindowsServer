@@ -5,7 +5,7 @@
 * VN1-DC1
 * CL1
 
-## Introduction
+## Task
 
 On CL1, create a custom Microsoft Management Console with the snap-ins Active Directory Users and Computers and Computer Management and save it to the desktop of all users.
 
