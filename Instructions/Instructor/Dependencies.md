@@ -28,4 +28,4 @@ All labs after the lab **Windows Admin Center** depend on the lab. There is no c
 | Create a custom Microsoft Management Console | CL1       | New-CustomMMC.ps1                           |
 | Explore Server Manager                       | CL1       | Add-ServerManagerServers.ps1                |
 | Install Windows Admin Center using a script  | VN1-GW1   | Install-AdminCenter.ps1                     |
-
+| Install Windows Terminal                     | VN1-FS1   | Install-WindowsTerminal.ps1                 |
