@@ -12,3 +12,5 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install Windows Admin Center using a script](Practices\Install-Windows-Admin-Center-using-a-script.md)
 
 ## Labs
+
+1. [Explore Windows Admin Center](Labs/Explore-Windows-Admin-Center.md)

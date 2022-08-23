@@ -10,6 +10,16 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |------------------------|------------------------------------------------------|
 | Explore Server Manager | Practice: Install Remote Server Administration Tools |
 
+All practices after the lab **Windows Admin Center** depend on the lab. There is no catch up script available. Exercises 1, 2, 4 and 5 must be performed manually.
+
+## Dependencies of labs
+
+| Lab                           |                                                       |
+|-------------------------------|-------------------------------------------------------|
+| Windows Admin Center          | Practice: Install Windows Admin Center using a script |
+
+All labs after the lab **Windows Admin Center** depend on the lab. There is no catch up script available. Exercises 1, 2, 4 and 5 must be performed manually.
+
 ## Catch up scripts for practices
 
 | Practice                                     | VM        | Script                                      |
@@ -18,3 +28,4 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Create a custom Microsoft Management Console | CL1       | New-CustomMMC.ps1                           |
 | Explore Server Manager                       | CL1       | Add-ServerManagerServers.ps1                |
 | Install Windows Admin Center using a script  | VN1-GW1   | Install-AdminCenter.ps1                     |
+
