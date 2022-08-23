@@ -93,7 +93,7 @@ Perform all tasks on CL1.
 
 Perform all tasks on CL1.
 
-1. [In Windows Admin Center, add connections to VN1-DC1, VN1-Core1, VN1-FS1, VN1-RCA, and CL2](#task-1-in-windows-admin-center-add-connections-to-vn1-dc1-vn1-core1-vn1-fs1-vn1-rca-and-cl2).
+1. [In Windows Admin Center, add connections to VN1-DC1, VN1-Core1, VN1-FS1, VN1-RCA, and CL2](#task-1-in-windows-admin-center-add-connections).
 
 2. [Add tags to the connections according to table below](#task-2-add-tags-to-the-connections).
 
@@ -108,17 +108,16 @@ Perform all tasks on CL1.
 
     > What is the most efficient way to add the tags manually?
 
-3. [Filter the connection list to only show connections with the tag **core**](#task-3-filter-the-connection-list-to-only-show-connections-with-the-tag-core).
+3. [Filter the connection list to only show connections with the tag **core**](#task-3-filter-the-connection-list).
 
     > Which connections are displayed?
 
-### Task 1: In Windows Admin Center, add connections to VN1-DC1, VN1-Core1, VN1-FS1, VN1-RCA, and CL2
+### Task 1: In Windows Admin Center, add connections
 
 1. In Windows Admin Center, on the connections page, click **Add**.
 1. In the panel **Add or create resources**, under **Server**, click **Add**.
 1. On the tab **Add one**, in **Server name**, enter **VN1-DC1**.
 1. After VN1-DC1 was found, click **Add**.
-1. Click **Add**.
 1. Click **Add**.
 1. In the panel **Add or create resources**, under **Windows PCs**, click **Add**.
 1. Click the tab **Search Active Directory**.
@@ -142,7 +141,7 @@ Perform all tasks on CL1.
 
     > You can reuse tags.
 
-1. Click **Add tags**, enter **Windows Admin Center** and press ENTER.
+1. Click **Add tags**, enter **Windows Admin Center** (with capitals) and press ENTER.
 
     > Tags can contain spaces. Moreover, the tags are normalized to lower case.
 
@@ -170,7 +169,7 @@ Perform all tasks on CL1.
     | vn1-fs1.smart.etc   | file                                                        |
     | vn1-rca.smart.etc   | pki                                                         |
 
-### Task 3: Filter the connection list to only show connections with the tag **core**
+### Task 3: Filter the connection list
 
 1. In Windows Admin Center, on the connections page, click the icon *Filter*.
 1. In Filter connections, activate the checkbox left to **core** and click **Save**.
