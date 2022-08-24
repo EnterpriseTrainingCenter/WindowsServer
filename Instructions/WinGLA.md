@@ -17,6 +17,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage PowerShell output](Practices/Manage-PowerShell-output.md)
 1. [Work with PowerShell variables](Practices/Work-with-PowerShell-variables.md)
 1. [Work with PowerShell arrays](Practices/Work-with-PowerShell-arrays.md)
+1. [Registry editing using PowerShell](Practices/Registry-editing-using-PowerShell.md)
 
 ## Labs
 
