@@ -11,6 +11,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Explorer Server Manager](Practices/Explore-Server-Manager.md)
 1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
 1. [Install Windows Terminal](Practices/Install-Windows-Terminal.md)
+1. [Explore Windows Terminal](Practices/Explore-Windows-Terminal.md)
 
 ## Labs
 
