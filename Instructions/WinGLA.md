@@ -13,7 +13,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install Windows Terminal](Practices/Install-Windows-Terminal.md)
 1. [Explore Windows Terminal](Practices/Explore-Windows-Terminal.md)
 1. [Find PowerShell commands, get help, and manage modules](Practices/Find-PowerShell-commands-and-manage-modules.md)
-1. [Explore return types](Practices/Explore-return-types.md)
+1. [Explore PowerShell return types](Practices/Explore-PowerShell-return-types.md)
 
 ## Labs
 

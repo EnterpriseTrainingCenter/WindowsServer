@@ -1,4 +1,4 @@
-# Practice: Explore return types
+# Practice: Explore PowerShell return types
 
 ## Required VMs
 
