@@ -7,7 +7,7 @@
 
 ## Task
 
-On CL1, find cmdlet to receive running processes and installed services. Try the cmdlets and display information about the returned classes.
+On CL1, get all information about the running process of Windows Terminal. Start all services configured for automatic start but not currently running.
 
 ## Instructions
 
