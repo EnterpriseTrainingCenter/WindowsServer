@@ -7,6 +7,7 @@
 
 ## Task
 
+On CL1, get all information about the running process of Windows Terminal. Start all services configured for automatic start but not currently running.
 
 ## Instructions
 
