@@ -5,6 +5,7 @@
 * VN1-DC1
 * VN1-GW1
 * VN1-FS1
+* VN1-Core1
 * VN1-RCA
 * CL1
 
