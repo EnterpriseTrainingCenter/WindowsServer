@@ -15,8 +15,7 @@ Perform these steps on CL1.
 
 1. Logon as **smart\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
-1. Store the registry key path 
-1. List the contents of the registry key **HKLM:\system\CurrentControlSet\services\Tcpip\Parameters** in a variable.
+1. Store the registry key path **HKLM:\system\CurrentControlSet\services\Tcpip\Parameters** in a variable.
 
     ````powershell
     $path = 'HKLM:\system\CurrentControlSet\services\Tcpip\Parameters'
