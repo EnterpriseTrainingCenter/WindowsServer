@@ -23,6 +23,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install roles using Windows Admin Center](Practices/Install-roles-using-Windows-Admin-Center.md)
 1. [Manage features using PowerShell](Practices/Manage-features-using-PowerShell.md)
 1. [Manage services using Windows Admin Center](Practices/Manage-services-using-Windows-Admin-Center.md)
+1. [Manage services using PowersShell](Practices/Manage-services-using-PowerShell.md)
 
 ## Labs
 
