@@ -8,7 +8,7 @@ The instructions are to be used in conjunction with the original presentation sl
 
 1. [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md)
 1. [Create a custom Microsoft Management Console](Practices/Create-a-custom-Microsoft-Management-Console.md)
-1. [Explorer Server Manager](Practices/Explore-Server-Manager.md)
+1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
 1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
 1. [Install Windows Terminal](Practices/Install-Windows-Terminal.md)
 1. [Explore Windows Terminal](Practices/Explore-Windows-Terminal.md)
