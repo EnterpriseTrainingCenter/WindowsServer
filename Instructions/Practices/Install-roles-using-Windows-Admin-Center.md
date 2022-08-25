@@ -9,7 +9,7 @@
 
 ## Task
 
-On CL1, use Windows Admin Center to install the the Certification Authority Web Enrollment role service on VN1-RCA.
+On CL1, use Windows Admin Center to install the Certification Authority Web Enrollment role service on VN1-RCA.
 
 ## Instructions
 
