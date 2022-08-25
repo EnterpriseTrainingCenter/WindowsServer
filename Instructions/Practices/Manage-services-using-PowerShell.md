@@ -3,8 +3,8 @@
 ## Required VMs
 
 * VN1-DC1
-* VN1-DC1
 * VN1-FS1
+* VN1-RCA
 * CL1
 
 ## Task
