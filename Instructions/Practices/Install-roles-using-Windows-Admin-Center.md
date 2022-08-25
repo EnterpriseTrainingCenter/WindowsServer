@@ -3,6 +3,7 @@
 ## Required VMs
 
 * VN1-DC1
+* VN1-GW1
 * VN1-RCA
 * CL1
 
