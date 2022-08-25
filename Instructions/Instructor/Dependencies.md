@@ -31,3 +31,4 @@ All labs after the lab **Windows Admin Center** depend on the lab. There is no c
 | Install Windows Admin Center using a script  | VN1-GW1   | Install-AdminCenter.ps1                     |
 | Install Windows Terminal                     | VN1-FS1   | Install-WindowsTerminal.ps1                 |
 | Install roles using Server Manager           | CL1       | Install-FileServer.ps1                      |
+| Install roles using Windows Admin Center     | CL1       | Install-CAWebEnrollment.ps1                 |
