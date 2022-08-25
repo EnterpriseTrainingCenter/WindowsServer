@@ -33,3 +33,4 @@ All labs after the lab **Windows Admin Center** depend on the lab. There is no c
 | Install Windows Terminal                     | VN1-FS1   | Install-WindowsTerminal.ps1                 |
 | Install roles using Server Manager           | CL1       | Install-FileServer.ps1                      |
 | Install roles using Windows Admin Center     | CL1       | Install-CAWebEnrollment.ps1                 |
+| Manage features using PowerShell             | CL1       | Install-WindowsServerBackup.ps1             |
