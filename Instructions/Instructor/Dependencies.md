@@ -12,6 +12,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Install roles using Server Manager         | Practice: Explore Server Manager; Lab: Explore Windows Admin Center |
 | Install roles using Windows Admin Center   | Lab: Explore Windows Admin Center                                   |
 | Manage services using Windows Admin Center | Lab: Explore Windows Admin Center                                   |
+| View events using Windows Admin Center     | Lab: Explore Windows Admin Center                                   |
 
 All practices after the lab **Windows Admin Center** depend on the lab. There is no catch up script available. Exercises 1, 2, 4 and 5 must be performed manually.
 
