@@ -25,6 +25,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage services using Windows Admin Center](Practices/Manage-services-using-Windows-Admin-Center.md)
 1. [Manage services using PowersShell](Practices/Manage-services-using-PowerShell.md)
 1. [View events using Windows Admin Center](Practices/View-events-using-Windows-Admin-Center.md)
+1. [View events using PowerShell](Practices/View-events-using-PowerShell.md)
 
 ## Labs
 
