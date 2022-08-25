@@ -6,9 +6,10 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 
 ## Dependencies of practices
 
-| Practice               | Dependencies                                         |
-|------------------------|------------------------------------------------------|
-| Explore Server Manager | Practice: Install Remote Server Administration Tools |
+| Practice                | Dependencies                                                        |
+|-------------------------|---------------------------------------------------------------------|
+| Explore Server Manager  | Practice: Install Remote Server Administration Tools                |
+| Manage Windows Features | Practice: Explore Server Manager; Lab: Explore Windows Admin Center |
 
 All practices after the lab **Windows Admin Center** depend on the lab. There is no catch up script available. Exercises 1, 2, 4 and 5 must be performed manually.
 
@@ -16,7 +17,7 @@ All practices after the lab **Windows Admin Center** depend on the lab. There is
 
 | Lab                           |                                                       |
 |-------------------------------|-------------------------------------------------------|
-| Windows Admin Center          | Practice: Install Windows Admin Center using a script |
+| Explore Windows Admin Center  | Practice: Install Windows Admin Center using a script |
 
 All labs after the lab **Windows Admin Center** depend on the lab. There is no catch up script available. Exercises 1, 2, 4 and 5 must be performed manually.
 
@@ -29,3 +30,4 @@ All labs after the lab **Windows Admin Center** depend on the lab. There is no c
 | Explore Server Manager                       | CL1       | Add-ServerManagerServers.ps1                |
 | Install Windows Admin Center using a script  | VN1-GW1   | Install-AdminCenter.ps1                     |
 | Install Windows Terminal                     | VN1-FS1   | Install-WindowsTerminal.ps1                 |
+| Install roles using Server Manager           | CL1       | Install-FileServer.ps1                      |

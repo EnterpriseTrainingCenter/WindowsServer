@@ -19,6 +19,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Work with PowerShell arrays](Practices/Work-with-PowerShell-arrays.md)
 1. [Registry editing using PowerShell](Practices/Registry-editing-using-PowerShell.md)
 1. [PowerShell remoting](Practices/PowerShell-remoting.md)
+1. [Install roles using Server manager](Practices/Install-roles-using-Server-Manager.md)
 
 ## Labs
 
