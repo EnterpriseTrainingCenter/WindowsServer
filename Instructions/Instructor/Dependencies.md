@@ -14,15 +14,13 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage services using Windows Admin Center | Lab: Explore Windows Admin Center                                   |
 | View events using Windows Admin Center     | Lab: Explore Windows Admin Center                                   |
 
-All practices after the lab **Windows Admin Center** depend on the lab. There is no catch up script available. Exercises 1, 2, 4 and 5 must be performed manually.
-
 ## Dependencies of labs
 
-| Lab                           |                                                       |
-|-------------------------------|-------------------------------------------------------|
-| Explore Windows Admin Center  | Practice: Install Windows Admin Center using a script |
-
-All labs after the lab **Windows Admin Center** depend on the lab. There is no catch up script available. Exercises 1, 2, 4 and 5 must be performed manually.
+| Lab                                                        |                                                       |
+|------------------------------------------------------------|-------------------------------------------------------|
+| Explore Windows Admin Center                               | Practice: Install Windows Admin Center using a script |
+| Manage servers remotely using Microsoft Management Console | Practice: Install Remote Server Administration Tools  |
+|                                                            | Lab: Explore Windows Admin Center                     |
 
 ## Catch up scripts for practices
 
@@ -36,3 +34,10 @@ All labs after the lab **Windows Admin Center** depend on the lab. There is no c
 | Install roles using Server Manager           | CL1       | Install-FileServer.ps1                      |
 | Install roles using Windows Admin Center     | CL1       | Install-CAWebEnrollment.ps1                 |
 | Manage features using PowerShell             | CL1       | Install-WindowsServerBackup.ps1             |
+
+## Catch up scripts for labs
+
+| Lab                                                        | VM  | Script                                                       |
+|------------------------------------------------------------|-----|--------------------------------------------------------------|
+| Explore Windows Admin Center                               |     | No script available. Perform all exercises except exercise 3 |
+| Manage servers remotely using Microsoft Management Console | CL1 | Enable-ComputerRemoteManagement.ps1                          |
