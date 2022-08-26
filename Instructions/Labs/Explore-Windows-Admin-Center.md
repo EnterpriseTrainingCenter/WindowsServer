@@ -28,8 +28,6 @@ After you installed Windows Admin Center, you want to find out, what you can do 
 
 ## Exercise 1: Connect
 
-Perform all tasks on CL1.
-
 1. [Using Microsoft Edge, navigate to http://admincenter](#task-1-using-microsoft-edge-navigate-to-httpadmincenter).
 
     > What is the resulting URL?
@@ -48,6 +46,8 @@ Perform all tasks on CL1.
 
 ### Task 1: Using Microsoft Edge, navigate to http://admincenter
 
+Perform this task on CL1.
+
 1. On the taskbar, click the **Microsoft Edge** icon.
 1. On page **Welcome to Microsoft Edge, the best performing browser on Windows** , click **Start without your data**.
 1. On page **We can help you import your browsing data from Google**, click **Continue without this data**.
@@ -61,12 +61,16 @@ Perform all tasks on CL1.
 
 ### Task 2: Using Microsoft Edge, navigate to https://admincenter.smart.etc
 
+Perform this task on CL1.
+
 1. In Microsoft Edge, navigate to https://admincenter.smart.etc.
 1. In Windows Security, sign in with **smart\Administrator**.
 
     > You have to enter username and password, because all sites containing a dot are assigned to the Internet zone by default. Moreover, Microsoft Edge does not send the Windows credentials to sites in the Internet zone by default.
 
 ### Task 3: Add https://admincenter.smart.etc to the Intranet zone
+
+Perform this task on CL1.
 
 1. Click **Start**, and type **Internet Options**.
 1. Click **Internet Options**.
@@ -83,6 +87,8 @@ Perform all tasks on CL1.
 
 ### Task 4: Verify the effects of adding a site to the Intranet zone
 
+Perform this task on CL1.
+
 1. Close all instances of Microsoft Edge.
 1. Launch Microsoft Edge again.
 1. In Microsoft Edge, navigate to https://admincenter.smart.etc.
@@ -90,8 +96,6 @@ Perform all tasks on CL1.
 > You should not need to enter username or password.
 
 ## Exercise 2: Manage connections
-
-Perform all tasks on CL1.
 
 1. [In Windows Admin Center, add connections to VN1-DC1, VN1-Core1, VN1-FS1, VN1-RCA, and CL2](#task-1-in-windows-admin-center-add-connections).
 
@@ -114,6 +118,8 @@ Perform all tasks on CL1.
 
 ### Task 1: In Windows Admin Center, add connections
 
+Perform this task on CL1.
+
 1. In Windows Admin Center, on the connections page, click **Add**.
 1. In the panel **Add or create resources**, under **Server**, click **Add**.
 1. On the tab **Add one**, in **Server name**, enter **VN1-DC1**.
@@ -129,6 +135,8 @@ Perform all tasks on CL1.
 1. Activate the checkbox left to the column header **Name** to select all servers and click **Add**.
 
 ### Task 2: Add tags to the connections
+
+Perform this task on CL1.
 
 1. In Windows Admin Center, on the connections page, activate the checkbox left to **vn1-core1.smart.etc**.
 1. Click **Edit Tags**.
@@ -171,6 +179,8 @@ Perform all tasks on CL1.
 
 ### Task 3: Filter the connection list
 
+Perform this task on CL1.
+
 1. In Windows Admin Center, on the connections page, click the icon *Filter*.
 1. In Filter connections, activate the checkbox left to **core** and click **Save**.
 
@@ -181,14 +191,14 @@ Perform all tasks on CL1.
 
 ## Exercise 3: Explore the available administration features
 
-Perform all tasks on CL1.
-
 1. [Explore networks, updates, and the settings for power configuration and Remote Desktop on VN1-DC1](#task-1-explore-networks-updates-and-the-settings-for-power-configuration-and-remote-desktop-on-vn1-dc1).
 2. [Find installed apps and running processes on VN1-GW1](#task-2-find-installed-apps-and-running-processes-on-vn1-gw1).
 3. [Explore the registry, the scheduled tasks and the security of VN1-FS1](#task-3-explore-the-registry-the-scheduled-tasks-and-the-security-of-vn1-fs1).
 4. [Explore apps, features, devices on CL2](#task-4-explore-apps-features-devices-on-cl2).
 
 ### Task 1: Explore networks, updates, and the settings for power configuration and Remote Desktop on VN1-DC1
+
+Perform this task on CL1.
 
 1. In Windows Admin Center, on the connections page, click **VN1-DC1.smart.etc**. Explore the information on in the Overview tool.
 1. In the Tools pane, click **Networks** and explore the available features.
@@ -199,12 +209,16 @@ Perform all tasks on CL1.
 
 ### Task 2: Find installed apps and running processes on VN1-GW1
 
+Perform this task on CL1.
+
 1. In Windows Admin Center, click **Windows Admin Center** in the top-left corner to return to the connections page.
 1. On the connections page, click **VN1-GW1.smart.etc**. Explore the information on in the Overview tool.
 1. In the Tools pane, click **Installed apps** and explore the available features.
 1. In the Tools pane, click **Processes** and explore the available features.
 
 ### Task 3: Explore the registry, the scheduled tasks and the security of VN1-FS1
+
+Perform this task on CL1.
 
 1. In Windows Admin Center, click **Windows Admin Center** in the top-left corner to return to the connections page.
 1. On the connections page, click **VN1-FS1.smart.etc**. Explore the information on in the Overview tool.
@@ -214,6 +228,8 @@ Perform all tasks on CL1.
 
 ### Task 4: Explore apps, features, devices on CL2
 
+Perform this task on CL1.
+
 1. In Windows Admin Center, click **Windows Admin Center** in the top-left corner to return to the connections page.
 1. On the connections page, click **CL2.smart.etc**. Explore the information on in the Overview tool.
 1. In the Tools pane, click **Apps & features** and explore the available features.
@@ -221,11 +237,11 @@ Perform all tasks on CL1.
 
 ## Exercise 4: Update extensions
 
-Perform this task on CL1.
-
 [Update all installed extensions of Windows Admin Center to the latest version](#task-update-all-installed-extensions-of-windows-admin-center-to-the-latest-version).
 
 ### Task: Update all installed extensions of Windows Admin Center to the latest version
+
+Perform this task on CL1.
 
 1. In Windows Admin Center, click the icon **Settings** (the gear icon).
 1. In Settings, click **Extensions**.
@@ -247,6 +263,8 @@ Perform all tasks on CL1.
 1. On tab Available extensions, click **Active Directory** and click **Install**.
 
 ### Task 2: Explore the features of the Active Directory extension
+
+Perform all tasks on CL1.
 
 1. In Windows Admin Center, navigate to the connections page.
 1. Click **VN1-DC1.smart.etc**.
