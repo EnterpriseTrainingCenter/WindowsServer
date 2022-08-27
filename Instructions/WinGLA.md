@@ -33,3 +33,4 @@ The instructions are to be used in conjunction with the original presentation sl
 
 1. [Explore Windows Admin Center](Labs/Explore-Windows-Admin-Center.md)
 1. [Manage servers remotely using Microsoft Management Console](Labs/Manage-servers-remotely-using-Microsoft-Management-Console.md)
+1. [Post installation configuration](Labs/Post-installation-configuration.md)

@@ -16,11 +16,15 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 
 ## Dependencies of labs
 
-| Lab                                                        |                                                       |
-|------------------------------------------------------------|-------------------------------------------------------|
-| Explore Windows Admin Center                               | Practice: Install Windows Admin Center using a script |
-| Manage servers remotely using Microsoft Management Console | Practice: Install Remote Server Administration Tools  |
-|                                                            | Lab: Explore Windows Admin Center                     |
+| Lab                                                        |                                                                   |
+|------------------------------------------------------------|-------------------------------------------------------------------|
+| Explore Windows Admin Center                               | Practice: Install Windows Admin Center using a script             |
+| Manage servers remotely using Microsoft Management Console | Practice: Install Remote Server Administration Tools              |
+|                                                            | Lab: Explore Windows Admin Center                                 |
+| Post installation configuration                            | Practice: Install Remote Server Administration Tools              |
+|                                                            | Practice: Install Windows Admin Center using a script             |
+|                                                            | Practice: Install Windows Server with Desktop Experience manually |
+|                                                            | Practice: Install Windows Server manually                         |
 
 ## Catch up scripts for practices
 
