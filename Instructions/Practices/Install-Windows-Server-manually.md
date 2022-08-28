@@ -2,6 +2,8 @@
 
 ## Task
 
+Run ````c:\Labs\WS2022\LabResources\New-VMVN1Core2.ps1```` to create a new VM and install Windows Server Datacenter Edition on it.
+
 ## Instructions
 
 Perform these steps on the host.
@@ -10,7 +12,7 @@ Perform these steps on the host.
 1. In Windows PowerShell, execute
 
     ````powershell
-    c:\Labs\WS2022\LabResources\New-VMVN1FS2.ps1
+    c:\Labs\WS2022\LabResources\New-VMVN1Core2.ps1
     ````
 
 1. In **Hyper-V Manager**, in the context menu of **VN1-Core2**, click **Start**.
