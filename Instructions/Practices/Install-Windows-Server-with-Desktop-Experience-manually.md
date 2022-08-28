@@ -2,6 +2,8 @@
 
 ## Task
 
+Run ````c:\Labs\WS2022\LabResources\New-VMVN1FS2.ps1```` to create a new VM and install Windows Server Datacenter Edition with Desktop Experience on it.
+
 ## Instructions
 
 Perform these steps on the host.
