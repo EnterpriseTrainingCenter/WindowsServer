@@ -28,6 +28,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [View events using PowerShell](Practices/View-events-using-PowerShell.md)
 1. [Install Window Server with Desktop Experience manually](Practices/Install-Windows-Server-with-Desktop-Experience-manually.md)
 1. [Install Window Server manually](Practices/Install-Windows-Server-manually.md)
+1. [Manage local users](Practices/Manage-local-users.md)
 
 ## Labs
 
