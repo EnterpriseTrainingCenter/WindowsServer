@@ -148,14 +148,13 @@ Perform this task von CL1.
     > A pane **Specify your credentials** opens. Single sign-on does not work, because you did not set up Kerberos constrained delegation for the new server.
 
 1. Click **Cancel**.
-1. Open **Windows Terminal**.
-1. Configure Kerberos constrained delegation to allow the computer account of **VN1-FS2** to be delegated to the Windows Admin Center gateway **VN1-GW1**.
-
-    ````powershell
-    $gateway = Get-ADComputer vn1-gw1
-    Set-ADComputer vn1-fs2 -PrincipalsAllowedToDelegateToAccount $gateway
-    ````
-
+1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
+1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. Under Active Directory Domain Services, in **Search Active Directory**, type **VN1-FS2** and click **Search**.
+1. In the results, click **VN1-FS2** and click **Properties+*.
+1. In Computer properties: VN1-FS2$, click **Add a Windows Admin Center gateway**.
+1. In the pane Trust a Windows Admin Center gateway, in **SamAccountName**, enter **VN1-GW1** and click **OK**.
+1. On the top-left, click **Windows Admin Center**.
 1. In Windows Admin Center, click **vn1-fs2.smart.etc.**.
 
     > Windows Admin Center should connect to the server without additional credentials. If a pane **Specify your credentials** appears, click **Cancel** and try again.
