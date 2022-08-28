@@ -5,6 +5,7 @@
 * VN1-DC1
 * VN1-GW1
 * VN1-FS2
+* VN1-Core1
 * VN1-Core2
 
 ## Setup
@@ -351,42 +352,18 @@ Perform this task on CL1.
 
 ## Exercise 3: Install App Compatibility Feature on Demand
 
-1. [Download the Windows Server Languages and Optional Features ISO image file](#task-1-download-the-windows-server-languages-and-optional-features-iso-image-file)
-1. [Install the Application Compatibility Feature](#task-2-install-the-application-compatibility-feature)
-1. [Install Internet Explorer 11](#task-3-install-internet-explorer-11)
+1. [Install the Application Compatibility Feature on VN1-Core1](#task-2-install-the-application-compatibility-feature)
+1. [Install Internet Explorer 11 on VN1-Core1](#task-3-install-internet-explorer-11)
 1. [Verify the installation of the App Compatibility Feature](#task-4-verify-the-installation-of-the-app-compatibility-feature)
 
-### Task 1: Download the Windows Server Languages and Optional Features ISO image file
+### Task 1: Install the Application Compatibility Feature
 
-Perform this task on VN1-Core2.
-
-1. Login as **smart\Administrator**.
-1. Ensure, you are on the command line (exit SConfig, if necessary).
-1. Create the folder **C:\LabResources**.
-
-    ````powershell
-    $path = 'C:\LabResources'
-    New-Item -Type Directory -Path 'C:\LabResources'
-    ````
-
-1. Download the Windows Server Languages and Optional Features ISO image file.
-
-    ````powershell
-    $isoFile = '20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso'
-    $source = 'https://go.microsoft.com/fwlink/p/?linkid=2195333'
-    $isoPath = Join-Path -Path $path -ChildPath $isoFile
-    Start-BitsTransfer -Source $source -Destination $isoPath
-    ````
-
-    Wait for the download to finish. This file is nearly 6 GB in size. Depending on the speed of your internet connection, this may take a few minutes.
-
-### Task 2: Install the Application Compatibility Feature
-
-Perform this task on VN1-Core2.
+Perform this task on VN1-Core1.
 
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
     ````powershell
+    $isoPath = 'C:\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso'
     $fodIso = Mount-DiskImage –ImagePath $isoPath
     $fodDriveLetter = ($fodIso | Get-Volume).DriveLetter
     ````
@@ -405,18 +382,16 @@ Perform this task on VN1-Core2.
     Restart-Computer
     ````
 
-### Task 3: Install Internet Explorer 11
+### Task 2: Install Internet Explorer 11
 
-Perform this task on VN1-Core2.
+Perform this task on VN1-Core1.
 
 1. Login as **smart\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
     ````powershell
-    $path = 'C:\LabResources'
-    $isoFile = '20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso'
-    $isoPath = Join-Path -Path $path -ChildPath $isoFile
+    $isoPath = 'C:\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso'
     $fodIso = Mount-DiskImage –ImagePath $isoPath
     $fodDriveLetter = ($fodIso | Get-Volume).DriveLetter
     ````
@@ -434,9 +409,9 @@ Perform this task on VN1-Core2.
 
 1. Under **Do you want to restart the computer to complete this operation now?**, enter **Y**.
 
-### Task 4: Verify the installation of the App Compatibility Feature
+### Task 3: Verify the installation of the App Compatibility Feature
 
-Perform this task on VN1-Core2.
+Perform this task on VN1-Core1.
 
 1. Login as **smart\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
