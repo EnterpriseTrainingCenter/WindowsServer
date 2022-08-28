@@ -15,6 +15,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | View events using Windows Admin Center     | Lab: Explore Windows Admin Center                                   |
 | Manage local users                         | Practice: Create a custom Microsoft Management Console              |
 |                                            | Lab: Explore Windows Admin Center                                   |
+| Manage local groups                        | Practice: Manage local users                                        |
 
 ## Dependencies of labs
 
@@ -41,6 +42,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Install roles using Windows Admin Center     | CL1       | Install-CAWebEnrollment.ps1                 |
 | Manage features using PowerShell             | CL1       | Install-WindowsServerBackup.ps1             |
 | Manage local users                           | CL1       | New-LocalAdmins.ps1                         |
+| Manage local groups                          | CL1       | Add-LocalAdministratorsMember.ps1           |
 
 ## Catch up scripts for labs
 
