@@ -6,17 +6,18 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 
 ## Dependencies of practices
 
-| Practice                                   | Dependencies                                                        |
-|--------------------------------------------|---------------------------------------------------------------------|
-| Explore Server Manager                     | Practice: Install Remote Server Administration Tools                |
-| Install roles using Server Manager         | Practice: Explore Server Manager; Lab: Explore Windows Admin Center |
-| Install roles using Windows Admin Center   | Lab: Explore Windows Admin Center                                   |
-| Manage services using Windows Admin Center | Lab: Explore Windows Admin Center                                   |
-| View events using Windows Admin Center     | Lab: Explore Windows Admin Center                                   |
-| Manage local users                         | Practice: Create a custom Microsoft Management Console              |
-|                                            | Lab: Explore Windows Admin Center                                   |
-| Manage local groups                        | Practice: Manage local users                                        |
-| Enable the Active Directory Recycle Bin    | Practice: Install Remote Server Administration Tools                |
+| Practice                                     | Dependencies                                                        |
+|----------------------------------------------|---------------------------------------------------------------------|
+| Create a custom Microsoft Management Console | Practice: Install Remote Server Administration Tools                | 
+| Explore Server Manager                       | Practice: Install Remote Server Administration Tools                |
+| Install roles using Server Manager           | Practice: Explore Server Manager; Lab: Explore Windows Admin Center |
+| Install roles using Windows Admin Center     | Lab: Explore Windows Admin Center                                   |
+| Manage services using Windows Admin Center   | Lab: Explore Windows Admin Center                                   |
+| View events using Windows Admin Center       | Lab: Explore Windows Admin Center                                   |
+| Manage local users                           | Practice: Create a custom Microsoft Management Console              |
+|                                              | Lab: Explore Windows Admin Center                                   |
+| Manage local groups                          | Practice: Manage local users                                        |
+| Enable the Active Directory Recycle Bin      | Practice: Install Remote Server Administration Tools                |
 
 ## Dependencies of labs
 
@@ -29,6 +30,10 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                                            | Practice: Install Windows Admin Center using a script             |
 |                                                            | Practice: Install Windows Server with Desktop Experience manually |
 |                                                            | Practice: Install Windows Server manually                         |
+| Manage domain users, groups, and computers                 | Practice: Create a custom Microsoft Management Console            |
+|                                                            | Lab: Explore Windows Admin Center                                 |
+|                                                            | Practice: Manage local groups                                     |
+|                                                            | Practice: Enable the Active Directory Recycle Bin                 |
 
 ## Catch up scripts for practices
 
@@ -52,3 +57,4 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |------------------------------------------------------------|-----|--------------------------------------------------------------|
 | Explore Windows Admin Center                               |     | No script available. Perform all exercises except exercise 3 |
 | Manage servers remotely using Microsoft Management Console | CL1 | Enable-ComputerRemoteManagement.ps1                          |
+| Manage domain users, groups, and computers                 | CL1 | New-ADObjects.ps1                                            |
