@@ -44,6 +44,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage features using PowerShell             | CL1       | Install-WindowsServerBackup.ps1             |
 | Manage local users                           | CL1       | New-LocalAdmins.ps1                         |
 | Manage local groups                          | CL1       | Add-LocalAdministratorsMember.ps1           |
+| Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     '
 
 ## Catch up scripts for labs
 
