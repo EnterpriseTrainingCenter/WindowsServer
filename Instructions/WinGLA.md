@@ -30,6 +30,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install Window Server manually](Practices/Install-Windows-Server-manually.md)
 1. [Manage local users](Practices/Manage-local-users.md)
 1. [Manage local groups](Practices/Manage-local-groups.md)
+1. [Enable the Active Directory Recycle Bin](Practices/Enable-the-Active-Directory-Recycle-Bin.md)
 
 ## Labs
 

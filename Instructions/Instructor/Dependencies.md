@@ -16,6 +16,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage local users                         | Practice: Create a custom Microsoft Management Console              |
 |                                            | Lab: Explore Windows Admin Center                                   |
 | Manage local groups                        | Practice: Manage local users                                        |
+| Enable the Active Directory Recycle Bin    | Practice: Install Remote Server Administration Tools                |
 
 ## Dependencies of labs
 
