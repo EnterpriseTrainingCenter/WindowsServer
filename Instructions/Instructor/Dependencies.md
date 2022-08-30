@@ -8,7 +8,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 
 | Practice                                     | Dependencies                                                        |
 |----------------------------------------------|---------------------------------------------------------------------|
-| Create a custom Microsoft Management Console | Practice: Install Remote Server Administration Tools                | 
+| Create a custom Microsoft Management Console | Practice: Install Remote Server Administration Tools                |
 | Explore Server Manager                       | Practice: Install Remote Server Administration Tools                |
 | Install roles using Server Manager           | Practice: Explore Server Manager; Lab: Explore Windows Admin Center |
 | Install roles using Windows Admin Center     | Lab: Explore Windows Admin Center                                   |
@@ -18,6 +18,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                              | Lab: Explore Windows Admin Center                                   |
 | Manage local groups                          | Practice: Manage local users                                        |
 | Enable the Active Directory Recycle Bin      | Practice: Install Remote Server Administration Tools                |
+| Create virtual disks                         | Lab: Manage servers remotely using Microsoft Management Console     |
 
 ## Dependencies of labs
 
@@ -49,7 +50,9 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage features using PowerShell             | CL1       | Install-WindowsServerBackup.ps1             |
 | Manage local users                           | CL1       | New-LocalAdmins.ps1                         |
 | Manage local groups                          | CL1       | Add-LocalAdministratorsMember.ps1           |
-| Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     '
+| Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     |
+| Create virtual disks                         |           | No script available                         |
+
 
 ## Catch up scripts for labs
 
