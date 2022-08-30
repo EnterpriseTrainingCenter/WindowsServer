@@ -54,6 +54,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     |
 | Create virtual disks                         | CL1       | New-VHDs.ps1                                |
 | Initialize disks                             | CL1       | Initialize-Disks.ps1                        |
+| Create volumes                               | CL1       | New-Volumes.ps1                             |
 
 ## Catch up scripts for labs
 
