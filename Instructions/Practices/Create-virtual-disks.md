@@ -9,6 +9,7 @@
 
 ## Task
 
+Create virtual disks in VHDX format of size 1 TB on VN1-FS1 and VN1-CORE1.
 
 ## Instructions
 
