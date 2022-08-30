@@ -47,3 +47,12 @@ Perform these steps on VN1-CL1.
 1. In **Size (GB)**, type **1024**.
 1. Under **Virtual hard disk type**, click **Dynamic**.
 1. Click **Submit**.
+1. In Storage, click **Create VHD**.
+1. In the pane Create a VHD, under **VHD folder path**, click **Browse**.
+1. In Select a folder, double-click **(C:)**.
+1. Click **OK**.
+1. In **new VHD file name**, type **VHD3.vhdx**.
+1. In **File extension**, click **VHDX**.
+1. In **Size (GB)**, type **1024**.
+1. Under **Virtual hard disk type**, click **Dynamic**.
+1. Click **Submit**.
