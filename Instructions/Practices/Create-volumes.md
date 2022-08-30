@@ -9,7 +9,13 @@
 
 ## Task
 
+Create volumes according to this table.
 
+| Computer  | Disk | Size    | File system | Label      |
+|-----------|------|---------|-------------|------------|
+| VN1-FS1   | 1    | Maximum | NTFS        | NTFS 1TB   |
+| VN1-CORE1 | 1    | 512 GB  | ReFS        | ReFS 512GB |
+| VN1-CORE1 | 2    | 100 GB  | ReFS        | ReFS 100GB |
 
 ## Instructions
 
