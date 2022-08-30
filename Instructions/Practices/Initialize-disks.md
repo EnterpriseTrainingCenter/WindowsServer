@@ -16,8 +16,6 @@ Initialize the new disks on VN1-FS1 and VN1-Core1 with GPT partition style.
 Perform these steps on VN1-CL1.
 
 1. Sign in as **smart\Administrator**.
-1. On the desktop, open **Basic Administration**.
-
 1. Open **Server Manager**.
 1. In Server Manager, in the left pane, click **File and Storage Services**.
 1. In File and Storage Services > Servers, on the left, click **Disks**.
