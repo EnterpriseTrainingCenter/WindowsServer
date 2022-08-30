@@ -20,6 +20,8 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Enable the Active Directory Recycle Bin      | Practice: Install Remote Server Administration Tools                |
 | Create virtual disks                         | Lab: Manage servers remotely using Microsoft Management Console     |
 | Initialize disks                             | Practice: Create virtual disks                                      |
+| Create volumes                               | Practice: Initialize disks                                          |
+| Extend volumes                               | Practice: Create volumes                                            |
 
 ## Dependencies of labs
 
@@ -55,6 +57,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Create virtual disks                         | CL1       | New-VHDs.ps1                                |
 | Initialize disks                             | CL1       | Initialize-Disks.ps1                        |
 | Create volumes                               | CL1       | New-Volumes.ps1                             |
+| Extend volumes                               | CL1       | Resize-Partitions.ps1                       |
 
 ## Catch up scripts for labs
 

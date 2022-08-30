@@ -34,6 +34,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Create virtual disks](Practices/Create-virtual-disks.md)
 1. [Initialize disks](Practices/Initialize-disks.md)
 1. [Create volumes](Practices/Create-volumes.md)
+1. [Extend volumes](Practices/Extend-volumes.md)
 
 ## Labs
 
