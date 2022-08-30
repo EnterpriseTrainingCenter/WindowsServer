@@ -22,6 +22,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Initialize disks                             | Practice: Create virtual disks                                      |
 | Create volumes                               | Practice: Initialize disks                                          |
 | Extend volumes                               | Practice: Create volumes                                            |
+| Create a mount point                         | Practice: Create volumes                                            |
 
 ## Dependencies of labs
 
@@ -58,6 +59,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Initialize disks                             | CL1       | Initialize-Disks.ps1                        |
 | Create volumes                               | CL1       | New-Volumes.ps1                             |
 | Extend volumes                               | CL1       | Resize-Partitions.ps1                       |
+| Create a mount point                         | CL1       | New-MountPoint.ps1                          |
 
 ## Catch up scripts for labs
 
