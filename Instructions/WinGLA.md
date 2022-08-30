@@ -31,6 +31,8 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage local users](Practices/Manage-local-users.md)
 1. [Manage local groups](Practices/Manage-local-groups.md)
 1. [Enable the Active Directory Recycle Bin](Practices/Enable-the-Active-Directory-Recycle-Bin.md)
+1. [Create virtual disks](Practices/Create-virtual-disks.md)
+1. [Initialize disks](Practices/Initialize-disks.md)
 
 ## Labs
 
