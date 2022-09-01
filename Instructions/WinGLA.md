@@ -35,7 +35,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Initialize disks](Practices/Initialize-disks.md)
 1. [Create volumes](Practices/Create-volumes.md)
 1. [Resize a volume](Practices/Extend-volumes.md)
-1. [Create a mount point](Practices/Create-a-mount-point.md)
+1. [Create mount points](Practices/Create-mount-points.md)
 1. [Create links](Practices/Create-links.md)
 
 ## Labs

@@ -7,7 +7,7 @@
 
 ## Task
 
-Create a hard link to C:\\BootStrap\\BootStrap.ps1 on C:\\setupscript.ps1. Delete the original file and recover it by creating a hard link from c:\\setupscript.ps1. Create a junction to C:\\Bootstrap on d:\\Setup and delete the file Labroot.cer. Create a symbolic link D:\Sysvol targeting \\\\vn1-dc1\\sysvol.
+On VN1-FS1, create a hard link to C:\\BootStrap\\BootStrap.ps1 on C:\\setupscript.ps1. Delete the original file and recover it by creating a hard link from c:\\setupscript.ps1. Create a junction to C:\\Bootstrap on d:\\Setup and delete the file Labroot.cer. Create a symbolic link D:\Sysvol targeting \\\\vn1-dc1\\sysvol.
 
 ## Instructions
 

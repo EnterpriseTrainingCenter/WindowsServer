@@ -9,7 +9,7 @@
 
 ## Task
 
-Create one virtual disks in VHDX format of size 1 TB on VN1-FS1 and two on VN1-CORE1.
+Create two virtual disks in VHDX format of size 1 TB on VN1-FS1 and one on VN1-CORE1.
 
 ## Instructions
 
@@ -36,8 +36,8 @@ Perform these steps on VN1-CL1.
     > The disk will be initialized in the next practice.
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-core1.smart.etc**.
-1. Connected to vn1-core1.smart.etc, under Tools, click **Storage**.
+1. In Windows Admin Center, click **vn1-fs1.smart.etc**.
+1. Connected to vn1-fs1.smart.etc, under Tools, click **Storage**.
 1. In Storage, click **Create VHD**.
 1. In the pane Create a VHD, under **VHD folder path**, click **Browse**.
 1. In Select a folder, double-click **(C:)**.
@@ -47,6 +47,8 @@ Perform these steps on VN1-CL1.
 1. In **Size (GB)**, type **1024**.
 1. Under **Virtual hard disk type**, click **Dynamic**.
 1. Click **Submit**.
+1. Click **Windows Admin Center** to return to the connections page.
+1. In Windows Admin Center, click **vn1-core11.smart.etc**.
 1. In Storage, click **Create VHD**.
 1. In the pane Create a VHD, under **VHD folder path**, click **Browse**.
 1. In Select a folder, double-click **(C:)**.

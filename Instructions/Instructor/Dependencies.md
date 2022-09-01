@@ -23,7 +23,8 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Initialize disks                             | Practice: Create virtual disks                                      |
 | Create volumes                               | Practice: Initialize disks                                          |
 | Extend volumes                               | Practice: Create volumes                                            |
-| Create a mount point                         | Practice: Create volumes                                            |
+| Create mount points                          | Practice: Install roles using Server Manager                        |
+|                                              | Practice: Create volumes                                            |
 | Create links                                 | Practice: Create volumes                                            |
 
 ## Dependencies of labs
@@ -41,6 +42,8 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                                            | Lab: Explore Windows Admin Center                                 |
 |                                                            | Practice: Manage local groups                                     |
 |                                                            | Practice: Enable the Active Directory Recycle Bin                 |
+| Manage file sharing                                        | Practice: Create a custom Microsoft Management Console            |
+|                                                            | Lab: Explore Windows Admin Center                                 |
 
 ## Catch up scripts for practices
 
@@ -61,7 +64,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Initialize disks                             | CL1       | Initialize-Disks.ps1                        |
 | Create volumes                               | CL1       | New-Volumes.ps1                             |
 | Extend volumes                               | CL1       | Resize-Partitions.ps1                       |
-| Create a mount point                         | CL1       | New-MountPoint.ps1                          |
+| Create mount points                          | CL1       | New-MountPoints.ps1                          |
 | Create links                                 | FS1       | New-Links.ps1                               |
 
 ## Catch up scripts for labs
