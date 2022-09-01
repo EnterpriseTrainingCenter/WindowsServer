@@ -10,8 +10,9 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |----------------------------------------------|---------------------------------------------------------------------|
 | Create a custom Microsoft Management Console | Practice: Install Remote Server Administration Tools                |
 | Explore Server Manager                       | Practice: Install Remote Server Administration Tools                |
-| Install roles using Server Manager           | Practice: Explore Server Manager; Lab: Explore Windows Admin Center |
+| Install roles using Server Manager           | Practice: Explore Server Manager                                    |
 | Install roles using Windows Admin Center     | Lab: Explore Windows Admin Center                                   |
+| Manage features using PowerShell             | Practice: Install Remote Server Administration Tools                |
 | Manage services using Windows Admin Center   | Lab: Explore Windows Admin Center                                   |
 | View events using Windows Admin Center       | Lab: Explore Windows Admin Center                                   |
 | Manage local users                           | Practice: Create a custom Microsoft Management Console              |
@@ -49,7 +50,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Create a custom Microsoft Management Console | CL1       | New-CustomMMC.ps1                           |
 | Explore Server Manager                       | CL1       | Add-ServerManagerServers.ps1                |
 | Install Windows Admin Center using a script  | VN1-GW1   | Install-AdminCenter.ps1                     |
-| Install Windows Terminal                     | VN1-FS1   | Install-WindowsTerminal.ps1                 |
+| Install Windows Terminal                     | CL1       | Install-WindowsTerminal.ps1                 |
 | Install roles using Server Manager           | CL1       | Install-FileServer.ps1                      |
 | Install roles using Windows Admin Center     | CL1       | Install-CAWebEnrollment.ps1                 |
 | Manage features using PowerShell             | CL1       | Install-WindowsServerBackup.ps1             |
