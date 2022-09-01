@@ -19,9 +19,10 @@ Perform these steps on VN1-CL1.
 1. Sign in as **smart\Administrator**.
 1. Open **Server Manager**.
 1. In Server Manager, in the left pane, click **File and Storage Services**.
-1. In File and Storage Services > Servers, on the left, click **Disks**.
+1. In File and Storage Services > Servers, under **SERVICES** (scroll down), in the context-menu of the service **SERVER**, click **Restart Services**.
+1. On the left, click **Disks**.
 1. On **VN1-FS1**, click disk 2 with a **Capacity** of **1 TB** and the **Bus Type** **File Backed Virtual**.
-1. Under **VOLUMES**, in the context-menu of the volume with the Capacity of **512GB**, click **Manage Drive Letter and Access Paths...**
+1. Under **VOLUMES**, in the context-menu of the volume, click **Manage Drive Letter and Access Paths...**
 1. In Manage drive letter and access paths, click **Browse...**.
 1. In Select Folder, click **ReFS 1TB (D:)**.
 1. Click **New Folder**.
