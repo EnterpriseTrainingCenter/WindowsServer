@@ -35,6 +35,7 @@ Perform these steps on VN1-CL1.
 1. On page **Select file system settings**, beside **File system**, click **ReFS**.
 1. In **Volume label**, type **ReFS 1TB** and click **Next >**.
 1. On page **Confirm selections**, click **Create**.
+1. On page **Completion**, click **Close**.
 1. Under **Volumes**, click **TASKS**, **New Volume...**.
 1. In the New Volume Wizard, on page **Befor you begin**, click **Next >**.
 1. On page **Select the server and disk**, ensure **VN1-FS1** and disk 2 with **Free Space** of **1 024 GB** are selected and click **Next >**.
@@ -51,7 +52,7 @@ Perform these steps on VN1-CL1.
 1. Click **Create Volume**.
 1. In the pane Create Volume, in **Drive Letter**, click **D**.
 1. In **Volume label**, type **ReFS 512GB**.
-1. In **File system**, click **ReFS**.
+1. In **File system**, click **REFS**.
 1. In **Volume size (GB)**, type **512** and click **Submit**.
 1. Create a remote PowerShell session to **VN1-CORE1**.
 
