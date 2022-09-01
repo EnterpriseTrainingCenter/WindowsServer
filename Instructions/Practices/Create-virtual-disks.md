@@ -48,7 +48,7 @@ Perform these steps on VN1-CL1.
 1. Under **Virtual hard disk type**, click **Dynamic**.
 1. Click **Submit**.
 1. Click **Windows Admin Center** to return to the connections page.
-1. In Windows Admin Center, click **vn1-core11.smart.etc**.
+1. In Windows Admin Center, click **vn1-core1.smart.etc**.
 1. In Storage, click **Create VHD**.
 1. In the pane Create a VHD, under **VHD folder path**, click **Browse**.
 1. In Select a folder, double-click **(C:)**.
