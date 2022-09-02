@@ -20,7 +20,7 @@ You want to manage users and groups. You want to evaluate the Active Directory R
 
 1. [Manage domain users](#exercise-1-manage-domain-users)
 1. [Manage domain groups](#exercise-2-manage-domain-groups)
-1. [Manage domain computers](#exercise-3-manage-domain-computers)
+1. [Manage domain computers (optional)](#exercise-3-manage-domain-computers-optional)
 
 ## Exercise 1: Manage domain users
 
@@ -58,7 +58,7 @@ You want to manage users and groups. You want to evaluate the Active Directory R
 
 ### Task 1: Create domain users
 
-Create the users according to the table above in the given organizational unit. Use the different administration tools for this task. Below, generic instructions for each tool are given.
+Create the users according to the table above in the given organizational unit. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
 
 #### Active Directory Users and Computers
 
@@ -148,7 +148,7 @@ Perform this task on CL1.
 
 ### Task 2: Rename domain users
 
-Rename the users according to the table above. Use the different administration tools for this task. Below, generic instructions for each tool are given.
+Rename the users according to the table above. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
 
 #### Active Directory Users and Computers
 
@@ -203,7 +203,7 @@ Perform this task on CL1.
 
 ### Task 3: Reset the password of domain users
 
-Reset the password of the users from the list above. Use the different administration tools for this task. Below, generic instructions for each tool are given.
+Reset the password of the users from the list above. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
 
 #### Active Directory Users and Computers
 
@@ -299,7 +299,7 @@ Perform this task on CL1.
 
 ### Task 1: Add members to a domain group
 
-Add users to groups according to the table above. Use the different administration tools for this task. Below, generic instructions for each tool are given.
+Add users to groups according to the table above. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
 
 #### Active Directory Users and Computers
 
@@ -441,7 +441,7 @@ Perform this task on CL1.
 
 ### Task 3: Create domain groups
 
-Create groups in the organizational unit Organizational groups and add users as members according to the table above. Use the different administration tools for this task. Below, generic instructions for each tool are given.
+Create groups in the organizational unit Organizational groups and add users as members according to the table above. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
 
 #### Active Directory Users and Computers
 
@@ -486,7 +486,7 @@ Perform this task on CL1.
 1. In the right pane, click **Create**, **Group**.
 1. In the pane Add Group, in **Name**, type the name of the new group.
 1. Under **Group Scope**, click **Global**.
-1. In Sam Account Name, type the name of the new group again.
+1. In **Sam Account Name**, type the name of the new group again.
 1. Right to **Create in**, click **Change...**.
 1. In Select Path, click **Organizational Groups**.
 1. Click **Select**.
@@ -559,7 +559,7 @@ Perform this task on CL1.
 1. Using Microsoft edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
 1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
-4. In Active Directory Domain Services, in **Search Active Directory**, type **Pilot Users** and click **Search**.
+1. In Active Directory Domain Services, in **Search Active Directory**, type **Pilot Users** and click **Search**.
 1. Click the found group.
 1. Click **Delete**.
 1. In the message box **Delete group** click **Confirm**.
@@ -628,7 +628,7 @@ Perform this task on CL1.
 
     > All previous members should be listed.
 
-## Exercise 3: Manage domain computers
+## Exercise 3: Manage domain computers (optional)
 
 1. [Unjoin CL2 from the domain](#task-1-unjoin-cl2-from-the-domain)
 1. [Delete the CL2 computer account](#task-2-delete-the-computer-account)
