@@ -40,3 +40,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Post installation configuration](Labs/Post-installation-configuration.md)
 1. [Manage domain users, groups, and computers](Labs/Manage-domain-users-groups-and-computers.md)
 1. [Manage local storage](Labs/Manage-local-storage.md)
+1. [Manage file sharing](Labs/Manage-file-sharing.md)

@@ -73,3 +73,4 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage servers remotely using Microsoft Management Console | CL1 | Enable-ComputerRemoteManagement.ps1                          |
 | Manage domain users, groups, and computers                 | CL1 | New-ADObjects.ps1                                            |
 | Manage local storage                                       | CL1 | New-Volumes.ps1                                              |
+| Manage file sharing                                        | CL1 | New-Shares.ps1                                               |
