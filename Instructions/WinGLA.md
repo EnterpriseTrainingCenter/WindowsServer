@@ -31,11 +31,6 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage local users](Practices/Manage-local-users.md)
 1. [Manage local groups](Practices/Manage-local-groups.md)
 1. [Enable the Active Directory Recycle Bin](Practices/Enable-the-Active-Directory-Recycle-Bin.md)
-1. [Create virtual disks](Practices/Create-virtual-disks.md)
-1. [Initialize disks](Practices/Initialize-disks.md)
-1. [Create volumes](Practices/Create-volumes.md)
-1. [Resize a volume](Practices/Extend-volumes.md)
-1. [Create mount points](Practices/Create-mount-points.md)
 1. [Create links](Practices/Create-links.md)
 
 ## Labs
@@ -44,3 +39,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage servers remotely using Microsoft Management Console](Labs/Manage-servers-remotely-using-Microsoft-Management-Console.md)
 1. [Post installation configuration](Labs/Post-installation-configuration.md)
 1. [Manage domain users, groups, and computers](Labs/Manage-domain-users-groups-and-computers.md)
+1. [Manage local storage](Labs/Manage-local-storage.md)

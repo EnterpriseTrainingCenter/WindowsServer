@@ -42,8 +42,11 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                                            | Lab: Explore Windows Admin Center                                 |
 |                                                            | Practice: Manage local groups                                     |
 |                                                            | Practice: Enable the Active Directory Recycle Bin                 |
+| Manage local storage                                       | Lab: Manage servers remotely using Microsoft Management Console   |
+|                                                            | Practice: Install roles using Server Manager                      |
 | Manage file sharing                                        | Practice: Create a custom Microsoft Management Console            |
 |                                                            | Lab: Explore Windows Admin Center                                 |
+|                                                            | Lab: Manage local storage                                         |
 
 ## Catch up scripts for practices
 
@@ -60,11 +63,6 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage local users                           | CL1       | New-LocalAdmins.ps1                         |
 | Manage local groups                          | CL1       | Add-LocalAdministratorsMember.ps1           |
 | Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     |
-| Create virtual disks                         | CL1       | New-VHDs.ps1                                |
-| Initialize disks                             | CL1       | Initialize-Disks.ps1                        |
-| Create volumes                               | CL1       | New-Volumes.ps1                             |
-| Extend volumes                               | CL1       | Resize-Partitions.ps1                       |
-| Create mount points                          | CL1       | New-MountPoints.ps1                          |
 | Create links                                 | FS1       | New-Links.ps1                               |
 
 ## Catch up scripts for labs
@@ -74,3 +72,4 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Explore Windows Admin Center                               |     | No script available. Perform all exercises except exercise 3 |
 | Manage servers remotely using Microsoft Management Console | CL1 | Enable-ComputerRemoteManagement.ps1                          |
 | Manage domain users, groups, and computers                 | CL1 | New-ADObjects.ps1                                            |
+| Manage local storage                                       | CL1 | New-Volumes.ps1                                              |
