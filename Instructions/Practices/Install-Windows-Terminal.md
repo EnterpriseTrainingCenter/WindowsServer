@@ -7,11 +7,11 @@
 
 ## Introduction
 
-Install Windows Terminal on VN1-DC1.
+Install Windows Terminal on VN1-FS1.
 
 ## Instructions
 
-Perform these steps on VN1-DC1.
+Perform these steps on VN1-FS1.
 
 1. Logon as **smart\Administrator**.
 1. In Microsoft Edge, navigate to https://github.com/microsoft/terminal/releases.

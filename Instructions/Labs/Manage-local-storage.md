@@ -20,7 +20,7 @@ You want to create virtual disks with volumes, extend volumes and validate mount
 
 1. [Create and initialize virtual disks](#exercise-1-manage-disks)
 1. [Manage volumes](#exercise-2-manage-volumes)
-1. [Manage mount points](#exercise-3-manage-mount-points)
+1. [Manage mount points (optional)](#exercise-3-manage-mount-points-optional)
 
 ## Exercise 1: Manage disks
 
@@ -159,7 +159,7 @@ Perform these steps on VN1-CL1.
     | VN1-CORE1 | 1    | 512 GB  | REFS        | ReFS 512GB | D            |
     | VN1-CORE1 | 1    | 128 GB  | NTFS        | NTFS 128GB | E            |
 
-1. [Extend volume](#task-2-extend-volume) NTFS 512GB on VN1-FS1 to 768GB.
+1. [Extend volume](#task-2-extend-volume-optionalme) NTFS 512GB on VN1-FS1 to 768GB (optional)
 
 ### Task 1: Create volumes
 
@@ -252,7 +252,7 @@ Perform these steps on VN1-CL1.
     Exit-PSSession
     ````
 
-### Task 2: Extend volume
+### Task 2: Extend volume (optional)
 
 #### Desktop experience
 
@@ -313,7 +313,7 @@ Perform these steps on VN1-CL1.
     Exit-PSSession
     ````
 
-## Exercise 3: Manage mount points
+## Exercise 3: Manage mount points (optional)
 
 1. [Create a mount point](#task-1-create-a-mount-point) on VN1-FS1 for E:\ in D:\ITData
 1. [Validate mount points](#task-2-validate-mount-points)
