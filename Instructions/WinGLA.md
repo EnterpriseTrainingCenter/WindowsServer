@@ -41,3 +41,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage domain users, groups, and computers](Labs/Manage-domain-users-groups-and-computers.md)
 1. [Manage local storage](Labs/Manage-local-storage.md)
 1. [Manage file sharing](Labs/Manage-file-sharing.md)
+1. [Monitor performance](Labs/Monitor-Performance.md)

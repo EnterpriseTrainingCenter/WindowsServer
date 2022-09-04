@@ -47,6 +47,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage file sharing                                        | Practice: Create a custom Microsoft Management Console            |
 |                                                            | Lab: Explore Windows Admin Center                                 |
 |                                                            | Lab: Manage local storage                                         |
+| Monitor performance                                        | Practice: Install roles using Server Manager                      |
 
 ## Catch up scripts for practices
 

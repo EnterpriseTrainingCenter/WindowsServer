@@ -1,4 +1,4 @@
-# Lab: Monitor performance
+# Lab: Monitor performance (optional)
 
 ## Required VMs
 
@@ -6,90 +6,212 @@
 * VN1-FS1
 * CL1
 
+## Setup
+
+On **VN1-FS1**, sign in as **smart\Administrator**.
+
+On **CL1**, sign in as **smart\Administrator**.
+
+## Introduction
+
+Users complain about the performance of one of your servers. You analyze the performance of that server, identify the problem. After you make upgrades to tackle the performance problem, you analyze the performance again. To avoid problems in the future, you test a performance alert that will gather performance data automatically.
+
 ## Exercises
 
-1. [Performance Monitoring](#exercise-1-performance-monitoring)
+1. [Monitor performance under low memory conditions](#exercise-1-monitor-performance-under-low-memory-conditions)
+2. [Monitor performance after a memory upgrade (optional)](#exercise-2-monitor-performance-after-a-memory-upgrade-optional)
+3. [Use a performance alert (optional)](#exercise-3-use-a-performance-alert-optional)
 
-## Exercise 1: Performance Monitoring
+## Exercise 1: Monitor performance under low memory conditions
 
-### Introduction
+1. [Configure a data collector set with baseline performance counters](#task-1-configure-a-data-collector-set-with-baseline-performance-counters) on VN1-FS1
+1. [Configure VN1-FS1 with 1 GB of memory](#task-2-configure-vn1-fs1-with-1-gb-of-memory)
+1. [Start the data collector set](#task-3-start-the-data-collector-set
+1. [Simulate load](#task-4-simulate-load) by copying an ISO file from C:\\LabResources of VN1-FS1 to CL1.
+1. [Analyze the performance data](#task-5-analyze-the-performance-data)
 
-In this exercise, you will create a data collector set on WS2019 with most relevant counters for memory, CPU, storage and network. Then, you will simulate some workload. Finally, you will analyze the collected performance data.
+### Task 1: Configure a data collector set with baseline performance counters
 
-#### Tasks
+Perform these steps on VN1-FS1.
 
-1. [Create Data Collector Sets](#task-1-create-data-collector-sets)
-1. [Analyze performance data](#task-2-analyze-performance-data)
+1. Open **Performance Monitor**.
+1. In Performance Monitor, expand **Data Collector Sets**.
+1. In the context menu of **User Defined**, click **New**, **Data Collector Sets**.
+1. In Create new Data Collector Sets, on the page **How would you like to create this new data collector set?**, in **Name**, type **Baseline**.
+1. Click **Create manually** and click **Next**.
+1. On page **What type of data do you want to include?**, click **Create data logs**, activate the checkbox **Performance counter**, and click **Next**.
+1. On page **Which performance counters would you like to log?`**, click **Add...**.
+1. Under **Available counters**, click **Processor**.
+1. Under **Instances of selected object**, click **\<All instances\>** and click **Add >>**.
+1. Repeat the previous 2 steps to add counters for **PhysicalDisk** and **Network Adapter**.
+1. Under **Available counters**, click **Memory** and click **Add >>**.
+1. Click **OK**.
+1. On page **Which performance counters would you like to log?`**, under **Sample interval**, type **1**.
+1. Click **Next**.
+1. On page **Where would you like the data to be saved?**, click **Next**.
+1. On page **Create the data collector set?**, click **Finish**.
 
-### Task 1: Create Data Collector Sets
 
-Perform these steps on WS2019.
+### Task 2: Configure VN1-FS1 with 1 GB of memory
 
-1. From start menu, open the **Performance Monitor** console.
-1. Expand **Data collector sets**.
-1. From the context menu of **User Defined**, select **New**, **Data collector set** to create a data collector set.
-   * **Name:** Performance Baseline
-   * **Create manually (Advanced)**
-   * **Data logs:** **Performance counter**
-1. On the page **Which performance counters would you like to log**, click on **Add…**.
-1. In the section **Available counters**, select and expand the **Processor** category ([figure 1]).
-1. Select the counter **% Processor Time** ([figure 2]).
-1. In the section **Instances**, select **_Total** and click on **Add** ([figure 3]).
-1. Repeat the previous steps to add the following counters.
-   * Logical Disk, Avg. Disk Queue Length, _Total
-   * Memory, % Committed Bytes In Use
-   * Network Interface, Bytes Total/Sec, Microsoft Hyper-V Network Adapter_2
-1. Click on **Next** twice.
-1. Select **Start the data collector set now** and click on **Finish**.
-1. Add a second data collector set.
-   * **Name:** CPU Alert
-   * **Create manually**
-   * **Type:** **Performance Counter Alert**
-1. Add the performance counter **% Processor Time** and set the **Alert when** to **Above** with the **Limit** of **80** ([figure 4]).
-1. Select the **CPU Alert** data collector set.
-1. Double click **DataCollector01**.
-1. Select the tab **Alert Actions**.
-1. Activate **Log an entry in the application event log** ([figure 5]).
-1. From the context menu of the **CPU Alert** data collector set, select **Start**.
-1. Run a **Command Prompt** as Administrator.
-1. Change directory to **L:\Performance**.
+Perform these steps on the host.
 
-   ````shell
-   L:
-   Cd \Performance
+1. Run **Windows PowerShell** as Administrator.
+1. In Windows PowerShell, execute
+
+    ````powershell
+    C:\Labs\LabResources\Set-VMVN1FS1Memory.ps1 -StartupBytes 1GB
    ````
 
-1. Start a tool to simulate a CPU load near 100% for 30 seconds.
+Wait for the complete start of VN1-FS1.
 
-   ````shell
-   consume -cpu-time -time 30
+### Task 3: Start the data collector set
+
+Perform these steps on VN1-FS1.
+
+1. Sign in as **smart\\Administrator**.
+1. Open **Performance Monitor**.
+1. In Performance Monitor, expand **Data Collector Sets** and click **User Defined**.
+1. In the context menu of **Baseline**, click **Start**.
+
+### Task 4: Simulate load
+
+Perform these steps on CL1.
+
+1. Open **Windows Terminal**.
+1. Measure the time it takes to copy **\\\\VN1-FS1\\c$\\LabResources\\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso** to **C:\\**.
+
+   ````powershell
+   Get-Date
+   Measure-Command { 
+      Copy-Item `
+         -Path `
+            '\\vn1-fs1\c$\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso' `
+         -Destination 'c:\' `
+          -Force 
+      }
+   Get-Date
    ````
 
-1. Start the tool again to consume all of the physical memory for 30 seconds. If your session with the VM gets disconnected, reconnect after 30 seconds.
+   Take a note of the start and end time and the timespan it takes.
 
-   ````shell
-   consume -physical-memory -time 30
+### Task 5: Analyze the performance data
+
+Perform this task on CL1.
+
+1. Open **Performance Monitor**.
+1. In the context menu of **Performance Monitor**, click **Properties**.
+1. In Performance Monitor Properties, click the tab **Source**.
+1. On the tab Source, click **Log files**.
+1. Click **Add...**
+1. In Select log file, in **File name**, enter **\\\\vn1-fs1\\c$\\PerfLogs\\Admin\\Baseline**.
+1. Open the folder with the highest number.
+1. Open **DataCollector01**.
+1. In **Performance Monitor Properties**, on tab **Source**, under **Total range**, drag the sliders to the start and end times of the copy process.
+1. In **Performance Monitor Properties**, click the tab **Data**.
+1. On the tab Data, click **Add...**.
+1. In Add Counters, under **Available counters**, expand **Memory**, click **Available MBytes** and click **Add >>**.
+1. Repeat the previous step for
+   * Memory: Cache Bytes
+   * Memory: Committed Bytes
+   * Memory: Pages/sec
+   * Network Adapter: Bytes Received/sec
+   * Network Adapter: Bytes Send/sec
+   * Network Adapter: Current Bandwidth
+   * PhysicalDisk: % Disk Time \<All Instances\>
+   * PhysicalDisk: Current Disk Queue Length \<All Instances\>
+   * Processor: % Processor Time \<All Instances\>
+
+1. Click **OK**.
+1. In **Performance Monitor Properties**, click **OK**.
+1. In the right pane, uncheck all checkboxes in the column **Show**.
+1. Now gradually check the checkboxes in the column **Show** for various counters.
+
+   > Can you identify the bottlenecks during the copy process? Especially look at Cache Bytes, Committed Bytes and Pages/sec.
+
+## Exercise 2: Monitor performance after a memory upgrade (optional)
+
+1. [Configure VN1-FS1 with 4 GB of memory](#task-1-configure-vn1-fs1-with-4-gb-of-memory)
+1. [Analyze the impact of the memory upgrade](#task-2-analyze-the-impact-of-the-memory-upgrade)
+
+   > Can you spot the main difference?
+
+1. [Stop the data collector set](#task-3-stop-the-data-collector-set)
+
+### Task 1: Configure VN1-FS1 with 4 GB of memory
+
+Perform these steps on the host.
+
+1. Run **Windows PowerShell** as Administrator.
+1. In Windows PowerShell, execute
+
+    ````powershell
+    C:\Labs\LabResources\Set-VMVN1FS1Memory.ps1 -StartupBytes 4GB
    ````
 
-1. Stop both data collector sets.
+Wait for the complete start of VN1-FS1.
 
-### Task 2: Analyze performance data
+### Task 2: Analyze the impact of the memory upgrade
 
-Perform these steps on WS2019.
+Repeat tasks 3 - 5 from the previous exercise.
 
-1. Switch to **Performance Monitor**.
-1. Fully expand **Reports** and open the report for **Performance Baselining** ([figure 6]).
+### Task 3: Stop the data collector set
 
-   CPU load has been measured every 15 Seconds. You also should see the increase in memory usage and subsequent memory paging on disk. The memory percentage is the ratio between the size of the memory used and the size of the pagefile. That’s the reason why it will not raise up to 100%.
+Perform these steps on VN1-FS1.
+
+1. In **Performance Monitor**, in the context menu of **Baseline**, click **Stop**.
+
+## Exercise 3: Use a performance alert (optional)
+
+1. [Configure a performance alert](#task-1-configure-a-performance-alert) on % Processor Time over 80 to log an event and start the Baseline data collector set.
+1. [Simulate CPU load](#task-2-simulate-cpu-load) by running consume.exe
+1. [Verify the performance alert](#task-3-verify-the-performance-alert) and stop all data collector sets.
+
+### Task 1: Configure a performance alert
+
+Perform these steps on VN1-FS1.
+
+1. In **Performance Monitor**, in the context menu of **User Defined**, click **New**, **Data Collector Set**.
+1. In Create new Data Collector Sets, on the page **How would you like to create this new data collector set?**, in **Name**, type **CPU time alert**.
+1. Click **Create manually** and click **Next**.
+1. On page **What type of data do you want to include?**, click **Performance Counter Alert** and click **Next**.
+1. On page **Which performance counters would you like to monitor?`**, click **Add...**.
+1. Under **Available counters**, expand **Processor** and click **% Processor Time**.
+1. Under **Instances of selected object**, click **\<All instances\>** and click **Add >>**.
+1. Click **OK**.
+1. On page **Which performance counters would you like to monitor?`**, under **Performance counters**, click **\\Processor(0)\\% Processor Time**. Under **Alert when**, ensure **Above** is selected and in **Limit**, type 80.
+1. Repeat the previous step for all instances of % Processor Time.
+1. Click **Next**.
+1. On page **Create the data collector set?** click **Finish**.
+1. In **Performance Monitor**, click **CPU time alert**.
+1. In CPU time alert, in the context menu of **DataCollector001**, click **Properties**.
+1. In Datacollector01 Properties, click the tab **Alert Action**.
+1. On tab Alert Action, activate the checkbox **Log an entry in the application event log**.
+1. Under **Start a data collector set**, click **Baseline** and click **OK**.
+1. In the context menu of **CPU time alert**, click **Start**.
+
+### Task 2: Simulate CPU load
+
+Perform these steps on VN1-FS1.
+
+1. Run **Windows PowerShell** as Administrator.
+1. Run **consume.exe** to consume cpu resources.
+
+   ````powershell
+   C:\LabResources\Consume.exe -cpu-time -time 60
+   ````
+
+   After about a minute, the process will stop automatically.
+
+### Task 3: Verify the performance alert
+
+Perform these steps on VN1-FS1.
 
 1. Open **Event Viewer**.
-1. Navigate to the logfile **Microsoft**, **Windows**, **Diagnosis-PLA**, **Operational**.
-1. You’ll find messages regarding exceeding the set CPU performance limit of 80% ([figure 7]).
+1. Expand **Applications and Services Logs**, **Microsoft**, **Windows**, **Diagnosis-PLA**, and click **Operational**.
 
-[figure 1]: images/Performance-counters-available-selected.png
-[figure 2]: images/Performance-counters-available.png
-[figure 3]: images/Performance-counter-add.png
-[figure 4]: images/Performance-counter-alert.png
-[figure 5]: images/Performance-DataCollector-properties.png
-[figure 6]: images/Performance-graph.png
-[figure 7]: images/Performance-event-treshold.png
+   > You should see various entries from the alert with the event ID **2031**.
+
+1. In **Performance Monitor**, verify the data collector set **Baseline** is running.
+1. In the context menu of **Baseline**, click **Stop**.
+1. In **Performance Monitor**, in the context menu of CPU time alert, click **Stop**.
