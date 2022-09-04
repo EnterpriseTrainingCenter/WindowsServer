@@ -15,7 +15,7 @@ Install the Remote Server Administration Tools for Active Directory Domain Servi
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Sign in as **smart\Administrator**.
 1. Open **Settings**.
 1. In Settings, click **Apps**.
 1. In Apps, click **Optional features**.
@@ -27,6 +27,9 @@ Perform these steps on CL1.
     * RSAT: Server Manager
 1. Click **Next**.
 1. Click **Install**.
+1. If required, restart the computer and Sign in as **smart\Administrator** again.
+1. In **Settings**, **Apps** > **Optional feautre**, click **More windows features** (scroll to the bottom).
+1. In Windows features, expand **Hyper-V**, activate the checkbox **Hyper-V Management Tools**, and click **OK**.
 1. If required, restart the computer.
 
 ### PowerShell
@@ -50,6 +53,15 @@ Perform these steps on CL1.
     Get-WindowsCapability -Online -Name 'Rsat.FileServices.Tools*' | 
     Add-WindowsCapability -Online
     # With the File Services tools, Server Manager is installed automatically
+    ````
+
+1. Add the windows feature **Hyper-V Management Tools.**
+
+    ````powershell
+    Enable-WindowsOptionalFeature `
+        -Online `
+        -FeatureName Microsoft-Hyper-V-Tools-All `
+        -All
     ````
 
 1. If required, restart the computer.
