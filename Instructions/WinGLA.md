@@ -32,6 +32,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage local groups](Practices/Manage-local-groups.md)
 1. [Enable the Active Directory Recycle Bin](Practices/Enable-the-Active-Directory-Recycle-Bin.md)
 1. [Create links (optional)](Practices/Create-links.md)
+1. [Display license information](Practices/Display-license-information.md)
 
 ## Labs
 
