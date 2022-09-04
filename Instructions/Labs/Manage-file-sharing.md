@@ -449,7 +449,7 @@ Configure the Offline Settings of the shares on VN1-FS1 according to the table a
 
 #### Desktop experience
 
-Perform this task on VN1-CL1.
+Perform this task on CL1.
 
 1. On the desktop, open **Basic Administration**.
 1. In Basic Administration, click **Computer Management (local)**.
@@ -464,7 +464,7 @@ Perform this task on VN1-CL1.
 
 #### PowerShell
 
-Perform this task on VN1-CL1.
+Perform this task on CL1.
 
 1. Open **Windows Terminal**.
 1. Open a remote PowerShell session to **VN1-FS1**.
@@ -509,12 +509,15 @@ Stay signed in for the upcoming tasks.
 
 ### Task 3: Take computer offline
 
-Perform this task on the host.
+Perform these steps on the host.
 
-1. In the menu of the console window of the vitual machine **CL2**, click **File**, **Settings...** (**Datei**, **Einstellungen...**).
-1. In **Settings for ...**, click **Network Interface** (**Netzwerkkarte**).
-1. In Network Interface (Netzwerkkarte), under **Virtual Switch** (**Virtueller Switch**), click **Not connected** (**Nicht verbunden**).
-1. Click **OK**.
+1. Run **Windows PowerShell** as Administrator.
+1. In Windows PowerShell, execute
+
+    ````powershell
+    Get-VMNetworkAdapter -VMName WIN-CL2 | 
+    Disconnect-VMNetworkAdapter
+    ````
 
 ### Task 4: Verify offline access
 
@@ -550,10 +553,13 @@ Perform these tasks on CL2.
 
 Perform this task on the host.
 
-1. In the menu of the console window of the vitual machine **CL2**, click **File**, **Settings...** (**Datei**, **Einstellungen...**).
-1. In **Settings for ...**, click **Network Interface** (**Netzwerkkarte**).
-1. In Network Interface (Netzwerkkarte), under **Virtual Switch** (**Virtueller Switch**), click **VNet1**.
-1. Click **OK**.
+1. Run **Windows PowerShell** as Administrator.
+1. In Windows PowerShell, execute
+
+    ````powershell
+    Get-VMNetworkAdapter -VMName WIN-CL2 | 
+    Connect-VMNetworkAdapter -SwitchName VNet1
+    ````
 
 ### Task 6: Verify online access
 
