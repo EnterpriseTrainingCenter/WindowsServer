@@ -19,13 +19,6 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                              | Lab: Explore Windows Admin Center                                   |
 | Manage local groups                          | Practice: Manage local users                                        |
 | Enable the Active Directory Recycle Bin      | Practice: Install Remote Server Administration Tools                |
-| Create virtual disks                         | Lab: Manage servers remotely using Microsoft Management Console     |
-| Initialize disks                             | Practice: Create virtual disks                                      |
-| Create volumes                               | Practice: Initialize disks                                          |
-| Extend volumes                               | Practice: Create volumes                                            |
-| Create mount points                          | Practice: Install roles using Server Manager                        |
-|                                              | Practice: Create volumes                                            |
-| Create links                                 | Practice: Create volumes                                            |
 
 ## Dependencies of labs
 

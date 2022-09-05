@@ -18,69 +18,19 @@ You want to create virtual disks with volumes, extend volumes and validate mount
 
 ## Exercises
 
-1. [Create and initialize virtual disks](#exercise-1-manage-disks)
+1. [Manage Disks](#exercise-1-manage-disks)
 1. [Manage volumes](#exercise-2-manage-volumes)
 1. [Manage mount points (optional)](#exercise-3-manage-mount-points-optional)
 
 ## Exercise 1: Manage disks
 
-1. [Create virtual disks](#task-1-create-virtual-disks) according to the table below.
-
-    | Server    | Path         | Size |
-    |-----------|--------------|------|
-    | VN1-FS1   | C:\VHD1.vhdx | 1 TB |
-    | VN1-FS1   | C:\VHD2.vhdx | 1 TB |
-    | VN1-CORE1 | C:\VHD3.vhdx | 1 TB |
-
-1. [Initialize disks](#task-2-initialize-disks) with GPT partition style
+[Initialize disks](#task-initialize-disks) on VN1-FS1 and VN1-CORE1 with GPT partition style
 
     > What is the partition style, if you initialize a disk in Server Manager?
 
-### Task 1: Create virtual disks
+### Task: Initialize disks
 
-Create the virtual disks according to the table above. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
-
-#### Desktop Experience
-
-Perform these steps on VN1-CL1.
-
-1. On the desktop, open **Basic Administration**.
-1. In Basic Administration, click **Computer Management**.
-1. In the context-menu of **Computer Management**, click **Connect to another computer...**
-1. In Select Computer, in **Another computer**, enter the server name and click **OK**.
-1. Expand **Computer Management**, **Storage** and click **Disk Management**.
-1. In the menu, click **Action**, **Create VHD**.
-1. In Create and Attach Virtual Hard Disk, in **Location**, type the path.
-1. In Virtual hard disk size, type and select the size.
-1. Under **Virtual hard disk format**, click **VHDX** and click **OK**.
-
-    > Due to a bug in Disk Management, new disks are not shown if connected remotely. You have to reconnect to the computer to see the new disk.
-
-1. In the context-menu of **Computer Management**, click **Connect to another computer...**
-1. In Select Computer, in **Another computer**, enter the server name and click **OK**.
-1. Expand **Computer Management**, **Storage** and click **Disk Management**.
-1. In **Initialize Disk**, click **Cancel**
-
-    > The disk will be initialized in the next task.
-
-#### Windows Admin Center
-
-Perform these steps on VN1-CL1.
-
-1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click the server.
-1. Connected to the server, under Tools, click **Storage**.
-1. In Storage, click **Create VHD**.
-1. In the pane Create a VHD, under **VHD folder path**, type the path without the file name, e.g., ***C:\\**
-1. In **new VHD file name**, type the file name, e.g., **VHD2.vhdx**
-1. In **File extension**, click **VHDX**.
-1. In **Size (GB)**, type the size.
-1. Under **Virtual hard disk type**, click **Dynamic**.
-1. Click **Submit**.
-
-### Task 2: Initialize disks
-
-Intitialize the new disks with the GPT partition style. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
+Intitialize the new disks on VN1-FS1 and VN1-CORE1 with the GPT partition style. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
 
 #### Disk Management
 
@@ -91,7 +41,7 @@ Perform these steps on VN1-CL1.
 1. In the context-menu of **Computer Management**, click **Connect to another computer...**
 1. In Select Computer, in **Another computer**, enter the server name and click **OK**.
 1. Expand **Computer Management**, **Storage** and click **Disk Management**.
-1. If a dialog **Initialize Disk** appear, for the moment, click **Cancel**.
+1. In the context menu of a disk in the state **Offline**, click **Online**.
 1. In the context menu of a disk in the state **Not initialized**, click **Initialize Disk**.
 1. In the dialog Initialize Disk, ensure the disk is selected, ensure **GPT (GUID Partition Table)** is selected, and click **OK**.
 
@@ -102,7 +52,9 @@ Perform these steps on VN1-CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the left pane, click **File and Storage Services**.
 1. In File and Storage Services > Servers, on the left, click **Disks**.
-1. On the respective server, in the context-menu of a disk with **Partition** **Unknown**, click **Initialize**.
+1. Under the respective server, in the context menu of a disk with **Status** **Offline**, click **Bring Online**.
+1. In the message Box **Bring Disk Online**, click **Yes**.
+1. In **Server Manager**, in the context-menu of a disk with **Partition** **Unknown**, click **Initialize**.
 1. In the message box Initialize Disk, click **Yes**.
 
     > The disk will be initialized in GPT partition style.
@@ -114,7 +66,7 @@ Perform these steps on VN1-CL1.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click the respective server.
 1. Connected to the server, under Tools, click **Storage**.
-1. In Storage, click the disk.
+1. In Storage, click the disk with **Status** **Offline**.
 1. Click **Initialize Disk**.
 1. In the pane Initialize Disk, ensure **GPT (GUID Partition Table)** is selected and click **Submit**.
 
@@ -138,9 +90,25 @@ Perform these steps on VN1-CL1.
     Get-Disk
     ````
 
-    Notice disks with **Partition style** **RAW**.
+    Notice disks with the **OperationalStatus** **Offline**.
 
-1. Initialize disk the raw disk.
+1. Bring the offline disks online.
+
+    ````powershell
+    Get-Disk | 
+    Where-Object { $PSItem.OperationalStatus -eq 'Offline' } |
+    Set-Disk -IsOffline $false
+    ````
+
+1. List the disks again.
+
+    ````powershell
+    Get-Disk
+    ````
+
+    Notice disks Operational **Partition style** **RAW**.
+
+1. Initialize disk the raw disks.
 
     ````powershell
     Get-Disk | 
