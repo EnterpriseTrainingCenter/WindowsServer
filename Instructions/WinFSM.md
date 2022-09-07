@@ -1,4 +1,4 @@
-# Windows Server: Administration Basics
+# Windows Server: File Server Management
 
 For information about the course see <https://www.etc.at/seminare/WinFSM/>.
 
@@ -10,6 +10,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
 1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
 1. [Install roles using Server manager](Practices/Install-roles-using-Server-Manager.md)
+1. [Harden SMB](Practices/Harden-SMB.md)
 
 ## Labs
 
