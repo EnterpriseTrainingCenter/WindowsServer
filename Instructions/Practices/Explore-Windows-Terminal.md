@@ -13,7 +13,7 @@ On CL1, update Windows Terminal to the latest version. In Windows Terminal, quer
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. Open **Microsoft Store**.
 1. In Microsoft Store, click **Library** (it may display as **Bibliothek**).
 1. In Library, find **Windows Terminal** and click **Update** next to it.

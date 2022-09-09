@@ -8,7 +8,7 @@
 
 ## Setup
 
-On **CL1**, logon as **smart\Administrator**.
+On **CL1**, logon as **ad\Administrator**.
 
 On **CL2**, logon as **.\LocalAdmin**.
 
@@ -63,7 +63,7 @@ Create the users according to the table above in the given organizational unit. 
 #### Active Directory Users and Computers
 
 1. On the desktop, open **Basic Administration**.
-1. In Basic Administration, expand **Active Directory Users and Computers**, **smart.etc**
+1. In Basic Administration, expand **Active Directory Users and Computers**, **ad.adatum.com**
 1. In the context-menu of the organizational unit for the new user, click **New**, **User**.
 1. In New Object - User, enter **First name** and  **Last name**.
 1. In **User logon name** and **User logon name (pre-Windows 2000)**, enter the first name and click **Next >**
@@ -73,7 +73,7 @@ Create the users according to the table above in the given organizational unit. 
 #### Active Directory Administrative Center
 
 1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **smart (local)**.
+1. In Active Directory Administrative Center, click **ad (local)**.
 1. In the context-menu of the organizational unit for the new user, click **New**, **User**.
 1. In Create User, enter **First name** and **Last name**.
 1. In **User UPN logon** and **User SamAccountName logon**, enter the first name.
@@ -89,15 +89,15 @@ Perform this task on CL1.
 
     ````powershell
     # You need to set up these variables once only
-    $domainFQDN = 'smart.etc'
-    $domainDN = 'DC=smart, DC=etc'
-    $domainNetBIOS = 'smart'
+    $domainFQDN = 'ad.adatum.com'
+    $domainDN = 'DC=ad, DC=adatum, DC=com'
+    $domainNetBIOS = 'AD'
     ````
 
     Alternative, more sophisticated version, which builds everything from ````$domainFQDN````:
 
     ````powershell
-    $domainFQDN = 'smart.etc'
+    $domainFQDN = 'ad.adatum.com'
     $domainDN = `
         (
             $domainFQDN -split '\.' | ForEach-Object { "DC=$PSItem" }
@@ -155,8 +155,8 @@ Rename the users according to the table above. Use the different administration 
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Ádministration, expand **Active Directory Users and Computer**, **smart.etc**.
-1. In the context-menu of **smart.etc**, click **Find...**.
+1. In Basic Ádministration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **Find...**.
 1. In Find Users, Contacts, and Groups, in **Name**, enter the first name.
 1. In the context-menu of the found user, click **Rename**.
 1. Change **Full name** to Firstname New last name.
@@ -210,8 +210,8 @@ Reset the password of the users from the list above. Use the different administr
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Ádministration, expand **Active Directory Users and Computer**, **smart.etc**.
-1. In the context-menu of **smart.etc**, click **Find...**.
+1. In Basic Ádministration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **Find...**.
 1. In Find Users, Contacts, and Groups, in **Name**, enter user's name.
 1. In the context-menu of the found user, click **Reset Password...**
 1. In Reset Password, in **New password** and **Confirm password** enter a secure password.
@@ -234,8 +234,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. In Active Directory Domain Services, in **Search Active Directory**, type the user's name and click **Search**.
 1. Click the found user.
 1. Click **Reset Password**.
@@ -306,8 +306,8 @@ Add users to groups according to the table above. Use the different administrati
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Administration, expand **Active Directory Users and Computer**, **smart.etc**.
-1. In the context-menu of **smart.etc**, click **Find...**.
+1. In Basic Administration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **Find...**.
 
 ##### Variant A: Add a single user to multiple groups
 
@@ -355,8 +355,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 
 ##### Variant A
 
@@ -404,8 +404,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Ádministration, expand **Active Directory Users and Computer**, **smart.etc**.
-1. In the context-menu of **smart.etc**, click **New**, **Organizational Unit**.
+1. In Basic Ádministration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **New**, **Organizational Unit**.
 1. In New Object - Organizational Unit, in **Name**, enter **Organizational Groups** and click **OK**.
 
 #### Active Directory Administrative Center
@@ -413,16 +413,16 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
-1. In the context-menu of **smart (local)**, click **New**, **Organizational Unit**.
+1. In the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
 1. In Create Organizational Unit, in **Name**, enter **Organizational Groups** and click **OK**.
 
 #### Windows Admin Center
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, click the tab **Browse**.
-1. Click **DC=smart, DC=etc**.
+1. Click **DC=ad, DC=adatum, DC=com**.
 1. In the right pane, click **Create**, **OU**.
 1. In the pane Add Organizational Unit, in **Name**, enter **Organizational Groups** and click **Create**.
 
@@ -435,7 +435,7 @@ Perform this task on CL1.
 
     ````powershell
     New-ADOrganizationalUnit `
-        -Path 'DC=smart, DC=etc' `
+        -Path 'DC=ad, DC=adatum, DC=com' `
         -Name 'Organizational Groups'
     ````
 
@@ -448,7 +448,7 @@ Create groups in the organizational unit Organizational groups and add users as 
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Administration, expand **Active Directory Users and Computer**, **smart.etc**.
+1. In Basic Administration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
 1. Click **Organizational Groups**.
 1. In the context-menu of Organizational Groups, click **New**, **Group**.
 1. In New Object - Group, in **Group name**, type the name of the group. **Group scope** should be **Global** and **Group type** should be **Security**. Click **OK**.
@@ -464,7 +464,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
-1. Click **smart (local)**.
+1. Click **ad (local)**.
 1. Double-click **Organizational groups**.
 1. In the pane **Tasks**, click **New**, **Group**.
 1. In Create Group, in **Group name**, enter the name of the new group.
@@ -479,8 +479,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, click the tab **Browse**.
 1. In the tree pane, click **Organizational Groups**.
 1. In the right pane, click **Create**, **Group**.
@@ -509,7 +509,7 @@ Perform this task on CL1.
 1. Define the location for the new group.
 
     ````powershell
-    $path = 'OU=Organizational Groups, DC=smart, DC=etc'
+    $path = 'OU=Organizational Groups, DC=ad, DC=adatum, DC=com'
     ````
 
 1. Define the parameters for the new group.
@@ -536,8 +536,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Administration, expand **Active Directory Users and Computer**, **smart.etc**.
-1. In the context-menu of **smart.etc**, click **Find...**.
+1. In Basic Administration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **Find...**.
 1. In Find Users, Contacts, and Groups, in **Name**, type **Pilot Users** and click **Find Now**.
 1. In the context menu of **Pilot Users**, click **Delete**.
 1. In the message box **Are you sure you want to delete the group named 'Pilot Users'?**, click **Yes**.
@@ -557,8 +557,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. In Active Directory Domain Services, in **Search Active Directory**, type **Pilot Users** and click **Search**.
 1. Click the found group.
 1. Click **Delete**.
@@ -575,7 +575,7 @@ Perform this task on CL1.
     Remove-ADGroup 'Pilot Users
     ````
 
-1. Under the message **Performing the operation "Remove" on target "CN=Pilot Users,OU=Organizational Groups,DC=smart,DC=etc".**, enter **Y**.
+1. Under the message **Performing the operation "Remove" on target "CN=Pilot Users,OU=Organizational Groups,DC=ad,DC=adatum,DC=com".**, enter **Y**.
 
 ### Task 5: Restore a domain group
 
@@ -584,11 +584,11 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **smart (local)**.
-1. Under smart (local), double-click **Deleted Objects**.
+1. In Active Directory Administrative Center, click **ad (local)**.
+1. Under ad (local), double-click **Deleted Objects**.
 1. Under Deleted Objects, in the context-menu of **Pilot Users**, click **Restore**.
-1. In the left pane, click **smart (local)**.
-1. Under smart (local), double click **Organizational groups**.
+1. In the left pane, click **ad (local)**.
+1. Under ad (local), double click **Organizational groups**.
 1. Under Organizational Groups, double-click **Pilot Users**.
 1. In Pilot Users, click **Members** and verify, that all previous members are still present.
 
@@ -646,7 +646,7 @@ Perform this task on CL2.
 1. Open **Settings**.
 1. In Settings, click **Accounts**.
 1. Under Accounts, click **Access work or school**.
-1. Under Access work or school, expand **smart.etc** and click **Disconnect**.
+1. Under Access work or school, expand **ad.adatum.com** and click **Disconnect**.
 1. In the message **Are you sure you want to remove this account?...**, click **Yes**.
 1. In the message box **Disconnect from the organization**, click **Disconnect**.
 1. In the message box **Restart your PC**, click **Restart now**.
@@ -657,10 +657,10 @@ Perform this task on CL2.
 1. Unjoin the computer from the domain.
 
     ````powershell
-    Remove-Computer -Restart -UnjoinDomainCredential smart\Administrator
+    Remove-Computer -Restart -UnjoinDomainCredential ad\Administrator
     ````
 
-1. Enter the credentials of smart\Administrator.
+1. Enter the credentials of ad\Administrator.
 1. Under **After you leave the domain, you will need to know the password of the local Administrator account to log onto this computer. Do you wish to continue?**, enter **y**.
 
 ### Task 2: Delete the computer account
@@ -671,7 +671,7 @@ Perform this task on CL1.
 
 1. On the desktop, open **Basic Administration**.
 1. In Basic Administration, expand **Active Directory Users and Computer**.
-1. In the context-menu of **smart.etc**, click **Find...**.
+1. In the context-menu of **ad.adatum.com**, click **Find...**.
 1. In Find Users, Contacts, and Groups, in **Find**, click **Computers**
 1. In **Computer name**, enter **CL2**.
 1. Under **Search results**, in the context-menu of **CL2**, click **Delete**.
@@ -693,8 +693,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Unter Active Directory Domain Services, in **Search Active Directory**, type **CL2** and click **Search**.
 1. Click **CL2**.
 1. Click **Delete**.
@@ -717,7 +717,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. On the desktop, open **Basic Administration**.
-1. In Basic Administration, expand **Active Directory Users and Computer**, **smart.etc**.
+1. In Basic Administration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
 1. In the context-menu of **Computers**, click **New**, **Computer**.
 1. In New Object - Computer, in **Computer name**, type CL2.
 1. Under **User or group**, click **Change...**
@@ -729,7 +729,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
-1. Click **smart (local)**.
+1. Click **ad (local)**.
 1. In the context-menu of **Computers**, click **New**, **Computer**.
 1. In Create Computer, in **Computer name**, type **CL2**.
 1. To the right of **User or Group**, click **Change...**.
@@ -747,7 +747,7 @@ Perform this task on CL2.
 1. Under Accounts, click **Access work or school**.
 1. Under Access work or school, click **Connect**.
 1. In Microsoft Account, click **Join this device to a local Active Directory domain**.
-1. In Join a domain, in **Domain name**, type **smart.etc** and click **Next**.
+1. In Join a domain, in **Domain name**, type **ad.adatum.com** and click **Next**.
 1. In Join a domain, in **User name**, enter the credentials of **Abbi** and click **OK**.
 1. In Add an account, make sure in **Account type**, **Standard User** is selected and click **Next**.
 1. In Restart your PC, click **Restart now**.
@@ -757,13 +757,13 @@ Perform this task on CL2.
 Perform this task on CL2.
 
 1. Open **Windows Terminal (Admin)**.
-1. Join the computer to the domain **smart.etc**.
+1. Join the computer to the domain **ad.adatum.com**.
 
     ````powershell
-    Add-Computer -DomainName smart.etc -Restart
+    Add-Computer -DomainName ad.adatum.com -Restart
     ````
 
-1. Enter the credentials of smart\Administrator.
+1. Enter the credentials of ad\Administrator.
 
 ### Task 5: Reset the computer account
 
@@ -773,7 +773,7 @@ Perform this task on CL1.
 
 1. On the desktop, open **Basic Administration**.
 1. In Basic Administration, expand **Active Directory Users and Computer**.
-1. In the context-menu of **smart.etc**, click **Find...**.
+1. In the context-menu of **ad.adatum.com**, click **Find...**.
 1. In Find Users, Contacts, and Groups, in **Find**, click **Computers**
 1. In **Computer name**, enter **CL2**.
 1. Under **Search results**, in the context-menu of **CL2**, click **Reset Account**.
@@ -820,10 +820,10 @@ Perform this task on CL2.
 1. Reset the computer account password.
 
     ````powershell
-    Reset-ComputerMachinePassword -Credential smart\Administrator
+    Reset-ComputerMachinePassword -Credential ad\Administrator
     ````
 
-1. Enter the credentials of **smart\Administrator**.
+1. Enter the credentials of **ad\Administrator**.
 1. Restart the computer.
 
     ````powershell

@@ -13,7 +13,7 @@ On CL1, find a command to create a new local user and display the help for it. D
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
 1. Find a command to create a local user.
 

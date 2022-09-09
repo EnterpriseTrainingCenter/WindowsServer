@@ -10,7 +10,7 @@
 
 ## Setup
 
-On **CL1**, logon as **smart\Administrator**.
+On **CL1**, logon as **ad\Administrator**.
 
 ## Introduction
 
@@ -26,7 +26,7 @@ After the initial setup, Windows Servers require some post-installation configur
 
 1. [Set the default Administrator password](#task-1-set-the-default-administrator-password-on-vn1-fs2)
 1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.64/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-vn1-fs2)
-1. [Set the computer name to VN1-FS2 and join the domain smart.etc](#task-3-set-the-computer-name-to-vn1-fs2-and-join-the-domain)
+1. [Set the computer name to VN1-FS2 and join the domain ad.adatum.com](#task-3-set-the-computer-name-to-vn1-fs2-and-join-the-domain)
 1. [Add the VN1-FS2 to Windows Admin Center](#task-4-add-the-VN1-FS2-to-windows-admin-center)
 
     > Why does single sign-on not work with the new server?
@@ -93,9 +93,9 @@ Perform this task on VN1-FS2.
 1. Click **Workgroup**.
 1. In System Properties, click **Change...**.
 1. In Computer Name/Domain Change, in **Computer name**, enter **VN1-FS2**.
-1. Click **Domain** and enter **smart.etc**.
-1. In Windows Security, enter the credentials of **smart\Administrator**.
-1. In **Welcome to the smart.etc domain**, click **OK**.
+1. Click **Domain** and enter **ad.adatum.com**.
+1. In Windows Security, enter the credentials of **ad\Administrator**.
+1. In **Welcome to the ad.adatum.com domain**, click **OK**.
 1. In **System Properties**, click **Close**.
 1. In **You must restart your computer to apply these change**, click **Restart Now**.
 
@@ -112,9 +112,9 @@ Perform this task on CL1.
 1. Click **10.1.1.64**.
 1. Connected to 10.1.1.64, in Overview, click **Edit Computer ID**.
 1. In the pane Edit computer ID, in **Computer name**, enter **VN1-FS2**.
-1. Click **Domain** and enter **smart.etc.**.
+1. Click **Domain** and enter **ad.adatum.com.**.
 1. Click **Next**.
-1. Under **Current domain**, enter the credentials of **smart\Administrator** and click **Save**.
+1. Under **Current domain**, enter the credentials of **ad\Administrator** and click **Save**.
 1. In **Overview**, click **Restart**.
 1. In **Restart the computer**, click **Yes**.
 1. In Windows Admin Center, activate the checkbox beside **10.1.1.64**.
@@ -125,13 +125,13 @@ Perform this task on CL1.
 Perform this task on VN1-FS2.
 
 1. Run **Windows PowerShell** as Administrator.
-1. Rename the computer to **VN1-FS2** and join it to the domain **smart.etc**.
+1. Rename the computer to **VN1-FS2** and join it to the domain **ad.adatum.com**.
 
     ````powershell
-    Add-Computer -NewName VN1-FS2 -DomainName smart.etc -Restart
+    Add-Computer -NewName VN1-FS2 -DomainName ad.adatum.com -Restart
     ````
 
-1. Enter the credentials for **smart\Administrator**.
+1. Enter the credentials for **ad\Administrator**.
 
 ### Task 4: Add the VN1-FS2 to Windows Admin Center
 
@@ -142,20 +142,20 @@ Perform this task von CL1.
 1. In Add or create resources, under **Servers**, click **Add**.
 1. Click the tab **Search Active Directory**.
 1. Enter **VN1-FS2** and click **Search**.
-1. Activate the checkbox left to **VN1-FS2.smart.etc** and click **Add**.
-1. In Windows Admin Center, click **vn1-fs2.smart.etc.**.
+1. Activate the checkbox left to **VN1-FS2.ad.adatum.com** and click **Add**.
+1. In Windows Admin Center, click **vn1-fs2.ad.adatum.com.**.
 
     > A pane **Specify your credentials** opens. Single sign-on does not work, because you did not set up Kerberos constrained delegation for the new server.
 
 1. Click **Cancel**.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, in **Search Active Directory**, type **VN1-FS2** and click **Search**.
 1. In the results, click **VN1-FS2** and click **Properties+*.
 1. In Computer properties: VN1-FS2$, click **Add a Windows Admin Center gateway**.
 1. In the pane Trust a Windows Admin Center gateway, in **SamAccountName**, enter **VN1-GW1** and click **OK**.
 1. On the top-left, click **Windows Admin Center**.
-1. In Windows Admin Center, click **vn1-fs2.smart.etc.**.
+1. In Windows Admin Center, click **vn1-fs2.ad.adatum.com.**.
 
     > Windows Admin Center should connect to the server without additional credentials. If a pane **Specify your credentials** appears, click **Cancel** and try again.
 
@@ -165,7 +165,7 @@ Perform this task von CL1.
 
 Perform this task von VN1-FS2.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. In **Server Manager**, in the left pane, click **Local Server**.
 1. In Properties For VN1-FS2, right to **Time zone**, click **(UTC-08:00) Pacific Time (US & Canada)**.
 1. In Date and Time, click **Change time zone...**.
@@ -188,7 +188,7 @@ Perform this task on CL1.
 
 1. [Set the default Administrator password](#task-1-set-the-default-administrator-password-on-vn1-core2)
 1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.64/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-vn1-core2)
-1. [Set the computer name to VN1-FS2 and join the domain smart.etc](#task-3-set-the-computer-name-to-vn1-core2-and-join-the-domain)
+1. [Set the computer name to VN1-FS2 and join the domain ad.adatum.com](#task-3-set-the-computer-name-to-vn1-core2-and-join-the-domain)
 1. [Add the VN1-FS2 to Windows Admin Center](#task-4-add-the-vn1-core2-to-windows-admin-center)
 
     > Why does single sign-on not work with the new server?
@@ -257,12 +257,12 @@ Perform this task on VN1-Core2.
 
 1. In SConfig, enter **1**.
 1. Under **Change domain/workgroup membership**, enter **d**.
-1. Beside **Name of domain to join (Blank=Cancel)**, enter **smart.etc**.
-1. Beside **Specify an authorized domain\user (Blank=Canel)**, enter **smart\Administrator**.
-1. Enter the password for smart\Administrator.
+1. Beside **Name of domain to join (Blank=Cancel)**, enter **ad.adatum.com**.
+1. Beside **Specify an authorized domain\user (Blank=Canel)**, enter **ad\Administrator**.
+1. Enter the password for ad\Administrator.
 1. After you receive a success message, beside **Do you want to change the computer name befor restarting?**, enter **y**.
 1. Beside **Enter new computer name (Blank=Cancel)**, enter **VN1-Core2**.
-1. Enter the password for smart\Administrator.
+1. Enter the password for ad\Administrator.
 1. Beside **Restart now? (Y)es or (N)o**, enter **y**.
 
 #### Windows Admin Center
@@ -278,9 +278,9 @@ Perform this task on CL1.
 1. Click **10.1.1.80**.
 1. Connected to 10.1.1.80, in Overview, click **Edit Computer ID**.
 1. In the pane Edit computer ID, in **Computer name**, enter **VN1-CORE2**.
-1. Click **Domain** and enter **smart.etc.**.
+1. Click **Domain** and enter **ad.adatum.com.**.
 1. Click **Next**.
-1. Under **Current domain**, enter the credentials of **smart\Administrator** and click **Save**.1. In **Overview**, click **Restart**.
+1. Under **Current domain**, enter the credentials of **ad\Administrator** and click **Save**.1. In **Overview**, click **Restart**.
 1. In Windows Admin Center, activate the checkbox beside **10.1.1.80**.
 1. Click **Remove**.
 
@@ -289,13 +289,13 @@ Perform this task on CL1.
 Perform this task on VN1-Core2.
 
 1. Ensure, you are on the command line (PowerShell).
-1. Rename the computer to **VN1-Core2** and join it to the domain **smart.etc**.
+1. Rename the computer to **VN1-Core2** and join it to the domain **ad.adatum.com**.
 
     ````powershell
-    Add-Computer -NewName VN1-Core2 -DomainName smart.etc -Restart
+    Add-Computer -NewName VN1-Core2 -DomainName ad.adatum.com -Restart
     ````
 
-1. Enter the credentials for **smart\Administrator**.
+1. Enter the credentials for **ad\Administrator**.
 
 ### Task 4: Add the VN1-Core2 to Windows Admin Center
 
@@ -314,8 +314,8 @@ Perform this task von CL1.
 1. In Add or create resources, under **Servers**, click **Add**.
 1. Click the tab **Search Active Directory**.
 1. Enter **VN1-Core2** and click **Search**.
-1. Activate the checkbox left to **VN1-CORE2.smart.etc** and click **Add**.
-1. In Windows Admin Center, click **vn1-core2.smart.etc.**.
+1. Activate the checkbox left to **VN1-CORE2.ad.adatum.com** and click **Add**.
+1. In Windows Admin Center, click **vn1-core2.ad.adatum.com.**.
 
     > Windows Admin Center should connect to the server without additional credentials. If it does not work initially, wait a minute, refresh the page and try again.
 
@@ -330,8 +330,8 @@ Perform this task von VN1-Core2.
 1. Under **Enter credentials for Administrator or hit ESC to switch users/sign-in methods**, press **ESC**.
 1. Under **Select a sign-in option for Administrator or hit ESC to switch users**, press **ESC** again.
 1. Under **Select a user**, use the up/down arrow keys to select **Other user** and press ENTER.
-1. Under **Enter credentials for Other user or hit ESC to switch users/sign-in methods**, beside **User name**, enter **smart\Administrator** and press TAB.
-1. Beside **Password**, enter the password for smart\Administrator and press ENTER.
+1. Under **Enter credentials for Other user or hit ESC to switch users/sign-in methods**, beside **User name**, enter **ad\Administrator** and press TAB.
+1. Beside **Password**, enter the password for ad\Administrator and press ENTER.
 1. In SConfig, enter **9**.
 1. In Date and Time, click **Change time zone...**.
 1. In Time Zone Settings, under **Time zone**, select your local time zone and click **OK**.
@@ -385,7 +385,7 @@ Perform this task on VN1-Core1.
 
 Perform this task on VN1-Core1.
 
-1. Login as **smart\Administrator**.
+1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
@@ -412,7 +412,7 @@ Perform this task on VN1-Core1.
 
 Perform this task on VN1-Core1.
 
-1. Login as **smart\Administrator**.
+1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
 1. Try to run the follwoing tools.
 

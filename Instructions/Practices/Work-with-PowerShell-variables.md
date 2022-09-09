@@ -7,13 +7,13 @@
 
 ## Task
 
-Store 'cl1' and 'smart.etc' in separate variables and create a third variable for a FQDN using the two variables. Calculate the time until December 25th of the current year. Calculate the number of bytes of 7 TB.
+Store 'cl1' and 'ad.adatum.com' in separate variables and create a third variable for a FQDN using the two variables. Calculate the time until December 25th of the current year. Calculate the number of bytes of 7 TB.
 
 ## Instructions
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
 1. Store 'cl1' in the variable $hostname.
 
@@ -27,10 +27,10 @@ Perform these steps on CL1.
     $hostname
     ````
 
-1. Store 'smart.etc' in variable $zonename.
+1. Store 'ad.adatum.com' in variable $zonename.
 
     ````powershell
-    $zonename = 'smart.etc'
+    $zonename = 'ad.adatum.com'
     ````
 
 1. Verify the content of the variable $zonename.
@@ -51,7 +51,7 @@ Perform these steps on CL1.
     $fqdn
     ````
 
-    The result should be 'cl1.smart.etc'
+    The result should be 'cl1.ad.adatum.com'
 
 1. Find a command to get the current date.
 

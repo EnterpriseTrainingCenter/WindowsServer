@@ -13,7 +13,7 @@ On CL1, list the keys and values of the registry key ‘HKLM:\system\CurrentCont
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
 1. Store the registry key path **HKLM:\system\CurrentControlSet\services\Tcpip\Parameters** in a variable.
 

@@ -13,7 +13,7 @@ On CL1, get all information about the running process of Windows Terminal. Start
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
 1. Find the Windows Terminal process
 

@@ -9,8 +9,8 @@
 
 ## Setup
 
-On **CL1**, logon as **smart\Administrator**.
-On **VN1-FS1**, logon as **smart\Administrator**.
+On **CL1**, logon as **ad\Administrator**.
+On **VN1-FS1**, logon as **ad\Administrator**.
 
 ## Introduction
 
@@ -73,8 +73,8 @@ Perform this task on VN1-FS1.
 Perform this task on CL1.
 
 1. In Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-fs1.smart.etc**.
-1. Connected to vn1-fs1.smart.etc, under Tools, click **Firewall**.
+1. In Windows Admin Center, click **vn1-fs1.ad.adatum.com**.
+1. Connected to vn1-fs1.ad.adatum.com, under Tools, click **Firewall**.
 1. Under Firewall, click the tab **Incoming rules**.
 1. In the search box, enter **COM+ Network Access**.
 1. Click the rule **COM+ Network Access (DCOM-IN)** and click **Settings**.

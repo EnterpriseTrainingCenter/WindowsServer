@@ -10,7 +10,7 @@
 
 ## Setup
 
-On **CL1**, logon as **smart\Administrator**.
+On **CL1**, logon as **ad\Administrator**.
 
 ## Introduction
 
@@ -238,8 +238,8 @@ Perform these steps on VN1-CL1.
 Perform these steps on VN1-CL1.
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click the **vn1-fs1.smart.etc**.
-1. Connected to vn1-fs1.smart.etc, under Tools, click **Storage**.
+1. In Windows Admin Center, click the **vn1-fs1.ad.adatum.com**.
+1. Connected to vn1-fs1.ad.adatum.com, under Tools, click **Storage**.
 1. In Storage, click **Disk 2**.
 1. In the tab **Volumes**, click **NTFS 512GB (E:)**.
 1. Click **Resize**.

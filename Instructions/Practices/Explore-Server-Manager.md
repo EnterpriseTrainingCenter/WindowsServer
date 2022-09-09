@@ -17,7 +17,7 @@ On CL1, in Server Manager, add VN1-Core1, VN1-DC1, VN1-FS1, VN1-GW1, and WIN-VN1
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. Open **Server Manager**.
 1. In the dialog **Try managing server with Windows Admin Center**, activate **Don't show this message again** and close it.
 1. On the menu, click **Manage**, **Add Servers**.

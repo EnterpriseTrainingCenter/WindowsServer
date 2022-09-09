@@ -13,7 +13,7 @@ On CL1, create a custom Microsoft Management Console with the snap-ins Active Di
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. Open **File Explorer**.
 1. In File Explorer, click **View**, **Show**, **Hidden items**.
 1. Close File Explorer.

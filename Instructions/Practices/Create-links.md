@@ -13,7 +13,7 @@ On VN1-FS1, create a hard link to C:\\BootStrap\\BootStrap.ps1 on C:\\setupscrip
 
 Perform these steps on VN1-FS1.
 
-1. Sign in as **smart\\Administrator**.
+1. Sign in as **ad\\Administrator**.
 1. Open **Windows PowerShell** as Administrator.
 1. Create a hard link **C:\\setupscript.ps1** targeting **C:\\BootStrap\\BootStrap.ps1**.
 

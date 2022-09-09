@@ -14,7 +14,7 @@ Display help for the license manager tool and display the licensing information 
 
 Perform these steps on CL1.
 
-1. Sign in as **smart\\Administrator**.
+1. Sign in as **ad\\Administrator**.
 1. Open **Windows Terminal**.
 1. Open a remote PowerShell session to **VN1-CORE1**.
 

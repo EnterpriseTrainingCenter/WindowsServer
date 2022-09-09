@@ -17,7 +17,7 @@ Enable SMB encryption on server VN1-CORE1 and on the share \\\\VN1-FS1\\IT.
 
 Perform these steps on CL1.
 
-1. Sign in as **smart\Administrator**.
+1. Sign in as **ad\Administrator**.
 1. Run **Windows Terminal** as Administrator.
 1. Create a remote PowerShell session with **VN1-FS1**.
 

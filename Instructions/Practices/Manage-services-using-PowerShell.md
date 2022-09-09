@@ -15,7 +15,7 @@ On CL1, list the services on VN1-DC1 with their status, name, display name, and 
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. Run **Windows Terminal**.
 1. List the services on VN1-DC1, with their status, name, display name, and start type.
 

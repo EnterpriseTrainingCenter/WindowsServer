@@ -14,10 +14,10 @@ On CL1, view the events from the System log on VN1-DC1 using Windows Admin Cente
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-core1.smart.etc, under **Tools**, click **Events**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-core1.ad.adatum.com, under **Tools**, click **Events**.
 1. Under Events, **Windows Logs**, click **System**.
 1. Click the icon *Filter*.
 1. Click the checkbox **Select All** to deactivate all event levels. Activate the checkboxes **Critical**, **Error**, and **Warning** and click **Apply**.

@@ -13,7 +13,7 @@ On CL1, list the latest 20 events from the system log on VN1-DC1. List all warni
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. Run **Windows Terminal**.
 1. List the lastest 20 events from the system log on VN1-DC1.
 

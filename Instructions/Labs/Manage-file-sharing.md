@@ -10,9 +10,9 @@
 
 ## Setup
 
-On **CL1**, logon as **smart\Administrator**.
+On **CL1**, logon as **ad\Administrator**.
 
-On **VN1-FS1**, logon as **smart\Administrator**.
+On **VN1-FS1**, logon as **ad\Administrator**.
 
 ## Introduction
 
@@ -62,8 +62,8 @@ You want to create shares for Finance, IT, and Marketing and configure permissio
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Ádministration, expand **Active Directory Users and Computer**, **smart.etc**.
-1. In the context-menu of **smart.etc**, click **New**, **Organizational Unit**.
+1. In Basic Ádministration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **New**, **Organizational Unit**.
 1. In New Object - Organizational Unit, in **Name**, enter **Entitling groups** and click **OK**.
 
 #### Active Directory Administrative Center
@@ -71,16 +71,16 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
-1. In the context-menu of **smart (local)**, click **New**, **Organizational Unit**.
+1. In the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
 1. In Create Organizational Unit, in **Name**, enter **Entitling groups** and click **OK**.
 
 #### Windows Admin Center
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, click the tab **Browse**.
-1. Click **DC=smart, DC=etc**.
+1. Click **DC=ad, DC=adatum, DC=com**.
 1. In the right pane, click **Create**, **OU**.
 1. In the pane Add Organizational Unit, in **Name**, enter **Entitling groups** and click **Create**.
 
@@ -93,7 +93,7 @@ Perform this task on CL1.
 
     ````powershell
     New-ADOrganizationalUnit `
-        -Path 'DC=smart, DC=etc' `
+        -Path 'DC=ad, DC=adatum, DC=com' `
         -Name 'Entitling groups'
     ````
 
@@ -106,7 +106,7 @@ Create domain local groups according to the table above in the organizational un
 Perform this task on CL1.
 
 1. From the desktop, open **Basic Administration**.
-1. In Basic Administration, expand **Active Directory Users and Computer**, **smart.etc**.
+1. In Basic Administration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
 1. Click **Entitling Groups**.
 1. In the context-menu of Entitling Groups, click **New**, **Group**.
 1. In New Object - Group, in **Group name**, type the name of the group. **Group scope** should be **Domain local** and **Group type** should be **Security**. Click **OK**.
@@ -122,7 +122,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
-1. Click **smart (local)**.
+1. Click **ad (local)**.
 1. Double-click **Entitling groups**.
 1. In the pane **Tasks**, click **New**, **Group**.
 1. In Create Group, in **Group name**, enter the name of the new group.
@@ -138,8 +138,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.smart.etc**.
-1. Connected to vn1-dc1.smart.etc, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
+1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, click the tab **Browse**.
 1. In the tree pane, click **Entitling Groups**.
 1. In the right pane, click **Create**, **Group**.
@@ -168,7 +168,7 @@ Perform this task on CL1.
 1. Define the location for the new group.
 
     ````powershell
-    $path = 'OU=Entitling Groups, DC=smart, DC=etc'
+    $path = 'OU=Entitling Groups, DC=ad, DC=adatum, DC=com'
     ````
 
 1. Define the parameters for the new group.
@@ -228,8 +228,8 @@ Perform this task on CL1.
     | Allow | Administrators (VN1-FS1\\Administrators) | Full Control   | None           | This folder, subfolders and files |
     | Allow | SYSTEM                                   | Full Control   | None           | This folder, subfolders and files |
     | Allow | CREATOR OWNER                            | Full Control   | None           | Subfolders and files only         |
-    | Allow | Finance Read (SMART\\Finance Read)       | Read & execute | None           | This folder, subfolders and files |
-    | Allow | Finance Modify (SMART\\Finance Modify)   | Modify         | None           | This folder, subfolders and files |
+    | Allow | Finance Read (ad\\Finance Read)       | Read & execute | None           | This folder, subfolders and files |
+    | Allow | Finance Modify (ad\\Finance Modify)   | Modify         | None           | This folder, subfolders and files |
 
 1. In **Advanced Security Settings for ...**, click the tab **Share**.
 1. In the tab Share, click **Add**.
@@ -242,7 +242,7 @@ Perform this task on CL1.
 1. In **Advanced Security Settings for ...**, click **Add**.
 1. In Permission entry for ..., click **Select a principal**.
 1. In Select User, Computer, Service Account, or Group, click **Locations...**.
-1. In Locations, click **VN1-FS1.smart.etc** and click **OK**.
+1. In Locations, click **VN1-FS1.ad.adatum.com** and click **OK**.
 1. In **Select User, Computer, Service Account, or Group**, in **Enter the object name to select**, type **Administrators** and click **OK**.
 1. In **Permission entry for ...**, under **Permissions**, activate the checkbox **Full Control** and click **OK**.
 1. In **Advanced Security Settings for ...**, click the permission entry with the **Principal** **Everyone** and click **Remove**.
@@ -251,8 +251,8 @@ Perform this task on CL1.
 
     | Type  | Principal                                | Access         |
     |-------|------------------------------------------|----------------|
-    | Allow | Finance Read (SMART\\Finance Read)       | Read           |
-    | Allow | Finance Modify (SMART\\Finance Modify)   | Change         |
+    | Allow | Finance Read (ad\\Finance Read)       | Read           |
+    | Allow | Finance Modify (ad\\Finance Modify)   | Change         |
     | Allow | Administrators (VN1-FS1\\Administrators) | Full Control   |
 
 1. Click **OK**.
@@ -316,7 +316,7 @@ Perform this task on CL1.
         -TypeName `
             System.Security.AccessControl.FileSystemAccessRule `
         -ArgumentList `
-            "SMART\$shareName Read", `
+            "ad\$shareName Read", `
             'ReadAndExecute', `
             $inheritanceFlags, `
             $propagationFlags, `
@@ -330,7 +330,7 @@ Perform this task on CL1.
         -TypeName `
             System.Security.AccessControl.FileSystemAccessRule `
         -ArgumentList `
-            "SMART\$shareName Modify", `
+            "ad\$shareName Modify", `
             "Modify", `
             $inheritanceFlags, `
             $propagationFlags, `
@@ -352,8 +352,8 @@ Perform this task on CL1.
         -Name $sharename `
         -Path $path `
         -FullAccess 'BUILTIN\Administrators' `
-        -ReadAccess "SMART\$shareName Read" `
-        -ChangeAccess "SMART\$shareName Modify" `
+        -ReadAccess "ad\$shareName Read" `
+        -ChangeAccess "ad\$shareName Modify" `
         -FolderEnumerationMode AccessBased `
         -EncryptData $true
     ````
@@ -372,8 +372,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-fs1.smart.etc**.
-1. Connected to vn1-fs1.smart.etc, under Tools, click **File & file sharing**.
+1. In Windows Admin Center, click **vn1-fs1.ad.adatum.com**.
+1. Connected to vn1-fs1.ad.adatum.com, under Tools, click **File & file sharing**.
 1. In the tab Files, navigate to **C:\LabResources\Sample Documents** and click the respective folder name.
 1. In the right pane, activate the checkbox left to the column name **Name** to select all files and folders.
 1. Click **Copy**. If you do not see Copy, click the ellipsis (**...**).
@@ -490,7 +490,7 @@ Perform this task on CL1.
 
 Perform this task on CL2.
 
-1. Sign in as **smart\Pia**.
+1. Sign in as **ad\Pia**.
 1. Using **File Explorer**, navigate to \\\\VN1-FS1\\IT.
 1. In the context menu of **Step-by-Step Guides**, click **Show more options**, **Always available offline**.
 1. Navigate to \\\\VN1-FS1\\Finance.
@@ -610,7 +610,7 @@ Perform this task on VN1-FS1.
 
 Perform this task on CL2.
 
-1. Sign in as **smart\Pia**.
+1. Sign in as **ad\Pia**.
 1. Using **File Explorer**, navigate to **\\\\vn1-fs1\\Finance**.
 1. In Finance, delete the file **3 Month Snapshot.xls**.
 1. Open **6 Month Snapshot.xlsx**.
@@ -623,7 +623,7 @@ Perform this task on CL2.
 
 Perform this task on CL2.
 
-1. Sign in as **smart\Pia**.
+1. Sign in as **ad\Pia**.
 1. Using **File Explorer**, navigate to **\\\\vn1-fs1\\Finance**.
 1. Open **6 Month Snapshot.xlsx**.
 1. Verify, the column **Argumentum** is missing.

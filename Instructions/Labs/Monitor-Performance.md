@@ -8,9 +8,9 @@
 
 ## Setup
 
-On **VN1-FS1**, sign in as **smart\Administrator**.
+On **VN1-FS1**, sign in as **ad\Administrator**.
 
-On **CL1**, sign in as **smart\Administrator**.
+On **CL1**, sign in as **ad\Administrator**.
 
 ## Introduction
 
@@ -69,7 +69,7 @@ Wait for the complete start of VN1-FS1.
 
 Perform these steps on VN1-FS1.
 
-1. Sign in as **smart\\Administrator**.
+1. Sign in as **ad\\Administrator**.
 1. Open **Performance Monitor**.
 1. In Performance Monitor, expand **Data Collector Sets** and click **User Defined**.
 1. In the context menu of **Baseline**, click **Start**.

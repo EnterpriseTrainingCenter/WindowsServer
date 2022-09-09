@@ -16,7 +16,7 @@ On CL1, CL2, and VN1-Core1, create a local user with the name LocalAdmin. Use di
 
 Perform these steps on CL1.
 
-1. Login as smart\Administrator.
+1. Login as ad\Administrator.
 1. On the desktop, double-click **Basic Administration**.
 1. In Basic Administration, click **Computer Management**.
 1. Make sure, **Computer Management** is connected to **(Local)**
@@ -74,8 +74,8 @@ Perform these steps on CL1.
     ````
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-core1.smart.etc**.
-1. Connected to vn1-core1.smart.etc, under **Tools**, click **Local users & groups**.
+1. In Windows Admin Center, click **vn1-core1.ad.adatum.com**.
+1. Connected to vn1-core1.ad.adatum.com, under **Tools**, click **Local users & groups**.
 1. In Local users and groups, on the tab **Users**, click **New user**.
 1. In the pane Add new user, enter this data:
 

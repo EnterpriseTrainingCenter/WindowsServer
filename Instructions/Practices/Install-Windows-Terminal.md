@@ -13,7 +13,7 @@ Install Windows Terminal on VN1-FS1.
 
 Perform these steps on VN1-FS1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. In Microsoft Edge, navigate to https://github.com/microsoft/terminal/releases.
 1. Find the latest version.
 1. Download the files **Microsoft.Windows.Terminal.\*.msixbundle** and **Microsoft.WindowsTerminal.\*_PreInstallKit**.

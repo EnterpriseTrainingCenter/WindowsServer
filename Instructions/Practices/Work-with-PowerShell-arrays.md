@@ -17,7 +17,7 @@ On CL1, query the running services on VN1-DC1, VN1-GW1, VN1-FS1, VN1-Core1, VN1-
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
 1. Store the strings VN1-DC1, VN1-GW1, VN1-FS1, VN1-Core1, VN1-RCA in the variable $servers.
 

@@ -15,7 +15,7 @@ On CL1, check the value IPEnableRouter on VN1-Core1 using an interactive remote 
 
 Perform these steps on CL1.
 
-1. Logon as **smart\Administrator**.
+1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
 1. Start an interactive remote session with **VN1-Core1**.
 
