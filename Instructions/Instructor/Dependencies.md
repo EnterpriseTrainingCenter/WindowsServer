@@ -19,7 +19,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                              | Lab: Explore Windows Admin Center                                   |
 | Manage local groups                          | Practice: Manage local users                                        |
 | Enable the Active Directory Recycle Bin      | Practice: Install Remote Server Administration Tools                |
-| Harden SMB                                   | Lab: Manage file sharing                                            |
+| Harden SMB                                   | Practice: Install prerequisites for file serving                    |
 
 ## Dependencies of labs
 
@@ -59,6 +59,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage local groups                          | CL1       | Add-LocalAdministratorsMember.ps1           |
 | Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     |
 | Create links                                 | FS1       | New-Links.ps1                               |
+| Install prerequisites for file serving       | VN1-GW1   | Invoke-FileServerConfiguration.ps1          |
 | Harden SMB                                   | CL1       | Set-SMB.ps1                                 |
 
 ## Catch up scripts for labs
