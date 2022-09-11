@@ -207,7 +207,7 @@ Perform this task on CL1.
 1. On page **Share Location**, under **Servers** click **VN1-FS1**.
 1. Under **Share location**, click **D:** and click **Next >**.
 1. On page **Share Name**, in **Share name**, type the share name and click **Next >**.
-1. On page **Other Settings**, activate the checkboxes **Enable access-based enumeration** and **Enrypt data access**, and click **Next >**.
+1. On page **Other Settings**, activate the checkboxes **Enable access-based enumeration** and click **Next >**.
 1. On page **Permissions**, click **Customize permissions...**.
 1. In Advanced Security Settings for ..., on tab **Permissions**, click **Disable inheritance**.
 1. In the dialog **What would you like to do with the current inherited permissioons?**, click **Convert inherited permissions into explicit permissions on this object.**
