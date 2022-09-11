@@ -61,7 +61,7 @@ Perform this task on VN1-FS1.
 
 1. Open **Windows Defender Firewall with Advanced Security**.
 1. In Windows Defender Firewall with Advanced Security, click **Inbound Rules**.
-1. Double-click the rule **COM+ Network Access (DCOM-In)**.
+1. Double-click the rule **COM+ Remote Administration (DCOM-In)**.
 1. In COM+ Network Access (DCOM-In) Properties, on tab **General**, activate the checkbox **Enabled**.
 1. Click the tab **Advanced**.
 1. On tab Advanced, deactive the checkboxes **Private** and **Public**. Click **OK**.
@@ -77,8 +77,8 @@ Perform this task on CL1.
 1. Connected to vn1-fs1.ad.adatum.com, under Tools, click **Firewall**.
 1. Under Firewall, click the tab **Incoming rules**.
 1. In the search box, enter **COM+ Network Access**.
-1. Click the rule **COM+ Network Access (DCOM-IN)** and click **Settings**.
-1. In Firewall Rule COM+ Network Access (DCOM-In) Settings, in **General**, set **Enable Firewall Rule** to **Yes**. Under **Profiles** deactivate the checkboxes **Private** and **Public**. Click **Save**.
+1. Click the rule **COM+ Remote Administration (DCOM-In)** and click **Settings**.
+1. In Firewall Rule COM+ Remote Administration (DCOM-In) Settings, in **General**, set **Enable Firewall Rule** to **Yes**. Under **Profiles** deactivate the checkboxes **Private** and **Public**. Click **Save**.
 1. Click **Close**.
 1. In the search box, enter **Remote Event Log**. 3 rules will be found.
 1. Repeat the steps above to enable each rule for the Domain profile.
@@ -106,7 +106,7 @@ Perform this task on CL1.
 
     ````powershell
     Set-NetFirewallRule `
-        -Name ComPlusNetworkAccess-DCOM-In `
+        -Name ComPlusRemoteAdministration-DCOM-In `
         -Enabled True `
         -Profile Domain
     ````
@@ -136,7 +136,7 @@ Note: You could perform all the commands in just one command.
 ````powershell
 Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
     Set-NetFirewallRule `
-        -Name ComPlusNetworkAccess-DCOM-In `
+        -Name ComPlusRemoteAdministration-DCOM-In `
         -Enabled True `
         -Profile Domain
     # Remote Event Log Management
