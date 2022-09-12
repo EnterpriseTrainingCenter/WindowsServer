@@ -11,6 +11,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install roles using Server manager (optional)](Practices/Install-roles-using-Server-Manager.md)
 1. [Install prerequisites for file serving](Practices/Install-prerequisites-for-file-serving.md)
 1. [Harden SMB](Practices/Harden-SMB.md)
+1. [Install File Server Resource Manager](Practices/Install-File-Server-Resource-Manager.md)
 
 ## Labs
 
