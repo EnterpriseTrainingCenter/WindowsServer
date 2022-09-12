@@ -122,12 +122,12 @@ Perform these steps on VN1-CL1.
 
     | Computer  | Disk | Size    | File system | Label      | Drive Letter |
     |-----------|------|---------|-------------|------------|--------------|
-    | VN1-FS1   | 1    | Maximum | ReFS        | ReFS 1TB   | D            |
-    | VN1-FS1   | 2    | 512 GB  | NTFS        | NTFS 512GB | E            |
+    | VN1-FS1   | 1    | Maximum | NTFS        | NTFS 1TB   | D            |
+    | VN1-FS1   | 2    | 512 GB  | ReFS        | ReFS 512GB | E            |
     | VN1-CORE1 | 1    | 512 GB  | REFS        | ReFS 512GB | D            |
     | VN1-CORE1 | 1    | 128 GB  | NTFS        | NTFS 128GB | E            |
 
-1. [Extend volume](#task-2-extend-volume-optionalme) NTFS 512GB on VN1-FS1 to 768GB (optional)
+1. [Extend volume](#task-2-extend-volume-optional) NTFS 512GB on VN1-FS1 to 768GB (optional)
 
 ### Task 1: Create volumes
 
@@ -241,7 +241,7 @@ Perform these steps on VN1-CL1.
 1. In Windows Admin Center, click the **vn1-fs1.ad.adatum.com**.
 1. Connected to vn1-fs1.ad.adatum.com, under Tools, click **Storage**.
 1. In Storage, click **Disk 2**.
-1. In the tab **Volumes**, click **NTFS 512GB (E:)**.
+1. In the tab **Volumes**, click **ReFS 512GB (E:)**.
 1. Click **Resize**.
 1. In the pane Resize Volume (E:), in **New volume size (GB)**, type **768**.
 1. Click **Submit**.
@@ -301,7 +301,7 @@ Perform these steps on VN1-CL1.
 1. On **VN1-FS1**, click disk 2 with a **Capacity** of **1 TB** and the **Bus Type** **File Backed Virtual**.
 1. Under **VOLUMES**, in the context-menu of the volume **E:**, click **Manage Drive Letter and Access Paths...**
 1. In Manage drive letter and access paths, click **Browse...**.
-1. In Select Folder, click **ReFS 1TB (D:)**.
+1. In Select Folder, click **NTFS 1TB (D:)**.
 1. Click **New Folder**.
 1. Enter **ITData** and click **Select Folder**.
 1. In **Manage drive letter and access paths**, click **Add**.
@@ -324,10 +324,10 @@ Perform these steps on VN1-CL1.
     New-Item -Type Directory -Path $path
     ````
 
-1. Mount the volume labelled **NTFS 512GB** to **D:\ITData**.
+1. Mount the volume labelled **ReFS 512GB** to **D:\ITData**.
 
     ````powershell
-    Get-Volume -FileSystemLabel 'NTFS 512GB' | 
+    Get-Volume -FileSystemLabel 'ReFS 512GB' | 
     Get-Partition | 
     Add-PartitionAccessPath -AccessPath $path
     ````
