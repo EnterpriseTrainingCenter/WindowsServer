@@ -12,8 +12,8 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install prerequisites for file serving](Practices/Install-prerequisites-for-file-serving.md)
 1. [Harden SMB](Practices/Harden-SMB.md)
 1. [Install File Server Resource Manager](Practices/Install-File-Server-Resource-Manager.md)
+1. [Configure e-mail notifications in FSRM](Practices/Configure-e-mail-notifications-in-FSRM.md)
 
 ## Labs
 
 1. [Explore Windows Admin Center](Labs/Explore-Windows-Admin-Center.md)
-1. [Manage file sharing](Labs/Manage-file-sharing.md)

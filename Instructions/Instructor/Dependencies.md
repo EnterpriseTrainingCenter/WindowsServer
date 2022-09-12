@@ -22,6 +22,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Harden SMB                                   | Practice: Install prerequisites for file serving                    |
 | Install File Server Resource Manager         | Practice: Install Remote Server Administration Tools                |
 |                                              | Practice: Install prerequisites for file serving                    |
+| Configure e-mail notifications in FSRM       | Practice: Install File Server Resource Manager                      |
 
 ## Dependencies of labs
 
@@ -64,6 +65,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Install prerequisites for file serving       | VN1-GW1   | Invoke-FileServerConfiguration.ps1          |
 | Harden SMB                                   | CL1       | Set-SMB.ps1                                 |
 | Install File Server Resource Manager         | CL1       | Install-FSRM.ps1                            |
+| Configure e-mail notifications in FSRM       | CL1       | Set-FSRMEmail.ps1                           |
 
 ## Catch up scripts for labs
 
