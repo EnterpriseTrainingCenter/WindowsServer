@@ -8,6 +8,8 @@
 
 ## Task
 
+Set the minimum file size for the large file report to 1MB. Set the location for reports to sub-folders of d:\\Shares\\IT\\StorageReports\\.
+
 ## Instructions
 
 Perform these steps on CL1.
