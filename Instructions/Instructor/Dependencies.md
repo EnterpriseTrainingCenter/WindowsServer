@@ -69,6 +69,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Install File Server Resource Manager         | CL1       | Install-FSRM.ps1                            |
 | Configure e-mail notifications in FSRM       | CL1       | Set-FSRMEmail.ps1                           |
 | Configure a classification schedule          | CL1       | Set-ClassificationSchedule.ps1              |
+| Intall the Microsoft Office Filter Pack      | CL1       | Install-FilterPack.ps1                      |
 | Configure storage report options             | CL1       | Set-FSRMReports.ps1                         |
 
 ## Catch up scripts for labs

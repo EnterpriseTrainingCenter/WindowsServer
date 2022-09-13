@@ -14,6 +14,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install File Server Resource Manager](Practices/Install-File-Server-Resource-Manager.md)
 1. [Configure e-mail notifications in FSRM](Practices/Configure-e-mail-notifications-in-FSRM.md)
 1. [Configure a classification schedule](Practices/Configure-a-classification-schedule.md)
+1. [Install the Microsoft Office Filter Pack](Practices/Install-the-Microsoft-Office-Filter-Pack.md)
 1. [Configure storage report options](Practices/Configure-storage-report-options.md)
 
 ## Labs
