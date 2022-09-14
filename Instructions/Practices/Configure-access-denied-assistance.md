@@ -28,8 +28,4 @@ Perform these steps on CL1.
 Perform these steps on CL2.
 
 1. Sign in as **ad\Lara**.
-1. In **File Explorer**, navigate to **\\\\VN1-FS1\\Finance**.
 
-    > You should see a custom error message as in [figure 1].
-
-[figure 1]:/images/Access-Denied-Assistance-Message.png
