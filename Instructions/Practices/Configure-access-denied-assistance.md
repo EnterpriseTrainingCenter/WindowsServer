@@ -24,8 +24,3 @@ Perform these steps on CL1.
 1. Click the button **Configure email requests...**
 1. In Access-Denied Assistance, activate the checkbox **Enable users to request assistance** and click **OK**.
 1. In **File Server Resource Manager Options**, click **OK**.
-
-Perform these steps on CL2.
-
-1. Sign in as **ad\Lara**.
-
