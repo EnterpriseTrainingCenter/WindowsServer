@@ -11,7 +11,7 @@
 
 ## Task
 
-On **VN1-GW1**, run **C:\LabResources\Solutions\Invoke-FileServerConfiguration.ps1** to configure the environment for subsequent practices and labs.
+On **VN1-GW1**, run **C:\LabResources\Solutions\New-Shares.ps1** to configure the environment for subsequent practices and labs.
 
 ## Instructions
 
@@ -22,5 +22,5 @@ Perform these steps on VN1-GW1.
 1. At the command prompt run
 
     ````powershell
-    C:\LabResources\Solutions\Invoke-FileServerConfiguration.ps1
+    C:\LabResources\Solutions\New-Shares.ps1
     ````
