@@ -23,6 +23,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Install File Server Resource Manager         | Practice: Install Remote Server Administration Tools                |
 |                                              | Practice: Install prerequisites for file serving                    |
 | Configure e-mail notifications in FSRM       | Practice: Install File Server Resource Manager                      |
+| Configure Access-Denied Assistance           | Practice: Install File Server Resource Manager                      |
 | Configure a classification schedule          | Practice: Install File Server Resource Manager                      |
 | Configure storage report options             | Practice: Install File Server Resource Manager                      |
 
@@ -68,6 +69,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Harden SMB                                   | CL1       | Set-SMB.ps1                                 |
 | Install File Server Resource Manager         | CL1       | Install-FSRM.ps1                            |
 | Configure e-mail notifications in FSRM       | CL1       | Set-FSRMEmail.ps1                           |
+| Configure Access-Denied Assistance           | CL1       | Enable-AccessDeniedAssistance.ps1           |
 | Configure a classification schedule          | CL1       | Set-ClassificationSchedule.ps1              |
 | Intall the Microsoft Office Filter Pack      | CL1       | Install-FilterPack.ps1                      |
 | Configure storage report options             | CL1       | Set-FSRMReports.ps1                         |
