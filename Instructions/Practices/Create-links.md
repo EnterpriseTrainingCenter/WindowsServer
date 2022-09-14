@@ -1,4 +1,4 @@
-# Practice: Create a mount point
+# Practice: Create links
 
 ## Required VMs
 
