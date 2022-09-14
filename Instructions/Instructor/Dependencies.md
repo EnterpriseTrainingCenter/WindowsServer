@@ -48,6 +48,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                                            | Lab: Explore Windows Admin Center                                 |
 |                                                            | Lab: Manage local storage                                         |
 | Monitor performance                                        | Practice: Install roles using Server Manager                      |
+| File Server resource Management                            | Practice: Configure storage report options                        |
 
 ## Catch up scripts for practices
 
@@ -83,3 +84,4 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage domain users, groups, and computers                 | CL1 | New-ADObjects.ps1                                            |
 | Manage local storage                                       | CL1 | New-Volumes.ps1                                              |
 | Manage file sharing                                        | CL1 | New-Shares.ps1                                               |
+| File Server Resource Management                            | CL1 | Invoke-FSRMConfiguration.ps1                                 |
