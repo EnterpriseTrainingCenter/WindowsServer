@@ -20,8 +20,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage local groups                          | Practice: Manage local users                                        |
 | Enable the Active Directory Recycle Bin      | Practice: Install Remote Server Administration Tools                |
 | Harden SMB                                   | Practice: Install prerequisites for file serving                    |
-| Install File Server Resource Manager         | Practice: Install Remote Server Administration Tools                |
-|                                              | Practice: Install prerequisites for file serving                    |
+| Install File Server Resource Manager         | Practice: Install prerequisites for file serving                    |
 | Configure e-mail notifications in FSRM       | Practice: Install File Server Resource Manager                      |
 | Configure Access-Denied Assistance           | Practice: Install File Server Resource Manager                      |
 | Configure a classification schedule          | Practice: Install File Server Resource Manager                      |
@@ -32,7 +31,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Lab                                                        |                                                                   |
 |------------------------------------------------------------|-------------------------------------------------------------------|
 | Explore Windows Admin Center                               | Practice: Install Windows Admin Center using a script             |
-| Manage servers remotely using Microsoft Management Console | Practice: Install Remote Server Administration Tools              |
+| Manage servers remotely using Microsoft Management Console | Practice: Create a custom Microsoft Management Console            |
 |                                                            | Lab: Explore Windows Admin Center                                 |
 | Post installation configuration                            | Practice: Install Remote Server Administration Tools              |
 |                                                            | Practice: Install Windows Admin Center using a script             |
@@ -48,7 +47,10 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                                            | Lab: Explore Windows Admin Center                                 |
 |                                                            | Lab: Manage local storage                                         |
 | Monitor performance                                        | Practice: Install roles using Server Manager                      |
-| File Server resource Management                            | Practice: Configure storage report options                        |
+| File Server resource management                            | Practice: Configure e-mail notifications in FSRM                  |
+|                                                            | Practice: Configure Access-Denied Assistance                      |
+|                                                            | Practice: Configure a classification schedule                     |
+|                                                            | Practice: Configure storage report options                        |
 
 ## Catch up scripts for practices
 
@@ -66,7 +68,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage local groups                          | CL1       | Add-LocalAdministratorsMember.ps1           |
 | Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     |
 | Create links                                 | FS1       | New-Links.ps1                               |
-| Install prerequisites for file serving       | VN1-GW1   | Invoke-FileServerConfiguration.ps1          |
+| Install prerequisites for file serving       | CL1       | New-Shares.ps1                              |
 | Harden SMB                                   | CL1       | Set-SMB.ps1                                 |
 | Install File Server Resource Manager         | CL1       | Install-FSRM.ps1                            |
 | Configure e-mail notifications in FSRM       | CL1       | Set-FSRMEmail.ps1                           |
