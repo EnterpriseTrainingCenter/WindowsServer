@@ -54,6 +54,9 @@ Perform this task on CL1.
 1. In **Limit**, type **75** and ensure, **MB** is selected.
 1. Ensure, **Hard quota. Do not allow users to exceed limit** is selected.
 1. Under **Notification thresholds**, click **Add...**.
+
+    > Note: If you receive an error message at this point, restart VN1-FS1 and start the task again.
+
 1. In Add Threshold, on the tab E-mail Message, ensure that **Generate notifications when usage reaches %** is **85**.
 1. Click the checkbox **Send e-mail to the user who exceeded the threshold**.
 1. Click the tab **Event Log**.
@@ -268,7 +271,7 @@ Perform this task on CL1.
 1. Map a drive U to \\\\vn1-fs1\\Users\\User1
 
     ````powershell
-    New-PSDrive -Name U -PSProvider FileSystem -Root \\vn1-fs1\\Users\\User1 -Persist
+    New-PSDrive -Name U -PSProvider FileSystem -Root \\vn1-fs1\Users\User1 -Persist
     ````
 
 1. Switch to **File Explorer**.
@@ -436,11 +439,11 @@ Perform this task on CL1.
 
 1. [Add a value to the Folder Usage property](#task-1-add-a-value-to-the-folder-usage-property) called Setup files
 1. [Set the Folder Usage property](#task-2-set-the-folder-usage-property) of D:\Shares\Users to User Files, and of all other folders in D:\Shares to Group Files.
-1. Create an Access Denied Assistance Message for a folder. Access denied for D:\Shares\Finance should generate the following text:
+1. [Create an Access Denied Assistance Message](#task-3-create-an-access-denied-assistance-message-for-a-folder) for a folder. Access denied for D:\Shares\Finance should generate the following text:
 
     Access to finance data is restricted. Please contact the finance manager to gain access.
 
-1. Verify the user-friendly access denied messages.
+1. [Verify the user-friendly access denied messages](#task-4-verify-the-user-friendly-access-denied-message)
 
 ### Task 1: Add a value to the Folder Usage property
 
@@ -612,11 +615,11 @@ Perform this task on CL1.
 Perform this task on CL2.
 
 1. In **File Explorer**, navigate to **\\\\VN1-FS1**.
-1. In \\\\VN1-FS1 double-click **IT**.
+1. In \\\\VN1-FS1 double-click **Marketing**.
 
     > You should see a custom error message as in [figure 1].
 
-1. In \\\\VN1-FS1 double-click **IT**.
+1. In \\\\VN1-FS1 double-click **Finance**.
 
     > You should see a custom error message as in [figure 2].
 
@@ -628,7 +631,7 @@ Perform this task on CL2.
     | Rule name                                          | Confidentiality | Expression Type | Expression  |
     |----------------------------------------------------|-----------------|-----------------|-------------|
     | On payroll set confidentiality to PII              | PII             | String          | payroll     |
-    | On vertraulich set conficentiality to confidential | Confidential    | String          | vertraulich |
+    | On vertraulich set confidentiality to confidential | Confidential    | String          | vertraulich |
     | On tax set confidentiality to secret               | Secret          | String          | tax         |
 
 1. [Run the classification](#task-3-run-the-classification)
@@ -890,7 +893,7 @@ Perform this task on CL1.
 
     > Which files are confidential, secret, or contain PII?
 
-    > The file screen audit report does not list anything, because there are not violations of file screens.
+    > The file screen audit report does not list anything, because there are no violations of file screens.
 
     > What are the largest files?
 
