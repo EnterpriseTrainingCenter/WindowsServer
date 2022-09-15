@@ -71,7 +71,7 @@ Perform this task on CL1.
 1. Click the checkbox **Send warning to event log** and click **OK**.
 1. In **Create Quota Template**, click **OK**.
 1. In the context-menu of **Quota Templates**, click **Create Quota Template...**.
-1. In Create Quota template, in the drop-down **Copy properties from quota template (optional)**, click **200 MB Limit with 50 MB Extension** and click **Copy**.
+1. In Create Quota template, in the drop-down **Copy properties from quota template**, click **200 MB Limit with 50 MB Extension** and click **Copy**.
 1. In Create Quota Template, in **Template name**, type **50 MB Limit with 25 MB Extension**.
 1. In **Limit**, type **50** and ensure, **MB** is selected.
 1. Ensure, **Hard quota. Do not allow users to exceed limit** is selected.

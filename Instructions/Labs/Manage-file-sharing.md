@@ -21,8 +21,8 @@ You want to create shares for Finance, IT, and Marketing and configure permissio
 ## Exercises
 
 1. [Manage file shares and permissions](#exercise-1-manage-file-shares-and-permissions)
-1. [Explore offline files (optional)](#exercise-2-explore-offline-files-optional)
-1. [Explore Volume Shadow Copies (optional)](#exercise-3-configure-volume-shadow-copies-optional)
+1. [Explore offline files](#exercise-2-explore-offline-files)
+1. [Explore Volume Shadow Copies](#exercise-3-configure-volume-shadow-copies)
 
 ## Exercise 1: Manage file shares and permissions
 
@@ -415,7 +415,7 @@ Repeat this task for every user from the table above.
 1. Compare the results with the table above.
 1. Sign out.
 
-## Exercise 2: Explore offline files (optional)
+## Exercise 2: Explore offline files
 
 1. [Configure shares for offline access](#task-1-configure-shares-for-offline-access) according to the table below.
 
@@ -573,7 +573,7 @@ Perform this task on CL2.
 
 1. Close **Building Partnerships**.
 
-## Exercise 3: Configure Volume Shadow Copies (optional)
+## Exercise 3: Configure Volume Shadow Copies
 
 1. [Configure Volume Shadow Copies](#task-1-configure-volume-shadow-copies) on D: of VN1-FS1
 1. [Delete and modify files on a VSS protected share](#task-2-delete-and-modify-files-on-a-vss-protected-share)

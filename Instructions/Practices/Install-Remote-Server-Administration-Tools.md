@@ -20,7 +20,7 @@ Perform these steps on CL1.
 1. In Settings, click **Apps**.
 1. In Apps, click **Optional features**.
 1. In Optional features, click the button **View features**.
-1. In Add an optional feature, in the text field **Find an avaiable optional feature**, type **RSAT**.
+1. In Add an optional feature, in the text field **Find an available optional feature**, type **RSAT**.
 1. Activate the check boxes of these tools:
     * RSAT: Active Directory Domain Services and Lightweight Directory Services Tools
     * RSAT: File Services tools

@@ -23,9 +23,9 @@ After you installed Windows Admin Center, you want to find out, what you can do 
 1. [Connect](#exercise-1-connect)
 1. [Manage connections](#exercise-2-manage-connections)
 1. [Install extensions](#exercise-3-install-extensions)
-1. [Update extensions (optional)](#exercise-4-update-extensions-optional)
-1. [Explore the available administration features (optional)](#exercise-5-explore-the-available-administration-features-optional)
-1. [Use tags (optional)](#exercise-6-use-tags-optional)
+1. [Update extensions](#exercise-4-update-extensions)
+1. [Explore the available administration features](#exercise-5-explore-the-available-administration-features)
+1. [Use tags](#exercise-6-use-tags)
 
 ## Exercise 1: Connect
 
@@ -130,7 +130,7 @@ Perform all tasks on CL1.
 1. In Settings, click **Extensions**.
 1. On tab Available extensions, click **Active Directory** and click **Install**.
 
-## Exercise 4: Update extensions (optional)
+## Exercise 4: Update extensions
 
 [Update all installed extensions of Windows Admin Center to the latest version](#task-update-all-installed-extensions-of-windows-admin-center-to-the-latest-version).
 
@@ -144,7 +144,7 @@ Perform this task on CL1.
 1. Click the column **Status** to sort the extensions.
 1. Click every extension with the status **Update available** and click **Update**.
 
-## Exercise 5: Explore the available administration features (optional)
+## Exercise 5: Explore the available administration features
 
 1. [Explore networks, updates, and the settings for power configuration and Remote Desktop on VN1-DC1](#task-1-explore-networks-updates-and-the-settings-for-power-configuration-and-remote-desktop-on-vn1-dc1).
 2. [Find installed apps and running processes on VN1-GW1](#task-2-find-installed-apps-and-running-processes-on-vn1-gw1).
@@ -190,7 +190,7 @@ Perform this task on CL1.
 1. In the Tools pane, click **Apps & features** and explore the available features.
 1. In the Tools pane, click **Devices** and explore the available features.
 
-## Exercise 6: Use tags (optional)
+## Exercise 6: Use tags
 
 1. [Add tags to the connections according to table below](#task-1-add-tags-to-the-connections).
 

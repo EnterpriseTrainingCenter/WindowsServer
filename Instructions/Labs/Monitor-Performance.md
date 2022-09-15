@@ -1,4 +1,4 @@
-# Lab: Monitor performance (optional)
+# Lab: Monitor performance
 
 ## Required VMs
 
@@ -19,8 +19,8 @@ Users complain about the performance of one of your servers. You analyze the per
 ## Exercises
 
 1. [Monitor performance under low memory conditions](#exercise-1-monitor-performance-under-low-memory-conditions)
-2. [Monitor performance after a memory upgrade (optional)](#exercise-2-monitor-performance-after-a-memory-upgrade-optional)
-3. [Use a performance alert (optional)](#exercise-3-use-a-performance-alert-optional)
+2. [Monitor performance after a memory upgrade](#exercise-2-monitor-performance-after-a-memory-upgrade)
+3. [Use a performance alert](#exercise-3-use-a-performance-alert)
 
 ## Exercise 1: Monitor performance under low memory conditions
 
@@ -129,7 +129,7 @@ Perform this task on CL1.
 
    > Can you identify the bottlenecks during the copy process? Especially look at Cache Bytes, Committed Bytes and Pages/sec.
 
-## Exercise 2: Monitor performance after a memory upgrade (optional)
+## Exercise 2: Monitor performance after a memory upgrade
 
 1. [Configure VN1-FS1 with 4 GB of memory](#task-1-configure-vn1-fs1-with-4-gb-of-memory)
 1. [Analyze the impact of the memory upgrade](#task-2-analyze-the-impact-of-the-memory-upgrade)
@@ -161,7 +161,7 @@ Perform these steps on VN1-FS1.
 
 1. In **Performance Monitor**, in the context menu of **Baseline**, click **Stop**.
 
-## Exercise 3: Use a performance alert (optional)
+## Exercise 3: Use a performance alert
 
 1. [Configure a performance alert](#task-1-configure-a-performance-alert) on % Processor Time over 80 to log an event and start the Baseline data collector set.
 1. [Simulate CPU load](#task-2-simulate-cpu-load) by running consume.exe

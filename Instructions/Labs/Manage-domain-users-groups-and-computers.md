@@ -20,7 +20,7 @@ You want to manage users and groups. You want to evaluate the Active Directory R
 
 1. [Manage domain users](#exercise-1-manage-domain-users)
 1. [Manage domain groups](#exercise-2-manage-domain-groups)
-1. [Manage domain computers (optional)](#exercise-3-manage-domain-computers-optional)
+1. [Manage domain computers](#exercise-3-manage-domain-computers)
 
 ## Exercise 1: Manage domain users
 
@@ -628,7 +628,7 @@ Perform this task on CL1.
 
     > All previous members should be listed.
 
-## Exercise 3: Manage domain computers (optional)
+## Exercise 3: Manage domain computers
 
 1. [Unjoin CL2 from the domain](#task-1-unjoin-cl2-from-the-domain)
 1. [Delete the CL2 computer account](#task-2-delete-the-computer-account)
