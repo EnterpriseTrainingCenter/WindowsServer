@@ -27,9 +27,6 @@ Perform these steps on CL1.
     * RSAT: Server Manager
 1. Click **Next**.
 1. Click **Install**.
-1. If required, restart the computer and Sign in as **ad\Administrator** again.
-1. In **Settings**, **Apps** > **Optional feautre**, click **More windows features** (scroll to the bottom).
-1. In Windows features, expand **Hyper-V**, activate the checkbox **Hyper-V Management Tools**, and click **OK**.
 1. If required, restart the computer.
 
 ### PowerShell
@@ -55,17 +52,3 @@ Perform these steps on CL1.
     # With the File Services tools, Server Manager is installed automatically
     ````
 
-1. Add the windows feature **Hyper-V Management Tools.**
-
-    ````powershell
-    Enable-WindowsOptionalFeature `
-        -Online `
-        -FeatureName Microsoft-Hyper-V-Tools-All `
-        -All
-    ````
-
-1. If required, restart the computer.
-
-    ````powershell
-    Restart-Computer
-    ````
