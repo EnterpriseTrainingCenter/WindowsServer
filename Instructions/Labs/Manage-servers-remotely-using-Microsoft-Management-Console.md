@@ -50,10 +50,10 @@ Perform this task on CL1.
 
 ## Exercise 2: Configure Windows Defender Firewall rules for remote administration
 
-1. [Enable firewall rules to allow for remote event log and volume management on VN1-FS1](#task-1-enable-firewall-rules-to-allow-for-remote-event-log-and-volume-management-on-vn1-fs1)
-1. [Enable firewall rules to allow remote volume management on CL1](#task-2-enable-firewall-rules-to-allow-remote-volume-management-on-cl1)
+1. [Enable firewall rules to allow for remote event log and volume management](#task-1-enable-firewall-rules-to-allow-for-remote-event-log-and-volume-management) on VN1-FS1
+1. [Enable firewall rules to allow remote volume management](#task-2-enable-firewall-rules-to-allow-remote-volume-management) on CL1
 
-### Task 1: Enable firewall rules to allow for remote event log and volume management on VN1-FS1
+### Task 1: Enable firewall rules to allow for remote event log and volume management
 
 #### Desktop experience
 
@@ -148,7 +148,7 @@ Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
 }
 ````
 
-### Task 2: Enable firewall rules to allow remote volume management on CL1
+### Task 2: Enable firewall rules to allow remote volume management
 
 #### Desktop experience
 
