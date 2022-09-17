@@ -56,35 +56,35 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 
 ## Catch up scripts for practices
 
-| Practice                                     | VM        | Script                                      |
-|----------------------------------------------|-----------|---------------------------------------------|
-| Install Remote Server Administration Tools   | CL1       | Install-RemoteServerAdministrationTools.ps1 |
-| Create a custom Microsoft Management Console | CL1       | New-CustomMMC.ps1                           |
-| Explore Server Manager                       | CL1       | Add-ServerManagerServers.ps1                |
-| Install Windows Admin Center using a script  | VN1-GW1   | Install-AdminCenter.ps1                     |
-| Install Windows Terminal                     | CL1       | Install-WindowsTerminal.ps1                 |
-| Install roles using Server Manager           | CL1       | Install-FileServer.ps1                      |
-| Install roles using Windows Admin Center     | VN1-GW1   | Install-CAWebEnrollment.ps1                 |
-| Manage features using PowerShell             | CL1       | Install-WindowsServerBackup.ps1             |
-| Manage local users                           | VN1-GW1   | New-LocalAdmins.ps1                         |
-| Manage local groups                          | VN1-GW1   | Add-LocalAdministratorsMember.ps1           |
-| Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     |
-| Install prerequisites for file serving       | VN1-FS1   | New-Shares.ps1                              |
-| Harden SMB                                   | VN1-GW1   | Set-SMB.ps1                                 |
-| Install File Server Resource Manager         | VN1-GW1   | Install-FSRM.ps1                            |
-| Configure e-mail notifications in FSRM       | VN1-GW1   | Set-FSRMEmail.ps1                           |
-| Configure Access-Denied Assistance           | VN1-GW1   | Enable-AccessDeniedAssistance.ps1           |
-| Configure a classification schedule          | VN1-GW1   | Set-ClassificationSchedule.ps1              |
-| Intall the Microsoft Office Filter Pack      | CL1       | Install-FilterPack.ps1                      |
-| Configure storage report options             | VN1-GW1   | Set-FSRMReports.ps1                         |
+| Practice                                     | Script                                      |
+|----------------------------------------------|---------------------------------------------|
+| Install Remote Server Administration Tools   | Install-RemoteServerAdministrationTools.ps1 |
+| Create a custom Microsoft Management Console | New-CustomMMC.ps1                           |
+| Explore Server Manager                       | Add-ServerManagerServers.ps1                |
+| Install Windows Admin Center using a script  | Install-AdminCenter.ps1                     |
+| Install Windows Terminal                     | Install-WindowsTerminal.ps1                 |
+| Install roles using Server Manager           | Install-FileServer.ps1                      |
+| Install roles using Windows Admin Center     | Install-CAWebEnrollment.ps1                 |
+| Manage features using PowerShell             | Install-WindowsServerBackup.ps1             |
+| Manage local users                           | New-LocalAdmins.ps1                         |
+| Manage local groups                          | Add-LocalAdministratorsMember.ps1           |
+| Enable the Active Directory Recycle Bin      | Enable-ADRecycleBin.ps1                     |
+| Install prerequisites for file serving       | New-Shares.ps1                              |
+| Harden SMB                                   | Set-SMB.ps1                                 |
+| Install File Server Resource Manager         | Install-FSRM.ps1                            |
+| Configure e-mail notifications in FSRM       | Set-FSRMEmail.ps1                           |
+| Configure Access-Denied Assistance           | Enable-AccessDeniedAssistance.ps1           |
+| Configure a classification schedule          | Set-ClassificationSchedule.ps1              |
+| Intall the Microsoft Office Filter Pack      | Install-FilterPack.ps1                      |
+| Configure storage report options             | Set-FSRMReports.ps1                         |
 
 ## Catch up scripts for labs
 
-| Lab                                                        | VM      | Script                                                       |
-|------------------------------------------------------------|---------|--------------------------------------------------------------|
-| Explore Windows Admin Center                               |         | No script available. Perform all exercises except exercise 3 |
-| Manage servers remotely using Microsoft Management Console | VN1-GW1 | Enable-ComputerRemoteManagement.ps1                          |
-| Manage domain users, groups, and computers                 | VN1-GW1 | New-ADObjects.ps1                                            |
-| Manage local storage                                       | VN1-GW1 | New-Volumes.ps1                                              |
-| Manage file sharing                                        | VN1-GW1 | New-Shares.ps1                                               |
-| File Server Resource Management                            | VN1-GW1 | Invoke-FSRMConfiguration.ps1                                 |
+| Lab                                                        | Script                                                       |
+|------------------------------------------------------------|--------------------------------------------------------------|
+| Explore Windows Admin Center                               | No script available. Perform all exercises except exercise 3 |
+| Manage servers remotely using Microsoft Management Console | Enable-ComputerRemoteManagement.ps1                          |
+| Manage domain users, groups, and computers                 | New-ADObjects.ps1                                            |
+| Manage local storage                                       | New-Volumes.ps1                                              |
+| Manage file sharing                                        | New-Shares.ps1                                               |
+| File Server Resource Management                            | Invoke-FSRMConfiguration.ps1                                 |
