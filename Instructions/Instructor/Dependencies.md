@@ -44,7 +44,6 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage local storage                                       | Lab: Manage servers remotely using Microsoft Management Console   |
 |                                                            | Practice: Install roles using Server Manager                      |
 | Manage file sharing                                        | Practice: Create a custom Microsoft Management Console            |
-|                                                            | Lab: Explore Windows Admin Center                                 |
 |                                                            | Lab: Manage local storage                                         |
 | Monitor performance                                        | Practice: Install roles using Server Manager                      |
 |                                                            | Lab: Explore Windows Admin Center                                 |
@@ -54,7 +53,11 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                                            | Practice: Configure a classification schedule                     |
 |                                                            | Practice: Configure storage report options                        |
 
-## Catch up scripts for practices
+## Catch-up scripts
+
+The scripts may be run on any domain-joined machine. Some operations can be executed on a local machine only. In these cases, a warning is emitted with an instruction what to do. Some operations cannot be scripted. In these rare cases, a warning is displayed with a reference where to find instructions to perform it manually.
+
+## Catch-up scripts for practices
 
 | Practice                                     | Script                                      |
 |----------------------------------------------|---------------------------------------------|
@@ -78,13 +81,14 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Intall the Microsoft Office Filter Pack      | Install-FilterPack.ps1                      |
 | Configure storage report options             | Set-FSRMReports.ps1                         |
 
-## Catch up scripts for labs
+## Catch-up scripts for labs
 
 | Lab                                                        | Script                                                       |
 |------------------------------------------------------------|--------------------------------------------------------------|
-| Explore Windows Admin Center                               | No script available. Perform all exercises except exercise 3 |
+| Explore Windows Admin Center                               | Add-WACServers.ps1                                           |
 | Manage servers remotely using Microsoft Management Console | Enable-ComputerRemoteManagement.ps1                          |
 | Manage domain users, groups, and computers                 | New-ADObjects.ps1                                            |
 | Manage local storage                                       | New-Volumes.ps1                                              |
 | Manage file sharing                                        | New-Shares.ps1                                               |
 | File Server Resource Management                            | Invoke-FSRMConfiguration.ps1                                 |
+| Audit file server events                                   | Enable-FSAuditing.ps1                                        |
