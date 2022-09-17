@@ -10,7 +10,8 @@
 
 ## Setup
 
-On **CL1**, logon as **ad\Administrator**.
+1. On **CL1**, sign in as **ad\Administrator**.
+1. On **VN1-FS1**, sign in as **ad\Administrator**.
 
 ## Introduction
 
@@ -21,12 +22,13 @@ You want to create virtual disks with volumes, extend volumes and validate mount
 1. [Manage Disks](#exercise-1-manage-disks)
 1. [Manage volumes](#exercise-2-manage-volumes)
 1. [Manage mount points](#exercise-3-manage-mount-points)
+1. [Manage links and junctions](#exercise-4-manage-links-and-junctions)
 
 ## Exercise 1: Manage disks
 
 [Initialize disks](#task-initialize-disks) on VN1-FS1 and VN1-CORE1 with GPT partition style
 
-    > What is the partition style, if you initialize a disk in Server Manager?
+> What is the partition style, if you initialize a disk in Server Manager?
 
 ### Task: Initialize disks
 
@@ -179,7 +181,6 @@ Perform these steps on VN1-CL1.
     ````powershell
     # TODO: Fill the server name in the quotes
     $computerName = ''
-
     Enter-PSSession $computerName
     ````
 
@@ -374,4 +375,180 @@ Perform these steps on VN1-CL1.
 
     ````powershell
     Exit-PSSession
+    ````
+
+## Exercise 4: Manage links and junctions
+
+1. [Create a hard link](#task-1-create-a-hard-link) targeting C:\BootStrap\BootStrap.ps1
+1. [Compare contents of the hard link with the original file](#task-2-compare-contents-of-the-hard-link-with-the-original-file)
+
+    > Are the files identical?
+
+1. [Delete the original](#task-3-delete-the-original-file) file C:\BootStrap\BootStrap.ps1
+1. [View the content of the hard link](#task-4-view-the-content-of-the-hard-link)
+
+    > Can you still view the content of the hard link?
+
+1. [Create a new hard link to recover the original file](#task-5-create-a-new-hard-link-to-recover-the-original-file)
+1. [Create a junction](#task-6-create-a-junction) on VN1-FS1 at D:\\Setup targeting C:\\BootStrap
+1. [Verify the junction](#task-7-verify-the-junction) by comparing the content of the folders before and after deleting a file
+
+    > Do you see the deleted file on the junction?
+
+1. [Create and verify a symbolic link](#task-8-create-and-verify-a-symbolic-link) to \\\\VN1-DC1\\Sysvol
+
+### Task 1: Create a hard link
+
+Perform this task on CL1.
+
+1. Open **Windows Terminal**.
+1. Create a hard link **C:\\setupscript.ps1** targeting **C:\\BootStrap\\BootStrap.ps1** on VN1-FS1.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+        $target = 'C:\BootStrap\BootStrap.ps1'
+        $name = 'SetupScript.ps1'
+        $path = 'C:\'
+        New-Item -ItemType HardLink -Target $target  -Name $name -Path $path
+    }
+    ````
+
+### Task 2: Compare contents of the hard link with the original file
+
+Perform this task on CL1.
+
+1. Open **Windows Terminal**.
+1. Compare the content of **C:\\setupscript.ps1** with **C:\\BootStrap\\BootStrap.ps1**.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+        $referenceObject = Get-Content 'C:\BootStrap\BootStrap.ps1'
+        $differenceObject = Get-Content 'C:\SetupScript.ps1'
+        Compare-Object `
+            -ReferenceObject $referenceObject `
+            -DifferenceObject $differenceObject
+    }
+    ````
+
+    > You should receive True, which means, the files are identical.
+
+### Task 3: Delete the original file
+
+Perform this task on CL1.
+
+1. Open **Windows Terminal**.
+1. Delete the original file **C:\\BootStrap\\BootStrap.ps1**.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+        Remove-Item 'C:\BootStrap\BootStrap.ps1'
+    }
+    ````
+
+### Task 4: View the content of the hard link
+
+Perform this task on CL1.
+
+1. Open **Windows Terminal**.
+1. Get the content of **C:\\setupscript.ps1**.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+        Get-Content 'C:\SetupScript.ps1'
+    }
+    
+    ````
+
+    > You should still receive the content.
+
+### Task 5: Create a new hard link to recover the original file
+
+Perform this task on CL1.
+
+1. Open **Windows Terminal**.
+1. Recover the original file by creating a hard link.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+        New-Item `
+            -ItemType HardLink `
+            -Target 'C:\SetupScript.ps1' `
+            -Name 'BootStrap.ps1' `
+            -Path 'C:\BootStrap'
+    }
+    ````
+
+### Task 6: Create a junction
+
+Perform this task on CL1.
+
+1. Open **Windows Terminal**.
+1. On VN1-FS1, create a junction **D:\\Setup** targeting **C:\\BootStrap**.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+        New-Item `
+            -ItemType Junction `
+            -Target 'C:\BootStrap\' `
+            -Name 'Setup' `
+            -Path 'D:\'
+    }
+    ````
+
+### Task 7: Verify the junction
+
+Perform this task on CL1.
+
+1. Open **Windows Terminal**.
+1. Open a remote PowerShell session to VN1-FS1.
+
+    ````powershell
+    Enter-PSSession VN1-FS1
+    ````
+
+1. List the contents of **D:\\Setup**.
+
+    ````powershell
+    Get-ChildItem D:\Setup\
+    ````
+
+1. Delete **D:\\Setup\\LabRoot.cer**.
+
+    ````powershell
+    Remove-Item D:\Setup\LabRoot.cer
+    ````
+
+1. List the content of **C:\\Bootstrap**
+
+    ````powershell
+    Get-ChildItem C:\Bootstrap
+    ````
+
+    > You should not see **Labroot.cer** anymore.
+
+1. Close the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
+### Task 8: Create and verify a symbolic link
+
+Perform this task on VN1-FS1.
+
+1. Run **Windows Terminal** or **Windows PowerShell** as Administrator.
+1. Create a symbolic link **D:\\Sysvol** targeting **\\\\VN1-DC1\\Sysvol**.
+
+    ````powershell
+    New-Item `
+        -ItemType SymbolicLink `
+        -Target \\vn1-dc1\sysvol `
+        -Name Sysvol `
+        -Path D:\
+    ````
+
+1. List the contents of **D:\\Sysvol**.
+
+    ````powershell
+    Get-ChildItem D:\Sysvol -Recurse
     ````

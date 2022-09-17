@@ -48,6 +48,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 |                                                            | Lab: Manage local storage                                         |
 | Monitor performance                                        | Practice: Install roles using Server Manager                      |
 |                                                            | Lab: Explore Windows Admin Center                                 |
+| Audit file server events                                   | Practice: Install prerequisites for file serving                  |
 | File Server resource management                            | Practice: Configure e-mail notifications in FSRM                  |
 |                                                            | Practice: Configure Access-Denied Assistance                      |
 |                                                            | Practice: Configure a classification schedule                     |
@@ -68,8 +69,7 @@ The scripts are available in **C:\LabResources\Solutions** on each VM. Execute t
 | Manage local users                           | VN1-GW1   | New-LocalAdmins.ps1                         |
 | Manage local groups                          | VN1-GW1   | Add-LocalAdministratorsMember.ps1           |
 | Enable the Active Directory Recycle Bin      | CL1       | Enable-ADRecycleBin.ps1                     |
-| Create links                                 | FS1       | New-Links.ps1                               |
-| Install prerequisites for file serving       | VN1-GW1   | New-Shares.ps1                              |
+| Install prerequisites for file serving       | VN1-FS1   | New-Shares.ps1                              |
 | Harden SMB                                   | VN1-GW1   | Set-SMB.ps1                                 |
 | Install File Server Resource Manager         | VN1-GW1   | Install-FSRM.ps1                            |
 | Configure e-mail notifications in FSRM       | VN1-GW1   | Set-FSRMEmail.ps1                           |
