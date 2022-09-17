@@ -588,7 +588,7 @@ Perform this task on VN1-FS1.
 1. Open **File Explorer**.
 1. In File Explorer, navigate to **This PC**.
 1. In the context menu of **Local Disk (C:)**, click **Properties**.
-1. In Local Disk (C:) Properties, click the tab **Shadow Copies**.
+1. In Local Disk (D:) Properties, click the tab **Shadow Copies**.
 
     > Due to a bug in Windows Server, the Shadow Copies tab is not available on ReFS volumes, although Shadow Copies are fully supported on them. Properties for the boot drive can be used as a workaround to configure Shadow Copies on ReFS volumes.
 
