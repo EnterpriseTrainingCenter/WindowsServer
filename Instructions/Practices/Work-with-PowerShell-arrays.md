@@ -2,16 +2,16 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-GW1
-* VN1-FS1
-* VN1-Core1
-* VN1-RCA
+* VN1-SRV1
+* PM-SRV1
+* VN1-SRV2
+* VN1-SRV5
+* VN1-SRV3
 * CL1
 
 ## Task
 
-On CL1, query the running services on VN1-DC1, VN1-GW1, VN1-FS1, VN1-Core1, VN1-RCA with a single command using iteration.
+On CL1, query the running services on VN1-SRV1, PM-SRV1, VN1-SRV2, VN1-SRV5, VN1-SRV3 with a single command using iteration.
 
 ## Instructions
 
@@ -19,10 +19,10 @@ Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
-1. Store the strings VN1-DC1, VN1-GW1, VN1-FS1, VN1-Core1, VN1-RCA in the variable $servers.
+1. Store the strings VN1-SRV1, PM-SRV1, VN1-SRV2, VN1-SRV5, VN1-SRV3 in the variable $servers.
 
     ````powershell
-    $servers = @('VN1-DC1', 'VN1-GW1', 'VN1-FS1', 'VN1-Core1', 'VN1-RCA')
+    $servers = @('VN1-SRV1', 'PM-SRV1', 'VN1-SRV2', 'VN1-SRV5', 'VN1-SRV3')
     ````
 
 1. Iterate through the array $servers and list the running services on each of the servers while measuring the executing time

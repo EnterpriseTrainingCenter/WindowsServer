@@ -2,16 +2,16 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-FS1
+* VN1-SRV1
+* VN1-SRV2
 
 ## Introduction
 
-Install Windows Terminal on VN1-FS1.
+Install Windows Terminal on VN1-SRV2.
 
 ## Instructions
 
-Perform these steps on VN1-FS1.
+Perform these steps on VN1-SRV2.
 
 1. Logon as **ad\Administrator**.
 1. In Microsoft Edge, navigate to https://github.com/microsoft/terminal/releases.

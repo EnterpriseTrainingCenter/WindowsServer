@@ -2,13 +2,13 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-FS1
+* VN1-SRV1
+* VN1-SRV2
 * CL1
 
 ## Task
 
-On VN1-FS1, install File Server Resource Manager, configure it for remote management and verify the remote management connection.
+On VN1-SRV2, install File Server Resource Manager, configure it for remote management and verify the remote management connection.
 
 ## Instructions
 
@@ -19,16 +19,16 @@ Perform these steps on CL1.
 1. Creaate a variable for the computer, where File Server Resource Manager should be configured.
 
     ````powershell
-    $computerName = 'VN1-FS1'
+    $computerName = 'VN1-SRV2'
     ````
 
-1. Install the File Server Resource Manager on VN1-FS1.
+1. Install the File Server Resource Manager on VN1-SRV2.
 
     ````powershell
     Add-WindowsFeature -Name FS-Resource-Manager -ComputerName $computername
     ````
 
-1. Enable remote management of FSRM through the firewall of VN1-FS1.
+1. Enable remote management of FSRM through the firewall of VN1-SRV2.
 
     ````powershell
     Invoke-Command -Computername $computerName -ScriptBlock {
@@ -44,6 +44,6 @@ Perform these steps on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-FS1**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
 
-    > You should be able to connect to FSRM on VN1-FS1. Take a minute to explore the nodes in **File Server Resource Manager**.
+    > You should be able to connect to FSRM on VN1-SRV2. Take a minute to explore the nodes in **File Server Resource Manager**.

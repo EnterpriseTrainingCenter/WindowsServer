@@ -1,6 +1,6 @@
 # Practice and lab dependencies
 
-To get a list of dependencies for each practice or lab, on VN1-GW1, VN1-FS1, or CL1, run
+To get a list of dependencies for each practice or lab, on PM-SRV1, VN1-SRV2, or CL1, run
 ````C:\\LabResources\\Solutions\\Get-Dependencies.ps1````.
 
 To configure the environment, if any labs or practices were skipped, run ````C:\\LabResources\\Solutions\\Invoke-Dependencies.ps1````.

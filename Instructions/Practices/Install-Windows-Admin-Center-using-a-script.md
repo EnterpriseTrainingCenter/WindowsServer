@@ -2,17 +2,17 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-RCA
-* VN1-GW1
+* VN1-SRV1
+* VN1-SRV3
+* PM-SRV1
 
 ## Task
 
-On VN1-GW1, to install Windows Admin Center, run **C:\LabResources\Solutions\Install-AdminCenter.ps1**.
+On PM-SRV1, to install Windows Admin Center, run **C:\LabResources\Solutions\Install-AdminCenter.ps1**.
 
 ## Instructions
 
-Perform these steps on VN1-GW1.
+Perform these steps on PM-SRV1.
 
 1. Logon as **ad\Administrator**.
 1. In SConfig, enter **15** and press ENTER to exit to the command line.

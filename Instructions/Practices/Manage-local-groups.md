@@ -2,15 +2,15 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-GW1
-* VN1-Core1
+* VN1-SRV1
+* PM-SRV1
+* VN1-SRV5
 * CL1
 * CL2
 
 ## Task
 
-On CL1, CL2, and VN1-Core1, add LocalAdmin to the Administrators group. Use a different tool on each machine.
+On CL1, CL2, and VN1-SRV5, add LocalAdmin to the Administrators group. Use a different tool on each machine.
 
 ## Instructions
 
@@ -55,8 +55,8 @@ Perform these steps on CL1.
     ````
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-core1.ad.adatum.com**.
-1. Connected to vn1-core1.ad.adatum.com, under **Tools**, click **Local users & groups**.
+1. In Windows Admin Center, click **VN1-SRV5.ad.adatum.com**.
+1. Connected to VN1-SRV5.ad.adatum.com, under **Tools**, click **Local users & groups**.
 1. In Local users and groups, click the tab **Groups**.
 1. On the tab Groups, click the group **Administrators**.
 1. At the bottom, under **Details - Administrators**, click **Add user**.

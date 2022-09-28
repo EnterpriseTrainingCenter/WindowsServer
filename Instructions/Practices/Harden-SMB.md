@@ -2,16 +2,16 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-FS1
-* VN1-CORE1
+* VN1-SRV1
+* VN1-SRV2
+* VN1-SRV5
 * CL1
 
 ## Task
 
-Disable SMB 1.0 on VN1-FS1 and verify the shares are still accessible. Then remove SMB 1.0 from VN1-FS1.
+Disable SMB 1.0 on VN1-SRV2 and verify the shares are still accessible. Then remove SMB 1.0 from VN1-SRV2.
 
-Enable SMB encryption on server VN1-CORE1 and on the share \\\\VN1-FS1\\IT.
+Enable SMB encryption on server VN1-SRV5 and on the share \\\\VN1-SRV2\\IT.
 
 ## Instructions
 
@@ -19,10 +19,10 @@ Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Run **Windows Terminal** as Administrator.
-1. Create a remote PowerShell session with **VN1-FS1**.
+1. Create a remote PowerShell session with **VN1-SRV2**.
 
     ````powershell
-    Enter-PSSession -ComputerName VN1-FS1
+    Enter-PSSession -ComputerName VN1-SRV2
     ````
 
 1. Disable SMB 1.0.
@@ -38,7 +38,7 @@ Perform these steps on CL1.
     Exit-PSSession
     ````
 
-1. Switch to **File Explorer** and navigate to **\\\\vn1-fs1** and try to navigate into the shares.
+1. Switch to **File Explorer** and navigate to **\\\\VN1-SRV2** and try to navigate into the shares.
 
     > Can you still access the shares?
 
@@ -46,14 +46,14 @@ Perform these steps on CL1.
 1. Uninstall SMB 1.0.
 
     ````powershell
-    Remove-WindowsFeature -Name FS-SMB1 -ComputerName VN1-FS1
+    Remove-WindowsFeature -Name FS-SMB1 -ComputerName VN1-SRV2
     ````
 
-1. Verify, you are still able to access the shares on **VN1-FS1**.
-1. Create a remote PowerShell session with **VN1-CORE1**.
+1. Verify, you are still able to access the shares on **VN1-SRV2**.
+1. Create a remote PowerShell session with **VN1-SRV5**.
 
     ````powershell
-    Enter-PSSession -ComputerName VN1-CORE1
+    Enter-PSSession -ComputerName VN1-SRV5
     ````
 
 1. Enable SMB encryption for the server
@@ -69,10 +69,10 @@ Perform these steps on CL1.
     Exit-PSSession
     ````
 
-1. Enable encyprtion for the share **\\\\vn1-fs1\\IT**.
+1. Enable encyprtion for the share **\\\\VN1-SRV2\\IT**.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV2 -ScriptBlock {
         Set-SmbShare -Name IT -EncryptData $true -Force
     }
     ````

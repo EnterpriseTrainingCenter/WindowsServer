@@ -2,9 +2,9 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-GW1
-* VN1-CL1
+* VN1-SRV1
+* PM-SRV1
+* CL1
 
 ## Setup
 
@@ -234,8 +234,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
 1. In Active Directory Domain Services, in **Search Active Directory**, type the user's name and click **Search**.
 1. Click the found user.
 1. Click **Reset Password**.
@@ -355,8 +355,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
 
 ##### Variant A
 
@@ -419,8 +419,8 @@ Perform this task on CL1.
 #### Windows Admin Center
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, click the tab **Browse**.
 1. Click **DC=ad, DC=adatum, DC=com**.
 1. In the right pane, click **Create**, **OU**.
@@ -479,8 +479,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, click the tab **Browse**.
 1. In the tree pane, click **Organizational Groups**.
 1. In the right pane, click **Create**, **Group**.
@@ -557,8 +557,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
 1. In Active Directory Domain Services, in **Search Active Directory**, type **Pilot Users** and click **Search**.
 1. Click the found group.
 1. Click **Delete**.
@@ -693,8 +693,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Unter Active Directory Domain Services, in **Search Active Directory**, type **CL2** and click **Search**.
 1. Click **CL2**.
 1. Click **Delete**.

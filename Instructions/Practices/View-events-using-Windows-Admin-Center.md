@@ -2,13 +2,13 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-GW1
+* VN1-SRV1
+* PM-SRV1
 * CL1
 
 ## Task
 
-On CL1, view the events from the System log on VN1-DC1 using Windows Admin Center. In the preview version, create a workspace that includes all warning, error, and critical events from the System and Application logs.
+On CL1, view the events from the System log on VN1-SRV1 using Windows Admin Center. In the preview version, create a workspace that includes all warning, error, and critical events from the System and Application logs.
 
 ## Instructions
 
@@ -16,8 +16,8 @@ Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-core1.ad.adatum.com, under **Tools**, click **Events**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV5.ad.adatum.com, under **Tools**, click **Events**.
 1. Under Events, **Windows Logs**, click **System**.
 1. Click the icon *Filter*.
 1. Click the checkbox **Select All** to deactivate all event levels. Activate the checkboxes **Critical**, **Error**, and **Warning** and click **Apply**.

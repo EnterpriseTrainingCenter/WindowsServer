@@ -2,10 +2,10 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-GW1
+* VN1-SRV1
+* PM-SRV1
 * VN1-FS2
-* VN1-Core1
+* VN1-SRV5
 * VN1-Core2
 
 ## Setup
@@ -148,12 +148,12 @@ Perform this task von CL1.
     > A pane **Specify your credentials** opens. Single sign-on does not work, because you did not set up Kerberos constrained delegation for the new server.
 
 1. Click **Cancel**.
-1. In Windows Admin Center, click **vn1-dc1.ad.adatum.com**.
-1. Connected to vn1-dc1.ad.adatum.com, under Tools, click **Active Directory**.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
 1. Under Active Directory Domain Services, in **Search Active Directory**, type **VN1-FS2** and click **Search**.
 1. In the results, click **VN1-FS2** and click **Properties+*.
 1. In Computer properties: VN1-FS2$, click **Add a Windows Admin Center gateway**.
-1. In the pane Trust a Windows Admin Center gateway, in **SamAccountName**, enter **VN1-GW1** and click **OK**.
+1. In the pane Trust a Windows Admin Center gateway, in **SamAccountName**, enter **PM-SRV1** and click **OK**.
 1. On the top-left, click **Windows Admin Center**.
 1. In Windows Admin Center, click **vn1-fs2.ad.adatum.com.**.
 
@@ -302,10 +302,10 @@ Perform this task on VN1-Core2.
 Perform this task von CL1.
 
 1. Open **Windows Terminal**.
-1. Configure Kerberos constrained delegation to allow the computer account of **VN1-FS2** to be delegated to the Windows Admin Center gateway **VN1-GW1**.
+1. Configure Kerberos constrained delegation to allow the computer account of **VN1-FS2** to be delegated to the Windows Admin Center gateway **PM-SRV1**.
 
     ````powershell
-    $gateway = Get-ADComputer vn1-gw1
+    $gateway = Get-ADComputer PM-SRV1
     Set-ADComputer vn1-Core2 -PrincipalsAllowedToDelegateToAccount $gateway
     ````
 
@@ -351,13 +351,13 @@ Perform this task on CL1.
 
 ## Exercise 3: Install App Compatibility Feature on Demand
 
-1. [Install the Application Compatibility Feature on VN1-Core1](#task-2-install-the-application-compatibility-feature)
-1. [Install Internet Explorer 11 on VN1-Core1](#task-3-install-internet-explorer-11)
+1. [Install the Application Compatibility Feature on VN1-SRV5](#task-2-install-the-application-compatibility-feature)
+1. [Install Internet Explorer 11 on VN1-SRV5](#task-3-install-internet-explorer-11)
 1. [Verify the installation of the App Compatibility Feature](#task-4-verify-the-installation-of-the-app-compatibility-feature)
 
 ### Task 1: Install the Application Compatibility Feature
 
-Perform this task on VN1-Core1.
+Perform this task on VN1-SRV5.
 
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
@@ -383,7 +383,7 @@ Perform this task on VN1-Core1.
 
 ### Task 2: Install Internet Explorer 11
 
-Perform this task on VN1-Core1.
+Perform this task on VN1-SRV5.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
@@ -410,7 +410,7 @@ Perform this task on VN1-Core1.
 
 ### Task 3: Verify the installation of the App Compatibility Feature
 
-Perform this task on VN1-Core1.
+Perform this task on VN1-SRV5.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).

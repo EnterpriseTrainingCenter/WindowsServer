@@ -2,15 +2,15 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-GW1
-* VN1-Core1
+* VN1-SRV1
+* PM-SRV1
+* VN1-SRV5
 * CL1
 * CL2
 
 ## Task
 
-On CL1, CL2, and VN1-Core1, create a local user with the name LocalAdmin. Use different tools on both machines.
+On CL1, CL2, and VN1-SRV5, create a local user with the name LocalAdmin. Use different tools on both machines.
 
 ## Instructions
 
@@ -74,8 +74,8 @@ Perform these steps on CL1.
     ````
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **vn1-core1.ad.adatum.com**.
-1. Connected to vn1-core1.ad.adatum.com, under **Tools**, click **Local users & groups**.
+1. In Windows Admin Center, click **VN1-SRV5.ad.adatum.com**.
+1. Connected to VN1-SRV5.ad.adatum.com, under **Tools**, click **Local users & groups**.
 1. In Local users and groups, on the tab **Users**, click **New user**.
 1. In the pane Add new user, enter this data:
 

@@ -2,11 +2,16 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-Core1
-* VN1-FS1
-* VN1-GW1
-* VN1-RCA
+* PM-SRV1
+* VN1-SRV1
+* VN1-SRV2
+* VN1-SRV3
+* VN1-SRV4
+* VN1-SRV5
+* VN1-SRV6
+* VN1-SRV7
+* VN1-SRV8
+* VN3-SRV1
 * CL1
 * CL2
 
@@ -98,7 +103,7 @@ Perform this task on CL1.
 
 ## Exercise 2: Manage connections
 
-[In Windows Admin Center, add connections to VN1-DC1, VN1-Core1, VN1-FS1, VN1-RCA, and CL2](#task-in-windows-admin-center-add-connections).
+[In Windows Admin Center, add connections to VN1-SRV1, VN1-SRV5, VN1-SRV2, VN1-SRV3, and CL2](#task-in-windows-admin-center-add-connections).
 
 ### Task: In Windows Admin Center, add connections
 
@@ -106,8 +111,8 @@ Perform this task on CL1.
 
 1. In Windows Admin Center, on the connections page, click **Add**.
 1. In the panel **Add or create resources**, under **Server**, click **Add**.
-1. On the tab **Add one**, in **Server name**, enter **VN1-DC1**.
-1. After VN1-DC1 was found, click **Add**.
+1. On the tab **Add one**, in **Server name**, enter **VN3-SRV1**.
+1. After VN3-SRV1 was found, click **Add**.
 1. Click **Add**.
 1. In the panel **Add or create resources**, under **Windows PCs**, click **Add**.
 1. Click the tab **Search Active Directory**.
@@ -146,37 +151,37 @@ Perform this task on CL1.
 
 ## Exercise 5: Explore the available administration features
 
-1. [Explore networks, updates, and the settings for power configuration and Remote Desktop on VN1-DC1](#task-1-explore-networks-updates-and-the-settings-for-power-configuration-and-remote-desktop-on-vn1-dc1).
-2. [Find installed apps and running processes on VN1-GW1](#task-2-find-installed-apps-and-running-processes-on-vn1-gw1).
-3. [Explore the registry, the scheduled tasks and the security of VN1-FS1](#task-3-explore-the-registry-the-scheduled-tasks-and-the-security-of-vn1-fs1).
+1. [Explore networks, updates, and the settings for power configuration and Remote Desktop on VN1-SRV1](#task-1-explore-networks-updates-and-the-settings-for-power-configuration-and-remote-desktop-on-VN1-SRV1).
+2. [Find installed apps and running processes on PM-SRV1](#task-2-find-installed-apps-and-running-processes-on-PM-SRV1).
+3. [Explore the registry, the scheduled tasks and the security of VN1-SRV2](#task-3-explore-the-registry-the-scheduled-tasks-and-the-security-of-VN1-SRV2).
 4. [Explore apps, features, devices on CL2](#task-4-explore-apps-features-devices-on-cl2).
 
-### Task 1: Explore networks, updates, and the settings for power configuration and Remote Desktop on VN1-DC1
+### Task 1: Explore networks, updates, and the settings for power configuration and Remote Desktop on VN1-SRV1
 
 Perform this task on CL1.
 
-1. In Windows Admin Center, on the connections page, click **VN1-DC1.ad.adatum.com**. Explore the information on in the Overview tool.
+1. In Windows Admin Center, on the connections page, click **VN1-SRV1.ad.adatum.com**. Explore the information on in the Overview tool.
 1. In the Tools pane, click **Networks** and explore the available features.
 1. In the Tools pane, click **Updates** and explore the available features.
 1. In the Tools pane, click **Settings**.
 1. In Settings, click **Power configuration** and explore the available features. 
 1. In Settings, click **Remote Desktop** and explore the available features.
 
-### Task 2: Find installed apps and running processes on VN1-GW1
+### Task 2: Find installed apps and running processes on PM-SRV1
 
 Perform this task on CL1.
 
 1. In Windows Admin Center, click **Windows Admin Center** in the top-left corner to return to the connections page.
-1. On the connections page, click **VN1-GW1.ad.adatum.com**. Explore the information on in the Overview tool.
+1. On the connections page, click **PM-SRV1.ad.adatum.com**. Explore the information on in the Overview tool.
 1. In the Tools pane, click **Installed apps** and explore the available features.
 1. In the Tools pane, click **Processes** and explore the available features.
 
-### Task 3: Explore the registry, the scheduled tasks and the security of VN1-FS1
+### Task 3: Explore the registry, the scheduled tasks and the security of VN1-SRV2
 
 Perform this task on CL1.
 
 1. In Windows Admin Center, click **Windows Admin Center** in the top-left corner to return to the connections page.
-1. On the connections page, click **VN1-FS1.ad.adatum.com**. Explore the information on in the Overview tool.
+1. On the connections page, click **VN1-SRV2.ad.adatum.com**. Explore the information on in the Overview tool.
 1. In the Tools pane, click **Registry** and explore the available features.
 1. In the Tools pane, click **Scheduled tasks** and explore the available features.
 1. In the Tools pane, click **Security** and explore the available features.
@@ -196,11 +201,11 @@ Perform this task on CL1.
 
     | Name                    | Tags                                                                 |
     |---------------------| ---------------------------------------------------------------------|
-    | vn1-core1.ad.adatum.com | core                                                                 |
-    | VN1-DC1.ad.adatum.com   | desktop, dc, gc, domain naming, schema, primary, infrastructure, rid |
-    | vn1-fs1.ad.adatum.com   | desktop, file                                                        |
+    | VN1-SRV5.ad.adatum.com | core                                                                 |
+    | VN1-SRV1.ad.adatum.com   | desktop, dc, gc, domain naming, schema, primary, infrastructure, rid |
+    | VN1-SRV2.ad.adatum.com   | desktop, file                                                        |
     | vn1-gw.ad.adatum.com    | core, windows admin center                                           |
-    | vn1-rca.ad.adatum.com   | desktop, pki                                                         |
+    | VN1-SRV3.ad.adatum.com   | desktop, pki                                                         |
     | cl2.ad.adatum.com       | win11, office                                                        |
 
     > What is the most efficient way to add the tags manually?
@@ -213,12 +218,12 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. In Windows Admin Center, on the connections page, activate the checkbox left to **vn1-core1.ad.adatum.com**.
+1. In Windows Admin Center, on the connections page, activate the checkbox left to **VN1-SRV5.ad.adatum.com**.
 1. Click **Edit Tags**.
 1. In Available tags, click **Add tags**, enter **core** and press ENTER.
 1. Click **Save**.
-1. Deactivate the checkbox left to **vn1-core1.ad.adatum.com**.
-1. Activate the checkbox left to **vn1-gw1.ad.adatum.com**.
+1. Deactivate the checkbox left to **VN1-SRV5.ad.adatum.com**.
+1. Activate the checkbox left to **PM-SRV1.ad.adatum.com**.
 1. Click **Edit Tags**.
 1. In Available tags, activate **core**.
 
@@ -229,8 +234,8 @@ Perform this task on CL1.
     > Tags can contain spaces. Moreover, the tags are normalized to lower case.
 
 1. Click **Save**.
-1. Dectivate the checkbox left to **vn1-gw1.ad.adatum.com**.
-1. Activate the checkboxes left to **VN1-DC1.ad.adatum.com**, **vn1-fs1.ad.adatum.com**, and **vn1-rca.ad.adatum.com**.
+1. Dectivate the checkbox left to **PM-SRV1.ad.adatum.com**.
+1. Activate the checkboxes left to **VN1-SRV1.ad.adatum.com**, **VN1-SRV2.ad.adatum.com**, and **VN1-SRV3.ad.adatum.com**.
 
     > You can add tags to multiple connections in a single operation.
 
@@ -248,9 +253,9 @@ Perform this task on CL1.
 
     | Name                    | Tags                                                        |
     |---------------------| ------------------------------------------------------------|
-    | VN1-DC1.ad.adatum.com   | dc, gc, domain naming, schema, primary, infrastructure, rid |
-    | vn1-fs1.ad.adatum.com   | file                                                        |
-    | vn1-rca.ad.adatum.com   | pki                                                         |
+    | VN1-SRV1.ad.adatum.com   | dc, gc, domain naming, schema, primary, infrastructure, rid |
+    | VN1-SRV2.ad.adatum.com   | file                                                        |
+    | VN1-SRV3.ad.adatum.com   | pki                                                         |
 
 ### Task 2: Filter the connection list
 
@@ -259,7 +264,7 @@ Perform this task on CL1.
 1. In Windows Admin Center, on the connections page, click the icon *Filter*.
 1. In Filter connections, activate the checkbox left to **core** and click **Save**.
 
-    > Only the connections **vn1-core1.ad.adatum.com** and **vn1-gw1.ad.adatum.com** should be displayed.
+    > Only the connections **VN1-SRV5.ad.adatum.com** and **PM-SRV1.ad.adatum.com** should be displayed.
 
 1. Click the icon *Filter* again.
 1. In Filter connections, click **Clear filter** and click **Save**.

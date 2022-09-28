@@ -2,14 +2,14 @@
 
 ## Required VMs
 
-* VN1-DC1
-* VN1-Core1
-* VN1-FS1
+* VN1-SRV1
+* VN1-SRV5
+* VN1-SRV2
 * CL1
 
 ## Task
 
-On CL1, check the value IPEnableRouter on VN1-Core1 using an interactive remote session. Check the same value on VN1-FS1 by invoking remote commands.
+On CL1, check the value IPEnableRouter on VN1-SRV5 using an interactive remote session. Check the same value on VN1-SRV2 by invoking remote commands.
 
 ## Instructions
 
@@ -17,10 +17,10 @@ Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
-1. Start an interactive remote session with **VN1-Core1**.
+1. Start an interactive remote session with **VN1-SRV5**.
 
     ````powershell
-    Enter-PSSession VN1-Core1
+    Enter-PSSession VN1-SRV5
     ````
 
 1. Query the value **IPEnableRouter** in the registry key **HKLM:\system\CurrentControlSet\services\Tcpip\Parameters**.
@@ -43,10 +43,10 @@ Perform these steps on CL1.
     $path = 'HKLM:\system\CurrentControlSet\services\Tcpip\Parameters'
     ````
 
-1. Invoke a command with VN1-FS1 to query the same registry value as above.
+1. Invoke a command with VN1-SRV2 to query the same registry value as above.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-FS1 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV2 -ScriptBlock {
         Get-ItemProperty -Path $using:path -Name IPEnableRouter
     }
     ````
