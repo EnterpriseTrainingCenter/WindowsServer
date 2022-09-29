@@ -3,8 +3,8 @@
 ## Required VMs
 
 * VN1-SRV1
-* CL1
 * VN1-SRV2
+* CL1
 
 ## Setup
 
@@ -17,7 +17,7 @@
 ## Exercises
 
 1. [Audit access to a folder](#exercise-1-audit-access-to-a-folder)
-1. Use a a global audit policy
+1. [Use a a global audit policy](#exercise-2-use-a-a-global-audit-policy)
 
 ## Exercise 1: Audit access to a folder
 
