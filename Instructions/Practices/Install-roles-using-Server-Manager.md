@@ -15,8 +15,8 @@ On CL1, use Server Manager to install the File Server role on VN1-SRV2.
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. Start Server Manager.
-1. In the left pane, click **All Server**.
+1. Open Server Manager.
+1. In the left pane, click **All Servers**.
 1. In the context-menu of **VN1-SRV2**, click **Add Roles and Features**.
 1. In the Add Rules and Features Wizard, on the page **Before You Begin**, click **Next >**.
 1. On the page **Installation Type**, ensure **Role-based or feature-base installation** is selected and click **Next >**.
