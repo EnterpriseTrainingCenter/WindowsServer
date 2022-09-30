@@ -14,7 +14,7 @@ Store 'cl1' and 'ad.adatum.com' in separate variables and create a third variabl
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
+1. From the context-menu of **Start** (you can press WIN + X), launch **Terminal** as Administrator.
 1. Store 'cl1' in the variable $hostname.
 
     ````powershell

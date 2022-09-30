@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* PM-SRV1
+* VN1-SRV4
 * CL1
 
 ## Task
@@ -26,7 +26,7 @@ Perform these steps on CL1.
 
 Perform these steps on CL1
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Enable Athe Active Directory Recycle Bin.
 
     `````powershell

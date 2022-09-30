@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* PM-SRV1
+* VN1-SRV4
 * VN1-SRV5
 * CL1
 * CL2
@@ -34,7 +34,7 @@ Perform these steps on CL1.
 1. Deactivate the checkbox **User must change password at next logon** and click **Create**.
 1. Click **Close**.
 1. Click **Users** and verify that **LocalAdmin** was created.
-1. Run **Windows Terminal** as Administrator.
+1. Run **Terminal** as Administrator.
 1. Open a remote PowerShell session to CL2.
 
     ````powershell

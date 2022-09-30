@@ -17,8 +17,8 @@ Perform these steps on CL1.
 1. Open **Microsoft Store**.
 1. In Microsoft Store, click **Library** (it may display as **Bibliothek**).
 1. In Library, find **Windows Terminal** and click **Update** next to it.
-1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal**.
-1. In Windows Terminal, on the tab **Administrator: Windows PowerShell**, execute
+1. From the context-menu of **Start** (you can press WIN + X), launch **Terminal**.
+1. In Terminal, on the tab **Administrator: Windows PowerShell**, execute
 
     ````powershell
     $PSVersionTable

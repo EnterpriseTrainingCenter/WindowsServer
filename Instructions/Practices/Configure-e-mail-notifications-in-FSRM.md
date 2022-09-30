@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV2
+* VN1-SRV6
 * CL1
 
 Note: In the lab environment no real SMTP server is installed. Therefore, e-mail notification will not work. This practice demonstrates the configuration and avoids warning messages in later practices and labs.
@@ -19,7 +19,7 @@ Perform these steps on CL1.
 1. Logon as **ad\Administrator**.
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In the context-menu of **File Server Resource Manager**, click **Configure Options...**
 1. In File Server Resource Manager Options, on tab Email Notifications, enter the values below and click **OK**.
 

@@ -3,8 +3,9 @@
 ## Required VMs
 
 * VN1-SRV1
+* VN1-SRV6
 * CL1
-* VN1-SRV2
+
 
 ## Setup
 
@@ -31,11 +32,11 @@ On your file server, users save excessive amounts of data and inappropriate file
 1. [Apply quotas](#task-2-apply-quotas). Apply the 75 MB Limit quota template to D:\\Shares\\IT. Auto-apply the 50 MB Limit with 25 MB Extension quota template to D:\\Shares\\Users.
 1. [Verify the effect of quotas](#task-3-verify-the-effects-of-quotas)
 
-    > Which capacity does a network drive mapped to one of the folders in the share \\\\VN1-SRV2\\Users?
+    > Which capacity does a network drive mapped to one of the folders in the share \\\\VN1-SRV6\\Users?
 
     > Which capacity is does the network drive have, after the quota limit was exceeded?
 
-    > What happens, if the quota limit on \\\\VN1-SRV2\\IT is exceeded?
+    > What happens, if the quota limit on \\\\VN1-SRV6\\IT is exceeded?
 
     > Is it possible to increase the quota limit of an individual path of an auto-applied quota?
 
@@ -47,7 +48,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In the left pane, expand **Quota Management** and click **Quota Templates**.
 1. In the context-menu of **Quota Templates**, click **Create Quota Template...**.
 1. In Create Quota Template, in **Template name**, type **75 MB Limit**.
@@ -55,7 +56,7 @@ Perform this task on CL1.
 1. Ensure, **Hard quota. Do not allow users to exceed limit** is selected.
 1. Under **Notification thresholds**, click **Add...**.
 
-    > Note: If you receive an error message at this point, restart VN1-SRV2 and start the task again.
+    > Note: If you receive an error message at this point, restart VN1-SRV6 and start the task again.
 
 1. In Add Threshold, on the tab E-mail Message, ensure that **Generate notifications when usage reaches %** is **85**.
 1. Click the checkbox **Send e-mail to the user who exceeded the threshold**.
@@ -93,11 +94,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to VN1-SRV2.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to VN1-SRV6.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Define the texts for the e-mails and event log messages.
@@ -198,7 +199,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In the left pane, expand **Quota Management** and click **Quotas**.
 1. In the context-menu of **Quotas**, click **Create Quota...**.
 1. In Create Quota, under **Quota path**, click **Browse...**
@@ -218,11 +219,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to VN1-SRV2.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to VN1-SRV6.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Create a quota on **D:\\Shares\\IT** with the template **75 MB Limit**.
@@ -258,67 +259,67 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **File Explorer**, navigate to \\\\VN1-SRV2\\Users
-1. In File Explorer, in \\\\VN1-SRV2\\Users create a new folder with the name **User11**.
+1. Open **File Explorer**, navigate to \\\\VN1-SRV6\\Users
+1. In File Explorer, in \\\\VN1-SRV6\\Users create a new folder with the name **User11**.
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In the left pane, expand **Quota Management** and click **Quotas**.
 
     > You should see a the quota 50 MB Limit with 25 MB Extension applied to D:\\Shares\\Users\\User11.
 
-1. Open **Windows Terminal**.
-1. Map a drive U to \\\\VN1-SRV2\\Users\\User1
+1. Open **Terminal**.
+1. Map a drive U to \\\\VN1-SRV6\\Users\\User1
 
     ````powershell
-    New-PSDrive -Name U -PSProvider FileSystem -Root \\VN1-SRV2\Users\User1 -Persist
+    New-PSDrive -Name U -PSProvider FileSystem -Root \\VN1-SRV6\Users\User1 -Persist
     ````
 
 1. Switch to **File Explorer**.
 1. In File Explorer, click **This PC**.
-1. In This PC, in the context menu of **User1 (\\\\VN1-SRV2\\Users) (U:)**, click **Properties**. On tab **General**, note the Capacity.
+1. In This PC, in the context menu of **User1 (\\\\VN1-SRV6\\Users) (U:)**, click **Properties**. On tab **General**, note the Capacity.
 
     > The capacity should be 50 MB.
 
-1. Close **User1 (\\\\VN1-SRV2\\Users) (U:) Properties**.
-1. Copy all folders from **\\\\VN1-SRV2\\it** to **U:**. Use either File Explorer, or in **Windows Terminal**, PowerShell.
+1. Close **User1 (\\\\VN1-SRV6\\Users) (U:) Properties**.
+1. Copy all folders from **\\\\VN1-SRV6\\it** to **U:**. Use either File Explorer, or in **Terminal**, PowerShell.
 
     ````powershell
-    Copy-Item \\VN1-SRV2\IT\* u:\ -Recurse
+    Copy-Item \\VN1-SRV6\IT\* u:\ -Recurse
     ````
 
     > You should receive an error message, that not enough space is on the disk.
 
-1. In This PC, in the context menu of **User1 (\\\\VN1-SRV2\\Users) (U:)**, click **Properties**. On tab **General**, note the Capacity.
+1. In This PC, in the context menu of **User1 (\\\\VN1-SRV6\\Users) (U:)**, click **Properties**. On tab **General**, note the Capacity.
 
     > The capacity should be 75 MB now.
 
-1. Close **User1 (\\\\VN1-SRV2\\Users) (U:) Properties**.
-1. Retry to copy all folders from **\\\\VN1-SRV2\\it** to **U:**. Use either File Explorer, or in **Windows Terminal**, PowerShell.
+1. Close **User1 (\\\\VN1-SRV6\\Users) (U:) Properties**.
+1. Retry to copy all folders from **\\\\VN1-SRV6\\it** to **U:**. Use either File Explorer, or in **Terminal**, PowerShell.
 
     ````powershell
-    Copy-Item \\VN1-SRV2\IT\* u:\ -Recurse -Force
+    Copy-Item \\VN1-SRV6\IT\* u:\ -Recurse -Force
     ````
 
     > The copy process should work now.
 
-1. Copy **\\\\VN1-SRV2\\c$\\LabResources\\Sample Documents\\Travel Packages** to **\\\\VN1-SRV2\\IT**. Use either File Explorer, or in **Windows Terminal**, PowerShell.
+1. Copy **\\\\VN1-SRV6\\c$\\LabResources\\Sample Documents\\Travel Packages** to **\\\\VN1-SRV6\\IT**. Use either File Explorer, or in **Terminal**, PowerShell.
 
     ````powershell
     Copy-Item `
-        -Path '\\VN1-SRV2\c$\LabResources\Sample Documents\Travel Packages\' `
-        -Destination \\VN1-SRV2\IT\ `
+        -Path '\\VN1-SRV6\c$\LabResources\Sample Documents\Travel Packages\' `
+        -Destination \\VN1-SRV6\IT\ `
         -Recurse `
         -Force
     ````
 
     > You should receive error messages, that not enough space is on the disk. Even if you try to repeat the copy command, the error message will not disappear.
 
-1. Copy **\\\\VN1-SRV2\\c$\\LabResources\\Sample Documents\\Travel Packages** to **U:**. Use either File Explorer, or in **Windows Terminal**, PowerShell.
+1. Copy **\\\\VN1-SRV6\\c$\\LabResources\\Sample Documents\\Travel Packages** to **U:**. Use either File Explorer, or in **Terminal**, PowerShell.
 
     ````powershell
     Copy-Item `
-        -Path '\\VN1-SRV2\c$\LabResources\Sample Documents\Travel Packages\' `
+        -Path '\\VN1-SRV6\c$\LabResources\Sample Documents\Travel Packages\' `
         -Destination U:\ `
         -Recurse `
         -Force
@@ -330,19 +331,19 @@ Perform this task on CL1.
 1. In **Quotas**, double-click the quota on **D:\\Shares\\Users\\User1**.
 1. In Quota Properties of D:\\Shares\\Users\\User1, under **Limit**, type **100** and click **OK**.
 
-    Alternatively you could use the following PowerShell commands in **Windows Terminal**:
+    Alternatively you could use the following PowerShell commands in **Terminal**:
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     Set-FSRMQuota -Path D:\Shares\Users\User1\ -Size 100MB
     Exit-PSSesseion
     ````
 
-1. Retry to copy **\\\\VN1-SRV2\\c$\\LabResources\\Sample Documents\\Travel Packages** to **U:**. Use either File Explorer, or in **Windows Terminal**, PowerShell.
+1. Retry to copy **\\\\VN1-SRV6\\c$\\LabResources\\Sample Documents\\Travel Packages** to **U:**. Use either File Explorer, or in **Terminal**, PowerShell.
 
     ````powershell
     Copy-Item `
-        -Path '\\VN1-SRV2\c$\LabResources\Sample Documents\Travel Packages\' `
+        -Path '\\VN1-SRV6\c$\LabResources\Sample Documents\Travel Packages\' `
         -Destination U:\ `
         -Recurse `
         -Force
@@ -350,12 +351,12 @@ Perform this task on CL1.
 
     > The copy process should succeed now.
 
-1. Delete the folder **\\\\VN1-SRV2\\IT\\Travel Packages**.
+1. Delete the folder **\\\\VN1-SRV6\\IT\\Travel Packages**.
 
     ````powershell
-    Remove-Item '\\VN1-SRV2\IT\Travel Packages' -Recurse
+    Remove-Item '\\VN1-SRV6\IT\Travel Packages' -Recurse
 
-1. Switch to **Windows Terminal** and remove the mapped network drive.
+1. Switch to **Terminal** and remove the mapped network drive.
 
     ````powershell
     Remove-PSDrive -Name U
@@ -378,7 +379,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, expand **File Screening Management**, and click **File Screens**.
 1. In the context-menu of **File Screens**, click **Create File Screen...**.
 1. In Create File Screen, under **File screen path**, type **D:\\**.
@@ -392,11 +393,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to VN1-SRV2.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to VN1-SRV6.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Apply the file screen template **Block Executable Files** to **D:\\**.
@@ -423,15 +424,15 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Copy some ps1-files from **C:\\LabResources\\Solutions** to **\\\\VN1-SRV2\\Marketing**.
+1. Copy some ps1-files from **C:\\LabResources\\Solutions** to **\\\\VN1-SRV6\\Marketing**.
 
     > You will receive an 'Access denied' error message.
 
-1. In **\\\\VN1-SRV2\\Marketing** try to make a copy of any other file.
+1. In **\\\\VN1-SRV6\\Marketing** try to make a copy of any other file.
 
     > The process should succeed, which proves, that permissions are not the problem.
 
-1. Copy some ps1-files from **C:\\LabResources\\Solutions** to **\\\\VN1-SRV2\\IT**.
+1. Copy some ps1-files from **C:\\LabResources\\Solutions** to **\\\\VN1-SRV6\\IT**.
 
     > The process should succeed.
 
@@ -453,7 +454,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, expand **Classification Management** and click **Classification Properties**.
 1. In Classification Properties, double-click **Folder Usage**.
 1. In Edit Local Classification Property, in the table at the bottom, click the row marked with an asterisk.
@@ -463,11 +464,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV2**.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV6**.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Retrieve the property definition for **Folder Usage**
@@ -513,7 +514,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, expand **Classification Management**.
 1. In the context-menu of **Classification Properties**, click **Set Folder Management Properties...**.
 1. In Set Folder Management Properties, under **Property**, click **Folder Usage**.
@@ -532,11 +533,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV2**.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV6**.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. For **D:\\Shares\\Users**, set the folder usage property to **User Files**.
@@ -574,7 +575,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, expand **Classification Management**.
 1. In the context-menu of **Classification Properties**, click **Set Folder Management Properties...**
 1. In Set Folder Management Properties, under **Property**, ensure, **Access-Denied Assistance Message** is selected, and click the button **Add...**.
@@ -588,11 +589,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV2**.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV6**.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. For **D:\\Shares\\Users**, set the folder usage property to **User Files**.
@@ -614,12 +615,12 @@ Perform this task on CL1.
 
 Perform this task on CL2.
 
-1. In **File Explorer**, navigate to **\\\\VN1-SRV2**.
-1. In \\\\VN1-SRV2 double-click **Marketing**.
+1. In **File Explorer**, navigate to **\\\\VN1-SRV6**.
+1. In \\\\VN1-SRV6 double-click **Marketing**.
 
     > You should see a custom error message as in [figure 1].
 
-1. In \\\\VN1-SRV2 double-click **Finance**.
+1. In \\\\VN1-SRV6 double-click **Finance**.
 
     > You should see a custom error message as in [figure 2].
 
@@ -644,7 +645,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, expand **Classification Management** and click **Classification Properties**.
 1. In the context-menu of **Classification Properties**, click **Create local Property...**
 1. In Create Local Classification Property, in **Name**, type Confidentiality.
@@ -656,11 +657,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV2**.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV6**.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Create a new classification property definition named **Confidentiality** with the type **single chose**, and the possible values **Confidential**, **PII**, and **Secret**.
@@ -692,7 +693,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, expand **Classification Management** and click **Classification Rules**.
 1. In the context-menu of **Classification Rules**, click **Create Classification Rule...**
 1. In Create Classification Rule, under **Rule name**, type the rule name.
@@ -710,11 +711,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV2**.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV6**.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Create the classification rule with the values from the table.
@@ -750,7 +751,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, expand **Classification Management** and click **Classification Rules**.
 1. In the context-menu of **Classification Rules**, click **Run Classification With All Rules Now...**
 1. In Run Classification, click **Run classification in the backgroun** and click **OK**.
@@ -761,11 +762,11 @@ Wait until, in the bottom pane, the Status changes to **Running** and is empty a
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV2**.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV6**.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Start the classification
@@ -807,7 +808,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, click **Storage Reports Management**.
 1. In the context-menu of **Storage Reports Management**, click **Schedule a new Report Task...**.
 1. In Storage Reports Taks Properties, under **Report Name**, type **All reports**.
@@ -828,11 +829,11 @@ In **File Server Resource Manager**, wait until for **All reports** the **Last R
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to VN1-SRV2.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to VN1-SRV6.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Create a schedule for **every Monday** at **7:00**.
@@ -888,7 +889,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. In **File Explorer**, navigate to **\\\\VN1-SRV2\\IT\\StorageReports\\Interactive**.
+1. In **File Explorer**, navigate to **\\\\VN1-SRV6\\IT\\StorageReports\\Interactive**.
 1. Review each report.
 
     > Which files are confidential, secret, or contain PII?
@@ -913,7 +914,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, click **File Management Tasks**.
 1. In the context-menu of **File Management Tasks**, click **Create File Management Tasks...**
 1. In Create File Management Task, on the tab General, under **Task name**, type **Expire files with confidentiality level after 365 days** and click the tab **Scope**.
@@ -931,11 +932,11 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to VN1-SRV2.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to VN1-SRV6.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Create the folder **D:\\Archive**
@@ -1001,7 +1002,7 @@ Perform this task on CL1.
 
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In **File Server Resource Manager**, in the left pane, click **File Management Tasks**.
 1. In the context-menu of **Expire files with confidentiality level after 365 days**, click **Run File Management Task Now...**.
 1. In Run File Management Task, ensure **Run the task in the background (recommended)** is selected and click **OK**.
@@ -1012,11 +1013,11 @@ Wait until the column **Last Run Time** changes to the current date and time.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
-1. Open a remote PowerShell session to VN1-SRV2.
+1. Open **Terminal**.
+1. Open a remote PowerShell session to VN1-SRV6.
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Start the file management task **Expire files with confidentiality level after 365 days**.
@@ -1045,12 +1046,12 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. In **File Explorer**, navigate to **\\\\VN1-SRV2\\IT\\StorageReports\\Interactive**.
+1. In **File Explorer**, navigate to **\\\\VN1-SRV6\\IT\\StorageReports\\Interactive**.
 1. Find the latest HTML file with a name starting with **FileManagement-Expire files with confidentiality level after 365 days** and open it.
 
     > Which files expired?
 
-1. In **File Explorer**, navigate to **\\\\VN1-SRV2\\D$\\Archive** and review the folders and files.
+1. In **File Explorer**, navigate to **\\\\VN1-SRV6\\D$\\Archive** and review the folders and files.
 
 [figure 1]:/images/Access-Denied-Assistance-Message.png
 [figure 2]:/images/Access-Denied-Assistance-Message-folder.png

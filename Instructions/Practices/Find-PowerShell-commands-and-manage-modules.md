@@ -14,7 +14,7 @@ On CL1, find a command to create a new local user and display the help for it. D
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
+1. From the context-menu of **Start** (you can press WIN + X), launch **Terminal** as Administrator.
 1. Find a command to create a local user.
 
     ````powershell
@@ -60,7 +60,7 @@ Perform these steps on CL1.
 
     Do not wait for the command to complete, instead continue to the next step.
 
-1. In Windows Terminal, click **+** to open a new tab.
+1. In Terminal, click **+** to open a new tab.
 
 1. List the available modules
 

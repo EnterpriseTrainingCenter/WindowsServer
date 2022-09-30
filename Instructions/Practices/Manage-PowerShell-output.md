@@ -7,27 +7,27 @@
 
 ## Task
 
-On CL1, get all information about the running process of Windows Terminal. Start all services configured for automatic start but not currently running.
+On CL1, get all information about the running process of Terminal. Start all services configured for automatic start but not currently running.
 
 ## Instructions
 
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
-1. Find the Windows Terminal process
+1. From the context-menu of **Start** (you can press WIN + X), launch **Terminal** as Administrator.
+1. Find the Terminal process
 
     ````powershell
     Get-Process *terminal*
     ````
 
-1. Show detailed information about the Windows Terminal process
+1. Show detailed information about the Terminal process
 
     ````powershell
     Get-Process WindowsTerminal | Format-List
     ````
 
-1. Show more information about the Windows Terminal process
+1. Show more information about the Terminal process
 
     ````powershell
     Get-Process WindowsTerminal | Format-List *

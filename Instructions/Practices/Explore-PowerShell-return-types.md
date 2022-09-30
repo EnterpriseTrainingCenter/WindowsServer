@@ -14,7 +14,7 @@ On CL1, find cmdlet to receive running processes and installed services. Try the
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. From the context-menu of **Start** (you can press WIN + X), launch **Windows Terminal** as Administrator.
+1. From the context-menu of **Start** (you can press WIN + X), launch **Terminal** as Administrator.
 1. Find a cmdlet to receive a list of running processes.
 
     ````powershell

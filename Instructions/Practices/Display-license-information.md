@@ -3,19 +3,19 @@
 ## Required VMs
 
 * VN1-SRV1
-* CL1
 * VN1-SRV5
+* CL1
 
 ## Task
 
-Display help for the license manager tool and display the licensing information of VN1-SRV2.
+Display help for the license manager tool and display the licensing information of VN1-SRV6.
 
 ## Instructions
 
 Perform these steps on CL1.
 
 1. Sign in as **ad\\Administrator**.
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Open a remote PowerShell session to **VN1-SRV5**.
 
     ````powershell

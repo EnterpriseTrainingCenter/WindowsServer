@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV2
+* VN1-SRV6
 * CL1
 
 ## Task
@@ -15,11 +15,11 @@ Set the minimum file size for the large file report to 1MB. Set the location for
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. Run **Windows Terminal** as Administrator.
-1. Create a remote PowerShell session to **VN1-SRV2**
+1. Run **Terminal** as Administrator.
+1. Create a remote PowerShell session to **VN1-SRV6**
 
     ````powershell
-    Enter-PSSession VN1-SRV2
+    Enter-PSSession VN1-SRV6
     ````
 
 1. Set the minimum file size for the large file report to **1 MB**.

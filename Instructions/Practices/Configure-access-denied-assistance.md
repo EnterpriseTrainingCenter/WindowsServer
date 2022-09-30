@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV2
+* VN1-SRV6
 * CL1
 
 ## Task
@@ -17,7 +17,7 @@ Perform these steps on CL1.
 1. Sign in as **ad\Administrator**.
 1. Open **File Server Resource Manager**.
 1. In File Server Resource Manager, in the left pane, in the context menu of **File Server Resource Manager**, click **Connect to Another Computer...**
-1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV2**, and click **OK**.
+1. In Connect to Another Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
 1. In the context-menu of **File Server Resource Manager**, click **Configure Options...**
 1. In File Server Resource Manager Options, click the tab **Access-Denied Assistance**.
 1. On the tab Access-Denied Assistance, activate the checkbox **Enable access-deneid assistance**.

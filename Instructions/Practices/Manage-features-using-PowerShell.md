@@ -3,26 +3,26 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV3
 * VN1-SRV2
+* VN1-SRV4
 * VN1-SRV5
-* PM-SRV1
+* VN1-SRV6
 * CL1
 
 ## Task
 
-On CL1, use PowerShell to install the Windows Server Backup feature on VN1-SRV1, VN1-SRV3, VN1-SRV2, VN1-SRV5, and PM-SRV1.
+On CL1, use PowerShell to install the Windows Server Backup feature on VN1-SRV1, VN1-SRV2, VN1-SRV6, VN1-SRV5, and VN1-SRV4.
 
 ## Instructions
 
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. Open **Windows Terminal** as Administrator.
-1. Create an array variable with the server names VN1-SRV1, PM-SRV1, VN1-SRV2, VN1-SRV5, and VN1-SRV3.
+1. Open **Terminal** as Administrator.
+1. Create an array variable with the server names VN1-SRV1, VN1-SRV4, VN1-SRV6, VN1-SRV5, and VN1-SRV2.
 
     ````powershell
-    $computername = @('VN1-SRV1', 'VN1-SRV3', 'VN1-SRV2', 'VN1-SRV5', 'PM-SRV1')
+    $computername = @('VN1-SRV1', 'VN1-SRV2', 'VN1-SRV6', 'VN1-SRV5', 'VN1-SRV4')
     ````
 
 1. Query the installed features of the first server.

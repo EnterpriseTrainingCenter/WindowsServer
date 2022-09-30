@@ -3,13 +3,13 @@
 ## Required VMs
 
 * VN1-SRV1
-* PM-SRV1
-* VN1-SRV3
+* VN1-SRV4
+* VN1-SRV2
 * CL1
 
 ## Task
 
-On CL1, use Windows Admin Center to install the Certification Authority Web Enrollment role service on VN1-SRV3.
+On CL1, use Windows Admin Center to install the Certification Authority Web Enrollment role service on VN1-SRV2.
 
 ## Instructions
 
@@ -17,8 +17,8 @@ Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **VN1-SRV3.ad.adatum.com**.
-1. Connected to VN1-SRV3.ad.adatum.com, under **Tools**, click **Roles & features**.
+1. In Windows Admin Center, click **VN1-SRV2.ad.adatum.com**.
+1. Connected to VN1-SRV2.ad.adatum.com, under **Tools**, click **Roles & features**.
 1. In Roles and features, expand **Active Directory Certificate Service**.
 1. Activate the checkbox beside  **Certification Authority Web Enrollment** and click **Install**.
 1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically, if required** and click **Yes**.

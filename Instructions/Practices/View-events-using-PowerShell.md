@@ -14,7 +14,7 @@ On CL1, list the latest 20 events from the system log on VN1-SRV1. List all warn
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. Run **Windows Terminal**.
+1. Run **Terminal**.
 1. List the lastest 20 events from the system log on VN1-SRV1.
 
     ````powershell

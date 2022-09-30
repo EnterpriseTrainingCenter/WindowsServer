@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* PM-SRV1
+* VN1-SRV4
 * CL1
 
 ## Setup
@@ -84,7 +84,7 @@ Create the users according to the table above in the given organizational unit. 
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Set up parameter variables for the domain. This step is required once for all users.
 
     ````powershell
@@ -176,7 +176,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Set the parameter values for the user.
 
     ````powershell
@@ -246,7 +246,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Set up parameter variables for the user.
 
     ````powershell
@@ -384,7 +384,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Add users to group.
 
     ````powershell
@@ -430,7 +430,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Create the organizational unit **Organizational Groups** at the domain level.
 
     ````powershell
@@ -505,7 +505,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Define the location for the new group.
 
     ````powershell
@@ -568,7 +568,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Delete the group **Pilot Users**.
 
     ````powershell
@@ -596,7 +596,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Find the deleted group.
 
     ````powershell
@@ -653,7 +653,7 @@ Perform this task on CL2.
 
 #### PowerShell
 
-1. Open **Windows Terminal (Admin)**.
+1. Open **Terminal (Admin)**.
 1. Unjoin the computer from the domain.
 
     ````powershell
@@ -756,7 +756,7 @@ Perform this task on CL2.
 
 Perform this task on CL2.
 
-1. Open **Windows Terminal (Admin)**.
+1. Open **Terminal (Admin)**.
 1. Join the computer to the domain **ad.adatum.com**.
 
     ````powershell
@@ -816,7 +816,7 @@ Perform this task on CL2.
 
 1. Click **OK**.
 1. Login as **LocalAdmin**.
-1. Open **Windows Terminal (Admin)**.
+1. Open **Terminal (Admin)**.
 1. Reset the computer account password.
 
     ````powershell

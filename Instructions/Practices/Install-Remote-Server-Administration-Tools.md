@@ -34,7 +34,7 @@ Perform these steps on CL1.
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. In the context menu of **Start**, click **Windows Terminal (Admin)**.
+1. In the context menu of **Start**, click **Terminal (Admin)**.
 1. Add the windows capabilities
     * RSAT: Active Directory Domain Services and Lightweight Directory Services Tools
     * RSAT: File Services tools

@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* PM-SRV1
+* VN1-SRV4
 * VN1-SRV5
 * CL1
 * CL2
@@ -27,7 +27,7 @@ Perform these steps on CL1.
 1. In Locations, click **CL1** and click **OK**.
 1. In **Select Users, Computers Service Accounts**, in **Enter the object names to select**, type **LocalAdmin** and click **OK**.
 1. In **Administators Properties**, click **OK**.
-1. Run **Windows Terminal** as Administrator.
+1. Run **Terminal** as Administrator.
 1. Open a remote PowerShell session to CL2.
 
     ````powershell

@@ -3,20 +3,20 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV3
 * VN1-SRV2
+* VN1-SRV6
 * CL1
 
 ## Task
 
-On CL1, list the services on VN1-SRV1 with their status, name, display name, and start type. Stop the W32Time service on VN1-SRV1, VN1-SRV3, and VN1-SRV2 and disable it. Restart VN1-SRV1, VN1-SRV3, and VN1-SRV2 and verify the changes. Then set W32Time to start automatically and start it again.
+On CL1, list the services on VN1-SRV1 with their status, name, display name, and start type. Stop the W32Time service on VN1-SRV1, VN1-SRV2, and VN1-SRV6 and disable it. Restart VN1-SRV1, VN1-SRV2, and VN1-SRV6 and verify the changes. Then set W32Time to start automatically and start it again.
 
 ## Instructions
 
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. Run **Windows Terminal**.
+1. Run **Terminal**.
 1. List the services on VN1-SRV1, with their status, name, display name, and start type.
 
     ````powershell
@@ -34,18 +34,18 @@ Perform these steps on CL1.
     }
     ````
 
-1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV3, and VN1-SRV2. Format the output as table.
+1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV2, and VN1-SRV6. Format the output as table.
 
     ````powershell
     $name = 'W32Time'
-    $computername = @('VN1-SRV1', 'VN1-SRV3', 'VN1-SRV2')
+    $computername = @('VN1-SRV1', 'VN1-SRV2', 'VN1-SRV6')
     Invoke-Command -Computername $computername { 
         Get-Service -Name $using:name | Select-Object Name, Status, StartType 
     } | 
     Format-Table
     ````
 
-1. Stop the W32Time service on VN1-SRV1, VN1-SRV3, and VN1-SRV2.
+1. Stop the W32Time service on VN1-SRV1, VN1-SRV2, and VN1-SRV6.
 
     ````powershell
     Invoke-Command -ComputerName $computername {
@@ -53,7 +53,7 @@ Perform these steps on CL1.
     }
     ````
 
-1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV3, and VN1-SRV2. Format the output as table.
+1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV2, and VN1-SRV6. Format the output as table.
 
     ````powershell
     Invoke-Command -Computername $computername { 
@@ -64,7 +64,7 @@ Perform these steps on CL1.
 
     The status should be stopped on all computers.
 
-1. Set the start type of the W32Time service to **Disabled** on VN1-SRV1, VN1-SRV3, and VN1-SRV2.
+1. Set the start type of the W32Time service to **Disabled** on VN1-SRV1, VN1-SRV2, and VN1-SRV6.
 
     ````powershell
     Invoke-Command -ComputerName $computername { 
@@ -72,7 +72,7 @@ Perform these steps on CL1.
     }
     ````
 
-1. Restart VN1-SRV1, VN1-SRV3, and VN1-SRV2.
+1. Restart VN1-SRV1, VN1-SRV2, and VN1-SRV6.
 
     ````powershell
     Invoke-Command -ComputerName $computername { Restart-Computer -Force }
@@ -80,7 +80,7 @@ Perform these steps on CL1.
 
     Wait until the logon screen appears on VN1-SRV1.
 
-1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV3, and VN1-SRV2. Format the output as table.
+1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV2, and VN1-SRV6. Format the output as table.
 
     ````powershell
     Invoke-Command -Computername $computername { 
@@ -91,7 +91,7 @@ Perform these steps on CL1.
 
     The status should be stopped on all computers.
 
-1. Set the start type of the W32Time service to **Automatic** on VN1-SRV1, VN1-SRV3, and VN1-SRV2.
+1. Set the start type of the W32Time service to **Automatic** on VN1-SRV1, VN1-SRV2, and VN1-SRV6.
 
     ````powershell
     Invoke-Command -ComputerName $computername { 
@@ -99,7 +99,7 @@ Perform these steps on CL1.
     }
     ````
 
-1. Start the W32Time service on VN1-SRV1, VN1-SRV3, and VN1-SRV2.
+1. Start the W32Time service on VN1-SRV1, VN1-SRV2, and VN1-SRV6.
 
     ````powershell
     Invoke-Command -ComputerName $computername {
@@ -107,7 +107,7 @@ Perform these steps on CL1.
     }
     ````
 
-1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV3, and VN1-SRV2. Format the output as table.
+1. Verify the status and start type of the W32Time service on VN1-SRV1, VN1-SRV2, and VN1-SRV6. Format the output as table.
 
     ````powershell
     Invoke-Command -Computername $computername { 
