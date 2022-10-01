@@ -98,6 +98,13 @@ Perform this task on CL1.
 1. Click **Change...**.
 1. Click the organizational unit for the new user and click **Select**.
 1. Click **Create**.
+1. In **Search Active Directory**, type parts of the user name and click **Search**.
+1. Click the user.
+1. Click **Properties**.
+1. In User properties: ..., under **User UPN logon**, type **First name**, followed by **@ad.adatum.com**
+1. Click **Save**.
+1. Click **Close**.
+
 
 #### PowerShell
 
