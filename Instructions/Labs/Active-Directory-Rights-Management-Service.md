@@ -37,13 +37,13 @@
 
 ## Introduction
 
+To prevent leaks of confidential documents from your organization, you configure an Active Directory Rights Management Cluster and verify its operation.
 
 ## Exercises
 
 1. [Create an Active Directory Rights Management Cluster](#exercise-1-create-an-active-directory-rights-management-cluster)
 1. [Configure the Active Directory Rights Management Cluster](#exercise-2-configure-active-directory-rights-management)
-1. Validate Active Directory Rights Management
-1. Monitor the Rights Management Usage
+1. [Validate Active Directory Rights Management](#exercise-3-validate-active-directory-rights-management)
 
 ## Exercise 1: Create an Active Directory Rights Management Cluster
 
@@ -802,8 +802,8 @@ Perform this task on VN2-SRV1.
 
 ## Exercise 3: Validate Active Directory Rights Management
 
-1. Protect a document as **Ilga**
-1. Verify the access by an authorized user **Max**
+1. [Protect a document](#task-1-protect-a-document) as **Ilga**
+1. [Verify the access by an authorized user](#task-2-verify-the-access-by-an-authorized-user) **Max**
 
     > Can Max open the document?
 
@@ -811,18 +811,18 @@ Perform this task on VN2-SRV1.
 
     > Can Max print the document?
 
-1. Verify unauthorized users cannot access the document as **Lara** and **Administrator**
+1. [Verify unauthorized users cannot access the document](#task-3-verify-an-unauthorized-user-cannot-access-the-document) as **Lara** and **Administrator**
 
     > Can the Lara or Administrator open the document?
 
     > Can the Lara copy the file?
 
-1. Enable super users and configure **IT** as super users
-1. Verify the access by super users, use **Lara**
+1. [Enable super users](#task-4-enable-super-users) and configure **IT** as super users
+1. [Verify the access by super users](#task-5-verify-the-access-by-super-users), use **Lara**
 
     > Can Lara remove the restrictions?
 
-1. Disable super users
+1. [Disable super users](#task-6-disable-super-users)
 
 ### Task 1: Protect a document
 
