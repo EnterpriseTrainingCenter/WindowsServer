@@ -22,4 +22,5 @@ The instructions are to be used in conjunction with the original presentation sl
 
 1. [Explore Windows Admin Center](Labs/Explore-Windows-Admin-Center.md)
 1. [Audit file server events](Labs/Audit-file-server-events.md)
+1. [Active Directory Rights Management Service](Labs/Active-Directory-Rights-Management-Service.md)
 1. [File server resource management](Labs/File-server-resource-management.md)
