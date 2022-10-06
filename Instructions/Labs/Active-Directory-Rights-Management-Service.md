@@ -19,7 +19,7 @@
     ````powershell
     C:\LabResources\Solutions\Set-CertTemplatePermissions.ps1 `
         -Template WebServer `
-        -ComputerName VN2-SRV1, VN2-SRV2 `
+        -ComputerName 'VN2-SRV1', 'VN2-SRV2' `
         -Verbose
     
     Get-ADUser -Filter * | ForEach-Object { 
@@ -125,7 +125,8 @@ Perform this task on CL1.
     $user = New-ADUser `
         -Path $organizationalUnit.DistinguishedName `
         -Name 'Active Directory Rights Management Service Account' `
-        -UserPrincipalName 'SvcRMS@ad.adatum.com' -SamAccountName SvcRMS `
+        -UserPrincipalName 'SvcRMS@ad.adatum.com' `
+        -SamAccountName SvcRMS `
         -PasswordNeverExpires $true `
         -PassThru
     ````
@@ -274,7 +275,7 @@ Perform this task on CL1.
         -Value 1
     $gpo | Set-GPRegistryValue `
         -Key "$key\ZoneMap\Domains\adatum.com\*.ad" `
-        -ValueName 'https' `
+        -ValueName '' `
         -Type DWord `
         -Value 1
     ````
@@ -298,8 +299,7 @@ Perform this task on CL1.
 1. On the page **Server Selection**, click **VN2-SRV1.ad.adatum.com** and click **Next >**.
 1. On the page **Server Roles**, activate the checkbox next to **Active Directory Rights Management Services**
 1. In the dialog **Add Roles and Features Wizard**, click **Add Features**.
-1. On the page **Server Roles**, expand **Web Server (IIS)**, **Management Tools**
-1. Activate the checkbox **IIS Management Console** and click **Next >**.
+1. On the page click **Next >**.
 1. On the page **Features**, click **Next >**.
 1. On the page **AD RMS**, click **Next >**.
 1. On the page **Role Services**, click **Next >**.
@@ -421,7 +421,7 @@ Perform this task on CL1.
 1. On page **Cluster Web Site**, click **Next >**.
 1. On page **Cluster Address**, ensure **Use an SSL-encrypted connection (https://)** is selected. Under Fully-Qualified Domain Name, type **rms.ad.adatum.com**.
 1. On page **Server certificate**, click the certificate **Issued To** **rms.ad.adatum.com** and click **Next >**.
-1. On page **Licensor Certificate**, in **Name**, type **AD-RMS-Server-Licensor** and click **Next >**.
+1. On page **Licensor Certificate**, in **Name**, type **Adatum-RMS-Server-Licensor-Certificate** and click **Next >**.
 1. On page **SCP Registration**, ensure **Register the SCP now** is selected and click **Next >**.
 1. On page **Confirmation**, click **Install**.
 1. On page **Results**, click **Close**.
@@ -431,11 +431,20 @@ Perform this task on CL1.
 Perform this task on VN2-SRV1.
 
 1. Run **Windows PowerShell (Administrator)**.
-1. Import the module **ADRM** and create a new PowerShell drive with the provider **ADRMSInstall**, the name **RC** and the root **RootCluster**.
+1. Import the module **ADRMS** and create a new PowerShell drive with the provider **ADRMSInstall**, the name **RC** and the root **RootCluster**.
 
     ````powershell
     Import-Module ADRMS
     New-PSDrive -PSProvider ADRMSInstall -Name RC -Root RootCluster
+    ````
+
+1. Configure the AD RMS server to use **rmsdb.ad.adatum.com** as database server.
+
+    ````powershell
+    Set-ItemProperty `
+        –Path RC:\ClusterDatabase `
+        -Name ServerName `
+        -Value rmsdb.ad.adatum.com
     ````
 
 1. Set the credentials for the service account.
@@ -447,24 +456,40 @@ Perform this task on VN2-SRV1.
 
     In **Windows PowerShell credential request**, enter the credentials for **ad\svcrms**.
 
-1. Configure the AD RMS server to use **rmsdb.ad.adatum.com** as database server.
+1. Configure the cryptographic mode.
 
     ````powershell
-    Set-ItemProperty –Path RC:\ClusterDatabase -Name ServerName -Value rmsdb.ad.adatum.com
+    Set-ItemProperty `
+            -Path RC:\CryptoSupport `
+            -Name SupportCryptoMode2 `
+            -Value $true
     ````
 
-1. Securely store the cluster key password string in a variable.
+1. Configure the cluster key storage.
 
     ````powershell
-    $password = Read-Host -AsSecureString -Prompt "Cluster Key Password"
+    Set-ItemProperty `
+        -Path RC:\ClusterKey `
+        -Name UseCentrallyManaged `
+        -Value $true
     ````
-
-    When prompted for the **Cluser Key Password**, enter a long and secure password. Take a note of the password.
 
 1. Assign the cluster key password to your AD RMS installation.
 
     ````powershell
+    $password = Read-Host -AsSecureString -Prompt 'Cluster Key Password'
     Set-ItemProperty -Path RC:\ClusterKey -Name CentrallyManagedPassword -Value $password
+    ````
+
+    When prompted for the **Cluser Key Password**, enter a long and secure password. Take a note of the password.
+
+1. Select **Default Web Site** as the cluster web site.
+
+    ````powershell
+    Set-ItemProperty `
+        -Path RC:\ClusterWebSite `
+        -Name WebSiteName `
+        -Value 'Default Web Site'
     ````
 
 1. Set the AD RMS cluster address to **https://rms.ad.adatum.com**.
@@ -473,28 +498,10 @@ Perform this task on VN2-SRV1.
     Set-ItemProperty `
         -Path RC:\ `
         -Name ClusterURL `
-        -Value "https://rms.ad.adatum.com"
+        -Value 'https://rms.ad.adatum.com'
     ````
 
-1. Set the Server Licensor certificate name for your AD RMS installation.
-
-    ````powershell
-    Set-ItemProperty -Path RC:\ -Name SLCName -Value "AD-RMS-Server-Licensor"
-    ````
-
-1. Register the SCP connection point
-
-    ````powershell
-    Set-ItemProperty -Path RC:\ -Name RegisterSCP -Value $true
-    ````
-
-1. Install the AD RMS root cluster using the settings provided.
-
-    ````powershell
-    Install-ADRMS -Path RC:\ -Force
-    ````
-
-1. Get the longest lasting certificate with a subject eqal to **CN=rms.ad.adatum.com**
+1. Set the cluster certificate to the longest lasting certificate with a subject equal to **CN=rms.ad.adatum.com**
 
     ````powershell
     $now = Get-Date
@@ -507,13 +514,37 @@ Perform this task on VN2-SRV1.
         } | 
         Sort-Object NotAfter -Descending |
         Select-Object -First 1
+
+    Set-ItemProperty `
+        -Path RC:\SSLCertificateSupport `
+        -Name SSLCertificateOption `
+        -Value Existing
+
+    Set-ItemProperty `
+        -Path RC:\SSLCertificateSupport `
+        -Name Thumbprint `
+        -Value $certificate.Thumbprint
     ````
 
-1. Bind the certificate to the **Default Web Site**.
+1. Set the Server Licensor Certificate name for your AD RMS installation.
 
     ````powershell
-    $binding = Get-WebBinding -Name 'Default Web Site' -Protocol https -Port 443
-    $binding.AddSslCertificate($certificate.GetCertHashString(), 'my')
+    Set-ItemProperty `
+        -Path RC:\ `
+        -Name SLCName `
+        -Value 'Adatum-RMS-Server-Licensor-Certificate'
+    ````
+
+1. Register the SCP connection point
+
+    ````powershell
+    Set-ItemProperty -Path RC:\ -Name RegisterSCP -Value $true
+    ````
+
+1. Install the AD RMS root cluster using the settings provided.
+
+    ````powershell
+    Install-ADRMS -Path RC:\ -Force
     ````
 
 ### Task 7: Request a web server certificate
@@ -628,7 +659,10 @@ Perform this task on CL1.
 1. Assign the cluster key password to your AD RMS installation.
 
     ````powershell
-    Set-ItemProperty -Path RC:\ClusterKey -Name CentrallyManagedPassword -Value $password
+    Set-ItemProperty `
+        -Path RC:\ClusterKey `
+        -Name CentrallyManagedPassword `
+        -Value $password
     ````
 
 1. Install the AD RMS root cluster using the settings provided.
@@ -723,9 +757,9 @@ Perform this task on VN2-SRV1.
 
 1. Open **Active Directory Rights Management Services**.
 1. In Active Directory Rights Management Services, expand **vn2-srv1 (Local)**, **Trust Policies** and click **Trusted Publishing Domain**.
-1. In Trusted Publishing Domains, in the context menu of **AD-RMS-Server-Licensor**, click **Export Trusted Publishing Domain...**.
+1. In Trusted Publishing Domains, in the context menu of **Adatum-RMS-Server-Licensor-Certificate**, click **Export Trusted Publishing Domain...**.
 1. In Export Trusted Publishing Domain, click **Save As...**
-1. In Export Trusted Publishing Domain File As..., save the file as **\\\\VN1-SRV6\\IT\\AD-RMS-Server-Licensor**.
+1. In Export Trusted Publishing Domain File As..., save the file as **\\\\VN1-SRV6\\IT\\Adatum-RMS-Server-Licensor-Certificate**.
 1. In **Export Trusted Publishing Domain**, in **Password** and **Confirm Password**, enter a secure password.
 1. Click **Finish**.
 
@@ -734,7 +768,7 @@ Perform this task on VN2-SRV1.
 Perform this task on VN2-SRV1.
 
 1. Run **Windows PowerShell** as Administrator.
-1. Import the **ADRMSAdmin** module and create a PowerShell Drive using the **AdRMSAdmin** provider and **https://vn2-srv1** as root.
+1. Import the **ADRMSAdmin** module and create a PowerShell Drive using the **ADRMSAdmin** provider and **https://vn2-srv1** as root.
 
     ````powershell
     Import-Module AdRmsAdmin
@@ -745,10 +779,10 @@ Perform this task on VN2-SRV1.
 
     ````powershell
     $tpd = Get-ChildItem RMS:\TrustPolicy\TrustedPublishingDomain\ |
-        Where-Object { $PSItem.DisplayName -eq 'AD-RMS-Server-Licensor' }
+        Where-Object { $PSItem.DisplayName -eq 'Adatum-RMS-Server-Licensor-Certificate' }
     Export-RmsTPD `
         -Path "RMS:\TrustPolicy\TrustedPublishingDomain\$($tpd.Id)" `
-        -SavedFile '\\vn1-srv6\IT\AD-RMS-Server-Licensor.xml'
+        -SavedFile '\\vn1-srv6\IT\Adatum-RMS-Server-Licensor-Certificate.xml'
     ````
 
     At the prompt **Password** and **Please type in a confirmed password**, enter a secure password.
