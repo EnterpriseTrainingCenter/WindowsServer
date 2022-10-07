@@ -900,11 +900,13 @@ Perform this task on CL1.
 
 ## Exercise 6: Create a file management task
 
-1. Create a file management task to archive files with any confidentiality level 365 days after they have been last modified to D:\Archive.
-1. Run the file management task
-1. Review the results of the file management task
+1. [Create a file management task to archive files](#task-1-create-a-file-management-tasks-to-archive-files) with any confidentiality level 365 days after they have been last modified to D:\Archive.
+1. [Run the file management task](#task-2-run-the-file-management-task)
+1. [Review the results of the file management task](#task-3-review-the-results-of-the-file-management-task)
 
-### Task 1: Create a file management task
+    > Which files expired?
+
+### Task 1: Create a file management tasks to archive files
 
 Note: In real world, it would be recommended to configure notifications. Because notifications would cause the files to not being expired for some time, notifications will not be used in this lab. However, you may want to review the settings for notifications.
 
@@ -1024,14 +1026,17 @@ Perform this task on CL1.
 
     ````powershell
     $name = 'Expire files with confidentiality level after 365 days'
-    Start-FsrmFileManagementJob -Name $name
+    Start-FsrmFileManagementJob `
+        -Name $name `
+        -Confirm:$false
     ````
 
 1. Under **Confirm**, enter **y**.
 1. Retrieve the status of the file management task.
 
     ````powershell
-    Get-FsrmFileManagementJob -Name $name
+    Get-FsrmFileManagementJob -Name $name | 
+    Select-Object Name, LastRun, LastError
     ````
 
     Repeat this step until **LastRun** changes to the current date and time.
@@ -1050,8 +1055,6 @@ Perform this task on CL1.
 1. Find the latest HTML file with a name starting with **FileManagement-Expire files with confidentiality level after 365 days** and open it.
 
     > Which files expired?
-
-1. In **File Explorer**, navigate to **\\\\VN1-SRV6\\D$\\Archive** and review the folders and files.
 
 [figure 1]:/images/Access-Denied-Assistance-Message.png
 [figure 2]:/images/Access-Denied-Assistance-Message-folder.png
