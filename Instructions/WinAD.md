@@ -6,10 +6,10 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Practices
 
+1. [Verify the SYSVOL replication mode](Practices/Verify-the-sysvol-replication-mode.md)
 1. [Update the Active Directory schema](Practices/Update-the-active-directory-schema.md)
-1. Verify the SYSVOL replication mode
 1. Create a Managed Service Account
-1. Explore Time-limited Group Membership
+1. Explore time-limited group membership
 1. Configure a Service Principal Name
 1. Configure Kerberos Constrained Delegation
 
