@@ -7,7 +7,6 @@ The instructions are to be used in conjunction with the original presentation sl
 ## Practices
 
 1. [Update the Active Directory schema](Practices/Update-the-active-directory-schema.md)
-1. Verify the domain and forest functional level
 1. Verify the SYSVOL replication mode
 1. Create a Managed Service Account
 1. Explore Time-limited Group Membership
@@ -16,7 +15,7 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Labs
 
-1. Deploying domain controllers
+1. [Deploying domain controllers](Labs/Deploying-domain-controllers.md)
 1. Deploying a forest, child domains and trees
 1. Deploying and managing read-only domain controllers
 1. Managing reeplication
