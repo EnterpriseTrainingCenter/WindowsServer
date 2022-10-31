@@ -19,7 +19,7 @@ Perform these steps on the host.
 Perform these steps on VN1-CL1.
 
 1. Logon as **ad\Administrator**.
-1. Open **Windows Terminal**.
+1. Open **Terminal**.
 1. Prepare the forest for the latest version of Windows Server.
 
     ````powershell
