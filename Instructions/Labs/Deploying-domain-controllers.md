@@ -288,7 +288,7 @@ Perform this task on CL1.
 1. Shut down **VN1-SRV1**.
 
     ````powershell
-    shutdown /s /m \\vn1-srv1
+    Stop-Computer -ComputerName VN1-SRV1
     ````
 
 ## Exercise 4: Raise the domain and forest functional level
