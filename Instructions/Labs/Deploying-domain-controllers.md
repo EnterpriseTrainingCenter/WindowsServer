@@ -111,7 +111,7 @@ Perform this task on CL1.
 1. In Active Directory Domain Services Configuration Wizard, on page Deployment Configuration, ensure **Add a domain controller to an existing domain** is selected. In **Domain**, ensure **ad.adatum.com** is filled in. Beside **\<No credentials provided\>**, click **Change...**.
 1. In the dialog Credentials for deployment operation, enter the credentials for **Administrator@ad.adatum.com** and click **OK**.
 1. On page **Deployment Configuration**, click **Next >**.
-1. On page **Domain Controller Options**, ensure **Domain Name System (DNS) server** and **Global Catalog (GC)** are activated. Under **Type the Directory Services Restore Mode (DSRM) password**, in **Password** and **Confirm password**, type a secure password and take a note. You will need the password for a later lab. Click **Next >**.
+1. On page **Domain Controller Options**, ensure **Domain Name System (DNS) server** is activated and deactivate **Global Catalog (GC)**. Under **Type the Directory Services Restore Mode (DSRM) password**, in **Password** and **Confirm password**, type a secure password and take a note. You will need the password for a later lab. Click **Next >**.
 1. On page DNS Options, click **Next >**.
 1. On page **Additional Options**, click **Next >**.
 1. On page **Paths**, click **Next >**.
@@ -211,7 +211,7 @@ Perform this task on VN2-SRV1.
 1. Under PROPERTIES for VN2-SRV1, beside **Ethernet**, click **10.1.2.8, IPv6 enabled**.
 1. In Network Connections, in the context-menu of **Ethernet**, click **Properties**.
 1. In Ethernet Properties, click **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
-1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DN server**, type **10.1.1.56** and click **OK**.
+1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.1.56**, in **Alternate DNS server**, type **127.0.0.1**, and click **OK**.
 1. In **Ethernet Properties**, click **Close**.
 1. Sign out.
 
@@ -296,6 +296,8 @@ Perform this task on CL1.
 
 ### Task 1: Transfer the domain-wide flexible single master operation roles
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Users and Computers**.
@@ -315,7 +317,27 @@ Perform this task on CL1.
 1. In the message box **The operations master role was successfully transferred.**, click **OK**.
 1. In **Operations Masters**, click **Close**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Move the roles **RID master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV7**.
+
+    ````powershell
+    Move-ADDirectoryServerOperationMasterRole `
+        -Identity VN1-SRV7 `
+        -OperationMasterRole `
+            RIDMaster, InfrastructureMaster, PDCEmulator
+    ````
+
+1. At the prompt **Do you want to move role 'RIDMaster' to server 'VN1-SRV7.ad.adatum.com' ?**, enter **y**.
+1. At the prompt **Do you want to move role 'InfrastructureMaster' to server 'VN1-SRV7.ad.adatum.com' ?**, enter **y**.
+1. At the prompt **Do you want to move role 'PDCEmulator' to server 'VN1-SRV7.ad.adatum.com' ?**, enter **y**.
+
 ### Task 2: Transfer the forest-wide flexible single master operation roles
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -353,6 +375,18 @@ Perform this task on CL1.
 1. In the message box **Operations Master successfully transferred.**, click **OK**.
 1. In **Operations Master**, click **Close**.
 
+#### PowerShell
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Move the roles **domain naming master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV7**.
+
+    ````powershell
+    Move-ADDirectoryServerOperationMasterRole `
+        -Identity VN1-SRV7 `
+        -OperationMasterRole DomainNamingMaster, SchemaMaster `
+        -Confirm:$false
+    ````
+
 ## Exercise 4: Decomission a domain controller
 
 1. [Change the IP address of the domain controller to decommission](#task-1-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200
@@ -363,6 +397,8 @@ Perform this task on CL1.
 Note: In this exercise, we add the IP address of the decommissioned domain controller to the new domain controller, so we do not have to reconfigure the DNS client settings on the other computers on the network. If all computers use DHCP, you could reconfigure the DHCP option DNS server instead. You would do this before task 1 and then wait for the DHCP lease period to expire before proceeding. Moreover, you would skip task 2.
 
 ### Task 1: Change the IP address of the domain controller to decommission
+
+#### SConfig
 
 Perform this task on VN1-SRV1.
 
@@ -389,11 +425,29 @@ Perform this task on VN1-SRV1.
 1. In Server Configuration, enter **12**.
 1. In message box **Are you sure to log off?**, click **Yes**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Remove the IP address **10.1.1.8** and add the IP address **10.1.1.200** with the prefix length of **24**.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV1 -ScriptBlock {
+        Remove-NetIPAddress `
+            -InterfaceAlias Ethernet -IPAddress 10.1.1.8 -Confirm: $false
+        New-NetIPAddress `
+            -InterfaceAlias Ethernet -IPAddress 10.1.1.200 -PrefixLength 24
+    }
+    ````
+
+    Note: During execution of the command, the network connection to VN1-SRV1 will be dropped. If the command takes too long to execute, you may cancel the command by pressing **CTRL + C**.
+
 ### Task 2: Add the IP address of the decommissioned domain controller to the new domain controller
 
 Perform this task on CL1.
 
-1. Open **Terminal**.
+1. In the context menu of **Start**, click **Terminal**.
 1. Open a remote PowerShell session to **VN1-SRV7**.
 
     ````powershell
@@ -408,13 +462,15 @@ Perform this task on CL1.
     New-NetIPAddress -InterfaceAlias Ethernet -IPAddress 10.1.1.8
     ````
 
-1. Exit form the remote PowerShell session.
+1. Exit from the remote PowerShell session.
 
     ````powershell
     Exit-PSSession
     ````
 
 ### Task 3: Demote the old domain controller
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -434,7 +490,40 @@ Perform this task on CL1.
 1. On page Review Options, click **Demote**.
 1. On page Results, click **Close**.
 
+#### PowerShell
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV1**.
+
+    ````powershell
+    Enter-PSSession -ComputerName VN1-SRV1
+    ````
+
+1. Clear the DNS client cache.
+
+    ````powershell
+    Clear-DnsClientCache
+    ````
+
+1. Demote the domain controller.
+
+    ````
+    Uninstall-ADDSDomainController
+    ````
+
+1. At the prompts **LocalAdministratorPassword** and **Confirm LocalAdministratorPassword** enter a secure password and take a note.
+1. At the prompt **The server will be automatically restarted when this operation is complete. The domain will no longer exist after you uninstall Active Directory Domain Services from the last domain controller in the domain.**, enter **y**.
+1. Exit from the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
+    Note: You may receive an error message **Command 'Exit-PSSession' was not run as the session in which it was intended to run was either closed or broken**. This is normal due to the restart of VN1-SRV1 and can be ignored.
+
 ### Task 4: Remove roles from the decommissioned domain controller
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -460,6 +549,25 @@ Perform this task on CL1.
     Stop-Computer -ComputerName VN1-SRV1
     ````
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Uninstall the features **Active Directory Domain Services**, **DNS** and **File Server** from **VN1-SRV1**.
+
+    ````powershell
+    Uninstall-WindowsFeature `
+        -Name AD-Domain-Services, DNS, FS-FileServer `
+        -ComputerName VN1-SRV1
+    ````
+
+1. Shut down VN1-SRV1.
+
+    ````powershell
+    Stop-Computer -ComputerName VN1-SRV1
+    ````
+
 ## Exercise 5: Raise the domain and forest functional level
 
 1. Raise the domain functional level
@@ -472,6 +580,8 @@ Perform this task on CL1.
 
 ### Task 1: Raise the domain functional level
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
@@ -481,7 +591,22 @@ Perform this task on CL1.
 
 1. In Raise domain function level, click **Cancel**.
 
+#### PowerShell
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Set the domain mode to Windows Server 2016.
+
+    ````powershell
+    Set-ADDomainMode -Identity ad.adatum.com -DomainMode Windows2016Domain
+    ````
+
+    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level.
+
+1. At the prompt **Performing the operation "Set" on target "DC=ad,DC=adatum,DC=com".**, enter **y**.
+
 ### Task 2: Raise the forest functional level
+
+#### Destkop experience
 
 Perform this task on CL1.
 
@@ -491,3 +616,25 @@ Perform this task on CL1.
     > The highest possible forest functional level is Windows Server 2016. The forest is already at that level.
 
 1. In Raise domain function level, click **Cancel**.
+
+#### PowerShell
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Set the forest mode to Windows Server 2016.
+
+    ````powershell
+    Set-ADForestMode -Identity ad.adatum.com -DomainMode Windows2016Forest
+    ````
+
+1. At the prompt **Performing the operation "Set" on target "CN=Partitions,CN=Configuration,DC=ad,DC=adatum,DC=com".**, enter **y**.
+
+    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level. Therefore, you will receive an error message.
+
+1. Check the forest mode.
+
+    ````powershell
+    Get-ADForest
+    ````
+
+    > The value for ForestMode should be Windows2016Forest.
+
