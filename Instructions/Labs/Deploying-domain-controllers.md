@@ -19,8 +19,9 @@ The domain controller still running Windows Server 2019 must be replaced by a Wi
 
 1. [Deploy additional domain controllers](#exercise-1-deploy-additional-domain-controllers)
 1. [Check domain controller health](#exercise-2-check-domain-controller-health)
-1. [Decomission a domain controller]
-1. Raise domain and forest functional level
+1. [Transfer flexible single master operation roles]
+1. [Decomission a domain controller](#exercise-4-decomission-a-domain-controller)
+1. [Raise domain and forest functional level](#exercise-5-raise-the-domain-and-forest-functional-level)
 
 ## Exercise 1: Deploy additional domain controllers
 
@@ -57,7 +58,6 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. Logon as **ad\Administrator**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
 1. Add the windows capabilities **RSAT: Server DNS Server tools**.
 
@@ -67,6 +67,8 @@ Perform these steps on CL1.
     ````
 
 ### Task 2: Install Active Directory Domain Services
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -83,9 +85,24 @@ Perform this task on CL1.
 1. On page **Confirmation**, click **Install**.
 1. On page **Results**, click **Close**.
 
-Repeat these steps, but on page **Server Select**, click **VN2-SRV1**.
+Repeat these steps, but in step 5, on page **Server Selection**, click **VN2-SRV1**.
+
+#### PowerShell
+
+Peform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Install the windows feature **Active Directory Domain Services** on **VN1-SRV7** and **VN2-SRV1**.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV7, VN2-SRV1 -ScriptBlock {
+        Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+    }
+    ````
 
 ### Task 3: Configure Active Directory Domain Services as an additional domain controller in an existing domain
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -107,7 +124,43 @@ Perform this task on CL1.
 
 Repeat these steps to promote VN2-SRV1 to a domain controller.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Store the credential for an Enterprise Admin in a variable.
+
+    ````powershell
+    $credential = Get-Credential
+    ````
+
+1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
+1. Store the Directory Services Restore Mode (DSRM) password in a variable.
+
+    ````powershell
+    $safeModeAdministratorPassword = Read-Host `
+        -Prompt 'Directory Services Restore Mode (DSRM) password' `
+        -AsSecureString
+    ````
+
+1. Promote **VN1-SRV7** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV7, VN2-SRV1 -ScriptBlock {
+    Install-ADDSDomainController `
+            -DomainName ad.adatum.com `
+            -Credential $using:credential `
+            -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
+            -InstallDns 
+    }
+    ````
+
+1. On the prompts **The target server will be configured as a domain controller and restarted when this operation is complete.**, enter **y**.
+
 ### Task 4: Configure DNS client settings using core experience
+
+#### SConfig
 
 Perform this task on VN1-SRV7.
 
@@ -115,13 +168,41 @@ Perform this task on VN1-SRV7.
 1. In SConfig, enter **8**.
 1. In Network settings, enter **1**.
 1. In Network adapter settings, enter **2**.
-1. Beside Enter new preferred DNS server, enter the value from the table above.
+1. Beside Enter new preferred DNS server, enter **10.1.2.8**.
 1. Beside Enter alternate DNS server, enter **127.0.0.1**.
 1. Press ENTER to continue.
 1. In SConfig, enter **12**.
 1. Beside Are you sure you want to log off, enter **y**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Create a CIM session to **VN1-SRV7**.
+
+    ````powershell
+    $cimSession = New-CimSession -ComputerName VN1-SRV7
+    ````
+
+1. Set the DNS client server address for **VN1-SRV7** to **10.1.2.8** and **127.0.0.1**.
+
+    ````powershell
+    Set-DnsClientServerAddress `
+        -InterfaceAlias Ethernet `
+        -ServerAddresses 10.1.2.8, 127.0.0.1 `
+        -CimSession $cimSession
+    ````
+
+1. Close and remove the CIM session.
+
+    ````powershell
+    Remove-CimSession $cimSession
+    ````
+
 ### Task 5: Configure DNS client settings using desktop experience
+
+#### Desktop experience
 
 Perform this task on VN2-SRV1.
 
@@ -133,6 +214,30 @@ Perform this task on VN2-SRV1.
 1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DN server**, type **10.1.1.56** and click **OK**.
 1. In **Ethernet Properties**, click **Close**.
 1. Sign out.
+
+#### PowerShell
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Create a CIM session to **VN2-SRV1**.
+
+    ````powershell
+    $cimSession = New-CimSession -ComputerName VN2-SRV1
+    ````
+
+1. Set the DNS client server address for **VN2-SRV1** to **10.1.1.56** and **127.0.0.1**.
+
+    ````powershell
+    Set-DnsClientServerAddress `
+        -InterfaceAlias Ethernet `
+        -ServerAddresses 10.1.1.56, 127.0.0.1 `
+        -CimSession $cimSession
+    ````
+
+1. Close and remove the CIM session.
+
+    ````powershell
+    Remove-CimSession $cimSession
+    ````
 
 ## Exercise 2: Check domain controller health
 
@@ -184,7 +289,71 @@ Perform this task on CL1.
 
     > Review any warnings, if present.
 
-## Exercise 3: Decomission a domain controller
+## Exercise 3: Transfer flexible single master operation roles
+
+1. Transfer the domain-wide flexible single master operation roles
+1. Transfer the forest-wide flexible single master operation roles
+
+### Task 1: Transfer the domain-wide flexible single master operation roles
+
+Perform this task on CL1.
+
+1. Open **Active Directory Users and Computers**.
+1. In Active Directory Users and Computers, in the context-menu of **ad.adatum.com**, click **Change Domain Controller...**.
+1. In Change Directory Server, click **VN1-SRV7.ad.adatum.com** and click **OK**.
+1. In the context-menu of **ad.adatum.com**, click **Operations Masters...**
+1. In Operations Masters, on the tab **RID**, click **Change...**
+1. In the message box **Are you sure you want to transfer the operations master role?**, click **Yes**.
+1. In the message box **The operations master role was successfully transferred.**, click **OK**.
+1. In **Operations Masters**, click the tab **PDC**.
+1. On the tab **PDC**, click **Change...**
+1. In the message box **Are you sure you want to transfer the operations master role?**, click **Yes**.
+1. In the message box **The operations master role was successfully transferred.**, click **OK**.
+1. In **Operations Masters**, click the tab **Infrastructure**.
+1. On the tab **Infrastructure**, click **Change...**
+1. In the message box **Are you sure you want to transfer the operations master role?**, click **Yes**.
+1. In the message box **The operations master role was successfully transferred.**, click **OK**.
+1. In **Operations Masters**, click **Close**.
+
+### Task 2: Transfer the forest-wide flexible single master operation roles
+
+Perform this task on CL1.
+
+1. Open **Active Directory Domains and Trusts**.
+1. In Active Directory Domains and Trusts, in the context-menu of **Active Directory Domains and Trusts**, click **Change Active Directory Domain Controller...**
+1. In Change Directory Server, click **VN1-SRV7.ad.adatum.com** and click **OK**.
+1. In the context-menu of **Active Directory Domains and Trusts**, click **Operations Master...**
+1. In Operations Master, click **Change...**
+1. In the message box **Are you sure you want to transfer the operations master role to a different computer?**, click **Yes**.
+1. In the message box **The operations master role was successfully transferred.**, click **OK**.
+1. In **Operations Master**, click **Close**.
+1. In the context menu of **Start**, click **Terminal (Admin)**.
+1. Register the Schema Management snap-in.
+
+    ````powershell
+    regsvr32.exe C:\Windows\System32\schmmgmt.dll
+    ````
+
+1. In the message box **DllRegisterServer in C:\Windows\System32\schmmgmt.dll succeeded.**, click **OK**.
+1. Open an empty MMC.
+
+    ````powershell
+    mmc.exe
+    ````
+
+1. In Console1 - [Console Root], in the menu, click **File**, **Add /Remove Snap-In...**
+1. In Add or Remove Snap-Ins, click **Active Directory Schema**, click **Add >**, and click **OK**.
+1. In the context-menu of **Active Directory Schema**, click **Change Active Directory Domain Controller...**
+1. In Change Directory Server, click **VN1-SRV7.ad.adatum.com** and click **OK**.
+1. In the message box **Active Directory Schema snap-in is not connected to the schema operations master. You will not be able to perform any changes. Schema modifications can only be made on the schema FSMO holder.**, click **OK**.
+
+1. In the context-menu of **Active Directory Domains and Trusts**, click **Operations Master...**
+1. In Operations Master, click **Change**.
+1. In the message box **Are you sure you want to change the Operations Master?**, click **Yes**.
+1. In the message box **Operations Master successfully transferred.**, click **OK**.
+1. In **Operations Master**, click **Close**.
+
+## Exercise 4: Decomission a domain controller
 
 1. [Change the IP address of the domain controller to decommission](#task-1-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200
 1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-2-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV7
@@ -291,7 +460,7 @@ Perform this task on CL1.
     Stop-Computer -ComputerName VN1-SRV1
     ````
 
-## Exercise 4: Raise the domain and forest functional level
+## Exercise 5: Raise the domain and forest functional level
 
 1. Raise the domain functional level
 
@@ -305,20 +474,20 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Active Directory Domains and Trusts**.
-1. In Active Directory Domains and Trusts, in the context-menu of **ad.adatum.com**, click **Raise Domain Functional Level...**
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, in the context-menu of **ad (local)**, click **Raise the domain functional level...**
 
     > The highest possible domain functional level is Windows Server 2016. The domain is already at that level.
 
-1. In Raise domain function level, click **Close**.
+1. In Raise domain function level, click **Cancel**.
 
 ### Task 2: Raise the forest functional level
 
 Perform this task on CL1.
 
-1. Open **Active Directory Domains and Trusts**.
-1. In Active Directory Domains and Trusts, in the context-menu of **Active Directory Domains and Trusts**, click **Raise Forest Functional Level...**
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, in the context-menu of **ad (local)**, click **Raise the forest functional level...**
 
     > The highest possible forest functional level is Windows Server 2016. The forest is already at that level.
 
-1. In Raise forest function level, click **OK**.
+1. In Raise domain function level, click **Cancel**.
