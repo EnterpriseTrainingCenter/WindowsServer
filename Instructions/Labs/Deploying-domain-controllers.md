@@ -14,6 +14,7 @@
 
 1. On **CL1**, sign in as **ad\\Administrator**.
 1. On **CL3**, sign in as **.\\Administrator**.
+1. On **VN1-SRV1** sign in as **ad\\Administrator**.
 1. On **VN2-SRV2** sign in as **.\\Administrator**.
 
 ## Introduction
@@ -114,6 +115,9 @@ Perform this task on CL1.
 
 1. Open **Server Manager**.
 1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN1-SRV7**, click **Promote this server to a domain controller**.
+
+    If you do not see a notification, click *Refresh*.
+
 1. In Active Directory Domain Services Configuration Wizard, on page Deployment Configuration, ensure **Add a domain controller to an existing domain** is selected. In **Domain**, ensure **ad.adatum.com** is filled in. Beside **\<No credentials provided\>**, click **Change...**.
 1. In the dialog Credentials for deployment operation, enter the credentials for **Administrator@ad.adatum.com** and click **OK**.
 1. On page **Deployment Configuration**, click **Next >**.
@@ -218,7 +222,7 @@ Perform this task on VN2-SRV1.
 1. Under PROPERTIES for VN2-SRV1, beside **Ethernet**, click **10.1.2.8, IPv6 enabled**.
 1. In Network Connections, in the context-menu of **Ethernet**, click **Properties**.
 1. In Ethernet Properties, click **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
-1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.1.56**, in **Alternate DNS server**, type **127.0.0.1**, and click **OK**.
+1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.1.56**, in **Alternate DNS server**, ensure **127.0.0.1** is filled in, and click **OK**.
 1. In **Ethernet Properties**, click **Close**.
 1. Sign out.
 
@@ -294,7 +298,9 @@ Perform this task on CL1.
 1. Under **BEST PRACTICES ANALYZER**, click **TASKS**, **Start BPA Scan**.
 1. In the dialog Select Servers, activate all three domain controllers and click **Start Scan**.
 
-    > Review any warnings, if present.
+    > Review any warnings or errors, if present.
+
+If time permits, you can try to fix the warning and errors and run the the BPA scan again.
 
 ## Exercise 3: Transfer flexible single master operation roles
 
@@ -409,7 +415,6 @@ Note: In this exercise, we add the IP address of the decommissioned domain contr
 
 Perform this task on VN1-SRV1.
 
-1. Sign in with **ad\administrator**.
 1. Run SConfig.
 
     ````shell
@@ -422,7 +427,7 @@ Perform this task on VN1-SRV1.
 1. Beside Select DHCP, Static IP, enter **s**.
 1. Beside Enter static IP address, enter **10.1.1.200**.
 1. Beside Enter subnet mask, enter **255.255.255.0**.
-1. Beside Enter default gateway, enter **1.1.1.1**.
+1. Beside Enter default gateway, enter **10.1.1.1**.
 1. In Network Adapter settings, enter **2**.
 1. Beside Enter new preferred DNS server, enter **10.1.1.56**.
 1. In message box **Preferred DNS server set.**, click **OK**.
@@ -473,6 +478,12 @@ Perform this task on CL1.
 
     ````powershell
     Exit-PSSession
+    ````
+
+1. Clear the DNS client cache.
+
+    ````powershell
+    Clear-DnsClientCache
     ````
 
 ### Task 3: Demote the old domain controller
@@ -541,7 +552,7 @@ Perform this task on CL1.
 1. On page Remove server roles, deactivate **Active Directory Domain Services**.
 1. In dialog Remove features that require Active Directory Domain Services, click **Remove Features**.
 1. On page **Remove server roles**, deactivate **DNS Server**.
-1. Expand **File and Storage Services** and deactivate **File Server**.
+1. Expand **File and Storage Services**, **File and iSCSI Services**, and deactivate **File Server**.
 1. Click **Next >**.
 1. On page Remove features, expand **Remote Server Administration Tools**, **Role Administration Tools**, deactivate **AD DS and AD LDS Tools**, and click **Next >**.
 1. On page Confirmation, click **Remove**.
@@ -703,7 +714,7 @@ Perform this task on VN2-SRV2.
 1. On page Review Options, click **Next >**.
 1. On page Prerequisites Check, click **Install**.
 
-Continue to the next exercise. The server will restart automatically.
+Continue to the next task. The server will restart automatically.
 
 #### PowerShell
 
@@ -730,7 +741,7 @@ Perform this task on VN2-SRV2.
 
 1. At the prompt **The target server will be configured as a domain controller and restarted when this operation is complete.** type **y**.
 
-Continue to the next exercise. The server will restart automatically.
+Continue to the next task. The server will restart automatically.
 
 ### Task 3: Change the DNS client settings
 
@@ -741,8 +752,8 @@ Perform this task on CL3.
 1. Open **Settings**.
 1. In Settings, in the left pane, click **Network & internet**.
 1. In Network & internet, click **Ethernet**.
-1. In Ethernet, click **Edit**.
-1. In Edit IP Settings, under **Preferred DNS**, type **10.1.2.16**.
+1. In Ethernet, beside **DNS server assignment**, click **Edit**.
+1. In Edit IP Settings, under **Preferred DNS**, type **10.1.2.16** and click **Save**.
 1. Sign out.
 
 #### PowerShell
@@ -756,7 +767,7 @@ Perform this task on CL3.
 
 ### Task 4: Connect to domain
 
-Note: Wait for VN2-SRV2 to reboot before starting with this task. You may want to continue with the next exercise and return to this task, if the domain controller installation takes too long.
+Note: Wait for VN2-SRV2 to reboot before starting with this task.
 
 #### Desktop experience
 
