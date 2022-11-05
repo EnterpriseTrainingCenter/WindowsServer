@@ -5,11 +5,16 @@
 * VN1-SRV1
 * VN1-SRV7
 * VN2-SRV1
+* VN2-SRV2
 * CL1
+* CL3
+
 
 ## Setup
 
-On **CL1**, sign in as **ad\\Administrator**.
+1. On **CL1**, sign in as **ad\\Administrator**.
+1. On **CL3**, sign in as **.\\Administrator**.
+1. On **VN2-SRV2** sign in as **.\\Administrator**.
 
 ## Introduction
 
@@ -19,8 +24,8 @@ The domain controller still running Windows Server 2019 must be replaced by a Wi
 
 1. [Deploy additional domain controllers](#exercise-1-deploy-additional-domain-controllers)
 1. [Check domain controller health](#exercise-2-check-domain-controller-health)
-1. [Transfer flexible single master operation roles]
-1. [Decomission a domain controller](#exercise-4-decomission-a-domain-controller)
+1. [Transfer flexible single master operation roles](#exercise-3-transfer-flexible-single-master-operation-roles)
+1. [Decommission a domain controller](#exercise-4-decommission-a-domain-controller)
 1. [Raise domain and forest functional level](#exercise-5-raise-the-domain-and-forest-functional-level)
 1. [Deploy a new forest](#exercise-6-deploy-a-new-forest)
 
@@ -389,7 +394,7 @@ Perform this task on CL1.
         -Confirm:$false
     ````
 
-## Exercise 4: Decomission a domain controller
+## Exercise 4: decommission a domain controller
 
 1. [Change the IP address of the domain controller to decommission](#task-1-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200
 1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-2-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV7
@@ -777,4 +782,3 @@ Perform this task on CL3.
     ````
 
 1. In **Windows PowerShell credential request**, enter the the credentials of **Administrator@ad.contoso.com**.
-
