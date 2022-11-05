@@ -7,7 +7,7 @@
 
 ## Task
 
-Update the Active Directory schema to the current version.
+On CL1, update the Active Directory schema to the current version.
 
 ## Instructions
 
