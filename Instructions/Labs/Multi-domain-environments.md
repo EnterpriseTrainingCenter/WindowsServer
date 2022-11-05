@@ -2,6 +2,7 @@
 
 ## Required VMs
 
+* VN1-SRV6
 * VN1-SRV7
 * VN1-SRV8
 * VN2-SRV2
@@ -16,6 +17,9 @@
 1. On **CL1**, sign in as **ad\\Administrator**.
 1. In the context menu of **Start**, click **Terminal**.
 1. In Terminal, execute ````C:\LabResources\Solutions\New-Shares.ps1````.
+
+    You do not have to wait for the script to finish.
+
 1. On **CL3**, sign in ad **.\\Administrator**.
 1. On **CL4**, sign in ad **.\\Administrator**.
 1. On **VN2-SRV2** sign in as **contoso\\Administrator**.
@@ -321,8 +325,8 @@ Perform this task on CL4.
 1. Open **Settings**.
 1. In Settings, in the left pane, click **Network & internet**.
 1. In Network & internet, click **Ethernet**.
-1. In Ethernet, click **Edit**.
-1. In Edit IP Settings, under **Preferred DNS**, type **10.1.1.64**.
+1. In Ethernet, beside **DNS server assignment**, click **Edit**.
+1. In Edit IP Settings, under **Preferred DNS**, type **10.1.1.64** and click **Save**.
 1. Sign out.
 
 #### PowerShell
@@ -572,8 +576,6 @@ Perform this task on CL1.
 
     > The IP address 10.1.1.64 should be returned.
 
-1. Sign out.
-
 ### Task 5: Configure DNS client settings
 
 #### Desktop experience
@@ -645,7 +647,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **Active Directory Domains and Trusts**.
 1. In Active Directory Domains and Trusts, in the context-menu of **Active Directory Domain and Trusts**, click **Properties**.
 1. In Active Directory Domains and Trusts, on tab UPN Suffixes, under **Alternative UPN suffixes**, enter **adatum.com** and click **Add**.
@@ -655,7 +656,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal**.
 1. Add the UPN suffix **adatum.com** to the forest **ad.adatum.com**.
 
@@ -750,7 +750,7 @@ Perform this task on VN2-SRV2.
 1. In Active Directory Administrative Center, click **ad (local)**.
 1. In ad (local), double-click **Users**.
 1. In the context-menu of an empty space in the middle-pane, click **New**, **User**.
-1. Create User, in **First name**, type **Wil**. In **Last name**, type **Ruiz**. In **User UPN logon**, type **Wil** and, beside **@**, click **contoso.com**. In User SamAccountName logon, before the backslash, type **CONTOSO**, and after the backslash, type **Wil**. In **Password** and **Confirm password**, type a secure password and take a note. Click **Other password options** and click **OK**.
+1. Create User, in **First name**, type **Wil**. In **Last name**, type **Ruiz**. In **User UPN logon**, type **Wil** and, beside **@**, click **contoso.com**. In User SamAccountName logon, before the backslash, type **CONTOSO**, and after the backslash, type **Wil**. In **Password** and **Confirm password**, type a secure password and take a note. Click **OK**.
 
 #### PowerShell
 
@@ -826,14 +826,14 @@ Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
 1. In Hyper-V-Manager click **WIN-VN1-SRV7**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Pause**.
+1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Suspend**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Pause the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
+1. Suspend the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
 
     ````powershell
     Suspend-VM -Name WIN-VN1-SRV7, WIN-VN2-SRV1
@@ -946,14 +946,14 @@ Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
 1. In Hyper-V-Manager click **WIN-VN1-SRV7**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Pause**.
+1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Suspend**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Pause the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
+1. Suspend the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
 
     ````powershell
     Suspend-VM -Name WIN-VN1-SRV7, WIN-VN2-SRV1
@@ -1001,13 +1001,12 @@ Perform this task on the host.
 1. [Implement DNS name resolution of ad.contoso.com](#task-1-implement-dns-name-resolution-of-adcontosocom)
 1. [Implement DNS name resolution of ad.adatum.com and extranet.adatum.com](#task-2-implement-dns-name-resolution-of-adadatumcom)
 1. [Verify DNS name resolution between the forests](#task-3-verify-dns-name-resolution-between-the-forests)
-1. [Create a forest trust to ad.contoso.com](#task-4-create-a-forest-trust-to-adcontosocom)
-1. [Create a forest trust to ad.adatum.com](#task-5-create-a-forest-trust-to-adadatumcom)
-1. [Add a principal from an external forest to a domain-local group](#task-6-add-a-principal-from-an-external-forest-to-a-domain-local-group): Add Wil to Marketing Read.
-1. [Verify the effect of selective authentication accessing resources](#task-7-verify-the-effect-of-selective-authentication-accessing-resources) by trying to access \\\\VN1-SRV6 with the user Wil@contoso.com.
-1. [Verify the effect of selective authentication on sign in](#task-8-verify-the-effect-of-selective-authentication-on-sign-in) by traing to sign in to CL4 as Wil@contoso.com.
-1. [Allow users from the external forest to access computers](#task-9-allow-users-from-the-external-forest-to-access-computers) VN1-SRV6 and CL4
-1. [Verify sign in and resource access over a forest trust](#task-10-verify-sign-in-and-resource-access-over-a-forest-trust) with the user Wil@contoso.com signing into CL4 and accessing \\\\VN1-SRV6\\Marketing.
+1. [Create a forest trust](#task-4-create-a-forest-trust)
+1. [Add a principal from an external forest to a domain-local group](#task-5-add-a-principal-from-an-external-forest-to-a-domain-local-group): Add Wil to Marketing Read.
+1. [Verify the effect of selective authentication accessing resources](#task-6-verify-the-effect-of-selective-authentication-accessing-resources) by trying to access \\\\VN1-SRV6 with the user Wil@contoso.com.
+1. [Verify the effect of selective authentication on sign in](#task-7-verify-the-effect-of-selective-authentication-on-sign-in) by traing to sign in to CL4 as Wil@contoso.com.
+1. [Allow users from the external forest to access computers](#task-8-allow-users-from-the-external-forest-to-access-computers) VN1-SRV6 and CL4
+1. [Verify sign in and resource access over a forest trust](#task-9-verify-sign-in-and-resource-access-over-a-forest-trust) with the user Wil@contoso.com signing into CL4 and accessing \\\\VN1-SRV6\\Marketing.
 
 ### Task 1: Implement DNS name resolution of ad.contoso.com
 
@@ -1109,7 +1108,7 @@ Perform this task on CL1.
 
     > You should get the IP address 10.1.3.8.
 
-### Task 4: Create a forest trust to ad.contoso.com
+### Task 4: Create a forest trust
 
 Perform this task on CL1.
 
@@ -1121,35 +1120,18 @@ Perform this task on CL1.
 1. On page Trust Name, in **Name**, type **ad.contoso.com** and click **Next >**.
 1. On page Trust Type, click **Forest trust** and click **Next >**.
 1. On page Direction of Trust, ensure Two-way is selected and click **Next >**.
-1. On page Side of Trust, click **This domain only** and click **Next >**.
-1. On page **Outgoing Trust Authentication Level**, click **Selective authentication** and click **Next >**.
-1. On page Trust password, in **Trust password** and **Confirm trust password** enter a secure string and take a note. Click **Next >**.
+1. On page Side of Trust, click **Both this domain and the specified doman** and click **Next >**.
+1. On page User name and Password, type the credentials for **Administrator@ad.contoso.com**.
+1. On page **Outgoing Trust Authentication Level-Local Forest**, click **Selective authentication** and click **Next >**.
+1. On page **Outgoing Trust Authentication Level-Specified Forest**, click **Selective authentication** and click **Next >**.
 1. On page Trust Selections Complete, click **Next >**.
 1. On page Trust Creation Complete, click **Next >**.
 1. On page Confirm Outgoing Trust, click **Yes, confirm the outgoing trust** and click **Next >**.
 1. On page Confirm Incoming Trust, click **Yes, confirm the incoming trust** and click **Next >**.
+1. On page Completing the New Trust Wizard, click **Finish**.
+1. In **ad.adatum.com Properties**, click **OK**.
 
-### Task 5: Create a forest trust to ad.adatum.com
-
-Perform this task on VN2-SRV2.
-
-1. Open **Active Directory Domains and Trusts**.
-1. In the context-menu of **ad.contoso.com**, click **Properties**.
-1. In ad.adatum.com Properties, click the tab **Trusts**.
-1. On tab Trusts, click **New Trust...**.
-1. In New Trust Wizard, on page Welcome to the New Trust Wizard, click **Next >**.
-1. On page Trust Name, in **Name**, type **ad.adatum.com** and click **Next >**.
-1. On page Trust Type, click **Forest trust** and click **Next >**.
-1. On page Direction of Trust, ensure Two-way is selected and click **Next >**.
-1. On page Side of Trust, click **This domain only** and click **Next >**.
-1. On page **Outgoing Trust Authentication Level**, click **Selective authentication** and click **Next >**.
-1. On page Trust password, in **Trust password** and **Confirm trust password** enter the same password you noted in the previous task. Click **Next >**.
-1. On page Trust Selections Complete, click **Next >**.
-1. On page Trust Creation Complete, click **Next >**.
-1. On page Confirm Outgoing Trust, click **Yes, confirm the outgoing trust** and click **Next >**.
-1. On page Confirm Incoming Trust, click **Yes, confirm the incoming trust**. In **User name** and **Password**, type the credentials of **Administrator@ad.adatum.com** and click **Next >**.
-
-### Task 6: Add a principal from an external forest to a domain-local group
+### Task 5: Add a principal from an external forest to a domain-local group
 
 Perform this task on CL1.
 
@@ -1168,16 +1150,16 @@ Perform this task on CL1.
 1. In **Select Users, Contacts, or Other Objects**, click **OK**.
 1. In **Marketing Read Properties**, click **OK**.
 
-### Task 7: Verify the effect of selective authentication accessing resources
+### Task 6: Verify the effect of selective authentication accessing resources
 
 Perform this task on CL3.
 
 1. Sign in as **wil@contoso.com** and change the password.
-1. Using **File Explorer**, navigate to \\\\vn1-srv6.
+1. Using **File Explorer**, navigate to \\\\vn1-srv6.ad.adatum.com.
 
     > You will receive an error message like in [figure 1].
 
-### Task 8: Verify the effect of selective authentication on sign in
+### Task 7: Verify the effect of selective authentication on sign in
 
 Perform this task on CL4.
 
@@ -1185,7 +1167,7 @@ Perform this task on CL4.
 
     > You will receive an error message like in [figure 2].
 
-### Task 9: Allow users from the external forest to access computers
+### Task 8: Allow users from the external forest to access computers
 
 Perform this task on CL1.
 
@@ -1195,17 +1177,13 @@ Perform this task on CL1.
 1. Double-click **VN1-SRV6**.
 1. In CL4, click **Extensions**.
 1. In Extensions, on tab **Security**, click **Add...**.
-1. In Select Users, Contacts, Computers, Service Accounts, or Groups, in **Enter the object names to select**, type **Finance; IT; Marketing** and click **Check Names**.
-1. 
-1. In Select Users, Computers, Service Accounts, or Groups, click **Locations...**.
-1. In Locations, click **ad.contoso.com** and click **OK**.
 1. In **Select Users, Contacts, or Other Objects**, in **Enter the object names to select**, type **Marketing Read** and click **OK**.
-1. In **VN1-SWRV6**, under **Permissions for Wil Ruiz**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
-1. Sign in as **Administrator@clients.ad.adatum.com**.
-1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **Global Search**.
-1. In Global Search, in **Search**, type **CL4** and click **Search**.
-1. Double-click **CL4**.
+1. In **VN1-SRV6**, under **Permissions for Marketing Read**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
+1. In **Active Directory Administrative Center**, on the menu, click **Manage**, **Add Navigation Nodes...**
+1. In Add Navigation Nodes, in the middle pane, click **clients**, click **>>**, and click **OK**.
+1. In **Active Directory Administrative Center**, click **clients**.
+1. In clients, double-click **Computers**.
+1. In Computers, double-click **CL4**.
 1. In CL4, click **Extensions**.
 1. In Extensions, on tab **Security**, click **Add...**.
 1. In Select Users, Computers, Service Accounts, or Groups, click **Locations...**.
@@ -1217,16 +1195,20 @@ Perform this task on CL1.
 
 1. In **Select Users, Contacts, or Other Objects**, click **OK**.
 1. In **CL4**, under **Permissions for Wil Ruiz**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
-1. Sign out.
 
-### Task 10: Verify sign in and resource access over a forest trust
+### Task 9: Verify sign in and resource access over a forest trust
 
 Perform this task on CL4.
 
 1. Sign in as **Wil@contoso.com**.
-1. Using File Explorer, navigate to **\\\\VN1-SRV6\\Marketing**.
+
+    > You should be able sign in.
+
+1. Using File Explorer, navigate to **\\\\VN1-SRV6.ad.adatum.com\\Marketing**.
 
     > You should be able to access the share.
+
+1. Sign out.
 
 ## Exercise 6: Migrating users and computers between domains
 
