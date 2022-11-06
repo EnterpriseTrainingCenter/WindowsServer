@@ -41,7 +41,7 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 1. [Managing user principal names](#exercise-3-managing-user-principal-names)
 1. [Create and validate shortcut trusts](#exercise-4-create-and-validate-shortcut-trusts)
 1. [Create and validate a forest trust](#exercise-5-create-and-validate-a-forest-trust)
-1. [Migrating users and computers between domains](#exercise-6-migrating-users-and-computers-between-domains)
+1. [Migrating users between domains](#exercise-6-migrating-users-between-domains)
 
 ## Exercise 1: Deploy a child domain
 
@@ -1210,7 +1210,7 @@ Perform this task on CL4.
 
 1. Sign out.
 
-## Exercise 6: Migrating users and computers between domains
+## Exercise 6: Migrating users between domains
 
 1. [Install the Active Directory Migration Tool](#task-1-install-the-active-directory-migration-tool)
 1. [Create the target organizational group](#task-2-create-the-target-organizational-group) Marketing in domain clients.ad.adatum.com
