@@ -1217,7 +1217,7 @@ Perform this task on CL4.
 1. [Migrate users within a forest](#task-3-migrate-users-within-a-forest): Migrate all users in the organizational unit Marketing to the clients domain
 1. [Verify the results of users migration within a forest](#task-4-verify-the-migration-of-users-within-a-forest)
 1. [Verify resource access after user migration within a forest](#task-5-verify-resource-access-after-user-migration-within-a-forest)
-1. [Set permissions in the target forest](#task-6-set-permissions-in-the-target-forest) ad.contoso.com
+1. [Set permissions in the target forest](#task-6-grant-permissions-in-the-target-forest) ad.contoso.com
 1. [Create the target organizational group](#task-7-create-the-target-organizational-group) Development in domain ad.contoso.com
 1. [Migrate a user between forests](#task-8-migrate-users-between-forests): Migrate all users in the organizational unit Development to the contoso domain
 1. [Verify the migration of users between forests](#task-9-verify-the-migration-of-users-between-forests)
@@ -1235,18 +1235,15 @@ Perform this task on CL1.
 1. On page Customer Experience Improvement Program, click **I don't want to join the program at this time** and click **Next >**.
 1. On page Database Selection, in **Database (Server\Instance)**, type **VN1-SRV3** and click **Next >**.
 1. On the next page, click **Finish**.
-1. Sign out.
 
 ### Task 2: Create the target organizational group
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **clients (local)**.
+1. In Active Directory Administrative Center, click **clients**.
 1. In the context-menu of **clients (local)**, click **New**, **Organizational Unit**.
 1. In Create Organizational Unit, in **Name**, type **Marketing** and click **OK**.
-1. Sign out.
 
 ### Task 3: Migrate users within a forest
 
@@ -1286,35 +1283,33 @@ Perform this task on CL1.
 1. On page Report Selection, click **Migrated accounts**, and click **Next >**.
 1. On page Completing the Reporting Wizard, click **Finish**.
 1. In **migrator - [Active Directory Migration Tool]**, expand **Reports** and click **Migrated User, Group and Managed Service Accounts**. Review the report.
-1. Open **Active Directory Users and Computers**.
-1. In Active Directory Users and Computers, expand **ad.adatum.com** and click **Marketing**.
+1. Open **Active Administrative Center**.
+1. In Active Directory Administrative Center, click **ad (local)**.
+1. In ad (local), double-click **Marketing**.
 
     > The organizational unit Marketing should not contain objects anymore.
 
-1. Click **Entitling Groups**.
+1. Click **ad (local)** and double-click **Entitling Groups**.
 1. In Entitling Groups, double-click **Marketing Modify**.
 1. In Marketing Modify, click **Members** and review the members.
 
-    > The migrated group Marketing should be a member. The Active Directory Domain Services Folder reads clients.ad.adatum.com/Marketing.
+    > The migrated group Marketing should be a member. The Active Directory Domain Services Folder reads clients-Marketing-Marketing.
 
 1. Click **Cancel**.
-1. In **Active Directory Users and Computers**, in the context-menu of **ad.adatum.com**, click **Change Domain...**
-1. In Change domain, click **Browse...**
-1. In Browse for Domain, expand **ad.adatum.com**, click **clients.ad.adatum.com**, and click **OK**.
-1. In **Change domain**, click **OK**.
-1. In **Active Directory Users and Computers**, in the menu, click **View, Advanced Features**.
-1. In **Active Directory Users and Computers**, expand **clients.ad.adatum.com** and click **Marketing**.
+1. In **Active Directory Administrative Center**, click **clients**.
+1. In clients, double-click **Marketing**.
 
     > You should see the migrated users as well as the migrated group **Marketing**.
 
-1. Double-click the **Security Group - Universal** **Marketing**.
+1. Double-click the **Group** **Marketing**.
 1. In Marketing Properties, click the tab **Members**.
 
     > All migrated users should be member of Marketing.
 
 1. Click **Cancel**.
-1. In **Active Directory Users and Computers**, in the organizational unit **Marketing**, double-click **Ada Russell**.
-1. In **Ada Russel Properties**, click the tab **Attribute Editor**.
+1. In **Active Directory Administrative Center**, in the organizational unit Marketing, double-click **Ada Russell**.
+1. In **Ada Russel**, click **Extensions**.
+1. In Extensions, click the tab **Attribute Editor**.
 1. On tab Attribute Editor, click **Filter**, **Show only attributes that have values**.
 1. Find the attribute **sIDHistory** and notice the value. Find the attribute **objectSid** and notice the value. Compare the number after **S-1-5-21-**.
 
@@ -1336,7 +1331,7 @@ Perform this task on CL2.
 
 1. Sign out.
 
-### Task 6: Set permissions in the target forest
+### Task 6: Grant permissions in the target forest
 
 Perform this task on VN2-SRV2.
 
@@ -1357,8 +1352,8 @@ Perform this task on VN2-SRV2.
 
 Perform this task on VN2-SRV2.
 
-1. Open **Active Users and Computers**.
-1. In Active Directory Administrative Center, in  the context-menu of **ad.contoso.com**, click **New**, **Organizational Unit**.
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, in  the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
 1. In New Object - Organizational Unit, in **Name**, type **Development** and click **OK**.
 
 ### Task 8: Migrate users between forests
@@ -1398,28 +1393,36 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Active Directory Users and Computers**.
-1. In Active Directory Users and Computers, expand **ad.adatum.com** and click **Development**.
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, click **ad (local)**.
+1. In ad (local), double-click **Development**.
 
     > All users in the organizational unit should be disabled.
 
+1. On the menu, click **Manage**, **Add Navigation Nodes...**
+1. In Add Navigation Nodes, click **Connect to other domains...** (in the bottom right).
+1. In **Connect to**, type **ad.contoso.com** and click **OK**.
 1. In **Active Directory Users and Computers**, in the context-menu of **ad.adatum.com**, click **Change Domain...**
 1. In Change domain, type **ad.contoso.com** and click **OK**.
-1. In **Active Directory Users and Computers**, expand **ad.contoso.com** and click **Development**.
+1. In the left pane, ensure **ad** is selected and click **>>** and click **OK**.
+1. In **Active Directory Administrative Center**, in the context-menu of **ad**, click **Rename...**
+1. In Rename, under **Please input the new name**, type **ad.contoso.com** and click **OK**.
+1. In **Active Directory Administrative Center**, click **ad.contoso.com**.
+1. In ad.contoso.com, double-click **Development**.
 
     > You should see the migrated users as well as the migrated group **Development**. The users should be enabled.
 
-1. Double-click the **Security Group - Universal** **Development**.
-1. In Marketing Properties, click the tab **Members**.
+1. Double-click the **Group** **Development**.
+1. In Development, click **Members**.
 
     > All migrated users should be member of Development.
 
 1. Click **Cancel**.
-1. In **Active Directory Users and Computers**, in the organizational unit **Development**, double-click **Anete Auzina**.
-1. In **Anete Auzina Properties**, click the tab **Account**.
+1. In **Active Directory Administrative Center**, in the organizational unit **Development**, double-click **Anete Auzina**.
 
-    > The User logon name suffix is contoso.com.
+    > The User UPN logon shuld be Anete@contoso.com.
 
+1. Click **Extensions**.
 1. Click the tab **Attribute Editor**.
 1. Find the attribute **sIDHistory** and notice the value. Find the attribute **objectSid** and notice the value. Compare the number after **S-1-5-21-**.
 
@@ -1437,7 +1440,6 @@ Perform this task on CL3.
     > You will have to change the password.
 
 1. Sign out.
-
 
 [figure 1]: /images/Authentication-Firewall-Error.png
 [figure 2]: /images/Authentication-Firewall-Error-signin.png
