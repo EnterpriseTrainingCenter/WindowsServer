@@ -1,4 +1,4 @@
-# Practice: Configure Kerberos constrained delegateion
+# Practice: Configure Kerberos constrained delegation
 
 ## Required VMs
 
