@@ -8,6 +8,9 @@
 
 ## Task
 
+For the clients.ad.adatum.com domain, configure the password policy to require passwords of at least 8 character in length. The passwords should not need to be complex and should not need to be changed regularly.
+
+Configure a password lockout policy after 100 invalid attempts in 10 minutes. The account should be locked out for 10 minutes. Exclude the default administrator from the lockout policy.
 
 ## Instructions
 
