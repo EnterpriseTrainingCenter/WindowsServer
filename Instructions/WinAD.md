@@ -14,7 +14,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Configure a fine-grained password policy](Practices/Configure-a-fine-grained-password-policy.md)
 1. [Restrict the Administrators group for clients](Practices/Restrict-the-Administrators-group-for-clients.md)
 1. [Use a Group Managed Service Account](Practices/Use-a-group-managed-service-account.md)
-1. Configure Kerberos constrained delegation
+1. [Configure Kerberos constrained delegation](Practices/Configure-Kerberos-contrained-delegation.md)
 1. Explore time-limited group membership
 
 ## Labs
