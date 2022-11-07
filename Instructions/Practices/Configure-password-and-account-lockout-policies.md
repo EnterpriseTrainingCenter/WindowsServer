@@ -58,3 +58,5 @@ Perform these steps on CL1.
 1. Try to set a non-complex passwords with 8 character at least.
 
     > The password should be accepted.
+
+1. Sign out.
