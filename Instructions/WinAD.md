@@ -11,6 +11,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install Group Policy Management](Practices/Install-group-policy-management.md)
 1. [Delegate password reset permissions](Practices/Delegate-password-reset-permissions.md)
 1. [Configure password and account lockout policies](Practices/Configure-password-and-account-lockout-policies.md)
+1. [Configure a fine-grained password policy](Practices/Configure-a-fine-grained-password-policy.md)
 1. Create a managed service account
 1. Configure a service principal name
 1. Configure Kerberos constrained delegation
