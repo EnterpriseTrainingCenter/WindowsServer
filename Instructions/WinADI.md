@@ -21,7 +21,7 @@ The instructions are to be used in conjunction with the original presentation sl
 
 1. [Deploying domain controllers](Labs/Deploying-domain-controllers.md)
 1. [Multi-domain environments](Labs/Multi-domain-environments.md)
-1. Managing replication
+1. [Managing sites and replication](Labs/Managing-sites-and-replication.md)
 1. Deploying and managing read-only domain controllers
 1. Implementing modern authentication
 1. Deploying a hybrid cloud model
