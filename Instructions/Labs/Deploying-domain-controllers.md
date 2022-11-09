@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV7
+* VN1-SRV5
 * VN2-SRV1
 * VN2-SRV2
 * CL1
@@ -33,10 +33,10 @@ The domain controller still running Windows Server 2019 must be replaced by a Wi
 ## Exercise 1: Deploy additional domain controllers
 
 1. [Install the Remote Server Administration DNS Server Tools](#task-1-install-the-remote-server-administration-dns-server-tools) on CL1
-1. [Install Active Directory Domain Services](#task-2-install-active-directory-domain-services) on VN1-SRV7 and VN2-SRV1
-1. [Configure Active Directory Domain Services as a additional domain controller in an existing domain](#task-3-configure-active-directory-domain-services-as-a-additional-domain-controller-in-an-existing-domain) on VN1-SRV7 and VN2-SRV1.
-1. [Configure DNS client settings using core experience](#task-4-configure-dns-client-settings-using-core-experience) on VN1-SRV7 to use VN2-SRV1 as preferred DNS server
-1. [Configure DNS client settings using desktop experience](#task-5-configure-dns-client-settings-using-desktop-experience) on VN2-SRV1 to use VN1-SRV7 as preferred DNS server
+1. [Install Active Directory Domain Services](#task-2-install-active-directory-domain-services) on VN1-SRV5 and VN2-SRV1
+1. [Configure Active Directory Domain Services as a additional domain controller in an existing domain](#task-3-configure-active-directory-domain-services-as-a-additional-domain-controller-in-an-existing-domain) on VN1-SRV5 and VN2-SRV1.
+1. [Configure DNS client settings using core experience](#task-4-configure-dns-client-settings-using-core-experience) on VN1-SRV5 to use VN2-SRV1 as preferred DNS server
+1. [Configure DNS client settings using desktop experience](#task-5-configure-dns-client-settings-using-desktop-experience) on VN2-SRV1 to use VN1-SRV5 as preferred DNS server
 
 Note: It is recommended to use another domain controller as DNS server. However, in real world, you should choose a DNS server on the same network.
 
@@ -83,7 +83,7 @@ Perform this task on CL1.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
-1. On page Server Selection, click **VN1-SRV7** and click **Next >**.
+1. On page Server Selection, click **VN1-SRV5** and click **Next >**.
 1. On page Server Roles, activate **Active Directory Domain Services**.
 1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
@@ -99,10 +99,10 @@ Repeat these steps, but in step 5, on page **Server Selection**, click **VN2-SRV
 Peform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Install the windows feature **Active Directory Domain Services** on **VN1-SRV7** and **VN2-SRV1**.
+1. Install the windows feature **Active Directory Domain Services** on **VN1-SRV5** and **VN2-SRV1**.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV7, VN2-SRV1 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -ScriptBlock {
         Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
     }
     ````
@@ -114,7 +114,7 @@ Peform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Server Manager**.
-1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN1-SRV7**, click **Promote this server to a domain controller**.
+1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN1-SRV5**, click **Promote this server to a domain controller**.
 
     If you do not see a notification, click *Refresh*.
 
@@ -155,10 +155,10 @@ Perform this task on CL1.
     ````
 
 1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
-1. Promote **VN1-SRV7** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
+1. Promote **VN1-SRV5** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV7, VN2-SRV1 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -ScriptBlock {
     Install-ADDSDomainController `
             -DomainName ad.adatum.com `
             -Credential $using:credential `
@@ -173,7 +173,7 @@ Perform this task on CL1.
 
 #### SConfig
 
-Perform this task on VN1-SRV7.
+Perform this task on VN1-SRV5.
 
 1. Sign in as **ad\administrator**.
 1. In SConfig, enter **8**.
@@ -190,13 +190,13 @@ Perform this task on VN1-SRV7.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Create a CIM session to **VN1-SRV7**.
+1. Create a CIM session to **VN1-SRV5**.
 
     ````powershell
-    $cimSession = New-CimSession -ComputerName VN1-SRV7
+    $cimSession = New-CimSession -ComputerName VN1-SRV5
     ````
 
-1. Set the DNS client server address for **VN1-SRV7** to **10.1.2.8** and **127.0.0.1**.
+1. Set the DNS client server address for **VN1-SRV5** to **10.1.2.8** and **127.0.0.1**.
 
     ````powershell
     Set-DnsClientServerAddress `
@@ -222,7 +222,7 @@ Perform this task on VN2-SRV1.
 1. Under PROPERTIES for VN2-SRV1, beside **Ethernet**, click **10.1.2.8, IPv6 enabled**.
 1. In Network Connections, in the context-menu of **Ethernet**, click **Properties**.
 1. In Ethernet Properties, click **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
-1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.1.56**, in **Alternate DNS server**, ensure **127.0.0.1** is filled in, and click **OK**.
+1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.1.40**, in **Alternate DNS server**, ensure **127.0.0.1** is filled in, and click **OK**.
 1. In **Ethernet Properties**, click **Close**.
 1. Sign out.
 
@@ -235,12 +235,12 @@ Perform this task on VN2-SRV1.
     $cimSession = New-CimSession -ComputerName VN2-SRV1
     ````
 
-1. Set the DNS client server address for **VN2-SRV1** to **10.1.1.56** and **127.0.0.1**.
+1. Set the DNS client server address for **VN2-SRV1** to **10.1.1.40** and **127.0.0.1**.
 
     ````powershell
     Set-DnsClientServerAddress `
         -InterfaceAlias Ethernet `
-        -ServerAddresses 10.1.1.56, 127.0.0.1 `
+        -ServerAddresses 10.1.1.40, 127.0.0.1 `
         -CimSession $cimSession
     ````
 
@@ -260,7 +260,7 @@ Perform this task on VN2-SRV1.
 
 1. [Verify shares for Active Directory](#task-2-verify-shares-for-active-directory)
 
-    > Which shares where created by the configuration of Active Directory Domain Services on VN1-SRV7 and VN2-SRV1?
+    > Which shares where created by the configuration of Active Directory Domain Services on VN1-SRV5 and VN2-SRV1?
 
 1. [Verify the health of AD DS](#task-3-verify-the-health-of-ad-ds)
 
@@ -271,15 +271,15 @@ Perform this task on VN2-SRV1.
 Perform this task on CL1.
 
 1. Open **DNS**.
-1. In the dialog **Connect to DNS Server**, click **The following computer**, type **VN1-SRV7**, and click **OK**.
-1. In DNS, click **VN1-SRV7**.
-1. Expand **VN1-SRV7**, **Forward Lookup Zones** and click **_msdcs.ad.adatum.com**
+1. In the dialog **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5**, and click **OK**.
+1. In DNS, click **VN1-SRV5**.
+1. Expand **VN1-SRV5**, **Forward Lookup Zones** and click **_msdcs.ad.adatum.com**
 
-    > There should be 3 CNAME records, pointing to VN1-SRV1.ad.adatum.com, vn1-srv7.ad.adatum.com, and vn2-srv1.ad.adatum.com.
+    > There should be 3 CNAME records, pointing to VN1-SRV1.ad.adatum.com, VN1-SRV5.ad.adatum.com, and vn2-srv1.ad.adatum.com.
 
 1. Expand **ad.adatum.com**, and click **_tcp**.
 
-    > There should 12 SRV records for the services _gc, _kerberos, _kpasswd, and _ldap, pointing to VN1-SRV1.ad.adatum.com, vn1-srv7.ad.adatum.com, and vn2-srv1.ad.adatum.com.
+    > There should 12 SRV records for the services _gc, _kerberos, _kpasswd, and _ldap, pointing to VN1-SRV1.ad.adatum.com, VN1-SRV5.ad.adatum.com, and vn2-srv1.ad.adatum.com.
 
 ### Task 2: Verify shares for Active Directory
 
@@ -287,7 +287,7 @@ Perform this task on CL1.
 1. In Server manager, click **File and Storage Services**.
 1. In File and Storage Services, click **Shares**
 
-    > The shares NETLOGON and SYSVOL should be present on VN1-SRV7 and VN2-SRV1.
+    > The shares NETLOGON and SYSVOL should be present on VN1-SRV5 and VN2-SRV1.
 
 ### Task 3: Verify the health of AD DS
 
@@ -315,7 +315,7 @@ Perform this task on CL1.
 
 1. Open **Active Directory Users and Computers**.
 1. In Active Directory Users and Computers, in the context-menu of **ad.adatum.com**, click **Change Domain Controller...**.
-1. In Change Directory Server, click **VN1-SRV7.ad.adatum.com** and click **OK**.
+1. In Change Directory Server, click **VN1-SRV5.ad.adatum.com** and click **OK**.
 1. In the context-menu of **ad.adatum.com**, click **Operations Masters...**
 1. In Operations Masters, on the tab **RID**, click **Change...**
 1. In the message box **Are you sure you want to transfer the operations master role?**, click **Yes**.
@@ -335,18 +335,18 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Move the roles **RID master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV7**.
+1. Move the roles **RID master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV5**.
 
     ````powershell
     Move-ADDirectoryServerOperationMasterRole `
-        -Identity VN1-SRV7 `
+        -Identity VN1-SRV5 `
         -OperationMasterRole `
             RIDMaster, InfrastructureMaster, PDCEmulator
     ````
 
-1. At the prompt **Do you want to move role 'RIDMaster' to server 'VN1-SRV7.ad.adatum.com' ?**, enter **y**.
-1. At the prompt **Do you want to move role 'InfrastructureMaster' to server 'VN1-SRV7.ad.adatum.com' ?**, enter **y**.
-1. At the prompt **Do you want to move role 'PDCEmulator' to server 'VN1-SRV7.ad.adatum.com' ?**, enter **y**.
+1. At the prompt **Do you want to move role 'RIDMaster' to server 'VN1-SRV5.ad.adatum.com' ?**, enter **y**.
+1. At the prompt **Do you want to move role 'InfrastructureMaster' to server 'VN1-SRV5.ad.adatum.com' ?**, enter **y**.
+1. At the prompt **Do you want to move role 'PDCEmulator' to server 'VN1-SRV5.ad.adatum.com' ?**, enter **y**.
 
 ### Task 2: Transfer the forest-wide flexible single master operation roles
 
@@ -356,7 +356,7 @@ Perform this task on CL1.
 
 1. Open **Active Directory Domains and Trusts**.
 1. In Active Directory Domains and Trusts, in the context-menu of **Active Directory Domains and Trusts**, click **Change Active Directory Domain Controller...**
-1. In Change Directory Server, click **VN1-SRV7.ad.adatum.com** and click **OK**.
+1. In Change Directory Server, click **VN1-SRV5.ad.adatum.com** and click **OK**.
 1. In the context-menu of **Active Directory Domains and Trusts**, click **Operations Master...**
 1. In Operations Master, click **Change...**
 1. In the message box **Are you sure you want to transfer the operations master role to a different computer?**, click **Yes**.
@@ -379,7 +379,7 @@ Perform this task on CL1.
 1. In Console1 - [Console Root], in the menu, click **File**, **Add /Remove Snap-In...**
 1. In Add or Remove Snap-Ins, click **Active Directory Schema**, click **Add >**, and click **OK**.
 1. In the context-menu of **Active Directory Schema**, click **Change Active Directory Domain Controller...**
-1. In Change Directory Server, click **VN1-SRV7.ad.adatum.com** and click **OK**.
+1. In Change Directory Server, click **VN1-SRV5.ad.adatum.com** and click **OK**.
 1. In the message box **Active Directory Schema snap-in is not connected to the schema operations master. You will not be able to perform any changes. Schema modifications can only be made on the schema FSMO holder.**, click **OK**.
 
 1. In the context-menu of **Active Directory Domains and Trusts**, click **Operations Master...**
@@ -391,11 +391,11 @@ Perform this task on CL1.
 #### PowerShell
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Move the roles **domain naming master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV7**.
+1. Move the roles **domain naming master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV5**.
 
     ````powershell
     Move-ADDirectoryServerOperationMasterRole `
-        -Identity VN1-SRV7 `
+        -Identity VN1-SRV5 `
         -OperationMasterRole DomainNamingMaster, SchemaMaster `
         -Confirm:$false
     ````
@@ -403,7 +403,7 @@ Perform this task on CL1.
 ## Exercise 4: decommission a domain controller
 
 1. [Change the IP address of the domain controller to decommission](#task-1-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200
-1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-2-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV7
+1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-2-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV5
 1. [Demote the old domain controller](#task-3-demote-the-old-domain-controller) VN1-SRV1
 1. [Remove roles from the decommissioned domain controller](#task-4-remove-roles-from-the-decommissioned-domain-controller) VN1-SRV1
 
@@ -429,7 +429,7 @@ Perform this task on VN1-SRV1.
 1. Beside Enter subnet mask, enter **255.255.255.0**.
 1. Beside Enter default gateway, enter **10.1.1.1**.
 1. In Network Adapter settings, enter **2**.
-1. Beside Enter new preferred DNS server, enter **10.1.1.56**.
+1. Beside Enter new preferred DNS server, enter **10.1.1.40**.
 1. In message box **Preferred DNS server set.**, click **OK**.
 1. Beside Enter alternate DNS server, enter **10.1.2.8**.
 1. In message box **Alternate DNS server set.**, click **OK**.
@@ -460,10 +460,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV7**.
+1. Open a remote PowerShell session to **VN1-SRV5**.
 
     ````powershell
-    Enter-PSSession -ComputerName VN1-SRV7
+    Enter-PSSession -ComputerName VN1-SRV5
     ````
 
     Note: Currently, there is no valid DNS server. Therefore, this takes a bit longer than expected.

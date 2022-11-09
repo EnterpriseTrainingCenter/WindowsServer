@@ -2,13 +2,13 @@
 
 ## Required VMs
 
-* VN1-SRV7
-* VN1-SRV9
+* VN1-SRV5
+* PM-SRV2
 * CL1
 
 ## Task
 
-Create a Group Managed Service Account, install it on VN1-SRV9 and use it to create a service.
+Create a Group Managed Service Account, install it on PM-SRV2 and use it to create a service.
 
 ## Instructions
 
@@ -24,16 +24,16 @@ Perform these steps on CL1.
 
     Note: In real-world you should omit the parameter ````-EffectiveImmediately```` and wait some hours to replicate the key throught your forest.
 
-1. Create a new Group Managed Service Account with the name **MyService**, the DNS host name **myservice.ad.adatum.com**, and allow VN1-SRV9 to retrieve the managed password.
+1. Create a new Group Managed Service Account with the name **MyService**, the DNS host name **myservice.ad.adatum.com**, and allow PM-SRV2 to retrieve the managed password.
 
     ````powershell
     New-ADServiceAccount `
         -Name MyService `
         -DNSHostName myservice.ad.adatum.com `
-        -PrincipalsAllowedToRetrieveManagedPassword VN1-SRV9$
+        -PrincipalsAllowedToRetrieveManagedPassword PM-SRV2$
     ````
 
-Perform these steps on VN1-SRV9.
+Perform these steps on PM-SRV2.
 
 1. Sign in as **Administrator@ad.adatum.com**.
 1. In SConfig, enter **15**.

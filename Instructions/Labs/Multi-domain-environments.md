@@ -3,8 +3,8 @@
 ## Required VMs
 
 * VN1-SRV6
+* VN1-SRV5
 * VN1-SRV7
-* VN1-SRV8
 * VN2-SRV2
 * VN3-SRV1
 * CL1
@@ -45,9 +45,9 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 
 ## Exercise 1: Deploy a child domain
 
-1. [Install Active Directory Domain Services on VN1-SRV8](#task-1-install-active-directory-domain-services-on-vn1-srv8)
-1. [Configure Active Directory Domain Services as new child domain](#task-2-configure-active-directory-domain-services-as-new-child-domain) clients.ad.adatum.com on VN1-SRV8
-1. [Optimize name resolution using conditional forwarders](#task-3-optimize-name-resolution-performance-using-conditional-forwarders) on VN1-SRV8
+1. [Install Active Directory Domain Services on VN1-SRV7](#task-1-install-active-directory-domain-services-on-VN1-SRV7)
+1. [Configure Active Directory Domain Services as new child domain](#task-2-configure-active-directory-domain-services-as-new-child-domain) clients.ad.adatum.com on VN1-SRV7
+1. [Optimize name resolution using conditional forwarders](#task-3-optimize-name-resolution-performance-using-conditional-forwarders) on VN1-SRV7
 
     > Why does the name resolution from the child domain to the root domain work without further configuration?
 
@@ -55,17 +55,17 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 
 1. [Verify name resolution on the DNS server within the child domain](#task-4-verify-name-resolution-on-the-dns-server-within-the-child-domain)
 
-    > Which IP addresses are returned when executing a query for ad.adatum.com on VN1-SRV8?
+    > Which IP addresses are returned when executing a query for ad.adatum.com on VN1-SRV7?
 
-    > Which IP address is returned when executing a query for clients.ad.adatum.com on VN1-SRV7?
+    > Which IP address is returned when executing a query for clients.ad.adatum.com on VN1-SRV5?
 
-    > Why does name resolution for clients.ad.adatum.com work on VN1-SRV7 without further configuration?
+    > Why does name resolution for clients.ad.adatum.com work on VN1-SRV5 without further configuration?
 
-1. [Configure DNS client settings on the new domain controller](#task-5-configure-dns-client-settings-on-the-new-domain-controller) to point to 10.1.1.64 and localhost
-1. [Change the DNS client settings](#task-6-change-the-dns-client-settings) on CL4 to use 10.1.1.64 (VN1-SRV8)
+1. [Configure DNS client settings on the new domain controller](#task-5-configure-dns-client-settings-on-the-new-domain-controller) to point to 10.1.1.56 and localhost
+1. [Change the DNS client settings](#task-6-change-the-dns-client-settings) on CL4 to use 10.1.1.56 (VN1-SRV7)
 1. [Connect to domain](#task-7-connect-to-domain) clients.ad.contoso.com on CL4.
 
-### Task 1: Install Active Directory Domain Services on VN1-SRV8
+### Task 1: Install Active Directory Domain Services on VN1-SRV7
 
 #### Desktop experience
 
@@ -75,7 +75,7 @@ Perform this task on CL1.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
-1. On page Server Selection, click **VN1-SRV8** and click **Next >**.
+1. On page Server Selection, click **VN1-SRV7** and click **Next >**.
 1. On page Server Roles, activate **Active Directory Domain Services**.
 1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
@@ -89,13 +89,13 @@ Perform this task on CL1.
 Peform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Install the windows feature **Active Directory Domain Services** on **VN1-SRV7**.
+1. Install the windows feature **Active Directory Domain Services** on **VN1-SRV5**.
 
     ````powershell
     Install-WindowsFeature `
         -Name AD-Domain-Services `
         -IncludeManagementTools `
-        -ComputerName VN1-SRV8
+        -ComputerName VN1-SRV7
     ````
 
 ### Task 2: Configure Active Directory Domain Services as new child domain
@@ -105,7 +105,7 @@ Peform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Server Manager**.
-1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN1-SRV8**, click **Promote this server to a domain controller**.
+1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN1-SRV7**, click **Promote this server to a domain controller**.
 1. In Active Directory Domain Services Configuration Wizard, on page Deployment Configuration, click **Add a new domain to an existing forest**. In **Select domain type**, ensure **Child Domain** is selected. In **Parent domain name**, ensure **ad.adatum.com** is filled in. In **New domain name**, type **clients**. Beside **\<No credentials provided\>**, click **Change...**.
 1. In the dialog Credentials for deployment operation, enter the credentials for **Administrator@ad.adatum.com** and click **OK**.
 1. On page **Deployment Configuration**, click **Next >**.
@@ -126,10 +126,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Open a remote PowerShell session to **VN1-SRV8**.
+1. Open a remote PowerShell session to **VN1-SRV7**.
 
     ````powershell
-    Enter-PSSession VN1-SRV8
+    Enter-PSSession VN1-SRV7
     ````
 
 1. Store the credential for the enterprise admin in a variable.
@@ -183,19 +183,19 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. Open **DNS**.
-1. In **Connect to DNS Server**, click **The following computer**, type **vn1-srv8.clients.ad.adatum.com**, and click **OK**.
-1. In DNS Manager, click and expand **vn1-srv8.clients.ad.adatum.com**, and click **Conditional Forwarders**.
+1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV7.clients.ad.adatum.com**, and click **OK**.
+1. In DNS Manager, click and expand **VN1-SRV7.clients.ad.adatum.com**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
-1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.56** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and ensure **All DNS servers in this forest** is selected. Click **OK**.
-1. In **DNS Manager**, click **vn1-srv8.clients.ad.adatum.com**.
+1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.40** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and ensure **All DNS servers in this forest** is selected. Click **OK**.
+1. In **DNS Manager**, click **VN1-SRV7.clients.ad.adatum.com**.
 1. In the right pane, double-click **Forwarders**.
-1. In vn1-srv8.clients.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
+1. In VN1-SRV7.clients.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
 1. In Edit Forwarders, click **10.1.1.8**, click **Delete**, and click **OK**.
 
     > The name resolution to the root domain worked, because of the general forwarder.
 
-1. In **vn1-srv8.clients.ad.adatum.com Properties**, click **OK**.
-1. In the context-menu of **vn1-srv8.clients.ad.adatum.com**, click **Clear cache**.
+1. In **VN1-SRV7.clients.ad.adatum.com Properties**, click **OK**.
+1. In the context-menu of **VN1-SRV7.clients.ad.adatum.com**, click **Clear cache**.
 
 > You should prefer conditional forwarders, because general forwarding of all unresolved queries may impact the performance of external Internet services negatively.
 
@@ -205,23 +205,23 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. Store the name of the DNS server **VN1-SRV8** in a variable.
+1. Store the name of the DNS server **VN1-SRV7** in a variable.
 
     ````powershell
-    $computerName = 'VN1-SRV8.clients.ad.adatum.com'
+    $computerName = 'VN1-SRV7.clients.ad.adatum.com'
     ````
 
-1. On **VN1-SRV8**, add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.56** and **10.1.2.8**. The forwarder should be replicated forest-wide.
+1. On **VN1-SRV7**, add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.40** and **10.1.2.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name ad.adatum.com `
-        -MasterServers 10.1.1.56, 10.1.2.8 `
+        -MasterServers 10.1.1.40, 10.1.2.8 `
         -ReplicationScope Forest `
         -ComputerName $computerName
     ````
 
-1. On **VN1-SRV8**, remove the DNS forwarder **10.1.1.8**.
+1. On **VN1-SRV7**, remove the DNS forwarder **10.1.1.8**.
 
     ````powershell
     Remove-DnsServerForwarder -IPAddress 10.1.1.8 -ComputerName $computerName 
@@ -229,9 +229,9 @@ Perform this task on CL1.
 
     > The name resolution to the root domain worked, because of the general forwarder.
 
-1. At the prompt **Do you want to remove the forwarder 10.1.1.8 on VN1-SRV8 server?**, enter **y**.
+1. At the prompt **Do you want to remove the forwarder 10.1.1.8 on VN1-SRV7 server?**, enter **y**.
 
-1. On **VN1-SRV8**, clear the DNS server's cache.
+1. On **VN1-SRV7**, clear the DNS server's cache.
 
     ````powershell
     Clear-DnsServerCache -ComputerName $computerName
@@ -246,21 +246,21 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Try to resolve the DNS name **ad.adatum.com** on the DNS server **vn1-srv8.clients.ad.adatum.com**.
+1. Try to resolve the DNS name **ad.adatum.com** on the DNS server **VN1-SRV7.clients.ad.adatum.com**.
 
     ````powershell
-    Resolve-DnsName -Name ad.adatum.com -Server vn1-srv8.clients.ad.adatum.com
+    Resolve-DnsName -Name ad.adatum.com -Server VN1-SRV7.clients.ad.adatum.com
     ````
 
-    > The IP addresses 10.1.1.8, 10.1.1.56 and 10.1.2.8 should be returned.
+    > The IP addresses 10.1.1.8, 10.1.1.40 and 10.1.2.8 should be returned.
 
-1. Try to resolve the DNS name **clients.ad.adatum.com** on the DNS server **vn1-srv7.ad.adatum.com**.
+1. Try to resolve the DNS name **clients.ad.adatum.com** on the DNS server **VN1-SRV5.ad.adatum.com**.
 
     ````powershell
-    Resolve-DnsName -Name clients.ad.adatum.com -Server vn1-srv7.ad.adatum.com
+    Resolve-DnsName -Name clients.ad.adatum.com -Server VN1-SRV5.ad.adatum.com
     ````
 
-    > The IP address 10.1.1.64 should be returned.
+    > The IP address 10.1.1.56 should be returned.
 
     > The name resolution works, because the Active Directory Domain Services Configuration Wizard added a delegation for the clients domain to ad.adatum.com.
 
@@ -270,13 +270,13 @@ Perform this task on CL1.
 
 #### SConfig
 
-Perform this task on VN1-SRV8.
+Perform this task on VN1-SRV7.
 
 1. Sign in as **clients\administrator**.
 1. In SConfig, enter **8**.
 1. In Network settings, enter **1**.
 1. In Network adapter settings, enter **2**.
-1. Beside Enter new preferred DNS server, enter **10.1.1.64**.
+1. Beside Enter new preferred DNS server, enter **10.1.1.56**.
 
     Note: In real world, you should enter the IP address of a another DC of the same domain.
 
@@ -291,18 +291,18 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal**.
-1. Create a CIM session to **VN1-SRV8**.
+1. Create a CIM session to **VN1-SRV7**.
 
     ````powershell
-    $cimSession = New-CimSession -ComputerName VN1-SRV8.clients.ad.adatum.com
+    $cimSession = New-CimSession -ComputerName VN1-SRV7.clients.ad.adatum.com
     ````
 
-1. Set the DNS client server address for **VN1-SRV8** to **10.1.1.64** and **127.0.0.1**.
+1. Set the DNS client server address for **VN1-SRV7** to **10.1.1.56** and **127.0.0.1**.
 
     ````powershell
     Set-DnsClientServerAddress `
         -InterfaceAlias Ethernet `
-        -ServerAddresses 10.1.1.64, 127.0.0.1 `
+        -ServerAddresses 10.1.1.56, 127.0.0.1 `
         -CimSession $cimSession
     ````
 
@@ -326,7 +326,7 @@ Perform this task on CL4.
 1. In Settings, in the left pane, click **Network & internet**.
 1. In Network & internet, click **Ethernet**.
 1. In Ethernet, beside **DNS server assignment**, click **Edit**.
-1. In Edit IP Settings, under **Preferred DNS**, type **10.1.1.64** and click **Save**.
+1. In Edit IP Settings, under **Preferred DNS**, type **10.1.1.56** and click **Save**.
 1. Sign out.
 
 #### PowerShell
@@ -337,7 +337,7 @@ Perform this task on CL4.
 1. Set the DNS client server address on the interface **Ethernet** to **10.1.2.16**.
 
     ````powershell
-    Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 10.1.1.64
+    Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 10.1.1.56
     ````
 
 ### Task 7: Connect to domain
@@ -370,7 +370,7 @@ Perform this task on CL4.
 
 ## Exercise 2: Deploy a domain in a new tree
 
-1. [Add Conditional Forwarders](#task-1-add-conditional-forwarders) on VN1-SRV7 for extranet.adatum.com pointing to the IP address of VN3-SRV1 (10.1.3.8)
+1. [Add Conditional Forwarders](#task-1-add-conditional-forwarders) on VN1-SRV5 for extranet.adatum.com pointing to the IP address of VN3-SRV1 (10.1.3.8)
 
     > Why do you need to add this conditional forwarder before deploying the new tree?
 
@@ -378,9 +378,9 @@ Perform this task on CL4.
 1. [Configure Active Directory Domain Services as new tree](#task-3-configure-active-directory-domain-services-as-new-tree) named extranet.adatum.com on VN3-SRV1
 1. [Verify name resolution of the new tree](#task-4-verify-name-resolution-of-the-new-tree)
 
-    > Which IP address is returned when querying for extranet.adatum.com on vn1-srv7.ad.adatum.com?
+    > Which IP address is returned when querying for extranet.adatum.com on VN1-SRV5.ad.adatum.com?
 
-    > Which IP address is returned when querying for extranet.adatum.com on vn1-srv8.clients.ad.adatum.com?
+    > Which IP address is returned when querying for extranet.adatum.com on VN1-SRV7.clients.ad.adatum.com?
 
     > Which IP address is returned when querying for ad.adatum.com on vn3-srv1.extranet.adatum.com?
 
@@ -396,8 +396,8 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **DNS**.
-1. In **Connect to DNS Server**, click **The following computer**, type **vn1-srv7.ad.adatum.com**, and click **OK**.
-1. In **DNS Manager**, click and expand **vn1-srv7.ad.adatum.com**, and click **Conditional Forwarders**.
+1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
+1. In **DNS Manager**, click and expand **VN1-SRV5.ad.adatum.com**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
 1. In New Conditional Forwarder, under **DNS Domain**, type **extranet.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.3.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
 
@@ -409,20 +409,20 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. Store the name of the DNS server **VN1-SRV7** in a variable.
+1. Store the name of the DNS server **VN1-SRV5** in a variable.
 
     ````powershell
-    $computerName = 'VN1-SRV7'
+    $computerName = 'VN1-SRV5'
     ````
 
-1. On **VN1-SRV7**, add a conditional forwarder for zone **extranet.adatum.com** pointing to **10.1.3.8**. The forwarder should be replicated forest-wide.
+1. On **VN1-SRV5**, add a conditional forwarder for zone **extranet.adatum.com** pointing to **10.1.3.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name extranet.adatum.com `
         -MasterServers 10.1.3.8 `
         -ReplicationScope Forest `
-        -ComputerName VN1-SRV7.ad.adatum.com
+        -ComputerName VN1-SRV5.ad.adatum.com
     ````
 
 > You need to add this conditional forwarder to ensure name resolution for the new tree from the existing root domain. Without this name resolution, creation of the trust between the root domain and the new tree fails.
@@ -537,25 +537,25 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Resolve the DNS name **extranet.adatum.com** on server **vn1-srv7.ad.adatum.com**.
+1. Resolve the DNS name **extranet.adatum.com** on server **VN1-SRV5.ad.adatum.com**.
 
     ````powershell
-    Resolve-DnsName -Name extranet.adatum.com -Server vn1-srv7.ad.adatum.com
+    Resolve-DnsName -Name extranet.adatum.com -Server VN1-SRV5.ad.adatum.com
     ````
 
     > The IP address 10.1.3.8 should be returned.
 
-    Note: If you do not get the IP address, restart the DNS service on VN1-SRV7 and try again.
+    Note: If you do not get the IP address, restart the DNS service on VN1-SRV5 and try again.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV7 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
         Restart-Service -Name DNS
     }
 
-1. Resolve the DNS name **extranet.adatum.com** on server **vn1-srv8.clients.ad.adatum.com**.
+1. Resolve the DNS name **extranet.adatum.com** on server **VN1-SRV7.clients.ad.adatum.com**.
 
     ````powershell
-    Resolve-DnsName -Name extranet.adatum.com -Server vn1-srv8.clients.ad.adatum.com
+    Resolve-DnsName -Name extranet.adatum.com -Server VN1-SRV7.clients.ad.adatum.com
     ````
 
     > The IP address 10.1.3.8 should be returned.
@@ -566,7 +566,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name ad.adatum.com -Server vn3-srv1.extranet.adatum.com
     ````
 
-    > The IP addresses 10.1.1.8, 10.1.1.56, and 10.1.2.8 should be returned.
+    > The IP addresses 10.1.1.8, 10.1.1.40, and 10.1.2.8 should be returned.
 
 1. Resolve the DNS name **clients.ad.adatum.com** on server **vn3-srv1.extranet.adatum.com**.
 
@@ -574,7 +574,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name clients.ad.adatum.com -Server vn3-srv1.extranet.adatum.com
     ````
 
-    > The IP address 10.1.1.64 should be returned.
+    > The IP address 10.1.1.56 should be returned.
 
 ### Task 5: Configure DNS client settings
 
@@ -801,7 +801,7 @@ Perform this task on VN2-SRV2.
 
     > Can a user of the domain clients.ad.adatum.com sign in?
 
-    > Can a user of domain clients.ad.adatum.com access the shares on VN1-SRV8?
+    > Can a user of domain clients.ad.adatum.com access the shares on VN1-SRV7?
 
     > Can a user of domain clients.ad.adatum.com access the shares on VN3-SRV1?
 
@@ -825,18 +825,18 @@ Perform this task on VN2-SRV2.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV7**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Suspend**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Suspend**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Suspend the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
+1. Suspend the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
 
     ````powershell
-    Suspend-VM -Name WIN-VN1-SRV7, WIN-VN2-SRV1
+    Suspend-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
     ````
 
 ### Task 2: Validate the effects of an failure of an intermediate domain
@@ -844,7 +844,7 @@ Perform this task on the host.
 Perform this task on CL4.
 
 1. Sign in as **Administrator@clients.ad.adatum.com**.
-1. Using **File Explorer**, try to navigate to **\\\\vn1-srv8**.
+1. Using **File Explorer**, try to navigate to **\\\\VN1-SRV7**.
 
     > You should see the shares NETLOGON and SYSVOL.
 
@@ -867,18 +867,18 @@ Perform this task on CL4.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV7**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Resume**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Resume**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Resume the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
+1. Resume the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
 
     ````powershell
-    Resume-VM -Name WIN-VN1-SRV7, WIN-VN2-SRV1
+    Resume-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
     ````
 
 ### Task 4: Create a shortcut trust
@@ -945,18 +945,18 @@ Perform this task on CL1.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV7**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Suspend**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Suspend**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Suspend the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
+1. Suspend the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
 
     ````powershell
-    Suspend-VM -Name WIN-VN1-SRV7, WIN-VN2-SRV1
+    Suspend-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
     ````
 
 ### Task 6: Validate the effects of the shortcut trust
@@ -982,18 +982,18 @@ Perform this task on CL4.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV7**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV7** or **WIN-VN2-SRV1**, click **Resume**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Resume**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Resume the virtual machines **WIN-VN1-SRV7** and **WIN-VN2-SRV1**.
+1. Resume the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
 
     ````powershell
-    Resume-VM -Name WIN-VN1-SRV7, WIN-VN2-SRV1
+    Resume-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
     ````
 
 ## Exercise 5: Create and validate a forest trust
@@ -1016,8 +1016,8 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **DNS**.
-1. In **Connect to DNS Server**, click **The following computer**, type **vn1-srv7.ad.adatum.com**, and click **OK**.
-1. In **DNS Manager**, click and expand **vn1-srv7.ad.adatum.com**, and click **Conditional Forwarders**.
+1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
+1. In **DNS Manager**, click and expand **VN1-SRV5.ad.adatum.com**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
 1. In New Conditional Forwarder, under **DNS Domain**, type **ad.contoso.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.2.16**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
 
@@ -1027,14 +1027,14 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. On **VN1-SRV7**, add a conditional forwarder for zone **ad.contoso.com** pointing to **10.1.2.16**. The forwarder should be replicated forest-wide.
+1. On **VN1-SRV5**, add a conditional forwarder for zone **ad.contoso.com** pointing to **10.1.2.16**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name ad.contoso.com `
         -MasterServers 10.1.2.16 `
         -ReplicationScope Forest `
-        -ComputerName VN1-SRV7.ad.adatum.com
+        -ComputerName VN1-SRV5.ad.adatum.com
     ````
 
 ### Task 2: Implement DNS name resolution of ad.adatum.com
@@ -1046,19 +1046,19 @@ Perform this task on VN2-SRV2.
 1. Open **DNS**.
 1. In **DNS Manager**, click and expand **VN2-SRV2**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
-1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.56** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
+1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.40** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
 
 #### PowerShell
 
 Perform this task on VN2-SRV2.
 
 1. In the context menu of **Start**, click **Windows PowerShell**.
-1. Add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.56** and **10.1.2.8**. The forwarder should be replicated forest-wide.
+1. Add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.40** and **10.1.2.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name ad.adatum.com `
-        -MasterServers 10.1.1.56, 10.1.2.8 `
+        -MasterServers 10.1.1.40, 10.1.2.8 `
         -ReplicationScope Forest
     ````
 
@@ -1076,10 +1076,10 @@ Perform this task on VN2-SRV2.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Verify the DNS name resolution for **ad.contoso.com** on the server **10.1.1.56**.
+1. Verify the DNS name resolution for **ad.contoso.com** on the server **10.1.1.40**.
 
     ````powershell
-    Resolve-DnsName -Name ad.contoso.com -Server 10.1.1.56
+    Resolve-DnsName -Name ad.contoso.com -Server 10.1.1.40
     ````
 
     > You should get the IP address 10.1.2.16.
@@ -1090,7 +1090,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name ad.adatum.com -Server 10.1.2.16
     ````
 
-    > You should get the IP addresses 10.1.1.8, 10.1.1.56, and 10.1.2.8.
+    > You should get the IP addresses 10.1.1.8, 10.1.1.40, and 10.1.2.8.
 
 1. Verify the DNS name resolution for **clients.ad.adatum.com** on the server **10.1.2.16**.
 
@@ -1098,7 +1098,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name clients.ad.adatum.com -Server 10.1.2.16
     ````
 
-    > You should get the IP address 10.1.1.64.
+    > You should get the IP address 10.1.1.56.
 
 1. Verify the DNS name resolution for **extranet.adatum.com** on the server **10.1.2.16**.
 

@@ -2,8 +2,8 @@
 
 ## Required VMs
 
-* VN1-SRV7
-* VN1-SRV9
+* VN1-SRV5
+* PM-SRV2
 * CL1
 
 ## Task
@@ -44,7 +44,7 @@ Perform these steps on CL1.
     ````powershell
     Set-ADComputer `
         -Identity CL4 `
-        -Server VN1-SRV8 `
+        -Server VN1-SRV7 `
         -PrincipalsAllowedToDelegateToAccount $wacComputer
     ````
 
