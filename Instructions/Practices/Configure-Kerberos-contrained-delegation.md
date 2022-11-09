@@ -44,7 +44,7 @@ Perform these steps on CL1.
     ````powershell
     Set-ADComputer `
         -Identity CL4 `
-        -Server VN1-SRV8 `
+        -Server VN1-SRV7 `
         -PrincipalsAllowedToDelegateToAccount $wacComputer
     ````
 

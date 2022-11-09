@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV5
-* VN1-SRV8
+* VN1-SRV7
 * CL1
 
 ## Task
@@ -42,10 +42,10 @@ Perform these steps on CL1.
 1. In **Group Policy Management**, in **clients.ad.adatum.com**, click the tab **Linked Group Policy Objects**.
 1. On the taq Linked Group Policy Objects, click **Custom Domain Account Policies** and to the left, click the icon *Move link up*.
 1. Open **Terminal**.
-1. Invoke the group policy update on **VN1-SRV8**.
+1. Invoke the group policy update on **VN1-SRV7**.
 
     ````powershell
-    Invoke-GPUpdate -Computer VN1-SRV8.clients.ad.adatum.com
+    Invoke-GPUpdate -Computer VN1-SRV7.clients.ad.adatum.com
     ````
 
 1. Sign out.
