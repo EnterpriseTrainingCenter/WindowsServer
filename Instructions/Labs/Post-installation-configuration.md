@@ -25,7 +25,7 @@ After the initial setup, Windows Servers require some post-installation configur
 ## Exercise 1: Configure password, TCP/IP, domain join and time zone on Windows Server with Desktop Experience
 
 1. [Set the default Administrator password](#task-1-set-the-default-administrator-password-on-VN1-SRV10)
-1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.56/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-VN1-SRV10)
+1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.80/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-VN1-SRV10)
 1. [Set the computer name to VN1-SRV10 and join the domain ad.adatum.com](#task-3-set-the-computer-name-to-VN1-SRV10-and-join-the-domain)
 1. [Add the VN1-SRV10 to Windows Admin Center](#task-4-add-the-VN1-SRV10-to-windows-admin-center)
 
@@ -51,7 +51,7 @@ Perform this task on VN1-SRV10.
 1. In **Network Connections**, in the context-menu of **Ethernet**, click **Properties**.
 1. In Ethernet Properties, click **Interent Protocol Version 4 (TCP/IPv4)** and click **Properties**.
 1. In Internet Protocol Version 4 (TCP/IPv4) Properties, click **Use the following IP address**.
-1. In **IP address**, enter 10.1.1.56.
+1. In **IP address**, enter 10.1.1.80.
 1. In **Subnet mask**, enter 255.255.255.0.
 1. In **Default gateway**, enter 10.1.1.1.
 1. In **Preferred DNS server**, enter 10.1.1.8.
@@ -64,13 +64,13 @@ Perform this task on VN1-SRV10.
 Perform this task on VN1-SRV10.
 
 1. Run **Windows PowerShell** as Administrator.
-1. Configure the network adapter **Ethernet** with the IP address **10.1.1.56/24** and the default gateway 10.1.1.1.
+1. Configure the network adapter **Ethernet** with the IP address **10.1.1.80/24** and the default gateway 10.1.1.1.
 
     ````powershell
     New-NetIPAddress `
         -InterfaceAlias Ethernet `
         -AddressFamily IPv4 `
-        -IPAddress 10.1.1.56 `
+        -IPAddress 10.1.1.80 `
         -PrefixLength 24 `
         -DefaultGateway 10.1.1.1
     ````
@@ -106,18 +106,18 @@ Perform this task on CL1.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click **Add**.
 1. In Add or create resources, under **Servers**, click **Add**.
-1. On the tab **Add one**, type 10.1.1.56.
+1. On the tab **Add one**, type 10.1.1.80.
 1. Click **Use another account for this connection**.
 1. Enter the credentials for the default Administrator account and click **Add**.
-1. Click **10.1.1.56**.
-1. Connected to 10.1.1.56, in Overview, click **Edit Computer ID**.
+1. Click **10.1.1.80**.
+1. Connected to 10.1.1.80, in Overview, click **Edit Computer ID**.
 1. In the pane Edit computer ID, in **Computer name**, enter **VN1-SRV10**.
 1. Click **Domain** and enter **ad.adatum.com.**.
 1. Click **Next**.
 1. Under **Current domain**, enter the credentials of **ad\Administrator** and click **Save**.
 1. In **Overview**, click **Restart**.
 1. In **Restart the computer**, click **Yes**.
-1. In Windows Admin Center, activate the checkbox beside **10.1.1.56**.
+1. In Windows Admin Center, activate the checkbox beside **10.1.1.80**.
 1. Click **Remove**.
 
 #### PowerShell
@@ -187,7 +187,7 @@ Perform this task on CL1.
 ## Exercise 2: Configure password, TCP/IP, domain join and time zone on Windows Server
 
 1. [Set the default Administrator password](#task-1-set-the-default-administrator-password-on-VN1-SRV11)
-1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.56/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-VN1-SRV11)
+1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.88/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-VN1-SRV11)
 1. [Set the computer name to VN1-SRV10 and join the domain ad.adatum.com](#task-3-set-the-computer-name-to-VN1-SRV11-and-join-the-domain)
 1. [Add the VN1-SRV10 to Windows Admin Center](#task-4-add-the-VN1-SRV11-to-windows-admin-center)
 
@@ -214,7 +214,7 @@ Perform this task on VN1-SRV11.
 1. In Network settings, enter  **1**.
 1. In Network adapter settings, enter **1**.
 1. Beside **Select (D)HCP or (S)tatic IP address (Blank=Canel)**, enter **S**.
-1. Beside **Enter static IP address (Blan=Cancel)**, enter **10.1.1.80**.
+1. Beside **Enter static IP address (Blan=Cancel)**, enter **10.1.1.88**.
 1. Beside **Enter subnet mask (Blank=255.255.255.0)**, press ENTER.
 1. Beside **Enter default gateway (Blank=Cancel)**, enter **10.1.1.1**.
 1. Under 4 success messages, press ENTER.
@@ -230,13 +230,13 @@ Perform this task on VN1-SRV11.
 Perform this task on VN1-SRV11.
 
 1. In SConfig, enter **15**.
-1. Configure the network adapter **Ethernet** with the IP address **10.1.1.56/24** and the default gateway 10.1.1.1.
+1. Configure the network adapter **Ethernet** with the IP address **10.1.1.88/24** and the default gateway 10.1.1.1.
 
     ````powershell
     New-NetIPAddress `
         -InterfaceAlias Ethernet `
         -AddressFamily IPv4 `
-        -IPAddress 10.1.1.80 `
+        -IPAddress 10.1.1.88 `
         -PrefixLength 24 `
         -DefaultGateway 10.1.1.1
     ````
