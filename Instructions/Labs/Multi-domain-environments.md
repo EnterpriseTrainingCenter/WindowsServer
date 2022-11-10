@@ -190,10 +190,11 @@ Perform this task on CL1.
 1. In **DNS Manager**, click **VN1-SRV7.clients.ad.adatum.com**.
 1. In the right pane, double-click **Forwarders**.
 1. In VN1-SRV7.clients.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
-1. In Edit Forwarders, click **10.1.1.8**, click **Delete**, and click **OK**.
+1. In Edit Forwarders, click **10.1.1.8**, and click **Delete**.
 
     > The name resolution to the root domain worked, because of the general forwarder.
 
+1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
 1. In **VN1-SRV7.clients.ad.adatum.com Properties**, click **OK**.
 1. In the context-menu of **VN1-SRV7.clients.ad.adatum.com**, click **Clear cache**.
 
@@ -224,7 +225,7 @@ Perform this task on CL1.
 1. On **VN1-SRV7**, remove the DNS forwarder **10.1.1.8**.
 
     ````powershell
-    Remove-DnsServerForwarder -IPAddress 10.1.1.8 -ComputerName $computerName 
+    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName $computerName 
     ````
 
     > The name resolution to the root domain worked, because of the general forwarder.
