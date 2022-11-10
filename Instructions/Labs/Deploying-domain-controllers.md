@@ -480,12 +480,6 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
-1. Clear the DNS client cache.
-
-    ````powershell
-    Clear-DnsClientCache
-    ````
-
 ### Task 3: Demote the old domain controller
 
 #### Desktop experience
