@@ -183,7 +183,7 @@ Perform this task on CL1.
 1. In vn1-srv5.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
 1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
 1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
-1. In **vn2-srv2 Properties**, click **OK**.
+1. In **VN1-SRV5.ad.adatum.com Properties**, click **OK**.
 
 Repeat these steps, but in step 4, connect to **VN2-SRV1.ad.adatum.com**.
 
