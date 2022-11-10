@@ -624,7 +624,31 @@ Perform this task on CL1.
     Remove-CimSession $cimSession
     ````
 
-1. Sign out.
+### Task 6: Configure forwarders
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **DNS**.
+1. In **Connect to DNS Server**, click **The following computer**, type **VN3-SRV1.extranet.adatum.com**, and click **OK**.
+1. In DNS Manager, click **VN3-SRV1.extranet.adatum.com**.
+1. In VN3-SRV1.extranet.adatum.com, double-click **Forwarders**.
+1. In VN3-SRV1.extranet.adatum.com, on tab Forwarders, click **Edit...**
+1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
+1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
+1. In **VN3-SRV1.extranet.adatum.com**, click **OK**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Run **Terminal**.
+1. In Terminal, configure the forwarder on VN3-SRV1 to **8.8.8.8** and **8.8.4.4**.
+
+    ````powershell
+    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName VN3-SRV1
+    ````
 
 ## Exercise 3: Managing user principal names
 
