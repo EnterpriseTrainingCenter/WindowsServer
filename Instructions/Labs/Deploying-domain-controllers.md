@@ -195,8 +195,8 @@ Perform this task on CL1.
 1. In Terminal, configure the forwarder for DNS server **VN1-SRV5** and **VN2-SRV1** to **8.8.8.8** and **8.8.4.4**.
 
     ````powershell
-    Set-DnsServerForwarder -IPAddress 8.8.8, 8.8.4.4  -ComputerName VN1-SRV5
-    Set-DnsServerForwarder -IPAddress 8.8.8, 8.8.4.4  -ComputerName VN2-SRV1
+    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4  -ComputerName VN1-SRV5
+    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4  -ComputerName VN2-SRV1
     ````
 
 ### Task 5: Configure DNS client settings using core experience
@@ -856,5 +856,5 @@ Perform this task on VN2-SRV2.
 1. In Windows PowerShell (Admin), configure the forwarder to **8.8.8.8** and **8.8.4.4**.
 
     ````powershell
-    Set-DnsServerForwarder -IPAddress 8.8.8, 8.8.4.4
+    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4
     ````
