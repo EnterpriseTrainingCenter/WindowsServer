@@ -183,6 +183,7 @@ Perform this task on CL1.
 1. In vn1-srv5.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
 1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
 1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
+1. In **vn2-srv2 Properties**, click **OK**.
 
 Repeat these steps, but in step 4, connect to **VN2-SRV1.ad.adatum.com**.
 
@@ -695,6 +696,7 @@ Perform this task on CL1.
 1. [Configure Active Directory Domain Services as new forest](#task-2-configure-active-directory-domain-services-as-new-forest) with the name ad.contoso.com on VN2-SRV2.
 1. [Change the DNS client settings](#task-3-change-the-dns-client-settings) on CL3 to use 10.1.2.16 (VN2-SRV2)
 1. [Connect to domain](#task-4-connect-to-domain) ad.contoso.com on CL3.
+1. [Configure forwarders](#task-5-configure-forwarders) on VN2-SRV2 to use 8.8.8.8 and 8.8.4.4.
 
 ### Task 1: Install Active Directory Domain Services on VN2-SRV2
 
@@ -844,6 +846,7 @@ Perform this task on VN2-SRV2.
 1. In vn2-srv2 Properties, on tab Forwarders, click **Edit...**
 1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
 1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
+1. In **vn2-srv2 Properties**, click **OK**.
 
 #### PowerShell
 
