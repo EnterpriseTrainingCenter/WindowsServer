@@ -9,7 +9,6 @@
 * CL1
 * CL3
 
-
 ## Setup
 
 1. On **CL1**, sign in as **ad\\Administrator**.
@@ -34,9 +33,10 @@ The domain controller still running Windows Server 2019 must be replaced by a Wi
 
 1. [Install the Remote Server Administration DNS Server Tools](#task-1-install-the-remote-server-administration-dns-server-tools) on CL1
 1. [Install Active Directory Domain Services](#task-2-install-active-directory-domain-services) on VN1-SRV5 and VN2-SRV1
-1. [Configure Active Directory Domain Services as a additional domain controller in an existing domain](#task-3-configure-active-directory-domain-services-as-a-additional-domain-controller-in-an-existing-domain) on VN1-SRV5 and VN2-SRV1.
-1. [Configure DNS client settings using core experience](#task-4-configure-dns-client-settings-using-core-experience) on VN1-SRV5 to use VN2-SRV1 as preferred DNS server
-1. [Configure DNS client settings using desktop experience](#task-5-configure-dns-client-settings-using-desktop-experience) on VN2-SRV1 to use VN1-SRV5 as preferred DNS server
+1. [Configure Active Directory Domain Services as a additional domain controller in an existing domain](#task-3-configure-active-directory-domain-services-as-a-additional-domain-controller-in-an-existing-domain) on VN1-SRV5 and VN2-SRV1
+1. [Configure forwarders](#task-4-configure-forwarders) on VN1-SRV5 and VN2-SRV1 to 8.8.8.8 and 8.8.4.4
+1. [Configure DNS client settings using core experience](#task-5-configure-dns-client-settings-using-core-experience) on VN1-SRV5 to use VN2-SRV1 as preferred DNS server
+1. [Configure DNS client settings using desktop experience](#task-6-configure-dns-client-settings-using-desktop-experience) on VN2-SRV1 to use VN1-SRV5 as preferred DNS server
 
 Note: It is recommended to use another domain controller as DNS server. However, in real world, you should choose a DNS server on the same network.
 
@@ -169,7 +169,36 @@ Perform this task on CL1.
 
 1. At the prompts **The target server will be configured as a domain controller and restarted when this operation is complete.**, enter **y**.
 
-### Task 4: Configure DNS client settings using core experience
+### Task 4: Configure forwarders
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Sign in as **Administrator@ad.adatum.com**.
+1. Open **DNS**.
+1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
+1. In DNS Manager, click **VN1-SRV5.ad.adatum.com**.
+1. In vn1-srv5.ad.adatum.com, double-click **Forwarders**.
+1. In vn1-srv5.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
+1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
+1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
+
+Repeat these steps, but in step 4, connect to **VN2-SRV1.ad.adatum.com**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Run **Terminal**.
+1. In Terminal, configure the forwarder for DNS server **VN1-SRV5** and **VN2-SRV1** to **8.8.8.8** and **8.8.4.4**.
+
+    ````powershell
+    Set-DnsServerForwarder -IPAddress 8.8.8, 8.8.4.4  -ComputerName VN1-SRV5
+    Set-DnsServerForwarder -IPAddress 8.8.8, 8.8.4.4  -ComputerName VN2-SRV1
+    ````
+
+### Task 5: Configure DNS client settings using core experience
 
 #### SConfig
 
@@ -211,7 +240,7 @@ Perform this task on CL1.
     Remove-CimSession $cimSession
     ````
 
-### Task 5: Configure DNS client settings using desktop experience
+### Task 6: Configure DNS client settings using desktop experience
 
 #### Desktop experience
 
@@ -227,6 +256,8 @@ Perform this task on VN2-SRV1.
 1. Sign out.
 
 #### PowerShell
+
+Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
 1. Create a CIM session to **VN2-SRV1**.
@@ -390,6 +421,8 @@ Perform this task on CL1.
 
 #### PowerShell
 
+Perform this task on CL1.
+
 1. In the context menu of **Start**, click **Terminal**.
 1. Move the roles **domain naming master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV5**.
 
@@ -504,6 +537,8 @@ Perform this task on CL1.
 
 #### PowerShell
 
+Perform this task on CL1.
+
 1. In the context menu of **Start**, click **Terminal**.
 1. Clear the DNS client cache.
 
@@ -605,6 +640,8 @@ Perform this task on CL1.
 
 #### PowerShell
 
+Perform this task on CL1.
+
 1. In the context menu of **Start**, click **Terminal**.
 1. Set the domain mode to Windows Server 2016.
 
@@ -630,6 +667,8 @@ Perform this task on CL1.
 1. In Raise domain function level, click **Cancel**.
 
 #### PowerShell
+
+Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
 1. Set the forest mode to Windows Server 2016.
@@ -752,6 +791,8 @@ Perform this task on CL3.
 
 #### PowerShell
 
+Perform this task on CL3.
+
 1. In the context menu of **Start**, click **Terminal (Admin)**.
 1. Set the DNS client server address on the interface **Ethernet** to **10.1.2.16**.
 
@@ -779,6 +820,8 @@ Perform this task on CL3.
 
 #### PowerShell
 
+Perform this task on CL3.
+
 1. In the context menu of **Start**, click **Terminal (Admin)**.
 1. Add the computer to the domain **ad.contoso.com** and restart it.
 
@@ -787,3 +830,28 @@ Perform this task on CL3.
     ````
 
 1. In **Windows PowerShell credential request**, enter the the credentials of **Administrator@ad.contoso.com**.
+
+### Task 5: Configure forwarders
+
+#### Desktop experience
+
+Perform this task on VN2-SRV2.
+
+1. Sign in as **Administrator@ad.contoso.com**.
+1. Open **DNS**.
+1. In DNS Manager, click **VN2-SRV2**.
+1. In vn2-srv2, double-click **Forwarders**.
+1. In vn2-srv2 Properties, on tab Forwarders, click **Edit...**
+1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
+1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
+
+#### PowerShell
+
+Perform this task on VN2-SRV2.
+
+1. Run **Windows PowerShell (Admin)**.
+1. In Windows PowerShell (Admin), configure the forwarder to **8.8.8.8** and **8.8.4.4**.
+
+    ````powershell
+    Set-DnsServerForwarder -IPAddress 8.8.8, 8.8.4.4
+    ````
