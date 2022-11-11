@@ -594,21 +594,19 @@ Perform this task on CL1.
 
 ### Task 5: Configure DNS client settings
 
-#### Desktop experience
+#### SConfig
 
 Perform this task on PM-SRV1.
 
 1. Sign in as **Administrator@extranet.adatum.com**.
-1. In Server Manager, click **Local Server**.
-1. Under PROPERTIES for VN2-SRV1, beside **Ethernet**, click **10.1.200.8, IPv6 enabled**.
-1. In Network Connections, in the context-menu of **Ethernet**, click **Properties**.
-1. In Ethernet Properties, click **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
-1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.200.8**, in **Alternate DNS server**, type **127.0.0.1**, and click **OK**.
-
-    Note: In real world, you should enter the IP address of a another DC of the same domain.
-
-1. In **Ethernet Properties**, click **Close**.
-1. Sign out.
+1. In SConfig, enter **8**.
+1. In Network settings, enter **1**.
+1. In Network adapter settings, enter **2**.
+1. Beside Enter new preferred DNS server, enter **10.1.200.8**.
+1. Beside Enter alternate DNS server, enter **127.0.0.1**.
+1. Press ENTER to continue.
+1. In SConfig, enter **12**.
+1. Beside Are you sure you want to log off, enter **y**.
 
 #### PowerShell
 
