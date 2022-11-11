@@ -28,42 +28,42 @@ Perform these steps on CL1.
 
         | Naming context               | Partial | From server | To server |
         | ---------------------------- | ------- | ----------- | --------- |
-        | ForestDnsZones.ad.adatum.com |         | VN3-SRV1    | VN1-SRV5  |
+        | ForestDnsZones.ad.adatum.com |         | PM-SRV1     | VN1-SRV5  |
         |                              |         | VN2-SRV1    | VN2-SRV5  |
-        |                              |         | VN3-SRV1    | VN1-SRV7  |
+        |                              |         | PM-SRV1     | VN1-SRV7  |
         |                              |         | VN2-SRV1    | VN1-SRV7  |
         |                              |         | VN1-SRV7    | VN2-SRV1  |
         |                              |         | VN1-SRV5    | VN2-SRV1  |
-        |                              |         | VN1-SRV5    | VN3-SRV1  |
-        |                              |         | VN1-SRV7    | VN3-SRV1  |
+        |                              |         | VN1-SRV5    | PM-SRV1   |
+        |                              |         | VN1-SRV7    | PM-SRV1   |
         | DomainDnsZones.ad.adatum.com |         | VN2-SRV1    | VN1-SRV5  |
         |                              |         | VN1-SRV5    | VN2-SRV1  |
         | ad.adatum.com                |         | VN2-SRV1    | VN2-SRV5  |
         |                              |         | VN1-SRV5    | VN2-SRV1  |
-        | Schema                       |         | VN3-SRV1    | VN1-SRV5  |
+        | Schema                       |         | PM-SRV1     | VN1-SRV5  |
         |                              |         | VN2-SRV1    | VN2-SRV5  |
-        |                              |         | VN3-SRV1    | VN1-SRV7  |
+        |                              |         | PM-SRV1     | VN1-SRV7  |
         |                              |         | VN2-SRV1    | VN1-SRV7  |
         |                              |         | VN1-SRV7    | VN2-SRV1  |
         |                              |         | VN1-SRV5    | VN2-SRV1  |
-        |                              |         | VN1-SRV5    | VN3-SRV1  |
-        |                              |         | VN1-SRV7    | VN3-SRV1  |
-        | Configuration                |         | VN3-SRV1    | VN1-SRV5  |
+        |                              |         | VN1-SRV5    | PM-SRV1   |
+        |                              |         | VN1-SRV7    | PM-SRV1   |
+        | Configuration                |         | PM-SRV1     | VN1-SRV5  |
         |                              |         | VN2-SRV1    | VN2-SRV5  |
-        |                              |         | VN3-SRV1    | VN1-SRV7  |
+        |                              |         | PM-SRV1     | VN1-SRV7  |
         |                              |         | VN2-SRV1    | VN1-SRV7  |
         |                              |         | VN1-SRV7    | VN2-SRV1  |
         |                              |         | VN1-SRV5    | VN2-SRV1  |
-        |                              |         | VN1-SRV5    | VN3-SRV1  |
-        |                              |         | VN1-SRV7    | VN3-SRV1  |
-        | All other domains            | Yes     | VN3-SRV1    | VN1-SRV5  |
+        |                              |         | VN1-SRV5    | PM-SRV1   |
+        |                              |         | VN1-SRV7    | PM-SRV1   |
+        | All other domains            | Yes     | PM-SRV1     | VN1-SRV5  |
         |                              |         | VN2-SRV1    | VN2-SRV5  |
-        |                              |         | VN3-SRV1    | VN1-SRV7  |
+        |                              |         | PM-SRV1     | VN1-SRV7  |
         |                              |         | VN2-SRV1    | VN1-SRV7  |
         |                              |         | VN1-SRV7    | VN2-SRV1  |
         |                              |         | VN1-SRV5    | VN2-SRV1  |
-        |                              |         | VN1-SRV5    | VN3-SRV1  |
-        |                              |         | VN1-SRV7    | VN3-SRV1  |
+        |                              |         | VN1-SRV5    | PM-SRV1   |
+        |                              |         | VN1-SRV7    | PM-SRV1   |
 
         > Why are there so my connection objects for ForestDnsZones, Schema, Configuration, and all other domains, while there are only two for DomainDnsZones and ad.adatum.com?
 

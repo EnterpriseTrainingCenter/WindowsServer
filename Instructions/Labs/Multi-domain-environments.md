@@ -6,7 +6,7 @@
 * VN1-SRV5
 * VN1-SRV7
 * VN2-SRV2
-* VN3-SRV1
+* PM-SRV1
 * CL1
 * CL2
 * CL3
@@ -360,23 +360,23 @@ Perform this task on CL4.
 
 ## Exercise 2: Deploy a domain in a new tree
 
-1. [Add Conditional Forwarders](#task-1-add-conditional-forwarders) on VN1-SRV5 for extranet.adatum.com pointing to the IP address of VN3-SRV1 (10.1.3.8)
+1. [Add Conditional Forwarders](#task-1-add-conditional-forwarders) on VN1-SRV5 for extranet.adatum.com pointing to the IP address of PM-SRV1 (10.1.200.8)
 
     > Why do you need to add this conditional forwarder before deploying the new tree?
 
-1. [Install Active Directory Domain Services on VN3-SRV1](#task-2-install-active-directory-domain-services-on-vn3-srv1)
-1. [Configure Active Directory Domain Services as new tree](#task-3-configure-active-directory-domain-services-as-new-tree) named extranet.adatum.com on VN3-SRV1
+1. [Install Active Directory Domain Services on PM-SRV1](#task-2-install-active-directory-domain-services-on-PM-SRV1)
+1. [Configure Active Directory Domain Services as new tree](#task-3-configure-active-directory-domain-services-as-new-tree) named extranet.adatum.com on PM-SRV1
 1. [Verify name resolution of the new tree](#task-4-verify-name-resolution-of-the-new-tree)
 
     > Which IP address is returned when querying for extranet.adatum.com on VN1-SRV5.ad.adatum.com?
 
     > Which IP address is returned when querying for extranet.adatum.com on VN1-SRV7.clients.ad.adatum.com?
 
-    > Which IP address is returned when querying for ad.adatum.com on vn3-srv1.extranet.adatum.com?
+    > Which IP address is returned when querying for ad.adatum.com on PM-SRV1.extranet.adatum.com?
 
-    > Which IP address is returned when querying for clients.ad.adatum.com on vn3-srv1.extranet.adatum.com?
+    > Which IP address is returned when querying for clients.ad.adatum.com on PM-SRV1.extranet.adatum.com?
 
-1. [Configure DNS client settings](#task-5-configure-dns-client-settings) on VN3-SRV1 to point to its own IP address and localhost
+1. [Configure DNS client settings](#task-5-configure-dns-client-settings) on PM-SRV1 to point to its own IP address and localhost
 
 ### Task 1: Add Conditional Forwarders
 
@@ -388,7 +388,7 @@ Perform this task on CL1.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
 1. In **DNS Manager**, click and expand **VN1-SRV5.ad.adatum.com**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
-1. In New Conditional Forwarder, under **DNS Domain**, type **extranet.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.3.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
+1. In New Conditional Forwarder, under **DNS Domain**, type **extranet.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.200.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
 
 > You need to add this conditional forwarder to ensure name resolution for the new tree from the existing root domain. Without this name resolution, creation of the trust between the root domain and the new tree fails.
 
@@ -404,19 +404,19 @@ Perform this task on CL1.
     $computerName = 'VN1-SRV5'
     ````
 
-1. On **VN1-SRV5**, add a conditional forwarder for zone **extranet.adatum.com** pointing to **10.1.3.8**. The forwarder should be replicated forest-wide.
+1. On **VN1-SRV5**, add a conditional forwarder for zone **extranet.adatum.com** pointing to **10.1.200.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name extranet.adatum.com `
-        -MasterServers 10.1.3.8 `
+        -MasterServers 10.1.200.8 `
         -ReplicationScope Forest `
         -ComputerName VN1-SRV5.ad.adatum.com
     ````
 
 > You need to add this conditional forwarder to ensure name resolution for the new tree from the existing root domain. Without this name resolution, creation of the trust between the root domain and the new tree fails.
 
-### Task 2: Install Active Directory Domain Services on VN3-SRV1
+### Task 2: Install Active Directory Domain Services on PM-SRV1
 
 #### Desktop experience
 
@@ -426,7 +426,7 @@ Perform this task on CL1.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
-1. On page Server Selection, click **VN3-SRV1** and click **Next >**.
+1. On page Server Selection, click **PM-SRV1** and click **Next >**.
 1. On page Server Roles, activate **Active Directory Domain Services**.
 1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
@@ -435,10 +435,10 @@ Perform this task on CL1.
 1. On page **Confirmation**, click **Install**.
 1. On page **Results**, click **Close**.
 1. Run **Terminal**.
-1. In Terminal, configure the inbound rule for Windows Remote Management (HTTP-In) for public networks in Windows Firewall on VN3-SRV1 to allow for connections beyond the local subnet.
+1. In Terminal, configure the inbound rule for Windows Remote Management (HTTP-In) for public networks in Windows Firewall on PM-SRV1 to allow for connections beyond the local subnet.
 
     ````powershell
-    Invoke-Command -ComputerName VN3-SRV1 -ScriptBlock {
+    Invoke-Command -ComputerName PM-SRV1 -ScriptBlock {
         Set-NetFirewallRule `
             -Name WINRM-HTTP-In-TCP-PUBLIC `
             -Profile Public `
@@ -453,19 +453,19 @@ Perform this task on CL1.
 Peform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. In Terminal, install the Windows feature **Active Directory Domain Services** on **VN3-SRV1**.
+1. In Terminal, install the Windows feature **Active Directory Domain Services** on **PM-SRV1**.
 
     ````powershell
     Install-WindowsFeature `
         -Name AD-Domain-Services, DNS `
         -IncludeManagementTools `
-        -ComputerName VN3-SRV1
+        -ComputerName PM-SRV1
     ````
 
-1. Configure the inbound rule for Windows Remote Management (HTTP-In) for public networks in Windows Firewall on VN3-SRV1 to allow for connections beyond the local subnet.
+1. Configure the inbound rule for Windows Remote Management (HTTP-In) for public networks in Windows Firewall on PM-SRV1 to allow for connections beyond the local subnet.
 
     ````powershell
-    Invoke-Command -ComputerName VN3-SRV1 -ScriptBlock {
+    Invoke-Command -ComputerName PM-SRV1 -ScriptBlock {
         Set-NetFirewallRule `
             -Name WINRM-HTTP-In-TCP-PUBLIC `
             -Profile Public `
@@ -482,7 +482,7 @@ Peform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Server Manager**.
-1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN3-SRV1**, click **Promote this server to a domain controller**.
+1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at PM-SRV1**, click **Promote this server to a domain controller**.
 1. In Active Directory Domain Services Configuration Wizard, on page Deployment Configuration, click **Add a new domain to an existing forest**. In **Select domain type**, click **Tree Domain**. In **Forest name**, ensure **ad.adatum.com** is filled in. In **New domain name**, type **extranet.adatum.com**. Beside **\<No credentials provided\>**, click **Change...**.
 1. In the dialog Credentials for deployment operation, enter the credentials for **Administrator@ad.adatum.com** and click **OK**.
 1. On page **Deployment Configuration**, click **Next >**.
@@ -503,10 +503,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Run **Terminal**.
-1. In Terminal, open a remote PowerShell session to **VN3-SRV1**.
+1. In Terminal, open a remote PowerShell session to **PM-SRV1**.
 
     ````powershell
-    Enter-PSSession VN3-SRV1
+    Enter-PSSession PM-SRV1
     ````
 
 1. Store the credential for the enterprise admin in a variable.
@@ -546,7 +546,7 @@ Perform this task on CL1.
 
     Note: You may receive an error message that the session was closed or broken. You can safely ignore that error. This is normal, as the server reboots.
 
-    Wait until the sign in screen appears on VN3-SRV1.
+    Wait until the sign in screen appears on PM-SRV1.
 
 ### Task 4: Verify name resolution of the new tree
 
@@ -559,7 +559,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name extranet.adatum.com -Server VN1-SRV5.ad.adatum.com
     ````
 
-    > The IP address 10.1.3.8 should be returned.
+    > The IP address 10.1.200.8 should be returned.
 
     Note: If you do not get the IP address, restart the DNS service on VN1-SRV5 and try again.
 
@@ -574,20 +574,20 @@ Perform this task on CL1.
     Resolve-DnsName -Name extranet.adatum.com -Server VN1-SRV7.clients.ad.adatum.com
     ````
 
-    > The IP address 10.1.3.8 should be returned.
+    > The IP address 10.1.200.8 should be returned.
 
-1. Resolve the DNS name **ad.adatum.com** on server **vn3-srv1.extranet.adatum.com**.
+1. Resolve the DNS name **ad.adatum.com** on server **PM-SRV1.extranet.adatum.com**.
 
     ````powershell
-    Resolve-DnsName -Name ad.adatum.com -Server vn3-srv1.extranet.adatum.com
+    Resolve-DnsName -Name ad.adatum.com -Server PM-SRV1.extranet.adatum.com
     ````
 
     > The IP addresses 10.1.1.8, 10.1.1.40, and 10.1.2.8 should be returned.
 
-1. Resolve the DNS name **clients.ad.adatum.com** on server **vn3-srv1.extranet.adatum.com**.
+1. Resolve the DNS name **clients.ad.adatum.com** on server **PM-SRV1.extranet.adatum.com**.
 
     ````powershell
-    Resolve-DnsName -Name clients.ad.adatum.com -Server vn3-srv1.extranet.adatum.com
+    Resolve-DnsName -Name clients.ad.adatum.com -Server PM-SRV1.extranet.adatum.com
     ````
 
     > The IP address 10.1.1.56 should be returned.
@@ -596,14 +596,14 @@ Perform this task on CL1.
 
 #### Desktop experience
 
-Perform this task on VN3-SRV1.
+Perform this task on PM-SRV1.
 
 1. Sign in as **Administrator@extranet.adatum.com**.
 1. In Server Manager, click **Local Server**.
-1. Under PROPERTIES for VN2-SRV1, beside **Ethernet**, click **10.1.3.8, IPv6 enabled**.
+1. Under PROPERTIES for VN2-SRV1, beside **Ethernet**, click **10.1.200.8, IPv6 enabled**.
 1. In Network Connections, in the context-menu of **Ethernet**, click **Properties**.
 1. In Ethernet Properties, click **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
-1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.3.8**, in **Alternate DNS server**, type **127.0.0.1**, and click **OK**.
+1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.200.8**, in **Alternate DNS server**, type **127.0.0.1**, and click **OK**.
 
     Note: In real world, you should enter the IP address of a another DC of the same domain.
 
@@ -615,18 +615,18 @@ Perform this task on VN3-SRV1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. In Terminal, create a CIM session to **VN3-SRV1**.
+1. In Terminal, create a CIM session to **PM-SRV1**.
 
     ````powershell
-    $cimSession = New-CimSession -ComputerName VN3-SRV1.extranet.adatum.com
+    $cimSession = New-CimSession -ComputerName PM-SRV1.extranet.adatum.com
     ````
 
-1. Set the DNS client server address for **VN3-SRV1** to **10.1.3.8** and **127.0.0.1**.
+1. Set the DNS client server address for **PM-SRV1** to **10.1.200.8** and **127.0.0.1**.
 
     ````powershell
     Set-DnsClientServerAddress `
         -InterfaceAlias Ethernet `
-        -ServerAddresses 10.1.3.8, 127.0.0.1 `
+        -ServerAddresses 10.1.200.8, 127.0.0.1 `
         -CimSession $cimSession
     ````
 
@@ -645,23 +645,23 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **DNS**.
-1. In **Connect to DNS Server**, click **The following computer**, type **VN3-SRV1.extranet.adatum.com**, and click **OK**.
-1. In DNS Manager, click **VN3-SRV1.extranet.adatum.com**.
-1. In VN3-SRV1.extranet.adatum.com, double-click **Forwarders**.
-1. In VN3-SRV1.extranet.adatum.com, on tab Forwarders, click **Edit...**
+1. In **Connect to DNS Server**, click **The following computer**, type **PM-SRV1.extranet.adatum.com**, and click **OK**.
+1. In DNS Manager, click **PM-SRV1.extranet.adatum.com**.
+1. In PM-SRV1.extranet.adatum.com, double-click **Forwarders**.
+1. In PM-SRV1.extranet.adatum.com, on tab Forwarders, click **Edit...**
 1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
 1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
-1. In **VN3-SRV1.extranet.adatum.com**, click **OK**.
+1. In **PM-SRV1.extranet.adatum.com**, click **OK**.
 
 #### PowerShell
 
 Perform this task on CL1.
 
 1. Run **Terminal**.
-1. In Terminal, configure the forwarder on VN3-SRV1 to **8.8.8.8** and **8.8.4.4**.
+1. In Terminal, configure the forwarder on PM-SRV1 to **8.8.8.8** and **8.8.4.4**.
 
     ````powershell
-        Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName VN3-SRV1.extranet.adatum.com
+        Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName PM-SRV1.extranet.adatum.com
     ````
 
 ## Exercise 3: Managing user principal names
@@ -842,7 +842,7 @@ Perform this task on VN2-SRV2.
 
     > Can a user of domain clients.ad.adatum.com access the shares on VN1-SRV7?
 
-    > Can a user of domain clients.ad.adatum.com access the shares on VN3-SRV1?
+    > Can a user of domain clients.ad.adatum.com access the shares on PM-SRV1?
 
     > Can a user of domain extranet.adatum.com sign in?
 
@@ -851,7 +851,7 @@ Perform this task on VN2-SRV2.
 1. [Simulate a failure of an intermediate domain](#task-5-simulate-a-failure-of-an-intermediate-domain)
 1. [Validate the effect of the shortcut trust](#task-6-validate-the-effects-of-the-shortcut-trust) on CL2
 
-    > Can a user of domain clients.ad.adatum.com access the shares on VN3-SRV1?
+    > Can a user of domain clients.ad.adatum.com access the shares on PM-SRV1?
 
     > Can a user of domain extranet.adatum.com sign in?
 
@@ -887,7 +887,7 @@ Perform this task on CL4.
 
     > You should see the shares NETLOGON and SYSVOL.
 
-1. Using **File Explorer**, try to navigate to **\\\\vn3-srv1.extranet.adatum.com**.
+1. Using **File Explorer**, try to navigate to **\\\\PM-SRV1.extranet.adatum.com**.
 
     > You will receive a prompt to enter network credentials with an error message that the system cannot contact a domain controller to service the authentication request.
 
@@ -1003,7 +1003,7 @@ Perform this task on the host.
 Perform this task on CL4.
 
 1. Sign in as **Administrator@clients.ad.adatum.com**.
-1. Using **File Explorer**, try to navigate to **\\\\vn3-srv1.extranet.adatum.com**.
+1. Using **File Explorer**, try to navigate to **\\\\PM-SRV1.extranet.adatum.com**.
 
     > You should see the shares NETLOGON and SYSVOL.
 
@@ -1099,12 +1099,12 @@ Perform this task on VN2-SRV2.
         -ReplicationScope Forest
     ````
 
-1. Add a conditional forwarder for zone **extranet.adatum.com** pointing to **10.1.3.8**. The forwarder should be replicated forest-wide.
+1. Add a conditional forwarder for zone **extranet.adatum.com** pointing to **10.1.200.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name extranet.adatum.com `
-        -MasterServers 10.1.3.8 `
+        -MasterServers 10.1.200.8 `
         -ReplicationScope Forest
     ````
 
@@ -1143,7 +1143,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name extranet.adatum.com -Server 10.1.2.16
     ````
 
-    > You should get the IP address 10.1.3.8.
+    > You should get the IP address 10.1.200.8.
 
 ### Task 4: Create a forest trust
 
