@@ -206,7 +206,9 @@ Repeat steps 3 - 6 to create the site links **VNet1 - VNet3** and **VNet1 - Peri
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
-1. In Active Directory Sites and Services, expand **Inter-Site Transports**.
+1. In Active Directory Sites and Services, expand **Inter-Site Transports** and click **IP**.
+1. In IP, in the context-menu of DEFAULTIPSITELINK, click Delete.
+1. In the message box **Are you sure you want to delete the Site link mnames 'DEFAULTIPSITELINK'?**, click **Yes**.
 1. Under Inter-Site Transports, in the context-menu of **IP**, click **Properties**.
 1. In IP Properties, deactivate **Bridge all site links** and click **OK**.
 
@@ -231,7 +233,7 @@ Perform this task on CL1.
         $value -bor 1 # replace $value with the current value of the attribute
         ````
 
-1. In **Vnet1 - Perimeter Properties**, click the tab **OK**.
+1. In **Vnet1 - Perimeter Properties**, click **OK**.
 
 Repeat steps 3 - 6 for **VNet1 - VNet2** and **Vnet1 - VNet3**.
 
