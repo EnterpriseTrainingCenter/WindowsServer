@@ -119,7 +119,6 @@ Perform this task on CL1.
 1. On page Review Options, click **Next >**.
 1. On page Prerequisites Check, click **Install**.
 1. On page Results, click **Close**.
-1. Sign out.
 
 #### PowerShell
 
@@ -169,19 +168,12 @@ Perform this task on CL1.
 
     Note: You may receive an error message that the session was closed or broken. You can safely ignore that error. This is normal, as the server reboots.
 
-1. Sign out.
-
-    ````powershell
-    logoff
-    ````
-
 ### Task 3: Optimize name resolution performance using conditional forwarders
 
 #### Desktop experience
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. Open **DNS**.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV7.clients.ad.adatum.com**, and click **OK**.
 1. In DNS Manager, click and expand **VN1-SRV7.clients.ad.adatum.com**, and click **Conditional Forwarders**.
@@ -204,7 +196,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
 1. Store the name of the DNS server **VN1-SRV7** in a variable.
 
@@ -290,7 +281,6 @@ Perform this task on VN1-SRV7.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal**.
 1. Create a CIM session to **VN1-SRV7**.
 
@@ -347,7 +337,6 @@ Perform this task on CL4.
 
 Perform this task on CL4.
 
-1. Sign in as **Administrator**.
 1. Open **Settings**.
 1. In Settings, in the left pane, click **Accounts**.
 1. In Accounts, click **Access work or school**.
@@ -395,7 +384,6 @@ Perform this task on CL4.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **DNS**.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
 1. In **DNS Manager**, click and expand **VN1-SRV5.ad.adatum.com**, and click **Conditional Forwarders**.
@@ -434,7 +422,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
@@ -447,14 +434,26 @@ Perform this task on CL1.
 1. On page **AD DS**, click **Next >**.
 1. On page **Confirmation**, click **Install**.
 1. On page **Results**, click **Close**.
+1. Run **Terminal**.
+1. In Terminal, configure the inbound rule for Windows Remote Management (HTTP-In) for public networks in Windows Firewall on VN3-SRV1 to allow for connections beyond the local subnet.
+
+    ````powershell
+    Invoke-Command -ComputerName VN3-SRV1 -ScriptBlock {
+        Set-NetFirewallRule `
+            -Name WINRM-HTTP-In-TCP-PUBLIC `
+            -Profile Public `
+            -RemoteAddress Any
+    }
+    ````
+
+    *Important:* This is only necessary in the lab environment. Do not configure this firewall rule in real world. In the lab environment, because there will be only one domain controller for the new domain, the Windows Firewall will enable the public profile instead of the domain profile. The public profile only allows connections to WinRM from the local subnet by default. For this reason, in the lab environment only, we configure the rule to allow connections from any remote address.
 
 #### PowerShell
 
 Peform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal**.
-1. Install the windows feature **Active Directory Domain Services** on **VN3-SRV1**.
+1. In Terminal, install the Windows feature **Active Directory Domain Services** on **VN3-SRV1**.
 
     ````powershell
     Install-WindowsFeature `
@@ -462,6 +461,19 @@ Peform this task on CL1.
         -IncludeManagementTools `
         -ComputerName VN3-SRV1
     ````
+
+1. Configure the inbound rule for Windows Remote Management (HTTP-In) for public networks in Windows Firewall on VN3-SRV1 to allow for connections beyond the local subnet.
+
+    ````powershell
+    Invoke-Command -ComputerName VN3-SRV1 -ScriptBlock {
+        Set-NetFirewallRule `
+            -Name WINRM-HTTP-In-TCP-PUBLIC `
+            -Profile Public `
+            -RemoteAddress Any
+    }
+    ````
+
+    *Important:* This is only necessary in the lab environment. Do not configure this firewall rule in real world. In the lab environment, because there will be only one domain controller for the new domain, the Windows Firewall will enable the public profile instead of the domain profile. The public profile only allows connections to WinRM from the local subnet by default. For this reason, in the lab environment only, we configure the rule to allow connections from any remote address.
 
 ### Task 3: Configure Active Directory Domain Services as new tree
 
@@ -490,7 +502,8 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open a remote PowerShell session to **VN3-SRV1**.
+1. Run **Terminal**.
+1. In Terminal, open a remote PowerShell session to **VN3-SRV1**.
 
     ````powershell
     Enter-PSSession VN3-SRV1
@@ -532,6 +545,8 @@ Perform this task on CL1.
     ````
 
     Note: You may receive an error message that the session was closed or broken. You can safely ignore that error. This is normal, as the server reboots.
+
+    Wait until the sign in screen appears on VN3-SRV1.
 
 ### Task 4: Verify name resolution of the new tree
 
@@ -599,9 +614,8 @@ Perform this task on VN3-SRV1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@extranet.adatum.com**.
 1. In the context menu of **Start**, click **Terminal**.
-1. Create a CIM session to **VN3-SRV1**.
+1. In Terminal, create a CIM session to **VN3-SRV1**.
 
     ````powershell
     $cimSession = New-CimSession -ComputerName VN3-SRV1.extranet.adatum.com
@@ -647,7 +661,7 @@ Perform this task on CL1.
 1. In Terminal, configure the forwarder on VN3-SRV1 to **8.8.8.8** and **8.8.4.4**.
 
     ````powershell
-    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName VN3-SRV1
+        Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName VN3-SRV1.extranet.adatum.com
     ````
 
 ## Exercise 3: Managing user principal names
@@ -1039,7 +1053,6 @@ Perform this task on the host.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **DNS**.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
 1. In **DNS Manager**, click and expand **VN1-SRV5.ad.adatum.com**, and click **Conditional Forwarders**.
@@ -1050,7 +1063,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
 1. On **VN1-SRV5**, add a conditional forwarder for zone **ad.contoso.com** pointing to **10.1.2.16**. The forwarder should be replicated forest-wide.
 
@@ -1148,7 +1160,7 @@ Perform this task on CL1.
 1. On page Side of Trust, click **Both this domain and the specified doman** and click **Next >**.
 1. On page User name and Password, type the credentials for **Administrator@ad.contoso.com**.
 1. On page **Outgoing Trust Authentication Level-Local Forest**, click **Selective authentication** and click **Next >**.
-1. On page **Outgoing Trust Authentication Level-Specified Forest**, click **Selective authentication** and click **Next >**.
+1. On page **Outgoing Trust Authentication Level-Specified Forest**, click **Forest-wide authentication** and click **Next >**.
 1. On page Trust Selections Complete, click **Next >**.
 1. On page Trust Creation Complete, click **Next >**.
 1. On page Confirm Outgoing Trust, click **Yes, confirm the outgoing trust** and click **Next >**.
@@ -1274,7 +1286,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. Open the **Active Directory Migration Tool**.
 1. In migrator - [Active Directory Migration Tool], in the context-menu of **Active Directory Migration Tool**, click **User Account Migration Wizard**.
 1. In User Account Migration Wizard, on page Welcome to the User Account Migration Wizard, click **Next >**.
@@ -1403,7 +1414,7 @@ Perform this task on CL1.
 1. In Browse for Container, click **Development** and click **OK**.
 1. On page **Organizational Unit Selection**, click **Next >**.
 1. On page Password Options, click **Generate complex passwords**, and activate **Do not update passwords for existing users**. Take a note of the path displayed under **Location to store password file**. Optionally, you can change the location. Click **Next >**.
-1. On page Account Transition Options, ensure **Target same as source** is selected. Activate **Disable source accounts** and **Migrate user SIDs** to target domain. Click **Next >**.
+1. On page Account Transition Options, ensure **Target same as source** is selected. Activate **Disable source accounts** and **Migrate user SIDs to target domain**. Click **Next >**.
 1. In the message box **Auditing is currently not enabled on the source domain.  Would you like to enable auditing?**, click **Yes**.
 1. In the message box **Auditing is currently not enabled on the target domain.  Would you like to enable auditing?**, click **Yes**.
 1. In the message box **The local group AD$$$ does not exist on ad.adatum.com.  This group is required to migrate SIDs.  Would you like to create it?**, click **Yes**.
