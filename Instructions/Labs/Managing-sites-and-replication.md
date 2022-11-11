@@ -118,8 +118,8 @@ Perform this task on CL1.
 1. In the message box **Obbject VN1-SRV1 contains other objects. Are you sure you want to delete object VN1-SRV1 and all of the objects it contains?**, click **Yes**.
 1. In the context-menu of **VN2-SRV1**, click **Move...**.
 1. In Move Server, click **VNet2** and click **OK**.
-1. In the context-menu of **VN3-SRV1**, click **Move...**.
-1. In Move Server, click **VNet3** and click **OK**.
+1. In the context-menu of **PM-SRV1**, click **Move...**.
+1. In Move Server, click **Perimeter** and click **OK**.
 
 ### Task 5: Verify the site of client
 
