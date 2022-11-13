@@ -15,6 +15,12 @@
 1. On CL1, sign in as **ad\Administrator**.
 1. On CL4, sign in as **.\Administrator**.
 
+## Introduction
+
+Adatum wants to install a domain controller for the clients.ad.adatum.com domain at site VNet3, but the site is considered as insecure. For this reason, you will install a read-only domain controller at this site. The passwords for users and computers usually located at that site should replicate to the new domain controller.
+
+Some time later, Adatum discovers that the domain controller at VNet3 might me compromised. Therefore, you must delete the domain controller and reset the passwords of all accounts replicated to that domain controller.
+
 ## Exercises
 
 1. [Deploy a read-only domain controller](#exercise-1-deploy-a-read-only-domain-controller)
