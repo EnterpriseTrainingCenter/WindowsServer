@@ -1417,7 +1417,7 @@ Perform this task on CL1.
 1. In the message box **Auditing is currently not enabled on the target domain.  Would you like to enable auditing?**, click **Yes**.
 1. In the message box **The local group AD$$$ does not exist on ad.adatum.com.  This group is required to migrate SIDs.  Would you like to create it?**, click **Yes**.
 1. In **User Account Migration Wizard**, on page **User Account**, type the credentials of **Administrator** in the Domain **AD**.
-1. On page User Options, ensure the checkboxes **Migrate associated user groups**, **Update previously migrated objects** and **Fix sers' group memberships** are activated, and click **Next >**.
+1. On page User Options, ensure the checkboxes **Migrate associated user groups**, **Update previously migrated objects** and **Fix users' group memberships** are activated, and click **Next >**.
 1. On page Object Property Exclusion, ensure the checkbox **Exclude specific object properties from migration** is deactivated and click **Next >**.
 1. On page Conflict Management, ensure **Do no migrate source object if a conflict is detected in the target domain** is selected and click **Next >**.
 1. On page Completing the User Account Migration Wizard, click **Finish**.
