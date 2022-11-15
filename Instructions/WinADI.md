@@ -24,5 +24,5 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Managing sites and replication](Labs/Managing-sites-and-replication.md)
 1. [Deploying and managing read-only domain controllers](Labs/Deploying-and-managing-read-only-domain-controllers.md)
 1. Implementing modern authentication
-1. Deploying a hybrid cloud model
+1. [Deploying a hybrid cloud model](Labs/Deploying-a-hybrid-cloud-model.md)
 1. Recovering Active Directory
