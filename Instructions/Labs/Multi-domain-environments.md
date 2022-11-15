@@ -1317,7 +1317,7 @@ Perform this task on CL1.
 1. On page Report Selection, click **Migrated accounts**, and click **Next >**.
 1. On page Completing the Reporting Wizard, click **Finish**.
 1. In **migrator - [Active Directory Migration Tool]**, expand **Reports** and click **Migrated User, Group and Managed Service Accounts**. Review the report.
-1. Open **Active Administrative Center**.
+1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **ad (local)**.
 1. In ad (local), double-click **Marketing**.
 
