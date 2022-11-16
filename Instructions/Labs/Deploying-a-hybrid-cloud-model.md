@@ -24,7 +24,7 @@ Adatum wants to move various services into the cloud. As a first step, Adatum wa
 1. [Create and configure an Azure Active Directory tenant](#exercise-1-create-and-configure-an-azure-active-directory-tenant)
 1. [Synchronize Active Directory with Azure Active Directory](#exercise-2-synchronize-active-directory-users-and-groups-with-azure-active-directory)
 <!-- 1. Manage Active Directory in a hybrid cloud -->
-1. [Configure hybrid Azure AD domain join](#exercise-3-configure-hybrid-azure-ad-domain-join)
+3. [Configure hybrid Azure AD domain join](#exercise-3-configure-hybrid-azure-ad-domain-join)
 
 ## Exercise 1: Create and configure an Azure Active Directory tenant
 
