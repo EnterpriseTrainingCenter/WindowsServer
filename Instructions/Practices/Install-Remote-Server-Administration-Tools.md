@@ -2,7 +2,6 @@
 
 ## Required VMs
 
-* VN1-SRV1
 * CL1
 
 ## Task
