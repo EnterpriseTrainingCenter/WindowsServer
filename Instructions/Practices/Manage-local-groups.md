@@ -1,4 +1,4 @@
-# Practice: Manage local users
+# Practice: Manage local groups
 
 ## Required VMs
 
