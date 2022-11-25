@@ -2,7 +2,7 @@
 
 ## Task
 
-Run ````c:\Labs\WS2022\LabResources\New-VMVN1SRV11.ps1```` to create a new VM and install Windows Server Datacenter Edition on it.
+Run ````c:\Labs\WS2022\LabResources\New-VMVN1SRV21.ps1```` to create a new VM and install Windows Server Datacenter Edition on it.
 
 ## Instructions
 
