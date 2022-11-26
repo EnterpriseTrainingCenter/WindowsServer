@@ -455,13 +455,13 @@ Perform this task on CL1
 
 ## Exercise 3: Examine performance and fault tolerance of Multipath I/O
 
-1. [Install the File Service role](#task-2-install-the-file-service-role) on VN1-SRV5
-1. [Start a continuous copy process](#task-3-start-a-continuous-copy-process) with a large file and the volume on the iSCSI target as destination
-1. [Examine the performance gain of MultiPath I/O](#task-4-examine-the-performance-gain-of-multipath-io)
+1. [Install the File Service role](#task-1-install-the-file-service-role) on VN1-SRV5
+1. [Start a continuous copy process](#task-2-start-a-continuous-copy-process) with a large file and the volume on the iSCSI target as destination
+1. [Examine the performance gain of MultiPath I/O](#task-3-examine-the-performance-gain-of-multipath-io)
 
    > How is the traffic to the iSCSI target distributed?
 
-1. [Examine the fault tolerance of MultiPath I/O](#task-5-examine-the-fault-tolerance-of-multipath-io)
+1. [Examine the fault tolerance of MultiPath I/O](#task-4-examine-the-fault-tolerance-of-multipath-io)
 
    > What happens, if you disconnect the SAN1 network adapter?
 
@@ -471,8 +471,7 @@ Perform this task on CL1
 
    > What happens after you reconnect the SAN2 network adapter?
 
-1. [Reset the volume on the iSCSI target](#task-6-reset-the-volume-on-the-iscsi-target)
-1. [Uninstall the File Server role](#task-7-uninstall-the-file-server-role) from VN1-SRV5
+1. [Uninstall the File Server role](#task-5-uninstall-the-file-server-role) from VN1-SRV5
 
 ### Task 1: Install the File Service role
 
