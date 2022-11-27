@@ -4,6 +4,7 @@
 
 * CL1
 * VN1-SRV1
+* VN1-SRV2
 * VN1-SRV4
 * VN1-SRV5
 * VN1-SRV10
