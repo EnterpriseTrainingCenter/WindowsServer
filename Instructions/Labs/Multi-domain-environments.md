@@ -292,7 +292,7 @@ Perform this task on CL1.
 
     ````powershell
     Set-DnsClientServerAddress `
-        -InterfaceAlias Ethernet `
+        -InterfaceAlias VNet1 `
         -ServerAddresses 10.1.1.56, 127.0.0.1 `
         -CimSession $cimSession
     ````

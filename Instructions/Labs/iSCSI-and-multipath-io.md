@@ -108,10 +108,17 @@ Perform these steps on CL1.
 1. On page Results, click **Close**.
 1. In **Server Manager**, in **iSCSI**, in the right pane, in the drop-down **Tasks**, click **New iSCSI Virtual Disk...**.
 1. In New iSCSI Virtual Disk Wizard, on page iSCSI Virtual Disk Location, under **Server**, click **VN1-SRV10**. Under **Storage location**, click **D:**. Click **Next >**.
-1. On page Specify iSCSI virtual disk name, in **Name**, type **VN1-CLST1-CSV** and click **Next >**.
+1. On page Specify iSCSI virtual disk name, in **Name**, type **VN1-CLST1-CSV1** and click **Next >**.
 1. On page Specify iSCSI virtual disk size, in **Size**, type **10** and ensure **GB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
 1. On page Assign iSCSI target, ensure **Existing iSCSI target** and **vn1-clst1** is selected and click **Next >**.
-1. On page Confirmtion, click **Create**.
+1. On page Confirmation, click **Create**.
+1. On page Results, click **Close**.
+1. In **Server Manager**, in **iSCSI**, in the right pane, in the drop-down **Tasks**, click **New iSCSI Virtual Disk...**.
+1. In New iSCSI Virtual Disk Wizard, on page iSCSI Virtual Disk Location, under **Server**, click **VN1-SRV10**. Under **Storage location**, click **D:**. Click **Next >**.
+1. On page Specify iSCSI virtual disk name, in **Name**, type **VN1-CLST1-CSV2** and click **Next >**.
+1. On page Specify iSCSI virtual disk size, in **Size**, type **80** and ensure **GB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
+1. On page Assign iSCSI target, ensure **Existing iSCSI target** and **vn1-clst1** is selected and click **Next >**.
+1. On page Confirmation, click **Create**.
 1. On page Results, click **Close**.
 
 #### PowerShell
@@ -133,18 +140,20 @@ Perform these steps on CL1.
 
 1. In the new directory, create two new iSCSI virtual disks.
 
-   | File name             | Size  |
-   |-----------------------|-------|
-   | VN1-CLST1-Quorum.vhdx | 1 GB  |
-   | VN1-CLST1-CSV.vhdx    | 10 GB |
+   | File name              | Size  |
+   |------------------------|-------|
+   | VN1-CLST1-Quorum.vhdx  | 1 GB  |
+   | VN1-CLST1-CSV1.vhdx    | 10 GB |
+   | VN1-CLST1-CSV2.vhdx    | 80 GB |
 
    ````powershell
    $path = "$($driveLetter):\$name"
    $diskParams = @(
       @{ Path = "$path\VN1-CLST1-Quorum.vhdx"; SizeBytes = 1GB }
-      @{ Path = "$path\VN1-CLST1-CSV.vhdx"; SizeBytes = 10GB }
+      @{ Path = "$path\VN1-CLST1-CSV1.vhdx"; SizeBytes = 10GB }
+      @{ Path = "$path\VN1-CLST1-CSV2.vhdx"; SizeBytes = 80GB }
    )
-   $iscsiVirtualDisk = $path | ForEach-Object {
+   $iscsiVirtualDisk = $diskParams | ForEach-Object {
       New-IscsiVirtualDisk `
          -Path $PSItem.Path `
          -SizeBytes $PSItem.SizeBytes `
@@ -170,10 +179,10 @@ Perform these steps on CL1.
 1. Add the iSCSI virtual disks to the iSCSI target.
 
    ````powershell
-   $path | ForEach-Object { 
+   $diskParams | ForEach-Object { 
       Add-IscsiVirtualDiskTargetMapping `
          -TargetName $targetName `
-         -Path $PSItem `
+         -Path $PSItem.Path `
          -ComputerName $computerName 
       }
    ````
@@ -183,6 +192,14 @@ Perform these steps on CL1.
 1. [Install the Multipath feature](#task-1-install-the-multipath-feature) on VN1-SRV5
 1. [Configure Multipath I/O](#task-2-configure-multipath-io) on VN1-SRV5
 1. [Connect to the iSCSI target](#task-3-connect-to-the-iscsi-target) from VN1-SRV5 using Multipath I/O
+1. [Create a volumes on the iSCSI disks](#task-4-create-volumes-on-the-iscsi-disks) according to the table below
+
+   | Disk size | Drive letter | File system label |
+   |-----------|--------------|-------------------|
+   | 1 GB      | D            | Quorum            |
+   | 10 GB     | E            | WAC               |
+   | 80 GB     | F            | Hyper-V           |
+
 
 ### Task 1: Install the Multipath feature
 
@@ -351,29 +368,7 @@ Perform this task on CL1.
    Exit-PSSession
    ````
 
-## Exercise 3: Examine performance and fault tolerance of Multipath I/O
-
-1. [Create a volume on the iSCSI target](#task-1-create-a-volume-on-the-iscsi-target) on the 10 GB disk
-1. [Install the File Service role](#task-2-install-the-file-service-role) on VN1-SRV5
-1. [Start a continuous copy process](#task-3-start-a-continuous-copy-process) with a large file and the volume on the iSCSI target as destination
-1. [Examine the performance gain of MultiPath I/O](#task-4-examine-the-performance-gain-of-multipath-io)
-
-   > How is the traffic to the iSCSI target distributed?
-
-1. [Examine the fault tolerance of MultiPath I/O](#task-5-examine-the-fault-tolerance-of-multipath-io)
-
-   > What happens, if you disconnect the SAN1 network adapter?
-
-   > What happens after you reconnect the SAN1 network adapter?
-
-   > What happens, if you disconnect the SAN2 network adapter?
-
-   > What happens after you reconnect the SAN2 network adapter?
-
-1. [Reset the volume on the iSCSI target](#task-6-reset-the-volume-on-the-iscsi-target)
-1. [Uninstall the File Server role](#task-7-uninstall-the-file-server-role) from VN1-SRV5
-
-### Task 1: Create a volume on the iSCSI target
+### Task 4: Create volumes on the iSCSI disks
 
 #### Desktop experience
 
@@ -386,13 +381,15 @@ Perform this task on CL1.
 1. In the message box Bring Disk Online, click **Yes**.
 1. In **Server Manager**, under **VOLUMES**, click **TASKS**, **New Volume...**.
 1. In New Volume Wizard, on page Before you begin, click **Next >**.
-1. On page Select the server and disk, under **Server**, click **VN1-SRV10**. Under **Disk**, click the disk with **Capacity** of **10,0 GB**. Click **Next >**.
+1. On page Select the server and disk, under **Server**, click **VN1-SRV10**. Under **Disk**, click the disk with **Capacity** according to an entry in the table above. Click **Next >**.
 1. In the message box **Offline or Uninitialized Disk**, click **OK**.
 1. In **New Volume Wizard**, on page **Size**, click **Next >**.
-1. On page Assign to a drive letter or folder, ensure **Drive letter** **D** is selected and click **Next >**.
-1. On page Select file system settings, in **Volume label**, type **Data** and click **Next >**.
+1. On page Assign to a drive letter or folder, ensure **Drive letter** according to the table is selected and click **Next >**.
+1. On page Select file system settings, in **Volume label**, type the file system label from the table and click **Next >**.
 1. On page Confirm selections, click **Create**.
 1. On page Completion, click **Close**.
+
+Repeat from step 6 for the remaining disks.
 
 #### PowerShell
 
@@ -421,27 +418,33 @@ Perform this task on CL1
       -CimSession $cimSession
    ````
 
-1. Find the physical disk with the size **10 GB** and store it in a variable
+1. Store the data from the table above in a variable.
 
    ````powershell
-   $physicalDisk = Get-PhysicalDisk -CimSession $cimSession  | 
-      Where-Object { $PSItem.Size -eq 10GB }
+   $volumeParams = @(
+      @{ Size = 1GB; DriveLetter = 'D'; FileSystemLabel = 'Quorum' }
+      @{ Size = 10GB; DriveLetter = 'E'; FileSystemLabel = 'WAC' }
+      @{ Size = 80GB; DriveLetter = 'F'; FileSystemLabel = 'Hyper-V' }
+   )
    ````
 
-1. Create and format a new volume with default settings and drive letter D.
+1. Create volumes and format them using the variable.
 
    ````powershell
-   $driveLetter = 'D'
-   New-Partition `
-      -DiskId $physicalDisk.UniqueId `
-      -DriveLetter $driveLetter `
-      -UseMaximumSize `
-      -CimSession $cimSession
-   Format-Volume `
-      -DriveLetter $driveLetter `
-      -FileSystemLabel 'Data' `
-      -FileSystem NTFS `
-      -CimSession $cimSession
+   $volumeParams | ForEach-Object {
+      $size = $PSItem.Size
+      $physicalDisk = Get-PhysicalDisk -CimSession $cimSession  | 
+         Where-Object { $PSItem.Size -eq $size }
+      New-Partition `
+         -DiskId $physicalDisk.UniqueId `
+         -DriveLetter $PSItem.DriveLetter `
+         -UseMaximumSize `
+         -CimSession $cimSession |
+      Format-Volume `
+         -NewFileSystemLabel $PSItem.FileSystemLabel `
+         -FileSystem NTFS `
+         -CimSession $cimSession
+   }
    ````
 
 1. Remove the CIM session.
@@ -450,7 +453,27 @@ Perform this task on CL1
    Remove-CimSession $cimSession
    ````
 
-### Task 2: Install the File Service role
+## Exercise 3: Examine performance and fault tolerance of Multipath I/O
+
+1. [Install the File Service role](#task-1-install-the-file-service-role) on VN1-SRV5
+1. [Start a continuous copy process](#task-2-start-a-continuous-copy-process) with a large file and the volume on the iSCSI target as destination
+1. [Examine the performance gain of MultiPath I/O](#task-3-examine-the-performance-gain-of-multipath-io)
+
+   > How is the traffic to the iSCSI target distributed?
+
+1. [Examine the fault tolerance of MultiPath I/O](#task-4-examine-the-fault-tolerance-of-multipath-io)
+
+   > What happens, if you disconnect the SAN1 network adapter?
+
+   > What happens after you reconnect the SAN1 network adapter?
+
+   > What happens, if you disconnect the SAN2 network adapter?
+
+   > What happens after you reconnect the SAN2 network adapter?
+
+1. [Uninstall the File Server role](#task-5-uninstall-the-file-server-role) from VN1-SRV5
+
+### Task 1: Install the File Service role
 
 #### Desktop experience
 
@@ -480,7 +503,7 @@ Peform this task on CL1.
       -IncludeManagementTools
     ````
 
-### Task 3: Start a continuous copy process
+### Task 2: Start a continuous copy process
 
 Perform this task on the host.
 
@@ -491,7 +514,7 @@ Perform this task on the host.
    New-PSDrive `
       -Name V `
       -PSProvider FileSystem `
-      -Root \\vn1-srv5\d$ `
+      -Root \\vn1-srv5\e$ `
       -Credential Administrator
    ````
 
@@ -508,7 +531,7 @@ Perform this task on the host.
 
 Leave **Windows PowerShell (Admin)** or **Terminal** open with the copy process running, while continuing with the next tasks.
 
-### Task 4: Examine the performance gain of MultiPath I/O
+### Task 3: Examine the performance gain of MultiPath I/O
 
 Perform this task on VN1-SRV5.
 
@@ -526,7 +549,7 @@ Perform this task on VN1-SRV5.
 
 Leave Task Manager and the connection to the virtual computer open, so that you can monitor the the network performance while continuing with the next tasks.
 
-### Task 5: Examine the fault tolerance of MultiPath I/O
+### Task 4: Examine the fault tolerance of MultiPath I/O
 
 Perform this task on the host.
 
@@ -575,18 +598,19 @@ Perform this task on the host.
    > After a moment, in Task Manager on VN1-SRV5, the load between SAN1 and SAN2 will be distributed evenly again.
 
 1. In the other instance of **Windows PowerShell (Admin)** or the upper pane of Terminal, stop the copy process by pressing CTRL + C.
+1. Delete all files from **V:**
 
-### Task 6: Reset the volume on the iSCSI target
+   ````powershell
+   Remove-Item v:\* -Force
+   ````
 
-Perform this task on CL1.
+1. Remove the PowerShell drive **V**.
 
-1. Open **Server Manager**.
-1. In Server Manager, in the left pane, click **File and Storage Services**.
-1. In File and Storage Services, click **Disks**.
-1. In Disks, under **DISKS**, under **VN1-SRV5 (4)**, in the context-menu of the disk with a **Capacity** of **10,0 GB**, click **Reset Disk**.
-1. In the message box Reset Disk, click **Yes**.
+   ````powershell
+   Remove-PSDrive V
+   ````
 
-### Task 7: Uninstall the File Server role
+### Task 5: Uninstall the File Server role
 
 #### Desktop experience
 

@@ -230,7 +230,7 @@ Perform this task on CL1.
 
     ````powershell
     Set-DnsClientServerAddress `
-        -InterfaceAlias Ethernet `
+        -InterfaceAlias VNet1 `
         -ServerAddresses 10.1.2.8, 127.0.0.1 `
         -CimSession $cimSession
     ````
@@ -502,10 +502,10 @@ Perform this task on CL1.
 
     Note: Currently, there is no valid DNS server. Therefore, this takes a bit longer than expected.
 
-1. Add the IP address **10.1.1.8** to the network interface **Ethernet**.
+1. Add the IP address **10.1.1.8** to the network interface **VNet1**.
 
     ````powershell
-    New-NetIPAddress -InterfaceAlias Ethernet -IPAddress 10.1.1.8
+    New-NetIPAddress -InterfaceAlias VNet1 -IPAddress 10.1.1.8
     ````
 
 1. Exit from the remote PowerShell session.
