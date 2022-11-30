@@ -25,8 +25,7 @@ Adatum wants to use iSCSI for a fault-tolerance cluster. For this reason, you wi
 ## Exercise 1: Configure an iSCSI target server
 
 1. [Install the iSCSI Target Server role](#task-1-install-the-iscsi-target-server-role) on VN1-SRV10
-1. [Initialize disk and create a volume](#task-2-initialize-disk-and-create-a-volume) on VN1-SRV10
-1. [Configure an iSCSI target](#task-3-configure-an-iscsi-target) named VN1-CLST1 with two virtual disks of 10 GB each, named VN1-CLST1-Quorum and VN1-CLST1-CSV for the initiators on VN1-SRV4 and VN1-SRV5
+1. [Configure an iSCSI target](#task-2-configure-an-iscsi-target) named VN1-CLST1 with two virtual disks of 10 GB each, named VN1-CLST1-Quorum and VN1-CLST1-CSV for the initiators on VN1-SRV4 and VN1-SRV5
 
 ### Task 1: Install the iSCSI Target Server role
 
@@ -60,26 +59,7 @@ Peform this task on CL1.
       -IncludeManagementTools
     ````
 
-### Task 2: Initialize disk and create a volume
-
-Perform these steps on CL1.
-
-1. Open **Server Manager**.
-1. In Server Manager, in the left pane, click **File and Storage Services**.
-1. In File and Storage Services, click **Disks**.
-1. In Disks, under **DISKS**, under **VN1-SRV10 (2)**, in the context-menu of the disk **1** with the **Partition** of **Unknown**, click **Bring Online**.
-1. In the message box Bring Disk Online, click **Yes**.
-1. In **Server Manager**, under **VOLUMES**, click **TASKS**, **New Volume...**.
-1. In New Volume Wizard, on page Before you begin, click **Next >**.
-1. On page Select the server and disk, under **Server**, click **VN1-SRV10**. Under **Disk**, click **Disk 1**. Click **Next >**.
-1. In the message box **Offline or Uninitialized Disk**, click **OK**.
-1. In **New Volume Wizard**, on page **Size**, click **Next >**.
-1. On page Assign to a drive letter or folder, ensure **Drive letter** **D** is selected and click **Next >**.
-1. On page Select file system settings, in **Volume label**, type **Data** and click **Next >**.
-1. On page Confirm selections, click **Create**.
-1. On page Completion, click **Close**.
-
-### Task 3: Configure an iSCSI target
+### Task 2: Configure an iSCSI target
 
 #### Desktop Experience
 
@@ -514,12 +494,11 @@ Perform this task on the host.
    New-PSDrive `
       -Name V `
       -PSProvider FileSystem `
-      -Root \\vn1-srv5\e$ `
+      -Root \\vn1-srv5\d$ `
       -Credential Administrator
    ````
 
 1. Enter the credentials of **Administrator** on VN1-SRV5.
-
 1. Copy **C:\\Labs\\ISOs\\2022_x64_EN_Eval** from the host to **D:\\** on WIN-VN1-SRV5 in an infinite loop. Pause for 10 seconds after each iteration.
 
    ````powershell
