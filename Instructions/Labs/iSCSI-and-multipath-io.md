@@ -180,7 +180,6 @@ Perform these steps on CL1.
    | 10 GB     | E            | WAC               |
    | 80 GB     | F            | Hyper-V           |
 
-
 ### Task 1: Install the Multipath feature
 
 #### Desktop experience
@@ -340,7 +339,7 @@ Perform this task on CL1.
       -InitiatorPortalAddress 10.1.144.40 `
       -TargetPortalAddress 10.1.144.80 `
       -IsPersistent $true
-      ````
+   ````
 
 1. Close the remote PowerShell session.
 
@@ -450,8 +449,6 @@ Perform this task on CL1
    > What happens, if you disconnect the SAN2 network adapter?
 
    > What happens after you reconnect the SAN2 network adapter?
-
-1. [Uninstall the File Server role](#task-5-uninstall-the-file-server-role) from VN1-SRV5
 
 ### Task 1: Install the File Service role
 
@@ -588,27 +585,3 @@ Perform this task on the host.
    ````powershell
    Remove-PSDrive V
    ````
-
-### Task 5: Uninstall the File Server role
-
-#### Desktop experience
-
-Perform this task on CL1.
-
-1. Open **Server Manager**.
-1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
-1. In Remove Roles and Features Wizzard, on the page Before you begin, click **Next >**.
-1. On page Select destination server, click **VN1-SRV5.ad.adatum.com** and click **Next >**.
-1. On page Remove server roles, expand **File and Storage Services**, **File and iSCSI Services** and deactivate **File Server**. click **Next >**.
-1. On page Remove features, click **Next >**.
-1. On page Confirm removal selections, activate **Restart the destination server automatically if required** and click **Remove**.
-1. On page Results, click **Close**.
-
-#### PowerShell
-
-1. In the context menu of **Start**, click **Terminal**.
-1. Uninstall the windows feature **File Server** on **VN1-SRV5** and restart the server if required.
-
-    ````powershell
-    Uninstall-WindowsFeature -ComputerName VN1-SRV5 -Name FS-FileServer -Restart
-    ````
