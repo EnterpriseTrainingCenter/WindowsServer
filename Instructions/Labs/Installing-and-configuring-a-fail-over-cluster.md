@@ -27,6 +27,7 @@
 
 ## Introduction
 
+Adatum wants you to install a failover cluster to run an important virtual machine with high availability. Moreover, Adatum also wants to install the Windows Admin Center highly available. Lastly, prepare the new cluster to be used as a file share witness for other clusters.
 
 ## Exercises
 
