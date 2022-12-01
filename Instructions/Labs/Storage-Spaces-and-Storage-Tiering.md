@@ -168,7 +168,6 @@ Perform these steps on CL1.
    > What happens to the copy process?
 
 1. [Remove the storage pool](#task-9-remove-the-storage-pool) from VN1-SRV10
-1. [Uninstall the File Server role](#task-10-uninstall-the-file-server-role) from VN1-SRV10
 
 ### Task 1: Install the File Service role
 
@@ -398,30 +397,6 @@ Perform this task on CL1.
    ````powershell
    Remove-CimSession $cimSession
    ````
-
-### Task 10: Uninstall the File Server role
-
-#### Desktop experience
-
-Perform this task on CL1.
-
-1. Open **Server Manager**.
-1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
-1. In Remove Roles and Features Wizzard, on the page Before you begin, click **Next >**.
-1. On page Select destination server, click **VN1-SRV10.ad.adatum.com** and click **Next >**.
-1. On page Remove server roles, expand **File and Storage Services**, **File and iSCSI Services** and deactivate **File Server**. click **Next >**.
-1. On page Remove features, click **Next >**.
-1. On page Confirm removal selections, activate **Restart the destination server automatically if required** and click **Remove**.
-1. On page Results, click **Close**.
-
-#### PowerShell
-
-1. In the context menu of **Start**, click **Terminal**.
-1. Uninstall the windows feature **File Server** on **VN1-SRV10** and restart the server if required.
-
-    ````powershell
-    Uninstall-WindowsFeature -ComputerName VN1-SRV10 -Name FS-FileServer -Restart
-    ````
 
 ## Exercise 3: Storage Tiering
 
