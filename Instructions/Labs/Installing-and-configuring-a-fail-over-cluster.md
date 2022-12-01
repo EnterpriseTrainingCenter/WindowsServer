@@ -35,8 +35,9 @@ Adatum wants you to install a failover cluster to run an important virtual machi
 1. [Install and configure a failover cluster](#exercise-2-install-and-configure-a-failover-cluster)
 1. [Use Hyper-V on a cluster](#exercise-3-use-hyper-v-on-a-cluster)
 1. [Install Windows Admin Center on the cluster](#exercise-4-install-windows-admin-center-on-a-failover-cluster)
-1. Test failover
-1. Use cluster-aware updating
+1. Install file service on a failover cluster
+1. [Test failover](#exercise-6-test-failover)
+1. [Use cluster-aware updating](#exercise-7-use-cluster-aware-updating)
 
 ## Exercise 1: Configure the iSCSI initiator
 
@@ -723,7 +724,115 @@ Perform this task on CL1.
 
     > Admin Center should load.
 
-## Exercise 5: Test failover
+## Exercise 5: Install File Server on a failover cluster
+
+1. [Install the File Server](#task-1-install-the-file-server-role) role on VN1-SRV4
+
+    Note: On VN1-SRV5, the file server role was installed in a previous lab already.
+
+1. [Configure the File Server role on the failover cluster](#task-2-configure-the-file-server-role-on-the-failover-cluster) with the name VN1-CLST1-FS and the IP address 10.1.1.35 using the 10 GB disk
+1. Configure a file share
+
+### Task 1: Install the File Server role
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **Server Manager**.
+1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
+1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Server Selection, click **VN1-SRV4.ad.adatum.com** and click **Next >**.
+1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **File Server** and click **Next >**.
+1. On page Features, click **Next >**.
+1. On page **Confirmation**, click **Install**.
+1. On page **Results**, click **Close**.
+1. In **Server Manager**, in **File and Storage Services**, click **Servers**.
+
+#### PowerShell
+
+Peform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Install the windows feature **File Server** on **VN1-SRV4**.
+
+    ````powershell
+    Install-WindowsFeature `
+      -ComputerName 'VN1-SRV4' `
+      -Name FS-FileServer `
+      -IncludeManagementTools
+    ````
+
+### Task 2: Configure the File Server role on the failover cluster
+
+Perform this task on CL1.
+
+1. Open **Failover Cluster Manager**.
+1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
+1. In the context-menu of **Roles**, click **Configure Role...**.
+1. In the High Availability Wizard, on page Before You Begin, click **Next >**.
+1. On page Select Role, click **File Server** and click **Next >**.
+1. On page File Server Type, ensure **File Server for general use** is selected and click **Next >**.
+1. On page Client Access point, in **Name**, type **VN1-CLST1-FS**. Under **Address**, beside **10.1.1.0/24**, type **10.1.1.35**. Click **Next >**.
+1. On page Select Storage expand the available disks and activate the disk with a capacity of about 10 GB. Click **Next >**.
+1. On page Confirmation, click **Next >**.
+1. On page Summary, click **Finish**.
+
+### Task 3: Create a group
+
+Perform this task on CL1.
+
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, in the left pane, click **ad (local)**.
+1. In the context-menu of **ad (local)**, cick **New**, **Organizational Unit**.
+1. In Create Organizational Unit, in **Name**, type **Entitling Groups** and click **OK**.
+1. In Active Directory Administrative Center, in ad (local), double-click **Entitling Groups**.
+1. In Entitling Groups, in the middle pane, in the context-menu of some empty space, click **New**, **Group**.
+1. In Create Group, in **Group name**, type **VN1-CLST1-FS Witness Modify**. Click **Members**.
+1. Under **Members**, click **Add...**.
+1. In Select Users, Contacts, Computers, Service Accounts, or Groups, click **Object Types...**.
+1. In Object Types, activate **Computers** and click **OK**.
+1. In **Select Users, Contacts, Computers, Service Accounts, or Groups**, under **Enter the object names to select**, type **VN1-SRV6; VN1-SRV7; VN1-SRV8; VN1-SRV9; VN2-SRV1; VN3-SRV1** and click **OK**.
+1. In **Create Group: VN1-CLST1-FS Witness Modify**, click **OK**.
+
+### Task 3: Configure a file share
+
+Perform this task on CL1.
+
+1. Open **Failover Cluster Manager**.
+1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
+1. In Roles, in the context-menu of **VN1-CLST1-FS**, click **Add File Share**.
+1. In New Share Wizard, on page Select Profile, ensure **SMB Share - Quick** is selected and click **Next >**.
+1. On page Share Location, ensure **Select by Volume** and the volume with about 10 GB capacity is selected, and click **Next >**.
+1. On page Share Name, in **Share name**, type **Witness**.
+1. On page Other Settings, activate **Enable access-based enumeration**, activate **Enable continuous availablity**, deactivate **Allow caching of share**, and activate **Encrypt data access**. Click **Next >**.
+1. On page Permissions, click **Customize permissions...**.
+1. In Advanced Security Settings for Witness, on tab Permissions, click **Disable inheritance**.
+1. In Block Inheritance, click **Convert inherited permissions into explicit permissions on this object**.
+1. In **Advanced Security Settings for Witness**, on tab **Permissions**, click one of the **Users** entries and click **Remove**. Repeat for the other **Users** entries.
+1. Click **Add**.
+1. In Permission Entry for Witness, click **Select principal**.
+1. In Select user, Computer, Service Account, or Group, under **Enter the object name to select**, type **VN1-CLST1-FS Witness Modify** and click **OK**.
+1. In **Permission Entry for Witness**, activate **Modify** and click **OK**.
+1. In **Advanced Security Settings for Witness**, click the tab **Share**.
+1. On tab Share, click **Everyone** and click **Remove**.
+1. Click **Add**.
+1. In Permission Entry for Witness, cick **Select a principal**.
+1. In Select User, Computer, Service Account, or Group, type **VN1-CLST1-FS Witness Modify** and click **OK**.
+1. In **Permission Entry for Witness**, activate **Change** and click **OK**.
+1. In **Advanced Security Settings for Witness**, on the tab **Share**, click **Add**.
+1. In Permission Entry for Witness, cick **Select a principal**.
+1. In Select User, Computer, Service Account, or Group, click **Locations...**.
+1. In Locations, click **VN1-CLST1-FS.ad.adatum.com** and click **OK**.
+1. In **Select User, Computer, Service Account, or Group**, type **Administrators** and click **OK**.
+1. In **Permission Entry for Witness**, activate **Full Control** and click **OK**.
+1. In **Advanced Security Settings for Witness**, cick **OK**.
+1. In **New Share Wizard**, on page **Permissions**, click **Next >**.
+1. On page Confirmation, click **Create**.
+1. On page Results, click **Close**.
+
+## Exercise 6: Test failover
 
 1. [Monitor cluster services](#task-1-monitor-cluster-services) by testing the network connection to 10.1.1.176 continously, monitoring the console of VN1-SRV22 and viewing the Windows Admin Center web site
 
@@ -781,7 +890,7 @@ Perform this task on the host.
 
 > After a few seconds, **VN1-SRV22** will become **Unmonitored**. After some minutes, the virtual machine, will start on **VN1-SRV5**. The network connection should work again, but you will need to reconnect.
 
-## Exercise 6: Use cluster-aware updating
+## Exercise 7: Use cluster-aware updating
 
 ### Task 1: Configure cluster-aware updating
 
