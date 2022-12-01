@@ -2,7 +2,7 @@
 
 ## Task
 
-Run ````c:\Labs\WS2022\LabResources\New-VMVN1SRV10.ps1```` to create a new VM and install Windows Server Datacenter Edition with Desktop Experience on it.
+Run ````c:\Labs\WS2022\LabResources\New-VMVN1SRV20.ps1```` to create a new VM and install Windows Server Datacenter Edition with Desktop Experience on it.
 
 ## Instructions
 
@@ -15,8 +15,8 @@ Perform these steps on the host.
     c:\Labs\WS2022\LabResources\New-VMVN1SRV10.ps1
     ````
 
-1. In **Hyper-V Manager**, in the context menu of **VN1-SRV10**, click **Start**.
-1. Double-click **VN1-SRV10** to open the console.
+1. In **Hyper-V Manager**, in the context menu of **WIN-VN1-SRV20**, click **Start**.
+1. Double-click **WIN-VN1-SRV20** to open the console.
 1. In **Microsoft Server Operating Ssystem Setup**, configure **Time and currency format** and the **Keyboard or input method** as you wish and click **Next**.
 1. Click **Install now**.
 1. In **Select the operating system you want to install**, click **Windows Server 2022 Datacenter Evaluation (Desktop Experience)** and click **Next**.

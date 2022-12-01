@@ -292,7 +292,7 @@ Perform this task on CL1.
 
     ````powershell
     Set-DnsClientServerAddress `
-        -InterfaceAlias Ethernet `
+        -InterfaceAlias VNet1 `
         -ServerAddresses 10.1.1.56, 127.0.0.1 `
         -CimSession $cimSession
     ````
@@ -1317,7 +1317,7 @@ Perform this task on CL1.
 1. On page Report Selection, click **Migrated accounts**, and click **Next >**.
 1. On page Completing the Reporting Wizard, click **Finish**.
 1. In **migrator - [Active Directory Migration Tool]**, expand **Reports** and click **Migrated User, Group and Managed Service Accounts**. Review the report.
-1. Open **Active Administrative Center**.
+1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **ad (local)**.
 1. In ad (local), double-click **Marketing**.
 
@@ -1417,7 +1417,7 @@ Perform this task on CL1.
 1. In the message box **Auditing is currently not enabled on the target domain.  Would you like to enable auditing?**, click **Yes**.
 1. In the message box **The local group AD$$$ does not exist on ad.adatum.com.  This group is required to migrate SIDs.  Would you like to create it?**, click **Yes**.
 1. In **User Account Migration Wizard**, on page **User Account**, type the credentials of **Administrator** in the Domain **AD**.
-1. On page User Options, ensure the checkboxes **Migrate associated user groups**, **Update previously migrated objects** and **Fix sers' group memberships** are activated, and click **Next >**.
+1. On page User Options, ensure the checkboxes **Migrate associated user groups**, **Update previously migrated objects** and **Fix users' group memberships** are activated, and click **Next >**.
 1. On page Object Property Exclusion, ensure the checkbox **Exclude specific object properties from migration** is deactivated and click **Next >**.
 1. On page Conflict Management, ensure **Do no migrate source object if a conflict is detected in the target domain** is selected and click **Next >**.
 1. On page Completing the User Account Migration Wizard, click **Finish**.
