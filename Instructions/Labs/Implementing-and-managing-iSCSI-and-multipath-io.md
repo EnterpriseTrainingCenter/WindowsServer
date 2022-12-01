@@ -1,4 +1,4 @@
-# Lab: iSCSI and Multipath I/O
+# Lab: Implementing and managing iSCSI and Multipath I/O
 
 ## Required VMs
 

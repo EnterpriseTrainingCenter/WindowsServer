@@ -1,4 +1,4 @@
-# Lab: Storage Spaces Direct and hyper-converged virtualization
+# Lab: Configuring and managing Storage Spaces Direct and hyper-converged virtualization
 
 ## Required VMs
 

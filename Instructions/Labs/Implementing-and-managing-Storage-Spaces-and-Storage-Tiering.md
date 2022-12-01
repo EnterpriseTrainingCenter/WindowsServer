@@ -1,4 +1,4 @@
-# Lab: Storage Spaces and Storage Tiering
+# Lab: Implementing and managing Storage Spaces and storage tiering
 
 ## Required VMs
 
