@@ -6,16 +6,21 @@
 * VN1-SRV6
 * CL1
 
-### Introduction
+## Setup
+
+On CL1 sign in as ad\administrator.
+
+## Introduction
+
+Adatum wants to evaluate the resiliency of a storage pool. Moreover, Adatum wants to create a tiered virtual disk in a storage pool to make optimal use of the performance of SSDs and the low cost of magnetic hard drives.
 
 ## Exercises
 
 1. [Configuring a storage pool](#exercise-1-configuring-a-storage-pool)
-1. Testing storage pool resilience
+1. [Testing storage pool resilience](#exercise-2-testing-storage-pool-resilience)
+1. [Storage Tiering](#exercise-3-storage-tiering)
 
 ## Exercise 1: Configuring a storage pool
-
-#### Tasks
 
 1. [Create a storage Pool](#task-1-create-a-storage-pool) on VN1-SRV10 using the 1 TB disks.
 1. [Create a virtual disk](#task-2-create-a-virtual-disk) in the storage pool with three-way-mirroring and 1 TB capacity.
