@@ -100,6 +100,13 @@ Perform these steps on CL1.
 1. On page Assign iSCSI target, ensure **Existing iSCSI target** and **vn1-clst1** is selected and click **Next >**.
 1. On page Confirmation, click **Create**.
 1. On page Results, click **Close**.
+1. In **Server Manager**, in **iSCSI**, in the right pane, in the drop-down **Tasks**, click **New iSCSI Virtual Disk...**.
+1. In New iSCSI Virtual Disk Wizard, on page iSCSI Virtual Disk Location, under **Server**, click **VN1-SRV10**. Under **Storage location**, click **D:**. Click **Next >**.
+1. On page Specify iSCSI virtual disk name, in **Name**, type **VN1-CLST1-Shares** and click **Next >**.
+1. On page Specify iSCSI virtual disk size, in **Size**, type **100** and ensure **MB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
+1. On page Assign iSCSI target, ensure **Existing iSCSI target** and **vn1-clst1** is selected and click **Next >**.
+1. On page Confirmation, click **Create**.
+1. On page Results, click **Close**.
 
 #### PowerShell
 
@@ -120,11 +127,12 @@ Perform these steps on CL1.
 
 1. In the new directory, create two new iSCSI virtual disks.
 
-   | File name              | Size  |
-   |------------------------|-------|
-   | VN1-CLST1-Quorum.vhdx  | 1 GB  |
-   | VN1-CLST1-CSV1.vhdx    | 10 GB |
-   | VN1-CLST1-CSV2.vhdx    | 80 GB |
+   | File name              | Size   |
+   |------------------------|--------|
+   | VN1-CLST1-Quorum.vhdx  | 1 GB   |
+   | VN1-CLST1-CSV1.vhdx    | 10 GB  |
+   | VN1-CLST1-CSV2.vhdx    | 80 GB  |
+   | VN1-CLST1-Shares.vhdx  | 100 MB |
 
    ````powershell
    $path = "$($driveLetter):\$name"
@@ -132,6 +140,7 @@ Perform these steps on CL1.
       @{ Path = "$path\VN1-CLST1-Quorum.vhdx"; SizeBytes = 1GB }
       @{ Path = "$path\VN1-CLST1-CSV1.vhdx"; SizeBytes = 10GB }
       @{ Path = "$path\VN1-CLST1-CSV2.vhdx"; SizeBytes = 80GB }
+      @{ Path = "$path\VN1-CLST1-Shares.vhdx"; SizeBytes = 100MB }
    )
    $iscsiVirtualDisk = $diskParams | ForEach-Object {
       New-IscsiVirtualDisk `
@@ -179,7 +188,7 @@ Perform these steps on CL1.
    | 1 GB      | D            | Quorum            |
    | 10 GB     | E            | WAC               |
    | 80 GB     | F            | Hyper-V           |
-
+   | 100 MB    | G            | Witness Shares    |
 
 ### Task 1: Install the Multipath feature
 
@@ -340,7 +349,7 @@ Perform this task on CL1.
       -InitiatorPortalAddress 10.1.144.40 `
       -TargetPortalAddress 10.1.144.80 `
       -IsPersistent $true
-      ````
+   ````
 
 1. Close the remote PowerShell session.
 
@@ -405,6 +414,7 @@ Perform this task on CL1
       @{ Size = 1GB; DriveLetter = 'D'; FileSystemLabel = 'Quorum' }
       @{ Size = 10GB; DriveLetter = 'E'; FileSystemLabel = 'WAC' }
       @{ Size = 80GB; DriveLetter = 'F'; FileSystemLabel = 'Hyper-V' }
+      @{ Size = 100MB, DriveLetter = 'G'; FileSystemLabel = 'Witness Shares' }
    )
    ````
 
@@ -450,8 +460,6 @@ Perform this task on CL1
    > What happens, if you disconnect the SAN2 network adapter?
 
    > What happens after you reconnect the SAN2 network adapter?
-
-1. [Uninstall the File Server role](#task-5-uninstall-the-file-server-role) from VN1-SRV5
 
 ### Task 1: Install the File Service role
 
@@ -588,27 +596,3 @@ Perform this task on the host.
    ````powershell
    Remove-PSDrive V
    ````
-
-### Task 5: Uninstall the File Server role
-
-#### Desktop experience
-
-Perform this task on CL1.
-
-1. Open **Server Manager**.
-1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
-1. In Remove Roles and Features Wizzard, on the page Before you begin, click **Next >**.
-1. On page Select destination server, click **VN1-SRV5.ad.adatum.com** and click **Next >**.
-1. On page Remove server roles, expand **File and Storage Services**, **File and iSCSI Services** and deactivate **File Server**. click **Next >**.
-1. On page Remove features, click **Next >**.
-1. On page Confirm removal selections, activate **Restart the destination server automatically if required** and click **Remove**.
-1. On page Results, click **Close**.
-
-#### PowerShell
-
-1. In the context menu of **Start**, click **Terminal**.
-1. Uninstall the windows feature **File Server** on **VN1-SRV5** and restart the server if required.
-
-    ````powershell
-    Uninstall-WindowsFeature -ComputerName VN1-SRV5 -Name FS-FileServer -Restart
-    ````

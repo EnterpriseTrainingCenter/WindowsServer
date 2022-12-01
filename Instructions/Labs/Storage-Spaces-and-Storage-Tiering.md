@@ -6,16 +6,21 @@
 * VN1-SRV6
 * CL1
 
-### Introduction
+## Setup
+
+On CL1 sign in as ad\administrator.
+
+## Introduction
+
+Adatum wants to evaluate the resiliency of a storage pool. Moreover, Adatum wants to create a tiered virtual disk in a storage pool to make optimal use of the performance of SSDs and the low cost of magnetic hard drives.
 
 ## Exercises
 
 1. [Configuring a storage pool](#exercise-1-configuring-a-storage-pool)
-1. Testing storage pool resilience
+1. [Testing storage pool resilience](#exercise-2-testing-storage-pool-resilience)
+1. [Storage Tiering](#exercise-3-storage-tiering)
 
 ## Exercise 1: Configuring a storage pool
-
-#### Tasks
 
 1. [Create a storage Pool](#task-1-create-a-storage-pool) on VN1-SRV10 using the 1 TB disks.
 1. [Create a virtual disk](#task-2-create-a-virtual-disk) in the storage pool with three-way-mirroring and 1 TB capacity.
@@ -147,7 +152,7 @@ Perform these steps on CL1.
 
 ## Exercise 2: Testing storage pool resilience
 
-1. [Install the File Service role](#task-1-install-the-file-service-role) on VN1-SRV10
+1. [Install the File Server role](#task-1-install-the-file-server-role) on VN1-SRV10
 1. [Start a continuous copy process](#task-2-start-a-continuous-copy-process) from the host to the virtual disk on VN1-SRV10
 1. [Simulate a disk failure](#task-3-simulate-a-disk-failure) on VN1-SRV10
 
@@ -168,9 +173,8 @@ Perform these steps on CL1.
    > What happens to the copy process?
 
 1. [Remove the storage pool](#task-9-remove-the-storage-pool) from VN1-SRV10
-1. [Uninstall the File Server role](#task-10-uninstall-the-file-server-role) from VN1-SRV10
 
-### Task 1: Install the File Service role
+### Task 1: Install the File Server role
 
 #### Desktop experience
 
@@ -398,30 +402,6 @@ Perform this task on CL1.
    ````powershell
    Remove-CimSession $cimSession
    ````
-
-### Task 10: Uninstall the File Server role
-
-#### Desktop experience
-
-Perform this task on CL1.
-
-1. Open **Server Manager**.
-1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
-1. In Remove Roles and Features Wizzard, on the page Before you begin, click **Next >**.
-1. On page Select destination server, click **VN1-SRV10.ad.adatum.com** and click **Next >**.
-1. On page Remove server roles, expand **File and Storage Services**, **File and iSCSI Services** and deactivate **File Server**. click **Next >**.
-1. On page Remove features, click **Next >**.
-1. On page Confirm removal selections, activate **Restart the destination server automatically if required** and click **Remove**.
-1. On page Results, click **Close**.
-
-#### PowerShell
-
-1. In the context menu of **Start**, click **Terminal**.
-1. Uninstall the windows feature **File Server** on **VN1-SRV10** and restart the server if required.
-
-    ````powershell
-    Uninstall-WindowsFeature -ComputerName VN1-SRV10 -Name FS-FileServer -Restart
-    ````
 
 ## Exercise 3: Storage Tiering
 

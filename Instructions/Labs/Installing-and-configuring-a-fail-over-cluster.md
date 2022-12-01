@@ -27,6 +27,7 @@
 
 ## Introduction
 
+Adatum wants you to install a failover cluster to run an important virtual machine with high availability. Moreover, Adatum also wants to install the Windows Admin Center highly available. Lastly, prepare the new cluster to be used as a file share witness for other clusters.
 
 ## Exercises
 
@@ -34,8 +35,9 @@
 1. [Install and configure a failover cluster](#exercise-2-install-and-configure-a-failover-cluster)
 1. [Use Hyper-V on a cluster](#exercise-3-use-hyper-v-on-a-cluster)
 1. [Install Windows Admin Center on the cluster](#exercise-4-install-windows-admin-center-on-a-failover-cluster)
-1. Test failover
-1. Use cluster-aware updating
+1. Install file service on a failover cluster
+1. [Test failover](#exercise-6-test-failover)
+1. [Use cluster-aware updating](#exercise-7-use-cluster-aware-updating)
 
 ## Exercise 1: Configure the iSCSI initiator
 
@@ -204,7 +206,13 @@ Perform this task on CL1.
 1. [Validate the configuration](#task-3-validate-the-configuration) on VN1-SRV4 and VN1-SRV5
 1. [Create a failover cluster](#task-4-create-a-virtual-machine) with VN1-SRV4 and VN1-SRV5 as nodes with the name VN1-CLST1 and the IP address 10.1.1.33
 1. [Configure the quorum](#task-5-configure-the-quorum) to use the smallest disk as disk witness
-1. [Configure Cluster Shared Volumes](#task-6-configure-cluster-shared-volumes) by adding the remaining available disks
+1. [Configure Cluster Shared Volumes](#task-6-configure-cluster-shared-volumes) according to the table below.
+
+    | Name | Capacity | Path |
+    |------|----------|------|
+    |      | 1,00 GB  |      |
+    |      | 80,0 GB  |      |
+
 1. [Configure cluster networks](#task-7-configure-cluster-networks) accoring to the table below
 
     | Name | Subnets       | Enabled Options                                                                                            |
@@ -214,14 +222,12 @@ Perform this task on CL1.
     |      | 10.1.144.0/24 | **Do not allow cluster network communication on this network**                                             |
     |      | 10.1.160.0/24 | **Allow cluster network communication on this network**                                                    |
 
-
 ### Task 1: Install the Remote Server Administration Failover Clustering Tools
 
 #### Desktop experience
 
 Perform these steps on CL1.
 
-1. Sign in as **ad\Administrator**.
 1. Open **Settings**.
 1. In Settings, click **Apps**.
 1. In Apps, click **Optional features**.
@@ -336,16 +342,12 @@ Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com**, **Storage** and click **Disks**.
-1. Under Disks (3), in the context-menu of the first disk **Assigned To** **Available Storage**, click **Add to Cluster Shared Volumes**.
-1. Click the same disk again. In the bottom pane, take a note of the path of the volume. E.g., **C:\ClusterStorage\Volume1**. Record the paths in form of a table.
+1. Refer to the table above. Under Disks (4), in the context-menu of the first disk with the capacity noted in the table and **Assigned To** **Available Storage**, click **Add to Cluster Shared Volumes**.
+1. Click the same disk again. In the bottom pane, take a note of the path of the volume. E.g., **C:\ClusterStorage\Volume1**. Record the paths in form of a table like the table above.
 
-    | Name | Capacity | Path |
-    |------|----------|------|
-    |      |          |      |
+Repeat from step 3 for all disks from the table above and **Assigned To** **Available Storage**.
 
-Repeat from step 3 for all disks **Assigned To** **Available Storage**.
-
-In result, one disk should be assigned to **Disk Witness in Quorum**, all other disks should be assigned to **Cluster Shared Volume**.
+In result, one disk should be assigned to **Disk Witness in Quorum**, the disks with a capacity from the table above should be assigned to **Cluster Shared Volume**.
 
 ### Task 7: Configure cluster networks
 
@@ -364,7 +366,7 @@ Perform this task on CL1.
 1. [Install Hyper-V](#task-2-install-hyper-v) on VN1-SRV4 and VN1-SRV5 and set the default locations to the 80 GB CSV
 1. [Configure a virtual switch](#task-3-configure-a-virtual-switch) VN1-SRV4 and VN1-SRV5 connected to the network adapter VNet1
 1. [Create a virtual machine](#task-4-create-a-virtual-machine) on the cluster using a diffencing disk based on 2022_x64_Datacenter_EN_Core_Eval.vhdx with 1 GB memory.
-1. [Configure Windows Server](#task-5-configure-windows-server) in the virtual machine to use the IP address 10.1.1.176
+1. [Configure Windows Server](#task-5-configure-windows-server) in the virtual machine to use the IP address 10.1.1.184
 
 ### Task 1: Configure nested virtualization
 
@@ -375,7 +377,7 @@ Perform this task on the host.
 
     ````powershell
     $vMName = @('WIN-VN1-SRV4', 'WIN-VN1-SRV5')
-    $vMName | ForEach-Object { Stop-VM -VMName $vMName }
+    $vMName | ForEach-Object { Stop-VM -VMName $PSItem }
     ````
 
 1. Expose virtualization extensions to **WIN-VN1-SRV4** and **WIN-VN1-SRV5**.
@@ -441,7 +443,7 @@ Perform this task on CL1.
     }
     ````
 
-1. On VN1-SRV4 and VN1-SRV5, set the default stores to the cluster shared volume of 80 GB capacity, you recorded in the previous exercise.
+1. On **VN1-SRV4** and **VN1-SRV5**, set the default stores to the cluster shared volume of 80 GB capacity, you recorded in the previous exercise.
 
     ````powershell
     $volumeNumber = 0 # Replace with the volume number recorded for 80 GB disk
@@ -474,31 +476,22 @@ Perform this task on CL1.
 
 1. Open **File Explorer**.
 1. In File Explorer, copy **\\\\VN1-SRV4\\C$\\LabResources\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **\\\\VN1-SRV4\\C$\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
+1. Rename **\\\\VN1-SRV4\\C$\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **VN1-SRV23.vhdx**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
-1. In the context-menu of **Roles**, click **Virtual Machines...**, **New Hard Disk...**.
-1. In New Virtual Hard Disk, click **VN1-SRV4** and click **OK**.
-1. In the New Virtual Hard Disk Wizard, on page Before Your Begin, click **Next >**.
-1. On page Choose a Disk Format, ensure **VHDX** is selected and click **Next >**.
-1. On page Choose Disk Type, click **Differencing** and click **Next >**.
-1. On page Specify Name and Location, in **Name**, type **VN1-SRV22.vhdx** and click **Next >**.
-1. On page Configure Disk, click **Browse...**.
-1. In Open, click **2022_x64_datacenter_en_core_eval.vhdx** and click **Open**.
-1. In **New Virtual Hard Disk Wizard**, on page **Configure Disk**, click **Next >**.
-1. On page Completing the New Virtual Hard Disk Wizard, click **Finish**.
 1. In **Failover Cluster Manager**, in the context-menu of **Roles**, click **Virtual Machines...**, **New Virtual Machine...**.
 1. In New Virtual Machine, click **VN1-SRV4** and click **OK**.
 1. In New Virtual Machine Wizard, on page Before You Begin, click **Next >**.
-1. On page Specify Name and Location, in **Name**, type **VN1-SRV22** and click **Next >**.
+1. On page Specify Name and Location, in **Name**, type **VN1-SRV23** and click **Next >**.
 1. On page Specify Generation, click **Generation 2** and click **Next >**.
 1. On page Assign Memory, in **Startup memory**, type **1024** and click **Next >**.
 1. On page Configure Networking, in **Connection**, click **External** and click **Next >**.
 1. On page Connect Virtual Hard Disk, click **Use an existing virtual hard disk** and click **Browse...**.
-1. In Open, click **vn1-srv22.vhdx** and click **Open**.
+1. In Open, click **VN1-SRV23.vhdx** and click **Open**.
 1. In **New Virtual Machine Wizard**, on page **Connect Virtual Hard Disk**, click **Next >**.
 1. On page Completing the New Virtual Machine Wizard, click **Finish**.
 1. In the **High Availability Wizard**, on page **Summary**, click **Finish**.
-1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV22**, click **Start**.
+1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV23**, click **Start**.
 
 ### Task 5: Configure Windows Server
 
@@ -506,15 +499,15 @@ Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
-1. Under Roles (1), in the context-menu of **VN1-SRV22**, click **Connect...**.
-1. In VN1-SRV22 on VN1-SRV4 - Virtual Machine Connection, at the prompt **The user's password must be changed before signing in.**, select **OK**.
+1. Under Roles (1), in the context-menu of **VN1-SRV23**, click **Connect...**.
+1. In VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection, at the prompt **The user's password must be changed before signing in.**, select **OK**.
 1. In **New password** and **Confirm password**, enter a secure password.
 1. At the prompt **Your password has been changed**, press **ENTER**.
 1. In SConfig, enter **8**.
 1. In Network settings, enter  **1**.
 1. In Network adapter settings, enter **1**.
 1. Beside **Select (D)HCP or (S)tatic IP address (Blank=Canel)**, enter **S**.
-1. Beside **Enter static IP address (Blan=Cancel)**, enter **10.1.1.176**.
+1. Beside **Enter static IP address (Blank=Cancel)**, enter **10.1.1.184**.
 1. Beside **Enter subnet mask (Blank=255.255.255.0)**, press ENTER.
 1. Beside **Enter default gateway (Blank=Cancel)**, enter **10.1.1.1**.
 1. Under 4 success messages, press ENTER.
@@ -525,6 +518,7 @@ Perform this task on CL1.
     Set-WinUserLanguageList -LanguageList DE-DE
     ````
 
+1. At the prompt continue with this operation, enter **Y**.
 1. Open Region.
 
     ````powershell
@@ -548,10 +542,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. In Terminal, test the connection to 10.1.1.176 or a long period.
+1. In Terminal, test the connection to 10.1.1.184 or a long period.
 
     ````powershell
-    Test-Connection -ComputerName 10.1.1.176 -Count 1000
+    Test-Connection -ComputerName 10.1.1.184 -Count 1000
     ````
 
     > You should get a response every few seconds.
@@ -559,27 +553,27 @@ Perform this task on CL1.
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
 
-    Note the current **Owner Node** of **VN1-SRV22**, probably VN1-SRV4.
+    Note the current **Owner Node** of **VN1-SRV23**, probably VN1-SRV4.
 
-1. In the context-menu of **VN1-SRV22**, click **Connect...**
+1. In the context-menu of **VN1-SRV23**, click **Connect...**
 1. Switch to **Failover Cluster Manager**.
-1. In the context-menu of **VN1-SRV22**, click **Move**, **Live Migration**, **Select Node...**
+1. In the context-menu of **VN1-SRV23**, click **Move**, **Live Migration**, **Select Node...**
 1. In Move Virtual Machine, click the node, which is not the owner node, probably VN1-SRV5, and click **OK**.
 
     While the virtual machine moves, observe the running connection test and the Virtual Machine Connection.
 
     > The connection tests continue running without any error.
 
-    > The Virtual Machine Connection to VN1-SRV22 will stay open and connected.
+    > The Virtual Machine Connection to VN1-SRV23 will stay open and connected.
 
-1. In the context-menu of **VN1-SRV22**, click **Move**, **Quick Migration**, **Select Node...**
+1. In the context-menu of **VN1-SRV23**, click **Move**, **Quick Migration**, **Select Node...**
 1. In Move Virtual Machine, click the node, which was the original owner node, probably VN1-SRV4, and click **OK**.
 
     While the virtual machine moves, observe the running connection test and the Virtual Machine Connection.
 
     > The connection tests will throw a few errors before resuming to normal.
 
-    > The Virtual Machine Connection to VN1-SRV22 will be dropped. However, you will be able to reconnect afert a few seconds.
+    > The Virtual Machine Connection to VN1-SRV23 will be dropped. However, you will be able to reconnect afert a few seconds.
 
 ## Exercise 4: Install Windows Admin center on a failover cluster
 
@@ -672,14 +666,16 @@ Perform this task on VN1-SRV4.
 1. Unblock the installation script, so that it can be executed without changing the execution policy.
 
     ````powershell
-    Unblock-File C:\ClusterStorage\Volume1\Install-WindowsAdminCenterHA.ps1
+    # Replace x with the volume with 10 GB capacity, e.g., 1
+    Unblock-File C:\ClusterStorage\Volumex\Install-WindowsAdminCenterHA.ps1
     ````
 
 1. Install Windows Admin Center with high availability using the CSV with 10 GB capacity and the static address 10.1.1.34.
 
     ````powershell
     $staticAddress = '10.1.1.34'
-    C:\ClusterStorage\Volume1\Install-WindowsAdminCenterHA.ps1 `
+    # Replace x with the volume with 10 GB capacity, e.g., 1
+    C:\ClusterStorage\Volumex\Install-WindowsAdminCenterHA.ps1 `
         -clusterStorage C:\ClusterStorage\Volume1\ `
         -clientAccessPoint $hostName `
         -staticAddress 10.1.1.34 `
@@ -722,9 +718,63 @@ Perform this task on CL1.
 
     > Admin Center should load.
 
-## Exercise 5: Test failover
+## Exercise 5: Install File Server on a failover cluster
 
-1. [Monitor cluster services](#task-1-monitor-cluster-services) by testing the network connection to 10.1.1.176 continously, monitoring the console of VN1-SRV22 and viewing the Windows Admin Center web site
+1. [Install the File Server](#task-1-install-the-file-server-role) role on VN1-SRV4
+
+    Note: On VN1-SRV5, the file server role was installed in a previous lab already.
+
+1. [Configure the File Server role on the failover cluster](#task-2-configure-the-file-server-role-on-the-failover-cluster) with the name VN1-CLST1-FS and the IP address 10.1.1.35 using the 100 MB disk
+
+### Task 1: Install the File Server role
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **Server Manager**.
+1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
+1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Server Selection, click **VN1-SRV4.ad.adatum.com** and click **Next >**.
+1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **File Server** and click **Next >**.
+1. On page Features, click **Next >**.
+1. On page **Confirmation**, click **Install**.
+1. On page **Results**, click **Close**.
+1. In **Server Manager**, in **File and Storage Services**, click **Servers**.
+
+#### PowerShell
+
+Peform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Install the windows feature **File Server** on **VN1-SRV4**.
+
+    ````powershell
+    Install-WindowsFeature `
+      -ComputerName 'VN1-SRV4' `
+      -Name FS-FileServer `
+      -IncludeManagementTools
+    ````
+
+### Task 2: Configure the File Server role on the failover cluster
+
+Perform this task on CL1.
+
+1. Open **Failover Cluster Manager**.
+1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
+1. In the context-menu of **Roles**, click **Configure Role...**.
+1. In the High Availability Wizard, on page Before You Begin, click **Next >**.
+1. On page Select Role, click **File Server** and click **Next >**.
+1. On page File Server Type, ensure **File Server for general use** is selected and click **Next >**.
+1. On page Client Access point, in **Name**, type **VN1-CLST1-FS**. Under **Address**, beside **10.1.1.0/24**, type **10.1.1.35**. Click **Next >**.
+1. On page Select Storage expand the available disks and activate the disk with a capacity of about 100 MB. Click **Next >**.
+1. On page Confirmation, click **Next >**.
+1. On page Summary, click **Finish**.
+
+## Exercise 6: Test failover
+
+1. [Monitor cluster services](#task-1-monitor-cluster-services) by testing the network connection to 10.1.1.184 continously, monitoring the console of VN1-SRV23 and viewing the Windows Admin Center web site
 
 1. [Simulate a failure](#task-2-simulate-a-failure) by turning off the node running the roles
 
@@ -741,10 +791,10 @@ Perform this task on CL1.
     > Windows Admin Center should load.
 
 1. Open **Terminal**.
-1. In Terminal, test the connection to 10.1.1.176 or a long period.
+1. In Terminal, test the connection to 10.1.1.184 or a long period.
 
     ````powershell
-    Test-Connection -ComputerName 10.1.1.176 -Count 1000
+    Test-Connection -ComputerName 10.1.1.184 -Count 1000
     ````
 
     > You should get a response every few seconds.
@@ -755,8 +805,8 @@ Perform this task on CL1.
     1. In the context-menu of the service, click **Move**, **Select Node...** or **Move**, **Live Migration**, **Select Node...**.
     1. In the following dialog, select the other node and click **OK**.
 
-1. In Roles, in the context-menu of **VN1-SRV22**, click **Connect...**.
-1. In **VN1-SRV22 on VN1-SRV4 - Virtual Machine Connection**, sign in to VN1-SRV22.
+1. In Roles, in the context-menu of **VN1-SRV23**, click **Connect...**.
+1. In **VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection**, sign in to VN1-SRV23.
 1. In SConfig, enter 15.
 1. At the command prompt, execute some command, e.g.,
 
@@ -764,7 +814,7 @@ Perform this task on CL1.
     Get-Process
     ````
 
-1. Arrange the window of **VN1-SRV22 on VN1-SRV4 - Virtual Machine Connection** so, that you can monitor it, while continuing with the next steps.
+1. Arrange the window of **VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection** so, that you can monitor it, while continuing with the next steps.
 
 Keep all windows open for the next task.
 
@@ -778,9 +828,9 @@ Perform this task on the host.
 
 > After a few seconds, in **Failover Cluster Manager**, **Roles** the **amincenter** should move to the other node and the Windows Admin Center should stay available.
 
-> After a few seconds, **VN1-SRV22** will become **Unmonitored**. After some minutes, the virtual machine, will start on **VN1-SRV5**. The network connection should work again, but you will need to reconnect.
+> After a few seconds, **VN1-SRV23** will become **Unmonitored**. After some minutes, the virtual machine, will start on **VN1-SRV5**. The network connection should work again, but you will need to reconnect.
 
-## Exercise 6: Use cluster-aware updating
+## Exercise 7: Use cluster-aware updating
 
 ### Task 1: Configure cluster-aware updating
 
