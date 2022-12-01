@@ -152,7 +152,7 @@ Perform these steps on CL1.
 
 ## Exercise 2: Testing storage pool resilience
 
-1. [Install the File Service role](#task-1-install-the-file-service-role) on VN1-SRV10
+1. [Install the File Server role](#task-1-install-the-file-server-role) on VN1-SRV10
 1. [Start a continuous copy process](#task-2-start-a-continuous-copy-process) from the host to the virtual disk on VN1-SRV10
 1. [Simulate a disk failure](#task-3-simulate-a-disk-failure) on VN1-SRV10
 
@@ -174,7 +174,7 @@ Perform these steps on CL1.
 
 1. [Remove the storage pool](#task-9-remove-the-storage-pool) from VN1-SRV10
 
-### Task 1: Install the File Service role
+### Task 1: Install the File Server role
 
 #### Desktop experience
 
