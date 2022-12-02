@@ -64,7 +64,7 @@ Repeat this task for **WIN-PM-SRV2**.
 
 Perform this task on CL1.
 
-1. Open Server Manager.
+1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
@@ -75,46 +75,67 @@ Perform this task on CL1.
 1. On page Features, click **Next >**.
 1. On page Hyper-V, click **Next >**.
 1. On page Virtual Switches, click **Next >**.
-1. On page Virtual Machine Migration, click **Next >**.
-1. On page Default Stores, in **Default location for virtual hard disk files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. In **Default location for virtualmachine configuration files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. Click **Next >**.
+1. On page Migration, click **Next >**.
+1. On page Default Stores, click **Next >**.
 1. On page Confirmation, activate **Restart the destination server automatically if required** and click **Install**.
-1. On  page **Results**, wait for the installation to succeed, then click **Close**.
+1. On  page **Results**, do not wait for the installation to succeed. Click **Close**.
 
-Repeat the steps of this task to install the role on **VN1-SRV6**, **VN1-SRV7**, **VN1-SRV8**, and **VN1-SRV9**
+Repeat the steps of this task to install the role on **PM-SRV2**.
 
 #### PowerShell
 
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Install **Hyper-V** on **WIN-VN1-SRV6**, **WIN-VN1-SRV7**, **WIN-VN1-SRV8**, and **WIN-VN1-SRV9** without restarting them.
+1. Install **Hyper-V** on **PM-SRV1** and **PM -SRV2**.
 
    ````powershell
-   $computerName = @('VN1-SRV6', 'VN1-SRV7', 'VN1-SRV8', 'VN1-SRV9')
-   Invoke-Command -ComputerName $computerName -ScriptBlock {
-      Install-WindowsFeature -Name Hyper-V -IncludeManagementTools
+   Invoke-Command -ComputerName 'PM-SRV1', 'PM-SRV2' -ScriptBlock {
+      Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
    }
    ````
 
-1. Restart **WIN-VN1-SRV6**, **WIN-VN1-SRV7**, **WIN-VN1-SRV8**, and **WIN-VN1-SRV9** to keep the cluster running.
+### Task 3: Install Hyper-V Management tools
 
-   ````powershell
-   $computername | ForEach-Object {
-      Restart-Computer -ComputerName $PSItem -WsmanAuthentication Default -Wait
-   }
-   ````
+Perform this task on CL1.
 
-1. On **WIN-VN1-SRV6**, **WIN-VN1-SRV7**, **WIN-VN1-SRV8**, and **WIN-VN1-SRV9**, set the default stores to the CSV **Hyper-converged disks**.
+1. Open **Settings**.
+1. In Settings, click **Apps**.
+1. Under Apps, click **Optional features**.
+1. Under Optional features, click **More Windows features** (you might have to scroll down).
+1. In Windows Features, expand **Hyper-V** and activate **Hyper-V Management Tools**. Click **OK**.
+1. On page Windows completd the requested changes, cick **Close**.
 
-    ````powershell
-    Set-VMHost `
-        -ComputerName $computerName `
-        -VirtualHardDiskPath `
-            'C:\ClusterStorage\Hyper-converged Disk\Hyper-V\Virtual Hard Disks' `
-        -VirtualMachinePath 'C:\ClusterStorage\Hyper-converged Disk\Hyper-V'
-    ````
+### Task 4: Configure basic Hyper-V settings
 
+Perform this task on CL1.
 
+1. Open **Hyper-V Manager**.
+1. In Hyper-V Manager, in the context menu of **Hyper-V Manager**, click **Connect to Server...**
+1. In Select Computer, ensure **Another computer** is selected, type **PM-SRV1**, and click **OK**.
+1. In **Hyper-V Manager**, click **PM-SRV1**.
+1. In the context-menu of **PM-SRV1**, click **Hyper-V Settings**.
+1. In Hyper-V Settings for PM-SRV1, click **Live Migrations**.
+1. Under Live Migrations, activate **Enable incoming and outgoing live migrations** and click **Use any available network for the live migration.
+1. In the left pane, expand **Live Migrations** and click **Advanced Features**.
+1. Under Advanced Features, ensure **Use Credential Security Support Provider (CredSSP)** is selected. Under **Performance options**, ensure **Compression** is selected.
+1. In the left pane, click **Enhanced Session Mode Policy**.
+1. Under Enhanced Session Mode Policy, activate **Allow enhanced session mode** and click **OK**.
+
+Repeat this task for **PM-SRV2**.
+
+### Task 5: Create an external virtual switch
+
+Perform this task on CL1.
+
+1. Open **Hyper-V Manager**.
+1. In Hyper-V Manager, click **PM-SRV1**.
+1. In the context-menu of **PM-SRV1**, click **Virtual Switch Manager...**
+1. In Virtual Switch Manager for PM-SRV1, in the left pane, ensure **New virtual network switch** is selected. In the right pane, under **Create virtual switch**, ensure **External** is selected and click **Create Virtual Switch**.
+1. Under Name, type **External**. Under **Connection type**, ensure **External network** and **Microsoft Hyper-V Network Adapter** is selected. Ensure, **Allow management operating system to share this network adapter** is activated. Click **OK**.
+1. In the message box Apply Networking Changes, click **Yes**.
+
+Repeat this task for **PM-SRV2**.
 
 ## Exercise 2: Managing virtual machines
 
