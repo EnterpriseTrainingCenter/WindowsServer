@@ -496,7 +496,7 @@ Perform this task on CL1.
 1. On page Hyper-V, click **Next >**.
 1. On page Virtual Switches, click **Next >**.
 1. On page Virtual Machine Migration, click **Next >**.
-1. On page Default Stores, in **Default location for virtual hard disk files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. In **Default location for virtualmachine configuration files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. Click **Next >**.
+1. On page Default Stores, in **Default location for virtual hard disk files**, type **C:\\ClusterStorage\\Hyper-converged Disk\\Hyper-V\\Virtual Hard Disks**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. In **Default location for virtualmachine configuration files**, type **C:\\ClusterStorage\\Hyper-converged Disk\\Hyper-V**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. Click **Next >**.
 1. On page Confirmation, activate **Restart the destination server automatically if required** and click **Install**.
 1. On  page **Results**, wait for the installation to succeed, then click **Close**.
 
