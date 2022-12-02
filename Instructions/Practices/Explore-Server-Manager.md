@@ -23,7 +23,7 @@
 
 ## Task
 
-On CL1, in Server Manager, add all Servers with a name starting with VN or PN and explore Server Manager.
+On CL1, in Server Manager, add all Servers with a name starting with VN or PM and explore Server Manager.
 
 ## Instructions
 
@@ -35,7 +35,7 @@ Perform these steps on CL1.
 1. On the menu, click **Manage**, **Add Servers**.
 1. In Add Servers, on tab **Active Directory**, in **Name (CN)**, type **VN** and click **Find Now**.
 1. Select all Servers found, and click the arrow button to move them to the list box **Selected**.
-1. In **Name (CN)**, type **PN** and click **Find Now**.
+1. In **Name (CN)**, type **PM** and click **Find Now**.
 1. Select all Servers found, and click the arrow button to move them to the list box **Selected**.
 1. Click **OK**.
 1. Click **Tools** and explore the menu items.
