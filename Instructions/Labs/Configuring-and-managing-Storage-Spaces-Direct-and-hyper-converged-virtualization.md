@@ -484,7 +484,7 @@ Perform this task on the host.
 
 Perform this task on CL1.
 
-1. Open Server Manager.
+1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
@@ -496,7 +496,7 @@ Perform this task on CL1.
 1. On page Hyper-V, click **Next >**.
 1. On page Virtual Switches, click **Next >**.
 1. On page Virtual Machine Migration, click **Next >**.
-1. On page Default Stores, in **Default location for virtual hard disk files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. In **Default location for virtualmachine configuration files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. Click **Next >**.
+1. On page Default Stores, in **Default location for virtual hard disk files**, type **C:\\ClusterStorage\\Hyper-converged Disk\\Hyper-V\\Virtual Hard Disks**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. In **Default location for virtualmachine configuration files**, type **C:\\ClusterStorage\\Hyper-converged Disk\\Hyper-V**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. Click **Next >**.
 1. On page Confirmation, activate **Restart the destination server automatically if required** and click **Install**.
 1. On  page **Results**, wait for the installation to succeed, then click **Close**.
 
@@ -507,7 +507,7 @@ Repeat the steps of this task to install the role on **VN1-SRV6**, **VN1-SRV7**,
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Install **Hyper-V** on **WIN-VN1-SRV6**, **WIN-VN1-SRV7**, **WIN-VN1-SRV8**, and **WIN-VN1-SRV9** without restarting them.
+1. Install **Hyper-V** on **VN1-SRV6**, **VN1-SRV7**, **VN1-SRV8**, and **VN1-SRV9** without restarting them.
 
    ````powershell
    $computerName = @('VN1-SRV6', 'VN1-SRV7', 'VN1-SRV8', 'VN1-SRV9')
