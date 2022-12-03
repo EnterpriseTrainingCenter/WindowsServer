@@ -1,4 +1,4 @@
-# Lab: Installing and managing Hyper-V
+# Lab: Managing Hyper-V
 
 ## Required VMs
 
@@ -13,7 +13,6 @@ On CL1, sign in as **ad\Administrator**.
 
 ### Known issues and workarounds
 
-1. <https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/102>
 1. <https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/103>
 
 ## Introduction
