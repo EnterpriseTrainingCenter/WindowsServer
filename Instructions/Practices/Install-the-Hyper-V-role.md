@@ -9,6 +9,8 @@
 
 ## Task
 
+Install the Hyper-V role on PM-SRV1 and PM-SRV2.
+
 ## Instructions
 
 ### Desktop Experience
