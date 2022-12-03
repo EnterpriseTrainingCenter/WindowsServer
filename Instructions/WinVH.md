@@ -6,6 +6,7 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Practices
 
+1. [Configure nested virtualization](/Instructions/Practices/Configure-nested-virtualization.md)
 1. [NIC teaming](/Instructions/Practices/NIC-teaming.md)
 1. Storage QoS
 

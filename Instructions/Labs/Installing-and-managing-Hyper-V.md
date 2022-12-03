@@ -32,39 +32,12 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercise 1: Installing and configuring Hyper-V
 
-1. [Configure nested virtualization](#task-1-configure-nested-virtualization) for PM-SRV1 and PM-SRV2
-1. [Install the Hyper-V role](#task-2-install-the-hyper-v-role) on PM-SRV1 and PM-SRV2
-1. [Install the Hyper-V management tools](#task-3-install-hyper-v-management-tools) on CL1
-1. [Configure basic Hyper-V settings](#task-4-configure-basic-hyper-v-settings) on PM-SRV1 and PM-SRV2: Change the default path for virtual machines to C:\Hyper-V and for virtual hard disks to C:\Hyper-V\Virtual Hard Disks and enable Live Migrations
-1. [Create an external virtual switch](#task-5-create-an-external-virtual-switch) on PM-SRV1 and PM-SRV2
+1. [Install the Hyper-V role](#task-1-install-the-hyper-v-role) on PM-SRV1 and PM-SRV2
+1. [Install the Hyper-V management tools](#task-2-install-hyper-v-management-tools) on CL1
+1. [Configure basic Hyper-V settings](#task-3-configure-basic-hyper-v-settings) on PM-SRV1 and PM-SRV2: Change the default path for virtual machines to C:\Hyper-V and for virtual hard disks to C:\Hyper-V\Virtual Hard Disks and enable Live Migrations
+1. [Create an external virtual switch](#task-4-create-an-external-virtual-switch) on PM-SRV1 and PM-SRV2
 
-### Task 1: Configure nested virtualization
-
-Perform this task on the host.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click the name of your compuer.
-1. Under Virtual Machines, in the context-menu of **WIN-PM-SRV1**, click **Shut down...**.
-1. In the context-menu of **WIN-PM-SRV1**, click **Settings...**
-1. In Settings for WIN-PM-SRV1, in the left pane, click **Memory**.
-1. Under Memory, in **RAM**, type 4096. Deactivate **Enable Dynamic Memory**.
-1. In the left pane, expand the first **Network Adapter** and click **Advanced Features**.
-1. Under Advanced Features, **MAC address**, activate **Enable MAC address spoofing**.
-1. In the left pane, expand the second **Network Adapter** and click **Advanced Features**.
-1. Under Advanced Features, **MAC address**, activate **Enable MAC address spoofing** and click **OK**.
-1. Run **Windows PowerShell** or **Terminal** with Administrator rights.
-1. In Windows PowerShell or Terminal, for **WIN-PM-SRV1** expose the virtualtion extensions to the virtual machine.
-
-    ````powershell
-    Set-VMProcessor -VMName 'WIN-PM-SRV1' -ExposeVirtualizationExtensions $true
-    ````
-
-1. Switch to **Hyper-V Manager**.
-1. In the context-menu of **WIN-PM-SRV1**, click **Start**.
-
-Repeat this task for **WIN-PM-SRV2**.
-
-### Task 2: Install the Hyper-V role
+### Task 1: Install the Hyper-V role
 
 #### Desktop Experience
 
@@ -101,7 +74,7 @@ Perform this task on CL1.
    }
    ````
 
-### Task 3: Install Hyper-V Management tools
+### Task 2: Install Hyper-V Management tools
 
 Perform this task on CL1.
 
@@ -112,7 +85,7 @@ Perform this task on CL1.
 1. In Windows Features, expand **Hyper-V** and activate **Hyper-V Management Tools**. Click **OK**.
 1. On page Windows completd the requested changes, cick **Close**.
 
-### Task 4: Configure basic Hyper-V settings
+### Task 3: Configure basic Hyper-V settings
 
 Perform this task on CL1.
 
@@ -153,7 +126,7 @@ Perform this task on CL1.
 
 Repeat this task for **PM-SRV2**.
 
-### Task 5: Create an external virtual switch
+### Task 4: Create an external virtual switch
 
 Perform this task on CL1.
 
