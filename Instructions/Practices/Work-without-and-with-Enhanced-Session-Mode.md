@@ -10,9 +10,17 @@
 
 In PM-SRV20, explore the clipboard features without and with Enhanced Session Mode.
 
+> Can you copy text from the virtual machine into some other application on the same virtual machine?
+
+> Can you paste clipboard text from the virtual machine to the host in standard session mode?
+
+> Can you paste clipboard text from the virtual machine to the host in Enhanced Session Mode?
+
+> Can you paste clipboard text from the client computer directly into the virtual machine in Enhanced Session Mode?
+
 ## Instructions
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Hyper-V Manager**.
@@ -24,13 +32,13 @@ Perform this task on CL1.
 1. Enter **15**.
 1. Press CTRL + V.
 
-    > Can you use the clipboard within a virtual machine?
+    > You can copy and paste within the virtual machine.
 
 1. Press ESC.
 1. On CL1, open **Notepad**.
 1. In Notepad, press CTRl + V.
 
-    > Can you paste clipboard text from the virtual machine to the host?
+    > Nothing happens or some other text gets pasted. The virtual machine does not share a clipboard with the client computer.
 
 1. Switch to **Hyper-V Manager**.
 1. In Hyper-V Manager, click **PM-SRV1**.
@@ -54,14 +62,14 @@ Perform this task on CL1.
 1. On CL1, switch to **Notepad**.
 1. Press CTRL + V.
 
-    > Can you paste clipboard text from the virtual machine to the host?
+    > The computer name is pasted. The clipboard between the virtual machine and the client computer is shared in Enhanced session mode.
 
 1. In Notepad, type **Get-NetIPConfiguration**, select the text and press CTRL + C.
 1. Switch to **PM-SRV20 on PM-SRV1 - Virtual Machine Connection**.
 1. In SConfig, enter **15**.
 1. At the prompt, press CTRL + V.
 
-    > Can you use the clipboard within a virtual machine?
+    > You can paste the text from the the client computer into the virtual machine.
 
 1. Press ENTER.
 

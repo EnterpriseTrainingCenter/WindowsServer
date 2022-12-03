@@ -15,7 +15,7 @@ Install the Hyper-V role on PM-SRV1 and PM-SRV2.
 
 ### Desktop Experience
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Server Manager**.

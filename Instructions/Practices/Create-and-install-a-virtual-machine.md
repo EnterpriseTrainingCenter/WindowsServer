@@ -10,9 +10,11 @@
 
 On PM-SRV1, create a new virtual machine with the name PM-SRV20. The virtual machine should have 1 GB of memory and should install Windows Server Core from 2022_x64_EN_Eval.iso.
 
+> Why would you want to deactivate time synchronization?
+
 ## Instructions
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Hyper-V Manager**.
@@ -37,7 +39,7 @@ Perform this task on CL1.
 1. Click **Integration Services**.
 1. Under Integration Services, deactivate **Time synchronization**.
 
-    > Why would you want to deactivate time synchronization?
+    > On domain-joined computers, it is recommended to disable time synchronization, because they synchronize the time with a domain controller.
 
 1. Click **OK**.
 1. In **Hyper-V Manager**, under **Virtual machines**, in the context-menu of **PM-SRV20**, click **Connect...**.

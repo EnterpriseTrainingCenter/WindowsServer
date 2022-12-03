@@ -13,7 +13,7 @@ On PM-SRV1 and PM-SRV2, set the default path for virtual machines to C:\\Hyper-V
 
 ## Instructions
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Terminal**.

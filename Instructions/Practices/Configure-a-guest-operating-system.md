@@ -10,9 +10,11 @@
 
 In the virtual machine PM-SRV20, set the administrator password, set the IP address to 10.1.200.160/26, the default gateway to 10.1.200.1 and the DNS client server to 10.1.1.8. Join the virtual machine to the domain ad.adatum.com and rename the guest operating system computer.
 
+> How can you paste the IP address into the virtual machine?
+
 ## Instructions
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Hyper-V Manager**.
@@ -27,7 +29,7 @@ Perform this task on CL1.
 1. Copy the IP-Address **10.1.200.160** from this web page into the clipboard.
 1. In **PM-SRV20 on PM-SRV1 - Virtual Machine Connection**, at the prompt **Enter static IP address (Blank=Cancel)**, press CTRL+V.
 
-    > Can you paste the the IP address?
+    > Nothing happens. The virtual machine does not have a shared clipboard with the client computer.
 
 1. In the menu, click **Clipboard**, **Type clipboard text**.
 1. Ensure, the IP address **10.1.200.160** was typed and press ENTER.

@@ -11,7 +11,7 @@ On CL1, install the Hyper-V Management tools.
 
 ## Instructions
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Settings**.
