@@ -6,11 +6,25 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Practices
 
+1. [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md)
+1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
+1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
+1. [Configure nested virtualization](/Instructions/Practices/Configure-nested-virtualization.md)
+1. [Install the Hyper-V role](/Instructions/Practices/Install-the-Hyper-V-role.md)
+1. [Install the Hyper-V management tools](/Instructions/Practices/Install-the-Hyper-V-management-tools.md)
+1. [Configure basic Hyper-V settings](/Instructions/Practices/Configure-basic-Hyper-V-settings.md)
+1. [Create and install a virtual machine](/Instructions/Practices/Create-and-install-a-virtual-machine.md)
+1. [Configure a guest operating system](/Instructions/Practices/Configure-a-guest-operating-system.md)
+1. [Work without and with Enhanced Session Mode](/Instructions/Practices/Work-without-and-with-Enhanced-Session-Mode.md)
+1. [Manage the status of a virtual machine](/Instructions/Practices/Manage-the-status-of-a-virtual-machine.md)
+1. [Manage the guest operating system from the host](/Instructions/Practices/Manage-the-guest-operating-system-from-the-host.md)
+1. [Manage dynamic disks](/Instructions//Practices/Manage-dynamic-disks.md)
 1. [NIC teaming](/Instructions/Practices/NIC-teaming.md)
 1. Storage QoS
 
 ## Labs
 
+1. [Explore Windows Admin Center](Labs/Explore-Windows-Admin-Center.md)
 1. [Installing and managing Hyper-V](/Instructions/Labs/Installing-and-managing-Hyper-V.md)
 1. [Implementing and managing Storage Spaces and storage tiering](/Instructions/Labs/Implementing-and-managing-Storage-Spaces-and-Storage-Tiering.md)
 1. [Implementing and managing iSCSI and multipath I/O](/Instructions/Labs/Implementing-and-managing-iSCSI-and-multipath-io.md)
