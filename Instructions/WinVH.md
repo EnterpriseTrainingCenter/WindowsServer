@@ -16,6 +16,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Create and install a virtual machine](/Instructions/Practices/Create-and-install-a-virtual-machine.md)
 1. [Configure a guest operating system](/Instructions/Practices/Configure-a-guest-operating-system.md)
 1. [Work without and with Enhanced Session Mode](/Instructions/Practices/Work-without-and-with-Enhanced-Session-Mode.md)
+1. [Manage the status of a virtual machine](/Instructions/Practices/Manage-the-status-of-a-virtual-machine.md)
 1. [NIC teaming](/Instructions/Practices/NIC-teaming.md)
 1. Storage QoS
 

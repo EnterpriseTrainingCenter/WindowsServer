@@ -20,128 +20,13 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercises
 
-1. [Managing the status of virtual machines](#exercise-1-managing-the-status-of-virtual-machines)
-1. [Managing the guest operating system from the host](#exercise-2-managing-the-guest-operating-system-from-the-host)
-1. [Managing virtual disks](#exercise-3-managing-virtual-disks)
-1. [Working with checkpoints](#exercise-4-working-with-checkpoints)
-1. [Managing virtual switches](#exercise-5-managing-virtual-switches)
-1. [Replicating virtual machines](#exercise-6-replicating-virtual-machines)
+1. [Managing the guest operating system from the host](#exercise-1-managing-the-guest-operating-system-from-the-host)
+1. [Managing virtual disks](#exercise-2-managing-virtual-disks)
+1. [Working with checkpoints](#exercise-3-working-with-checkpoints)
+1. [Managing virtual switches](#exercise-4-managing-virtual-switches)
+1. [Replicating virtual machines](#exercise-5-replicating-virtual-machines)
 
-
-## Exercise 1: Managing the status of virtual machines
-
-1. [Save the virtual machine and start it again](#task-1-save-the-virtual-machine-and-start-it-again)
-
-    > What happens to the memory occupied by the virtual machine?
-
-    > What is the state of the virtual machine after the restart?
-
-1. [Pause the virtual machine and resume](#task-2-pause-the-virtual-machine-and-resume-it)
-
-    > What happens to the virtual machine when paused?
-    
-    > Does the virtual machine consume CPU resources?
-    
-    > Does the virtual machine occupy memory on the host?
-
-1. [Shut down and start the virtual machine](#task-3-shut-down-and-start-the-virtual-machine)
-
-    > Can you shut down the virtual machine from Hyper-V manager gracefully?
-
-1. [Turn off and start the virtual machine](#task-4-turn-off-and-start-the-virtual-machine)
-
-    > Does the virtual machine shut down gracefully?
-
-1. [Reset the virtual machine](#task-5-reset-the-virtual-machine)
-
-    > Does the virtual machine shut down gracefully?
-
-### Task 1: Save the virtual machine and start it again
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Under virtual machines, in the context-menu of **PM-SRV20**, click **Save**. Wait until **State** shows **Saved**.
-
-    > The memory occupied by the virtual machine is released.
-
-1. In the context-menu of **PM-SRV20**, click **Connect...**.
-1. In PM-SRV20 on PM-SRV1 - Virtual Machine Connection, on the menu, click **Action**, **Start**.
-1. In Connect to PM-SRV20, click **Connect**.
-1. At the Password prompt, enter the password of the local Administrator.
-
-    > The state of the virtual machine should be the same as when you saved the virtual machine.
-
-### Task 2: Pause the virtual machine and resume it
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Under virtual machines, in the context-menu of **PM-SRV20**, click **Pause**. Wait until **State** shows **Paused**.
-1. In the context-menu of **PM-SRV20**, click **Connect...**.
-
-    > The PM-SRV20 on PM-SRV1 - Virtual Machine Connection will be darkened. You cannot interact with the guest operating system anymore.
-    
-    > The virtual machine does not consume CPU resources anymore
-    
-    > The memory is still occupied.
-
-1. On the menu, click **Action**, **Resume**.
-1. In **Connect to PM-SRV20**, click **Connect**.
-
-    > You can interact with the guest operating system again.
-
-### Task 3: Shut down and start the virtual machine
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Under virtual machines, in the context-menu of **PM-SRV20**, click **Connect...**.
-1. Close **Connect to PM-SRV20** (do not enter Enhanced Session Mode).
-1. On the menu, click **View**. If there is a checkmark beside **Enhanced Session** click it to deactivate the Enhanced Session Mode.
-1. On the menu, click **Action**, **Shut Down...**.
-1. In the message box Shut Down Machine, click **Shut Down**.
-
-    Alternatively, you can initiate the shut down from the context-menu of the virtual machine in Hyper-V Manager.
-
-    > You can observe the virtual machine to shut down gracefully.
-
-1. On the menu, click **Action**, **Start**.
-
-### Task 4: Turn off and start the virtual machine
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Under virtual machines, in the context-menu of **PM-SRV20**, click **Connect...**.
-1. Close **Connect to PM-SRV20** (do not enter Enhanced Session Mode).
-1. On the menu, click **View**. If there is a checkmark beside **Enhanced Session** click it to deactivate the Enhanced Session Mode.
-1. On the menu, click **Action**, **Turn Off...**.
-1. In the message box Turn Off Machine, click **Turn Off**.
-
-    Alternatively, you can turn off the virtual machine from the context-menu in Hyper-V Manager.
-
-    > The virtual machine is turned off immediately without a graceful shut down.
-
-1. On the menu, click **Action**, **Start**.
-
-### Task 5: Reset the virtual machine
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Under virtual machines, in the context-menu of **PM-SRV20**, click **Connect...**.
-1. Close **Connect to PM-SRV20** (do not enter Enhanced Session Mode).
-1. On the menu, click **View**. If there is a checkmark beside **Enhanced Session** click it to deactivate the Enhanced Session Mode.
-1. On the menu, click **Action**, **Reset...**.
-1. In the message box Reset Machine, click **Reset**.
-
-    Alternatively, you can reset the virtual machine from the context-menu in Hyper-V Manager.
-
-    > The virtual machine is reset immediately without a graceful shut down.
-
-## Exercise 2: Managing the guest operating system from the host
+## Exercise 1: Managing the guest operating system from the host
 
 1. [Disconnect the virtual machine from the network](#task-1-disconnect-the-virtual-machine-from-the-network)
 1. [Use a remote PowerShell session to the virtual machine](#task-2-use-a-remote-powershell-session-to-the-virtual-machine) to enable BitLocker
@@ -297,7 +182,7 @@ Perform this task on CL1.
 1. In **Settings for PM-SRV20 on PM-SRV1**, click **Network Adapter**.
 1. Under Network Adapter, under **Virtual switch**, click **External** and click **OK**.
 
-## Exercise 3: Managing virtual disks
+## Exercise 2: Managing virtual disks
 
 1. [Create and attach a dynamic disk](#task-1-create-and-attach-a-dynamic-disk) with a size of 100 GB
 1. [Create and format a volume on the dynamic disk](#task-2-create-and-format-a-volume-on-the-dynamic-disk)
@@ -595,7 +480,7 @@ Peform this task on CL1.
 
 1. Click **Cancel**.
 
-## Exercise 4: Working with checkpoints
+## Exercise 3: Working with checkpoints
 
 1. [Create a checkpoint and run the post-installation configuration](#task-1-create-checkpoints-and-run-the-post-installation-configuration): Create checkpoints on PM-SRV21 according to the table below.
 
@@ -707,7 +592,7 @@ Perform this task on CL1.
 
     > The virtual machine keeps running all the time.
 
-## Exercise 5: Managing virtual switches
+## Exercise 4: Managing virtual switches
 
 1. [Verify the current network configuration](#task-1-verify-the-current-network-configuration) on PM-SRV1
 1. [Create a private virtual switch and connect the virtual machines](#task-2-create-a-private-virtual-switch-and-connect-the-virtual-machines) on PM-SRV1
@@ -1082,7 +967,7 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
-## Exercise 6: Replicating virtual machines
+## Exercise 5: Replicating virtual machines
 
 1. [Configure the network](#task-1-configure-the-network) on PM-SRV2: Create an internal switch with the same name, IP and NAT configuration as on PM-SRV1
 1. [Enable Hyper-V replication](#task-2-enable-hyper-v-replication) on PM-SRV1 and PM-SRV2
