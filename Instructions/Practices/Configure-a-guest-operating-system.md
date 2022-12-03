@@ -14,6 +14,7 @@ In the virtual machine PM-SRV20, set the administrator password, set the IP addr
 
 Perform this task on CL1.
 
+1. Sign in as **ad\Administrator**.
 1. Open **Hyper-V Manager**.
 1. In Hyper-V Manager, under Virtual machines, in the context-menu of **PM-SRV20**, click **Connect...**.
 1. In C:\\Windows\\system32\\LogonUI.exe, at the prompt The user's password must be changed before signing in, select **OK** and press ENTER.
