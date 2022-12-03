@@ -35,7 +35,7 @@ Adatum wants you to install a failover cluster to run an important virtual machi
 1. [Install and configure a failover cluster](#exercise-2-install-and-configure-a-failover-cluster)
 1. [Use Hyper-V on a cluster](#exercise-3-use-hyper-v-on-a-cluster)
 1. [Install Windows Admin Center on the cluster](#exercise-4-install-windows-admin-center-on-a-failover-cluster)
-1. Install file service on a failover cluster
+1. [Install File Server on a failover cluster](#exercise-5-install-file-server-on-a-failover-cluster)
 1. [Test failover](#exercise-6-test-failover)
 1. [Use cluster-aware updating](#exercise-7-use-cluster-aware-updating)
 
