@@ -12,8 +12,9 @@ Disconnect the virtual machine PM-SRV20 from the network. Using a remote PowerSh
 
 ## Instructions
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
+1. Sign in as **ad\Administrator**.
 1. Open **Hyper-V Manager**.
 1. In Hyper-V Manager, click **PM-SRV1**.
 1. In the context-menu of **PM-SRV20**, click **Settings...**.
