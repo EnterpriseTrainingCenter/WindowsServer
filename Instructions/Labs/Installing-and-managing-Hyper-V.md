@@ -27,144 +27,15 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercise 1: Managing virtual disks
 
-1. [Create and attach a dynamic disk](#task-1-create-and-attach-a-dynamic-disk) with a size of 100 GB
-1. [Create and format a volume on the dynamic disk](#task-2-create-and-format-a-volume-on-the-dynamic-disk)
-1. [Expand the dynamic disk](#task-3-expand-the-dynamic-disk) by 50 GB
-1. [Resize the partition on the dynamic disk](#task-4-resize-the-partition-on-the-dynamic-disk)
-1. [Create a differencing disk](#task-5-create-a-differencing-disk) based on 2022_x64_Datacenter_EN_Core_Eval.vhdx with the name PM-SRV21.vhdx
-1. [Create a virtual machine from a differencing disk](#task-6-create-a-virtual-machine-from-a-differencing-disk) with the name PM-SRV21 and 1 GB of memory
-1. [Move a parent disk](#task-7-move-a-parent-disk) to a different location
-1. [Reconnect the differencing disk](#task-8-reconnect-the-differencing-disk)
-1. [Merge the differencing disk](#task-9-merge-the-differencing-disk) to a new disk
-1. [Configure the virtual machine to use the merged disk](#task-10-configure-the-virtual-machine-to-use-the-merged-disk)
-1. [Move virtual machine data](#task-11-move-virtual-machine-data) of PM-SRV20 to a folder with the same name
+1. [Create a differencing disk](#task-1-create-a-differencing-disk) based on 2022_x64_Datacenter_EN_Core_Eval.vhdx with the name PM-SRV21.vhdx
+1. [Create a virtual machine from a differencing disk](#task-2-create-a-virtual-machine-from-a-differencing-disk) with the name PM-SRV21 and 1 GB of memory
+1. [Move a parent disk](#task-3-move-a-parent-disk) to a different location
+1. [Reconnect the differencing disk](#task-4-reconnect-the-differencing-disk)
+1. [Merge the differencing disk](#task-5-merge-the-differencing-disk) to a new disk
+1. [Configure the virtual machine to use the merged disk](#task-6-configure-the-virtual-machine-to-use-the-merged-disk)
+1. [Move virtual machine data](#task-7-move-virtual-machine-data) of PM-SRV20 to a folder with the same name
 
-### Task 1: Create and attach a dynamic disk
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Under Virtual machines, in the context-menu of **PM-SRV20**, click **Settings...**.
-1. In Settings for PM-SRV20 on PM-SRV1, click **SCSI Controller**.
-1. Under SCSI Controller, click **Hard Drive** and click **Add**.
-1. Under Hard Drive, under **Media**, ensure **Virtual hard disk** is selected and click **New**.
-1. In New Virtual Hard Disk Wizard, on page Before Your Begin, click **Next >**.
-1. On page Choose Disk type, ensure **Dynamically expanding** is selected and click **Next >**.
-1. On page Specify Name and Location, In **Name** type **PM-SRV20 Data.vhdx** and click **Next >**.
-1. On page Configure Disk, ensure **Create a new blank virtual hard disk** is selected. In **Size**, type **100**. Click **Next >**.
-1. On page Summary, click **Finish**.
-1. In **Settings for PM-SRV20 on PM-SRV1**, click **OK**.
-
-### Task 2: Create and format a volume on the dynamic disk
-
-Perform this task on CL1.
-
-1. Open **Terminal**.
-1. In Terminal, create a CIM session to PM-SRV20.
-
-    ````powershell
-    $cimSession = New-CimSession -ComputerName PM-SRV20
-    ````
-
-1. Initialize all uninitialized disks on PM-SRV20.
-
-    ````powershell
-    Get-Disk -CimSession $cimSession | 
-    Where-Object { $PSItem.PartitionStyle -eq 'RAW' } | 
-    Initialize-Disk -PartitionStyle GPT
-    ````
-
-1. Read the disks on PM-SRV20 and note the disk with a total size of 100 GB.
-
-    ````powershell
-    Get-Disk -CimSession $cimSession
-    ````
-
-1. On the disk with a size of 100 GB, create an NTFS volume with the name **Data** and assign it to drive letter **E**.
-
-    ````powershell
-    New-Volume `
-        -DiskNumber 1 ` # Replace the disk number as appropriate
-        -FileSystem NTFS `
-        -FriendlyName Data `
-        -DriveLetter E `
-        -CimSession $cimSession
-    ````
-
-1. Remove the CIM session.
-
-    ````powershell
-    Remove-CimSession $cimSession
-    ````
-
-### Task 3: Expand the dynamic disk
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV1**, click **Edit Disk...**.
-1. In Edit Virtual Hard Disk Wizard, on page Before You Begin, click **Next >**.
-1. On page Locate Disk, click **Browse...**
-1. In Open, ensure the path reads **Remote File Browser > pm-srv1.ad.adatum.com > C: > hyper-v > Virtual Hard Disks**. Click **PM-SRV20 Data.vhdx** and click **Open**.
-1. In **Edit Virtual Hard Disk Wizard**, on page **Locate Disk**, click **Next >**.
-1. On page Choose Action, ensure **Expand** is selected and click **Next >**.
-1. On page Configure Disk, in **New size**, type **150** and click **Next >**.
-1. On page Summary, click **Finish**.
-
-### Task 4: Resize the partition on the dynamic disk
-
-Perform this task on CL1.
-
-1. Open **Terminal**.
-1. In Terminal, create a CIM session to PM-SRV20.
-
-    ````powershell
-    $cimSession = New-CimSession -ComputerName PM-SRV20
-    ````
-
-1. Read the partition **E** on PM-SRV20 on disk 1 and store it in variable.
-
-    ````powershell
-    $partition = Get-Partition -DriveLetter E -CimSession $cimSession
-    ````
-
-1. Read the content of the variable.
-
-    ````powershell
-    $partition
-    ````
-
-    The partition **E** still has a size of under 100 GB.
-
-1. Get the supported size of the partition and store it in a variable.
-
-    ````powershell
-    $partitionSupportedSize = $partition | Get-PartitionSupportedSize
-    ````
-
-1. Resize the partition to its maximum size.
-
-    ````powershell
-    $partition | Resize-Partition -Size $partitionSupportedSize.SizeMax
-    ````
-
-1. Verify the new size of the partition.
-
-    ````powershell
-    $partition | Get-Partition
-    ````
-
-    The partition **E** has a size of more than 100 GB.
-
-1. Remove the CIM session.
-
-    ````powershell
-    Remove-CimSession $cimSession
-    ````
-
-### Task 5: Create a differencing disk
+### Task 1: Create a differencing disk
 
 Perform this task on CL1.
 
@@ -181,7 +52,7 @@ Perform this task on CL1.
 1. In New Virtual Hard Disk Wizard, on page **Configure Disk**, click **Next >**.
 1. On page Summary, click **Finish**.
 
-### Task 6: Create a virtual machine from a differencing disk
+### Task 2: Create a virtual machine from a differencing disk
 
 Perform this task on CL1.
 
@@ -198,7 +69,7 @@ Perform this task on CL1.
 1. In **New Virtual Machine Wizard**, on page **Connect virtual hard disk**, click **Next >**.
 1. On page Summary, click **Finish**.
 
-### Task 7: Move a parent disk
+### Task 3: Move a parent disk
 
 Perform this task on CL1.
 
@@ -217,7 +88,7 @@ Perform this task on CL1.
         -Destination 'C:\Hyper-V\Virtual Hard Disks\'
     ````
 
-### Task 8: Reconnect the differencing disk
+### Task 4: Reconnect the differencing disk
 
 Perform this task on CL1.
 
@@ -254,7 +125,7 @@ Perform this task on CL1.
 1. In Virtual Hard Disk Properties, click **Close**.
 1. In **Settings for PM-SRV21 on PM-SRV1**, click **Cancel**.
 
-### Task 9: Merge the differencing disk
+### Task 5: Merge the differencing disk
 
 Perform this task on CL1.
 
@@ -269,7 +140,7 @@ Perform this task on CL1.
 1. On page Configure Disk, click **To a new virtual hard disk**. In **Location**, type **C:\\hyper-v\\Virtual Hard Disks\\PM-SRV21-Merged.vhdx**. Click **Next >**.
 1. On page Summary, click **Finish**.
 
-### Task 10: Configure the virtual machine to use the merged disk
+### Task 6: Configure the virtual machine to use the merged disk
 
 Perform this task on CL1.
 
@@ -281,7 +152,7 @@ Perform this task on CL1.
 1. In Open, ensure the path **Remote File Browser > pm-srv1.ad.adatum.com > C: > hyper-v > Virtual Hard Disks** is opened, click **PM-SRV21-Merged.vhdx** and click **Open**.
 1. In **Settings for PM-SRV21 on PM-SRV1**, click **OK**.
 
-### Task 11: Move virtual machine data
+### Task 7: Move virtual machine data
 
 Peform this task on CL1.
 
