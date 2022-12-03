@@ -6,12 +6,12 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Practices
 
+1. [NIC teaming](/Instructions/Practices/NIC-teaming.md)
 1. Storage QoS
 
 ## Labs
 
 1. [Installing and managing Hyper-V](/Instructions/Labs/Installing-and-managing-Hyper-V.md)
-1. Configuring NIC Teaming
 1. [Implementing and managing Storage Spaces and storage tiering](/Instructions/Labs/Implementing-and-managing-Storage-Spaces-and-Storage-Tiering.md)
 1. [Implementing and managing iSCSI and multipath I/O](/Instructions/Labs/Implementing-and-managing-iSCSI-and-multipath-io.md)
 1. [Installing and configuring a fail-over-cluster](/Instructions/Labs/Installing-and-configuring-a-fail-over-cluster.md)
