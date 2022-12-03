@@ -20,104 +20,15 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercises
 
-1. [Working with the Virtual Machine Connection](#exercise-1-working-with-the-virtual-machine-connection)
-1. [Managing the status of virtual machines](#exercise-2-managing-the-status-of-virtual-machines)
-1. [Managing the guest operating system from the host](#exercise-3-managing-the-guest-operating-system-from-the-host)
-1. [Managing virtual disks](#exercise-4-managing-virtual-disks)
-1. [Working with checkpoints](#exercise-5-working-with-checkpoints)
-1. [Managing virtual switches](#exercise-6-managing-virtual-switches)
-1. [Replicating virtual machines](#exercise-7-replicating-virtual-machines)
+1. [Managing the status of virtual machines](#exercise-1-managing-the-status-of-virtual-machines)
+1. [Managing the guest operating system from the host](#exercise-2-managing-the-guest-operating-system-from-the-host)
+1. [Managing virtual disks](#exercise-3-managing-virtual-disks)
+1. [Working with checkpoints](#exercise-4-working-with-checkpoints)
+1. [Managing virtual switches](#exercise-5-managing-virtual-switches)
+1. [Replicating virtual machines](#exercise-6-replicating-virtual-machines)
 
-## Exercise 1: Working with the Virtual Machine Connection
 
-1. [Explore the clipboard features in Virtual Machine Connection without Enhanced Session Mode](#task-1-explore-the-clipboard-features-in-virtual-machine-connection-without-enhanced-session-mode)
-
-    > Can you use the clipboard within a virtual machine?
-
-    > Can you paste clipboard text from the virtual machine to the host?
-
-1. [Enable Enhanced Session Mode](#task-2-enable-enhanced-session-mode) on PM-SRV1
-1. [Explore the clipboard features in Virtual Machine Connection with Enhanced Session Mode](#task-3-explore-the-clipboard-features-in-virtual-machine-connection-with-enhanced-session-mode)
-
-    > Can you paste clipboard text from the virtual machine to the host?
-
-    > Can you paste clipboard text from the host into the virtual machine?
-
-### Task 1: Explore the clipboard features in Virtual Machine Connection without Enhanced Session Mode
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV20**, click **Connect...**.
-1. In PM-SRV20 on PM-SRV1 - Virtual Machine Connection, on the menu click **Action**, **Ctrl+Alt+Delete**.
-1. At the prompt Enter credentials for Administrator or hit ESC to switch users/sign-in methods, enter the local Administrator password.
-1. In SConfig, use the mouse to select the **Computer name** (**PM-SRV20**) and press CTRL + C.
-1. Enter **15**.
-1. Press CTRL + V.
-
-    > The computer name will be pasted into the prompt.
-
-1. Press ESC.
-1. On CL1, open **Notepad**.
-1. In Notepad, press CTRl + V.
-
-    > Either nothing will happen or some other text will be pasted.
-
-### Task 2: Enable Enhanced Session Mode
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV1**, click **Hyper-V Settings**.
-1. In Hyper-V Settings for PM-SRV1, in the left pane, click **Enhanced Session Mode Policy**.
-1. Under Enhanced Session Mode Policy, activate **Allow enhanced session mode**.
-1. In the left pane, click **Enhanced Session Mode**.
-1. Under Enhanced Session Mode, ensure **Use enhanced session mode** is activated.
-1. Click **OK**.
-
-### Task 3: Explore the clipboard features in Virtual Machine Connection with Enhanced Session Mode
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Under virtual machines, in the context menu of **PM-SRV20**, click **Connect..**
-
-    Alternatively:
-
-    1. Switch to **PM-SRV20 on PM-SRV1 - Virtual Machine Connection**.
-    1. On the menu, click **View**, **Enhanced session**.
-
-1. In **Connect to PM-SRV20**, select a resolution of your choice and click **Connect**.
-1. At the Password prompt, enter the password of the local Administrator.
-1. Exit to SConfig.
-
-    ````powershell
-    Exit
-    ````
-
-1. In SConfig, use the mouse to select the **Computer name** (**PM-SRV20**) again and press CTRL + C.
-1. On CL1, switch to **Notepad**.
-1. Press CTRL + V.
-
-    > The computer name is pasted into Notepad.
-
-1. In Notepad, type **Get-NetIPConfiguration**, select the text and press CTRL + C.
-1. Switch to **PM-SRV20 on PM-SRV1 - Virtual Machine Connection**.
-1. In SConfig, enter **15**.
-1. At the prompt, press CTRL + V.
-
-    > The text from Notepad is pasted.
-
-1. Press ENTER.
-
-    The current IP configuration will be returned.
-
-Leave the virtual machine in its current state for the next exercise.
-
-## Exercise 2: Managing the status of virtual machines
+## Exercise 1: Managing the status of virtual machines
 
 1. [Save the virtual machine and start it again](#task-1-save-the-virtual-machine-and-start-it-again)
 
@@ -230,7 +141,7 @@ Perform this task on CL1.
 
     > The virtual machine is reset immediately without a graceful shut down.
 
-## Exercise 3: Managing the guest operating system from the host
+## Exercise 2: Managing the guest operating system from the host
 
 1. [Disconnect the virtual machine from the network](#task-1-disconnect-the-virtual-machine-from-the-network)
 1. [Use a remote PowerShell session to the virtual machine](#task-2-use-a-remote-powershell-session-to-the-virtual-machine) to enable BitLocker
@@ -386,7 +297,7 @@ Perform this task on CL1.
 1. In **Settings for PM-SRV20 on PM-SRV1**, click **Network Adapter**.
 1. Under Network Adapter, under **Virtual switch**, click **External** and click **OK**.
 
-## Exercise 4: Managing virtual disks
+## Exercise 3: Managing virtual disks
 
 1. [Create and attach a dynamic disk](#task-1-create-and-attach-a-dynamic-disk) with a size of 100 GB
 1. [Create and format a volume on the dynamic disk](#task-2-create-and-format-a-volume-on-the-dynamic-disk)
@@ -684,7 +595,7 @@ Peform this task on CL1.
 
 1. Click **Cancel**.
 
-## Exercise 5: Working with checkpoints
+## Exercise 4: Working with checkpoints
 
 1. [Create a checkpoint and run the post-installation configuration](#task-1-create-checkpoints-and-run-the-post-installation-configuration): Create checkpoints on PM-SRV21 according to the table below.
 
@@ -796,7 +707,7 @@ Perform this task on CL1.
 
     > The virtual machine keeps running all the time.
 
-## Exercise 6: Managing virtual switches
+## Exercise 5: Managing virtual switches
 
 1. [Verify the current network configuration](#task-1-verify-the-current-network-configuration) on PM-SRV1
 1. [Create a private virtual switch and connect the virtual machines](#task-2-create-a-private-virtual-switch-and-connect-the-virtual-machines) on PM-SRV1
@@ -1171,7 +1082,7 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
-## Exercise 7: Replicating virtual machines
+## Exercise 6: Replicating virtual machines
 
 1. [Configure the network](#task-1-configure-the-network) on PM-SRV2: Create an internal switch with the same name, IP and NAT configuration as on PM-SRV1
 1. [Enable Hyper-V replication](#task-2-enable-hyper-v-replication) on PM-SRV1 and PM-SRV2
