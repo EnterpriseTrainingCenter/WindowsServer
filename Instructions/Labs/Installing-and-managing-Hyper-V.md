@@ -20,62 +20,15 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercises
 
-1. [Installing and configuring Hyper-V](#exercise-1-installing-and-configuring-hyper-v)
-1. [Configuring virtual machines](#exercise-2-configuring-virtual-machines)
-1. [Working with the Virtual Machine Connection](#exercise-3-working-with-the-virtual-machine-connection)
-1. [Managing the status of virtual machines](#exercise-4-managing-the-status-of-virtual-machines)
-1. [Managing the guest operating system from the host](#exercise-5-managing-the-guest-operating-system-from-the-host)
-1. [Managing virtual disks](#exercise-6-managing-virtual-disks)
-1. [Working with checkpoints](#exercise-7-working-with-checkpoints)
-1. [Managing virtual switches](#exercise-8-managing-virtual-switches)
-1. [Replicating virtual machines](#exercise-9-replicating-virtual-machines)
+1. [Working with the Virtual Machine Connection](#exercise-1-working-with-the-virtual-machine-connection)
+1. [Managing the status of virtual machines](#exercise-2-managing-the-status-of-virtual-machines)
+1. [Managing the guest operating system from the host](#exercise-3-managing-the-guest-operating-system-from-the-host)
+1. [Managing virtual disks](#exercise-4-managing-virtual-disks)
+1. [Working with checkpoints](#exercise-5-working-with-checkpoints)
+1. [Managing virtual switches](#exercise-6-managing-virtual-switches)
+1. [Replicating virtual machines](#exercise-7-replicating-virtual-machines)
 
-## Exercise 1: Configuring virtual machines
-
-1. [Configure Windows Server](#task-1-configure-windows-server) in the virtual machine with the IP address 10.1.200.160 and join it to the domain
-
-    > Can you paste clipboard content into the virtual machine?
-
-### Task 1: Configure Windows Server
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, under Virtual machines, in the context-menu of **PM-SRV20**, click **Connect...**.
-1. In C:\\Windows\\system32\\LogonUI.exe, at the prompt The user's password must be changed before signing in, select **OK** and press ENTER.
-1. In New password and Confirm password, enter a secure password and take a note.
-1. At Your password has been changed, press ENTER.
-1. In SConfig, enter **8**.
-1. In Network settings, enter **1**.
-1. In Network adapter settings, enter **1**.
-1. At the prompt Select (D)HCP or (S)tatic IP address (Blank=Cancel), enter **S**.
-1. Copy the IP-Address **10.1.200.160** from this web page into the clipboard.
-1. In **PM-SRV20 on PM-SRV1 - Virtual Machine Connection**, at the prompt **Enter static IP address (Blank=Cancel)**, press CTRL+V.
-
-    > Nothing will happen. The virtual machine connection does not share the clipboard by default.
-
-1. In the menu, click **Clipboard**, **Type clipboard text**.
-1. Ensure, the IP address **10.1.200.160** was typed and press ENTER.
-1. At the prompt Enter subnet mask (Blank=255.255.255.0), press ENTER.
-1. At the prompt Enter default gateway (Blank=Cancel), enter **10.1.200.1**. You can use the clipboard again.
-1. Under a number of success messages, press ENTER.
-1. In SConfig, enter **8**.
-1. In Network settings, enter **1**.
-1. In Network adapter settings, enter **2**.
-1. At the prompt Enter new preferred DNS server (Blank=Cancel), enter **10.1.1.8**.
-1. At the prompt Enter alternate DNS server, press ENTER.
-1. Under Sucessfully assigned DNS server(s), press ENTER.
-1. In SConfig, enter **1**.
-1. At the prompt Join (D)omain or (W)orkgroup? (Blank=Cancel), enter **D**.
-1. At the prompt Name of domain to join (Blank=Cancel), enter **ad.adatum.com**.
-1. At the prompt Specify an authorized domain\user (Blank=Cancel), enter **ad\Administrator**.
-1. At the prompt Password for ad\Administrator, enter the password of **ad\Administrator**.
-1. At the prompt Do you want to change the computer name before restarting? (Y)es or (N)o, enter **Y**.
-1. At the prompt Enter new computer name (Blank=Canel), enter **PM-SRV20**.
-1. At the prompt Password for ad\Administrator, enter the password of **ad\Administrator**.
-1. At the prompt Restart now? (Y)es or (N)o, enter **Y**.
-
-## Exercise 2: Working with the Virtual Machine Connection
+## Exercise 1: Working with the Virtual Machine Connection
 
 1. [Explore the clipboard features in Virtual Machine Connection without Enhanced Session Mode](#task-1-explore-the-clipboard-features-in-virtual-machine-connection-without-enhanced-session-mode)
 
@@ -164,7 +117,7 @@ Perform this task on CL1.
 
 Leave the virtual machine in its current state for the next exercise.
 
-## Exercise 3: Managing the status of virtual machines
+## Exercise 2: Managing the status of virtual machines
 
 1. [Save the virtual machine and start it again](#task-1-save-the-virtual-machine-and-start-it-again)
 
@@ -277,7 +230,7 @@ Perform this task on CL1.
 
     > The virtual machine is reset immediately without a graceful shut down.
 
-## Exercise 4: Managing the guest operating system from the host
+## Exercise 3: Managing the guest operating system from the host
 
 1. [Disconnect the virtual machine from the network](#task-1-disconnect-the-virtual-machine-from-the-network)
 1. [Use a remote PowerShell session to the virtual machine](#task-2-use-a-remote-powershell-session-to-the-virtual-machine) to enable BitLocker
@@ -433,7 +386,7 @@ Perform this task on CL1.
 1. In **Settings for PM-SRV20 on PM-SRV1**, click **Network Adapter**.
 1. Under Network Adapter, under **Virtual switch**, click **External** and click **OK**.
 
-## Exercise 5: Managing virtual disks
+## Exercise 4: Managing virtual disks
 
 1. [Create and attach a dynamic disk](#task-1-create-and-attach-a-dynamic-disk) with a size of 100 GB
 1. [Create and format a volume on the dynamic disk](#task-2-create-and-format-a-volume-on-the-dynamic-disk)
@@ -731,7 +684,7 @@ Peform this task on CL1.
 
 1. Click **Cancel**.
 
-## Exercise 6: Working with checkpoints
+## Exercise 5: Working with checkpoints
 
 1. [Create a checkpoint and run the post-installation configuration](#task-1-create-checkpoints-and-run-the-post-installation-configuration): Create checkpoints on PM-SRV21 according to the table below.
 
@@ -843,7 +796,7 @@ Perform this task on CL1.
 
     > The virtual machine keeps running all the time.
 
-## Exercise 7: Managing virtual switches
+## Exercise 6: Managing virtual switches
 
 1. [Verify the current network configuration](#task-1-verify-the-current-network-configuration) on PM-SRV1
 1. [Create a private virtual switch and connect the virtual machines](#task-2-create-a-private-virtual-switch-and-connect-the-virtual-machines) on PM-SRV1
@@ -1218,7 +1171,7 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
-## Exercise 8: Replicating virtual machines
+## Exercise 7: Replicating virtual machines
 
 1. [Configure the network](#task-1-configure-the-network) on PM-SRV2: Create an internal switch with the same name, IP and NAT configuration as on PM-SRV1
 1. [Enable Hyper-V replication](#task-2-enable-hyper-v-replication) on PM-SRV1 and PM-SRV2
