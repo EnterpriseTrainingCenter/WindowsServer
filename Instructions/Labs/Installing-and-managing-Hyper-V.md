@@ -32,78 +32,16 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercise 1: Configuring virtual machines
 
-1. [Create a virtual machine](#task-1-create-a-virtual-machine) on PM-SRV1 with the name PM-SRV20, 1 GB memory and the ISO file 2022_x64_EN_Eval.iso
-1. [Configure settings for the virtual machine](#task-2-configure-settings-for-the-virtual-machine): Enable Trusted Platform Module, set the number of virtual processors to 4 and disable time synchronization
-
-    > Why would you disable time synchronization?
-
-1. [Configure Windows Server](#task-3-configure-windows-server) in the virtual machine with the IP address 10.1.200.160 and join it to the domain
+1. [Configure Windows Server](#task-1-configure-windows-server) in the virtual machine with the IP address 10.1.200.160 and join it to the domain
 
     > Can you paste clipboard content into the virtual machine?
 
-### Task 1: Create a virtual machine
+### Task 1: Configure Windows Server
 
 Perform this task on CL1.
 
 1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV1**, click **New**, **Virtual Machine...**
-1. In New Virtual Machine Wizard, on page Before You Begin, click **Next >**.
-1. On page Specify name and Location, in **Name**, type **PM-SRV20** and click **Next >**.
-1. On page Specify Generation, click **Generation 2** and click **Next >**.
-1. On page Assign Memory, in **Startup Memory**, type **1024** and click **Next >**.
-1. On page Configure Networking, in **Connection**, click **External** and click **Next >**.
-1. On page Connect virtual hard disk, ensure **Create a virtual hard disk** is selected. In **Name**, ensure **PM-SRV20.vhdx**, and, in location **C:\\hyper-v\\Virtual Hard Disks\\** is filled in. Click **Next >**.
-1. On page Installation Options, click **Install an operating system from a bootable image file** and click **Browse...**
-1. In Open, expand **pm-srv1.ad.adatum.com**, **Local Disk (C:)** and click **LabResources**.
-1. Click **2022_x64_EN_Eval.iso** and click **Open**.
-1. In **New Virtual Machine Wizard**, on page **Installation Options**, click **Next >**.
-1. On page Summary, click **Finish**.
-
-### Task 2: Configure settings for the virtual machine
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV20**, click **Settings...**.
-1. In **Settings for PM-SRV20 on PM-SRV1**, click **Security**.
-1. Under **Encryption Support**, activate **Enable Trusted Platform Module** and activate **Encrypt state and virtual machine migration traffic**.
-1. Click **Processor**.
-1. Under Processor, in **Number of virtual processors**, type **4**.
-1. Click **Integration Services**.
-1. Under Integration Services, deactivate **Time synchronization**.
-
-    > Time synchronization should be disabled on domain-joined virtual machines, because they synchronize with a domain controller.
-
-1. Click **OK**.
-
-### Task 3: Configure Windows Server
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV20**, click **Connect...**.
-1. In PM-SRV20 on PM-SRV1 - Virtual Machine Connection, in the menu, click **Action**, **Start**.
-1. On the message **Press any key to boot from CD or DVD..., press any key.
-
-    If you cannot press a key fast enough, perform these steps:
-
-    1. In the menu, click **Action**, **Reset...**.
-    1. In the message box Reset machine, click **Reset**.
-
-    Now, try again to press any key.
-
-1. In Microsoft Server Operating System Setup, select a **Time and currency format** and a **Keyboard or input method** applicable to you and click **Next**.
-1. Click **Install now**.
-1. On page Select the operating system you want to install, click **Windows Server 2022 Datacenter Evaluation** and click **Next**.
-1. On page Applicable notices and license terms, activate **I accept the Microsoft Software License Terms. If an organization is licensing it, I am authorized to bind the organization** and click **Next**.
-1. On page Which type of installation do you want, click **Custom: Install Microsoft Windows Server Operating System only (advanced)**
-1. On page Where do you want to install the operating system, click **Next**.
-
-    The installation will take less than 5 minutes.
-
+1. In Hyper-V Manager, under Virtual machines, in the context-menu of **PM-SRV20**, click **Connect...**.
 1. In C:\\Windows\\system32\\LogonUI.exe, at the prompt The user's password must be changed before signing in, select **OK** and press ENTER.
 1. In New password and Confirm password, enter a secure password and take a note.
 1. At Your password has been changed, press ENTER.

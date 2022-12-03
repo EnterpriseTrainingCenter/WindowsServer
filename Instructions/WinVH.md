@@ -10,6 +10,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install the Hyper-V role](/Instructions/Practices/Install-the-Hyper-V-role.md)
 1. [Install the Hyper-V management tools](/Instructions/Practices/Install-the-Hyper-V-management-tools.md)
 1. [Configure basic Hyper-V settings](/Instructions/Practices/Configure-basic-Hyper-V-settings.md)
+1. [Create and install a virtual machine](/Instructions/Practices/Create-and-install-a-virtual-machine.md)
 1. [NIC teaming](/Instructions/Practices/NIC-teaming.md)
 1. Storage QoS
 
