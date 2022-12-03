@@ -32,22 +32,10 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercise 1: Installing and configuring Hyper-V
 
-1. [Install the Hyper-V management tools](#task-1-install-hyper-v-management-tools) on CL1
-1. [Configure basic Hyper-V settings](#task-2-configure-basic-hyper-v-settings) on PM-SRV1 and PM-SRV2: Change the default path for virtual machines to C:\Hyper-V and for virtual hard disks to C:\Hyper-V\Virtual Hard Disks and enable Live Migrations
-1. [Create an external virtual switch](#task-3-create-an-external-virtual-switch) on PM-SRV1 and PM-SRV2
+1. [Configure basic Hyper-V settings](#task-1-configure-basic-hyper-v-settings) on PM-SRV1 and PM-SRV2: Change the default path for virtual machines to C:\Hyper-V and for virtual hard disks to C:\Hyper-V\Virtual Hard Disks and enable Live Migrations
+1. [Create an external virtual switch](#task-2-create-an-external-virtual-switch) on PM-SRV1 and PM-SRV2
 
-### Task 1: Install Hyper-V Management tools
-
-Perform this task on CL1.
-
-1. Open **Settings**.
-1. In Settings, click **Apps**.
-1. Under Apps, click **Optional features**.
-1. Under Optional features, click **More Windows features** (you might have to scroll down).
-1. In Windows Features, expand **Hyper-V** and activate **Hyper-V Management Tools**. Click **OK**.
-1. On page Windows completd the requested changes, cick **Close**.
-
-### Task 2: Configure basic Hyper-V settings
+### Task 1: Configure basic Hyper-V settings
 
 Perform this task on CL1.
 
@@ -88,7 +76,7 @@ Perform this task on CL1.
 
 Repeat this task for **PM-SRV2**.
 
-### Task 3: Create an external virtual switch
+### Task 2: Create an external virtual switch
 
 Perform this task on CL1.
 

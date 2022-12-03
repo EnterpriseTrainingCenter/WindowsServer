@@ -8,6 +8,7 @@ The instructions are to be used in conjunction with the original presentation sl
 
 1. [Configure nested virtualization](/Instructions/Practices/Configure-nested-virtualization.md)
 1. [Install the Hyper-V role](/Instructions/Practices/Install-the-Hyper-V-role.md)
+1. [Install the Hyper-V management tools](/Instructions/Practices/Install-the-Hyper-V-management-tools.md)
 1. [NIC teaming](/Instructions/Practices/NIC-teaming.md)
 1. Storage QoS
 
