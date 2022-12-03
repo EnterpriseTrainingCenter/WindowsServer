@@ -21,6 +21,10 @@
 * PM-SRV4
 * CL1
 
+### Known issues and workarounds
+
+<https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/102>
+
 ## Task
 
 On CL1, in Server Manager, add all Servers with a name starting with VN or PM and explore Server Manager.
