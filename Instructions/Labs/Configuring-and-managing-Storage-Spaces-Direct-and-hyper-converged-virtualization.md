@@ -319,7 +319,7 @@ Repeat from step 2 for VN1-SRV7, VN1-SRV8, and VN1-SRV9
 Peform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Install the windows feature **File Server** on **VN1-SRV10**.
+1. Install the windows feature **File Server** on **VN1-SRV6**, **VN1-SRV7**, **VN1-SRV8**, and **VN1-SRV9**.
 
     ````powershell
    Invoke-Command `
