@@ -30,66 +30,7 @@ On CL1, sign in as **ad\Administrator**.
 1. [Managing virtual switches](#exercise-8-managing-virtual-switches)
 1. [Replicating virtual machines](#exercise-9-replicating-virtual-machines)
 
-## Exercise 1: Installing and configuring Hyper-V
-
-1. [Configure basic Hyper-V settings](#task-1-configure-basic-hyper-v-settings) on PM-SRV1 and PM-SRV2: Change the default path for virtual machines to C:\Hyper-V and for virtual hard disks to C:\Hyper-V\Virtual Hard Disks and enable Live Migrations
-1. [Create an external virtual switch](#task-2-create-an-external-virtual-switch) on PM-SRV1 and PM-SRV2
-
-### Task 1: Configure basic Hyper-V settings
-
-Perform this task on CL1.
-
-1. Open **Terminal**.
-1. In Terminal, create a remote PowerShell session to PM-SRV1.
-
-    ````powershell
-    Enter-PSSession PM-SRV1
-    ````
-
-1. On PM-SRV1, create a directory **C:\\Hyper-V\\Virtual Hard Disks**
-
-    ````powershell
-    New-Item -Path 'C:\Hyper-V\Virtual Hard Disks' -ItemType Directory
-    ````
-
-1. Exit from the remote PowerShell session.
-
-    ````powershell
-    Exit-PSSession
-    ````
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, in the context menu of **Hyper-V Manager**, click **Connect to Server...**
-1. In Select Computer, ensure **Another computer** is selected, type **PM-SRV1**, and click **OK**.
-1. In **Hyper-V Manager**, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV1**, click **Hyper-V Settings**.
-1. In Hyper-V Settings for PM-SRV1, ensure **Virtual Hard Disks** is selected. Under **Virtual Hard Disks**, cick **Browse...**
-1. In Select Folder, expand **pm-srv1.ad.adatum.com**, **Local Disk (C:)**, **hyper-v** and click **Virtual Hard Disks**. Click **Select Folder**.
-1. In **Hyper-V Settings for PM-SRV1**, in the left pane, click **Virtual Machines**.
-1. Under Virtual Machines, click **Browse...**.
-1. In Select Folder, expand **pm-srv1.ad.adatum.com**, **Local Disk (C:)** and click **hyper-v**. Click **Select Folder**.
-1. In **Hyper-V Settings for PM-SRV1**, click **Live Migrations**.
-1. Under Live Migrations, activate **Enable incoming and outgoing live migrations** and click **Use any available network for the live migration.
-1. In the left pane, expand **Live Migrations** and click **Advanced Features**.
-1. Under Advanced Features, ensure **Use Credential Security Support Provider (CredSSP)** is selected. Under **Performance options**, ensure **Compression** is selected.
-1. Click **OK**.
-
-Repeat this task for **PM-SRV2**.
-
-### Task 2: Create an external virtual switch
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV1**, click **Virtual Switch Manager...**
-1. In Virtual Switch Manager for PM-SRV1, in the left pane, ensure **New virtual network switch** is selected. In the right pane, under **Create virtual switch**, ensure **External** is selected and click **Create Virtual Switch**.
-1. Under Name, type **External**. Under **Connection type**, ensure **External network** and **Microsoft Hyper-V Network Adapter** is selected. Ensure, **Allow management operating system to share this network adapter** is activated. Click **OK**.
-1. In the message box Apply Networking Changes, click **Yes**.
-
-Repeat this task for **PM-SRV2**.
-
-## Exercise 2: Configuring virtual machines
+## Exercise 1: Configuring virtual machines
 
 1. [Create a virtual machine](#task-1-create-a-virtual-machine) on PM-SRV1 with the name PM-SRV20, 1 GB memory and the ISO file 2022_x64_EN_Eval.iso
 1. [Configure settings for the virtual machine](#task-2-configure-settings-for-the-virtual-machine): Enable Trusted Platform Module, set the number of virtual processors to 4 and disable time synchronization
@@ -196,7 +137,7 @@ Perform this task on CL1.
 1. At the prompt Password for ad\Administrator, enter the password of **ad\Administrator**.
 1. At the prompt Restart now? (Y)es or (N)o, enter **Y**.
 
-## Exercise 3: Working with the Virtual Machine Connection
+## Exercise 2: Working with the Virtual Machine Connection
 
 1. [Explore the clipboard features in Virtual Machine Connection without Enhanced Session Mode](#task-1-explore-the-clipboard-features-in-virtual-machine-connection-without-enhanced-session-mode)
 
@@ -285,7 +226,7 @@ Perform this task on CL1.
 
 Leave the virtual machine in its current state for the next exercise.
 
-## Exercise 4: Managing the status of virtual machines
+## Exercise 3: Managing the status of virtual machines
 
 1. [Save the virtual machine and start it again](#task-1-save-the-virtual-machine-and-start-it-again)
 
@@ -398,7 +339,7 @@ Perform this task on CL1.
 
     > The virtual machine is reset immediately without a graceful shut down.
 
-## Exercise 5: Managing the guest operating system from the host
+## Exercise 4: Managing the guest operating system from the host
 
 1. [Disconnect the virtual machine from the network](#task-1-disconnect-the-virtual-machine-from-the-network)
 1. [Use a remote PowerShell session to the virtual machine](#task-2-use-a-remote-powershell-session-to-the-virtual-machine) to enable BitLocker
@@ -554,7 +495,7 @@ Perform this task on CL1.
 1. In **Settings for PM-SRV20 on PM-SRV1**, click **Network Adapter**.
 1. Under Network Adapter, under **Virtual switch**, click **External** and click **OK**.
 
-## Exercise 6: Managing virtual disks
+## Exercise 5: Managing virtual disks
 
 1. [Create and attach a dynamic disk](#task-1-create-and-attach-a-dynamic-disk) with a size of 100 GB
 1. [Create and format a volume on the dynamic disk](#task-2-create-and-format-a-volume-on-the-dynamic-disk)
@@ -852,7 +793,7 @@ Peform this task on CL1.
 
 1. Click **Cancel**.
 
-## Exercise 7: Working with checkpoints
+## Exercise 6: Working with checkpoints
 
 1. [Create a checkpoint and run the post-installation configuration](#task-1-create-checkpoints-and-run-the-post-installation-configuration): Create checkpoints on PM-SRV21 according to the table below.
 
@@ -964,7 +905,7 @@ Perform this task on CL1.
 
     > The virtual machine keeps running all the time.
 
-## Exercise 8: Managing virtual switches
+## Exercise 7: Managing virtual switches
 
 1. [Verify the current network configuration](#task-1-verify-the-current-network-configuration) on PM-SRV1
 1. [Create a private virtual switch and connect the virtual machines](#task-2-create-a-private-virtual-switch-and-connect-the-virtual-machines) on PM-SRV1
@@ -1339,7 +1280,7 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
-## Exercise 9: Replicating virtual machines
+## Exercise 8: Replicating virtual machines
 
 1. [Configure the network](#task-1-configure-the-network) on PM-SRV2: Create an internal switch with the same name, IP and NAT configuration as on PM-SRV1
 1. [Enable Hyper-V replication](#task-2-enable-hyper-v-replication) on PM-SRV1 and PM-SRV2
