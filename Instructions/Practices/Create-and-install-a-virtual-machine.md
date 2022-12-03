@@ -12,7 +12,7 @@
 
 ## Task
 
-On PM-SRV1, create a new virtual machine with the name PM-SRV20. The virtual machine should have 1 GB of memory and should install Windows Server Core from 2022_x64_EN_Eval.iso.
+On PM-SRV1, create a new virtual machine with the name PM-SRV20. The virtual machine should have 1 GB of memory, 4 virtual processor, time synchronization disabled, and should install Windows Server Core from 2022_x64_EN_Eval.iso.
 
 > Why would you want to deactivate time synchronization?
 
@@ -48,7 +48,7 @@ Perform these steps on CL1.
 1. Click **OK**.
 1. In **Hyper-V Manager**, under **Virtual machines**, in the context-menu of **PM-SRV20**, click **Connect...**.
 1. In PM-SRV20 on PM-SRV1 - Virtual Machine Connection, in the menu, click **Action**, **Start**.
-1. On the message **Press any key to boot from CD or DVD..., press any key.
+1. On the message **Press any key to boot from CD or DVD...**, press any key.
 
     If you cannot press a key fast enough, perform these steps:
 
