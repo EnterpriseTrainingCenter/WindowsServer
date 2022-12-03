@@ -20,169 +20,12 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Exercises
 
-1. [Managing the guest operating system from the host](#exercise-1-managing-the-guest-operating-system-from-the-host)
-1. [Managing virtual disks](#exercise-2-managing-virtual-disks)
-1. [Working with checkpoints](#exercise-3-working-with-checkpoints)
-1. [Managing virtual switches](#exercise-4-managing-virtual-switches)
-1. [Replicating virtual machines](#exercise-5-replicating-virtual-machines)
+1. [Managing virtual disks](#exercise-1-managing-virtual-disks)
+1. [Working with checkpoints](#exercise-2-working-with-checkpoints)
+1. [Managing virtual switches](#exercise-3-managing-virtual-switches)
+1. [Replicating virtual machines](#exercise-4-replicating-virtual-machines)
 
-## Exercise 1: Managing the guest operating system from the host
-
-1. [Disconnect the virtual machine from the network](#task-1-disconnect-the-virtual-machine-from-the-network)
-1. [Use a remote PowerShell session to the virtual machine](#task-2-use-a-remote-powershell-session-to-the-virtual-machine) to enable BitLocker
-1. [Enable guest services](#task-3-enable-guest-services)
-1. [Copy files between the host and the virtual machine](#task-4-copy-files-between-the-host-and-the-virtual-machine)
-1. [Reconnect the virtual machine to the network](#task-5-reconnect-the-virtual-machine-to-the-network)
-
-### Task 1: Disconnect the virtual machine from the network
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV20**, click **Settings...**.
-1. In **Settings for PM-SRV20 on PM-SRV1**, click **Network Adapter**.
-1. Under Network Adapter, under **Virtual switch**, click **Not connected** and click **OK**.
-
-### Task 2: Use a remote PowerShell session to the virtual machine
-
-Perform this task on CL1.
-
-1. Open **Terminal**
-1. In Terminal, open a remote PowerShell session to the Hyper-V host **PM-SRV1**.
-
-    ````powershell
-    Enter-PSSession -ComputerName PM-SRV1
-    ````
-
-1. Open a remote PowerShell session to the disconnected virtual machine.
-
-    ````powershell
-    $vMName = 'PM-SRV20'
-    Enter-PSSession -VMName $vMName
-    ````
-
-1. In Windows PowerShell credential request, enter the credentials of **ad\Administrator** or **PM-SRV20\Administrator**.
-
-    The prompt will be displayed as
-
-    ````shell
-    [PM-SRV1]: [PM-SRV20]:
-    ````
-
-1. Query the computer info to confirm that you are connected with the virtual machine.
-
-    ````powershell
-    Get-ComputerInfo
-    ````
-
-    * **CsName** is **PM-SRV20**
-    * **CsTotalPhysicalMemory** is **1072590848** (1 GB)
-
-1. Query the net adapter to confirm its disconnected status.
-
-    ````powershell
-    Get-NetAdapter
-    ````
-
-    **Status** is **Disconnected**.
-
-1. Install the windows feature **BitLocker**
-
-    ````powershell
-    Install-WindowsFeature -Name BitLocker
-    ````
-
-1. Close the connection to the virtual machine.
-
-    ````powershell
-    Exit-PSSession
-    ````
-
-1. Shut down and start the virtual machine.
-
-    ````powershell
-    Stop-VM -Name $vMName
-    Start-VM -Name $vMName
-    ````
-
-1. Remove the ISO from the DVD drive of the virtual machine
-
-    ````powershell
-    Get-VMDvdDrive -VMName $vMName | Set-VMDvdDrive -Path $null
-    ````
-
-1. Open a remote PowerShell session to the disconnected virtual machine again.
-
-    ````powershell
-    $vMName = 'PM-SRV20'
-    Enter-PSSession -VMName $vMName
-    ````
-
-1. In Windows PowerShell credential request, enter the credentials of **ad\Administrator** or **PM-SRV20\Administrator**.
-
-1. Encrypt all available drives using BitLocker skipping the hardware tests.
-
-    ````powershell
-    Get-BitLockerVolume | Enable-BitLocker -TpmProtector -SkipHardwareTest
-    ````
-
-1. Close the connection to the virtual machine.
-
-    ````powershell
-    Exit-PSSession
-    ````
-
-1. Close the connection to the Hyper-V host.
-
-    ````powershell
-    Exit-PSSession
-    ````
-
-### Task 3: Enable guest services
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV20**, click **Settings...**.
-1. In **Settings for PM-SRV20 on PM-SRV1**, click **Integration Services**.
-1. Under Integration Services, activate  **Guest services** and click **OK**.
-
-### Task 4: Copy files between the host and the virtual machine
-
-Perform this task on CL1.
-
-1. Open **Terminal**.
-1. In Terminal, copy **C:\\LabResources\\2022_x64_EN_Eval.iso** from **PM-SRV1** to **C:\LabResources** on the disconnected virtual machine **PM-SRV20**
-
-    ````powershell
-    Copy-VMFile `
-        -ComputerName PM-SRV1 `
-        -Name PM-SRV20 `
-        -SourcePath C:\LabResources\2022_x64_EN_Eval.iso `
-        -DestinationPath C:\LabResources `
-        -FileSource Host `
-        -CreateFullPath
-    ````
-
-    If you can wait for the copy process to finish, you can skip to the next task. To cancel the copy process, continue with the following steps.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. Virtual Machines, in the context-menu of **PM-SRV20**, click **Cancel Copying a file to the guest**.
-
-### Task 5: Reconnect the virtual machine to the network
-
-Perform this task on CL1.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click **PM-SRV1**.
-1. In the context-menu of **PM-SRV20**, click **Settings...**.
-1. In **Settings for PM-SRV20 on PM-SRV1**, click **Network Adapter**.
-1. Under Network Adapter, under **Virtual switch**, click **External** and click **OK**.
-
-## Exercise 2: Managing virtual disks
+## Exercise 1: Managing virtual disks
 
 1. [Create and attach a dynamic disk](#task-1-create-and-attach-a-dynamic-disk) with a size of 100 GB
 1. [Create and format a volume on the dynamic disk](#task-2-create-and-format-a-volume-on-the-dynamic-disk)
@@ -480,7 +323,7 @@ Peform this task on CL1.
 
 1. Click **Cancel**.
 
-## Exercise 3: Working with checkpoints
+## Exercise 2: Working with checkpoints
 
 1. [Create a checkpoint and run the post-installation configuration](#task-1-create-checkpoints-and-run-the-post-installation-configuration): Create checkpoints on PM-SRV21 according to the table below.
 
@@ -592,7 +435,7 @@ Perform this task on CL1.
 
     > The virtual machine keeps running all the time.
 
-## Exercise 4: Managing virtual switches
+## Exercise 3: Managing virtual switches
 
 1. [Verify the current network configuration](#task-1-verify-the-current-network-configuration) on PM-SRV1
 1. [Create a private virtual switch and connect the virtual machines](#task-2-create-a-private-virtual-switch-and-connect-the-virtual-machines) on PM-SRV1
@@ -967,7 +810,7 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
-## Exercise 5: Replicating virtual machines
+## Exercise 4: Replicating virtual machines
 
 1. [Configure the network](#task-1-configure-the-network) on PM-SRV2: Create an internal switch with the same name, IP and NAT configuration as on PM-SRV1
 1. [Enable Hyper-V replication](#task-2-enable-hyper-v-replication) on PM-SRV1 and PM-SRV2
