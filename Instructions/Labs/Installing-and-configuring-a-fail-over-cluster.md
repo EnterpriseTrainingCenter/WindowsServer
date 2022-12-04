@@ -393,10 +393,10 @@ Perform this task on the host.
     Set-VMNetworkAdapter -MacAddressSpoofing On
     ````
 
-1. Disable dynamic memory and set the startup memory to 3 GB.
+1. Disable dynamic memory and set the startup memory to 4 GB.
 
     ````powershell
-    Set-VM -VMName $vMName -StaticMemory -MemoryStartupBytes 3GB
+    Set-VM -VMName $vMName -StaticMemory -MemoryStartupBytes 4GB
     ````
 
 1. Start the virtual machines.
