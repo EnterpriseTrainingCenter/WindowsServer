@@ -286,7 +286,7 @@ Perform this task on CL1.
 
 1. [Install the File Server role](#task-1-install-the-file-server-role) on VN1-SRV6, VN1-SRV7, VN1-SRV8, and VN1-SRV9
 1. [Configure the Scale-Out File Server role](#task-2-configure-the-scale-out-file-server-role) on VN1-CLST2 with the client access point VN1-CLST2-SOFS
-1. [Create a group](#task-3-create-a-group) in Active Directory with VN1-SRV4 and VN1-SRV5 as members
+1. [Create a group](#task-3-create-a-group) in Active Directory with VN1-SRV4, VN1-SRV5, VN1-SRV6, VN1-SRV7, VN1-SRV8, and VN1-SRV9 as members
 1. [Create a share](#task-4-create-a-share) on VN1-CLST2-SOFS for Hyper-V Data granting the group from the previous task full control
 1. [Determine the owner node of the virtual machine](#task-5-determine-the-owner-node-of-the-virtual-machine) VN1-SRV23
 1. [Move virtual machine data to the SOFS share](#task-6-move-virtual-machine-data-to-the-sofs-share)
@@ -361,7 +361,7 @@ Perform this task on CL1.
 1. Under Members, click **Add...**
 1. In Select Groups, Contacts, Computers, Service Accounts, or Groups, click **Object Types...**
 1. In Object Types, activate **Computers** and click **OK**.
-1. In **Select Groups, Contacts, Computers, Service Accounts, or Groups**, in **Enter the object names to select**, type **VN1-SRV4; VN1-SRV5** and click **OK**.
+1. In **Select Groups, Contacts, Computers, Service Accounts, or Groups**, in **Enter the object names to select**, type **VN1-SRV4; VN1-SRV5; VN1-SRV6; VN1-SRV7; VN1-SRV8; VN1-SRV9** and click **OK**.
 1. In **Create Group: Hyper-V Data Full Control**, click OK.
 
 ### Task 4: Create a share
