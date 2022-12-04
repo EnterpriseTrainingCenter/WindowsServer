@@ -424,7 +424,7 @@ Perform this task on the owner node of VN1-SRV23.
    ````powershell
    Move-VMStorage `
       -Name VN1-SRV23 `
-      -DestinationStoragePath '\\vn1-clst2-sofs2\Hyper-V Data'
+      -DestinationStoragePath '\\vn1-clst2-sofs\Hyper-V Data'
    ````
 
 ### Task 7: Verify move of the virtual machine
