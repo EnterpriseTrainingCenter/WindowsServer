@@ -701,26 +701,3 @@ Perform this task on CL1.
 1. In Roles (2), in the context-menu of **VN1-SRV24** click **Start**.
 
    > The virtual machine should start and run again.
-
-## Exercise 5: Shut down the Storage Spaces Direct cluster
-
-1. [Shut down the clustered virtual machines](#task-1-shut-down-the-clustered-virtual-machines) on VN1-CLST1 and VN1-CLST2
-1. [Shut down the nodes](#task-2-shut-down-the-nodes) VN1-SRV6, VN1-SRV7, VN1-SRV8, and VN1-SRV9
-
-### Task 1: Shut down the clustered virtual machines
-
-Perform this task on CL1.
-
-1. Open **Failover Cluster Manager**.
-1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
-1. Under Roles (3), in the context-menu of **VN1-SRV23**, cick **Shut Down**.
-1. Expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
-1. Under Roles (2), in the context-menu of **VN1-SRV24**, cick **Shut Down**.
-
-### Task 2: Shut down the nodes
-
-Perform this task on the host.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click the name of your computer.
-1. Under Virtual Machines, in the context menu of **VN1-SRV6**, click **Shut down...**. Wait for the computer to turn off. Repeat for **VN1-SRV7**, **VN1-SRV8**, and **VN1-SRV9**.
