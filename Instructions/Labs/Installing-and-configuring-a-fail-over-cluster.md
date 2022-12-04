@@ -210,7 +210,7 @@ Perform this task on CL1.
 
     | Name | Capacity | Path |
     |------|----------|------|
-    |      | 1,00 GB  |      |
+    |      | 10,0 GB  |      |
     |      | 80,0 GB  |      |
 
 1. [Configure cluster networks](#task-7-configure-cluster-networks) accoring to the table below

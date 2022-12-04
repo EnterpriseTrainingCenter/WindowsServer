@@ -414,7 +414,7 @@ Perform this task on CL1
       @{ Size = 1GB; DriveLetter = 'D'; FileSystemLabel = 'Quorum' }
       @{ Size = 10GB; DriveLetter = 'E'; FileSystemLabel = 'WAC' }
       @{ Size = 80GB; DriveLetter = 'F'; FileSystemLabel = 'Hyper-V' }
-      @{ Size = 100MB, DriveLetter = 'G'; FileSystemLabel = 'Witness Shares' }
+      @{ Size = 100MB; DriveLetter = 'G'; FileSystemLabel = 'Witness Shares' }
    )
    ````
 
