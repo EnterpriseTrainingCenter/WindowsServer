@@ -454,7 +454,7 @@ Perform these steps on CL1.
    Set-PhysicalDisk -MediaType SSD -CimSession $cimSession
    ````
 
-1. On VN1-SRV10, set the media type of the **1 TB** physical disks to **SSD**.
+1. On VN1-SRV10, set the media type of the **1 TB** physical disks to **HDD**.
 
    ````powershell
    Get-PhysicalDisk -CimSession $cimSession | 
@@ -496,8 +496,7 @@ Perform these steps on CL1.
    1. In **Server Manager**, **Storage Pools**, under **STORAGE POOLS**, click **TASKS**, **Refresh**.
    1. Restart the creation of the storage pool at step 4.
 
-   Activate all available disks and click **Next >**.
-
+1. Activate all available disks and click **Next >**.
 1. On page Confirmation, click **Create**.
 1. On page results, click **Close**.
 
