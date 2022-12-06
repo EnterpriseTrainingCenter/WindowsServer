@@ -21,11 +21,17 @@
 
 ## Exercises
 
-1. [Testing Storage Replica storage](#exercise-1-testing-storage-replica-storage)
-1. [Create a stretched Hyper-V cluster](#exercise-2-create-a-stretched-hyper-v-cluster)
-1. [Test stretched Hyper-V cluster failover](#exercise-3-test-stretched-hyper-v-cluster-failover)
+1. [Preparing for Storage Replica and stretched cluster](#exercise-1-preparing-for-storage-replica-and-stretched-cluster)
+1. [Testing Storage Replica storage](#exercise-2-testing-storage-replica-storage)
+1. [Create a stretched Hyper-V cluster](#exercise-3-create-a-stretched-hyper-v-cluster)
+1. [Test stretched Hyper-V cluster failover](#exercise-4-test-stretched-hyper-v-cluster-failover)
 
-## Exercise 1: Configure storage
+## Exercise 1: Preparing for Storage Replica and stretched cluster
+
+1. [Configure nested virtualization](#task-1-configure-nested-virtualization) on WIN-VN2-SRV1 and WIN-VN3-SRV1 and assign them 4 GB of memory
+1. [Configure iSCSI target and disks](#task-2-configure-iscsi-targets-and-disks): 2 tagets for VN2-SRV1 and VN3-SRV1, with 2 disks each with 20 GB and 10 GB capacity
+1. [Connect to to iSCSI targets](#task-3-connect-to-iscsi-targets) on VN2-SRV1 and VN3-SRV1
+1. [Create volumes](#task-4-create-volumes) on the iSCSI disks; name the 20 GB disks Data and assign them the drive letter D, and the 10 GB disks Log and assign them the drive letter E.
 
 ### Task 1: Configure nested virtualization
 
@@ -74,7 +80,7 @@ Perform this task on CL1.
 1. In iSCSI, in the right pane, in the drop-down **TASKS**, click **New iSCSI Virtual Disk...**.
 1. In New iSCSI Virtual Disk Wizard, on page iSCSI Virtual Disk Location, under **Server**, click **VN1-SRV10**. Under **Storage location**, click **D:**. Click **Next >**.
 1. On page Specify iSCSI virtual disk name, in **Name**, type **VN2-CLST1-Data** and click **Next >**.
-1. On page Specify iSCSI virtual disk size, in **Size**, type **100** and ensure **GB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
+1. On page Specify iSCSI virtual disk size, in **Size**, type **20** and ensure **GB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
 1. On page Assign iSCSI target, click **New iSCSI target** and click **Next >**.
 1. On page Specify target name, in **Name**, type **VN2-CLST1** and click **Next >**.
 1. On page Specify access servers, click **Add...**.
@@ -97,7 +103,7 @@ Perform this task on CL1.
 1. In **Server Manager**, in **iSCSI**, in the right pane, in the drop-down **TASKS**, click **New iSCSI Virtual Disk...**.
 1. In New iSCSI Virtual Disk Wizard, on page iSCSI Virtual Disk Location, under **Server**, click **VN1-SRV10**. Under **Storage location**, click **D:**. Click **Next >**.
 1. On page Specify iSCSI virtual disk name, in **Name**, type **VN3-CLST1-Data** and click **Next >**.
-1. On page Specify iSCSI virtual disk size, in **Size**, type **100** and ensure **GB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
+1. On page Specify iSCSI virtual disk size, in **Size**, type **20** and ensure **GB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
 1. On page Assign iSCSI target, click **New iSCSI target** and click **Next >**.
 1. On page Specify target name, in **Name**, type **VN3-CLST1** and click **Next >**.
 1. On page Specify access servers, click **Add...**.
@@ -127,15 +133,15 @@ Perform these steps on CL1.
 
    | File name             | Size   |
    |-----------------------|--------|
-   | VN2-CLST1-Data.vhdx   | 100 GB |
+   | VN2-CLST1-Data.vhdx   | 20 GB |
    | VN2-CLST1-Log.vhdx    | 10 GB  |
-   | VN3-CLST1-Data.vhdx   | 100 GB |
+   | VN3-CLST1-Data.vhdx   | 20 GB |
    | VN3-CLST1-Log.vhdx    | 10 GB  |
 
    ````powershell
    $path = "$($driveLetter):\$name"
    $diskParams = @(
-      @{ Path = "$path\VN2-CLST1-Data.vhdx"; SizeBytes = 100GB }
+      @{ Path = "$path\VN2-CLST1-Data.vhdx"; SizeBytes = 20GB }
       @{ Path = "$path\VN2-CLST1-Log.vhdx"; SizeBytes = 10GB }
       @{ Path = "$path\VN3-CLST1-Data.vhdx"; SizeBytes = 10GB }
       @{ Path = "$path\VN3-CLST1-Log.vhdx"; SizeBytes = 10GB }
@@ -198,12 +204,12 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, click **File and Storage Services**.
 1. Under File and Storage Services, click **Disks**.
-1. In Disks, under **VN2-SRV1**, in the context menu of the disk with a **Capacity** of **100 GB**, attached to **Bus Type** **iSCSI**, click **Bring online**.
+1. In Disks, under **VN2-SRV1**, in the context menu of the disk with a **Capacity** of **20 GB**, attached to **Bus Type** **iSCSI**, click **Bring online**.
 1. In Bring Disk Online, click **Yes**.
-1. In **Server Manager**, under **Disks**, in the context-menu the Disk of the disk with a **Capacity** of **100 GB**, attached to **Bus Type** **iSCSI**, click **New Volume...**.
+1. In **Server Manager**, under **Disks**, in the context-menu the Disk of the disk with a **Capacity** of **20 GB**, attached to **Bus Type** **iSCSI**, click **New Volume...**.
 1. In New Volume Wizard, on page Before You Begin, click **Next >**.
-1. On page Server and Disk, ensure **VN2-SRV1** and a disk with **Capacity** of **100 GB** are selected and click **Next >**.
-1. On page size, in **Volume size**, ensure **100,0** is filled in and **GB** is selected. Click **Next >**.
+1. On page Server and Disk, ensure **VN2-SRV1** and a disk with **Capacity** of **20 GB** are selected and click **Next >**.
+1. On page size, in **Volume size**, ensure **20,0** is filled in and **GB** is selected. Click **Next >**.
 1. On page Drive Letter or Folder, ensure **Drive letter** and **D** is selected and click **Next >**.
 1. On page File System Settings, in **File System**, click **ReFS**. In **Volume label**, type **Data**. Click **Next >**.
 1. On page Confirmation, click **Create**.
@@ -301,10 +307,12 @@ Perform these steps on CL1.
 
 ## Exercise 2: Testing Storage Replica storage
 
+1. [Install Storage Replica feature](#task-1-install-storage-replica-feature) on VN2-SRV1 and VN3-SRV1
+1. [Run the Storage Replica test](#task-2-run-the-storage-replica-test) on VN2-SRV1 and VN3-SRV1 using the D and E volumes
 
    > According to the report, will Storage Replica work in this environment?
 
-### Task 5: Install Storage Replica feature
+### Task 1: Install Storage Replica feature
 
 <!-- You can skip this task when using Windows Admin Center in the next exercise. The necessary features are installed when using them.
  -->
@@ -345,7 +353,7 @@ Perform this task on CL1.
     }
     ````
 
-### Task 6: Run the Storage Replica test
+### Task 2: Run the Storage Replica test
 
 Perform this task on VN2-SRV1.
 
@@ -388,7 +396,12 @@ From **\\\VN2-SRV1\\C$\\Temp** open the report in a browser.
 
 > Discuss the results of the report with other students in the class.
 
-## Exercise 2: Create a stretched Hyper-V cluster
+## Exercise 3: Create a stretched Hyper-V cluster
+
+1. [Add cluster nodes to group](#task-1-add-cluster-nodes-to-group) Witness VN1-CLST2 Modify: VN2-SRV1 and VN3-SRV1
+1. [Create a failover cluster](#task-2-create-a-failover-cluster) with VN2-SRV1 and VN3-SRV1 as nodes and the IP addresses 10.1.2.9 and 10.3.9; use \\\\vn1-clst1-fs\\Witness VN1-CLST2 as witness and set the resilience default period to 10; set the preffered site to the 10.1.2.0 subnet; add all available disks to the cluster
+1. [Add disk to cluster shared volume](#task-3-add-disk-to-cluster-shared-volumes): disk Data from VN2-SRV1
+1. [Configure storage replica](#task-4-configure-storage-replica) to replicate the Data volume from VN2-SRV1 to VN3-SRV1 using the Log volume as log disk
 
 ### Task 1: Add cluster nodes to group
 
@@ -476,7 +489,7 @@ Perform these steps on CL1.
 Perform this task on VN2-SRV1.
 
 1. Open **Windows PowerShell (Admin)**
-1. Crfeate a new failover cluster with the name **VN2-VN3-CLST** and the IP address **10.1.2.9** and **10.1.3.9**. Include **VN2-SRV1** and **VN3-SRV1** as nodes.
+1. Create a new failover cluster with the name **VN2-VN3-CLST** and the IP address **10.1.2.9** and **10.1.3.9**. Include **VN2-SRV1** and **VN3-SRV1** as nodes.
 
    ````powershell
    $cluster = New-Cluster `
@@ -527,7 +540,7 @@ Perform this task on VN2-SRV1.
    Set-ADComputer $clusterName -PrincipalsAllowedToDelegateToAccount $gw 
    ````
  -->
-### Task 2: Configure storage replica
+### Task 3: Add disk to cluster shared volumes
 
 Perform this task on CL1.
 
@@ -535,9 +548,9 @@ Perform this task on CL1.
 1. In Failover Cluster Manager, in the context-menu of **Failover Cluster Manager**, click **Connect to Cluster...**
 1. Select Cluster, type **VN2-VN3-CLST1.ad.adatum.com** and click **OK**.
 1. In Failover Cluster Manager, expand **VN2-VN3-CLST1.ad.adatum.com**, **Storage**, and click **Disks**.
-1. Under Disks (4), in the context menu of the disk with **Capacity** of **100 GB** with a **Status** of **Online**, click **Add to Cluster Shared Volumes**.
+1. Under Disks (4), in the context menu of the disk with **Capacity** of **20 GB** with a **Status** of **Online**, click **Add to Cluster Shared Volumes**.
 
-### Task 3: Configure storage replica
+### Task 4: Configure storage replica
 
 Perform this task on VN2-SRV1.
 
@@ -578,7 +591,15 @@ Perform this task on VN2-SRV1.
 
 You can continue with the lab, but the failover will only succeed, when the **ReplicationStatus** changed to **ContinouslyReplicating**.
 
-## Exercise 3: Test stretched Hyper-V cluster failover
+## Exercise 4: Test stretched Hyper-V cluster failover
+
+1. [Install Hyper-V](#task-1-install-hyper-v) on VN2-SRV1 and VN3-SRV1
+1. [Create a virtual machine](#task-2-create-a-virtual-machine) with Windows Server 2022 from a differencing disk the cluster node VN2-SRV1
+1. [Simulate a failure](#task-3-simulate-a-failure) by turning off VN2-SRV1
+1. [Verify failover](#task-4-verify-failover)
+1. [Simulate recovery](#task-5-simulate-recovery)
+1. [Verify recovery](#task-6-verify-recovery)
+1. [Reverse replication](#task-7-reverse-replication) and move the virtual machine back
 
 ### Task 1: Install Hyper-V
 
@@ -673,7 +694,7 @@ Perform this task on the host.
 1. Under Virtual Machines, in the context-menu of **VN2-SRV1**
 1. In **Hyper-V Manager**, turn off **VN2-SRV1**, click **Turn off...**
 
-### Task 4: Validate failover
+### Task 4: Verify failover
 
 Perform these steps on CL1.
 
@@ -688,7 +709,7 @@ Perform these steps on CL1.
    > The sign in process should work.
 
 1. In **Failover Cluster Manager**, expand *Storage* and click **Disks**.
-1. Click the 100 GB disk, that is still online.
+1. Click the 20 GB disk, that is still online.
 1. At the bottom pane, click on **Replication** and check the status.
 
 ### Task 5: Simulate recovery
@@ -703,7 +724,7 @@ Perform this task on the host.
 1. Click the name of your computer.
 1. Under Virtual Machines, in the context-menu of **VN2-SRV1**, click **Start**.
 
-### Task 6: Validate recovery
+### Task 6: Verify recovery
 
 Perform this task on CL1.
 
@@ -733,5 +754,5 @@ Perform these steps on CL1.
 1. Under Roles (1), in the context menu of **VN2-SRV20**, click **Move**, **Live Migration**, **Select Node...**
 1. In Move Virtual Machine, click **VN2-SRV1** , and click **OK**.
 1. In **Failover Cluster Manager**, expand **Storage** and click **Disks**.
-1. In the context-menu of the 100 GB disk, assigned to **Cluster Shared Volume**, click **Move**, **Select Node...**.
+1. In the context-menu of the 20 GB disk, assigned to **Cluster Shared Volume**, click **Move**, **Select Node...**.
 1. In Move Cluster Shared Volume, click **VN2-SRV1** , and click **OK**.
