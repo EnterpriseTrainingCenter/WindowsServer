@@ -786,9 +786,8 @@ Perform these steps on CL1.
 1. In the context-menu of **PM-SRV21**, click **Replication**, **View Replication Health...**
 1. In Replication Health for PM-SRV21, review the data and click **Close**.
 1. In **Hyper-V Manager**, in the left pane, click **PM-SRV2**.
-1. Under Virtual Machines, click **PM-SRV21**.
 
-    > The virtual machine is turned off.
+    > Under Virtual machines, PM-SRV21 is turned off.
 
 1. In the bottom pane, click the tab **Replication**. The **Replication State** should be **Replication enabled**.
 1. In the context-menu of **PM-SRV21**, click **Replication**, **View Replication Health...**
