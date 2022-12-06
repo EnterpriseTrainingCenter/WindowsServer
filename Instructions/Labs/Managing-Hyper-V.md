@@ -198,7 +198,7 @@ Peform this task on CL1.
 1. [Create a checkpoint and run the post-installation configuration](#task-1-create-checkpoints-and-run-the-post-installation-configuration): Create checkpoints on PM-SRV21 according to the table below.
 
     | Checkpoint                          | Do this after the checkpoint                          |
-    |---------------------------------------------------------------------------------------------|
+    |-------------------------------------|-------------------------------------------------------|
     | Pre-Post-Installation-Configuration | Configure password and set IP address to 10.1.200.168 |
     | Pre-Domain-Join                     | Join to the domain                                    |
     | Post-Domain-Join                    |                                                       |
@@ -685,7 +685,7 @@ Perform this task on CL1.
 1. [Configure the network](#task-1-configure-the-network) on PM-SRV2: Create an internal switch with the same name, IP and NAT configuration as on PM-SRV1
 1. [Enable Hyper-V replication](#task-2-enable-hyper-v-replication) on PM-SRV1 and PM-SRV2
 1. [Configure the firewall](#task-3-configure-the-firewall) on PM-SRV1 and PM-SRV2
-1. [Configure the replication of virtual machine](#task-4-configure-the replication of virtual machine) PM-SRV21
+1. [Configure replication of virtual machine](#task-4-configure-replication-of-virtual-machine) PM-SRV21
 1. [Test planned failover](#task-5-test-planned-failover)
 
     > Can you perform a planned failover with the virtual machine running?
