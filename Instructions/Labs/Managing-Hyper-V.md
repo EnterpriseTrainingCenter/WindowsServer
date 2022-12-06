@@ -848,7 +848,7 @@ Perform these steps on CL1.
 
     > The virtual machine PM-SRV21 is off.
 
-1. In the context menu of **PM-SRV1**, click **Replication**, **Failover...**.
+1. In the context menu of **PM-SRV21**, click **Replication**, **Failover...**.
 1. In Failover, click **Latest Recovery Point** and click **Fail Over**.
 
 ### Task 8: Recover from failure
