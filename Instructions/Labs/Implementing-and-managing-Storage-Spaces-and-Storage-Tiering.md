@@ -231,7 +231,7 @@ Perform this task on the host.
    ````
 
 1. Enter the credentials of **Administrator** on VN1-SRV10.
-1. Copy **C:\\Labs\\ISOs\\2022_x64_EN_Eval** from the host to **D:\\** on WIN-VN1-SRV5 in an infinite loop. Pause for 10 seconds after each iteration.
+1. Copy **C:\\Labs\\ISOs\\2022_x64_EN_Eval** from the host to **V:\\** in an infinite loop.
 
    ````powershell
    while ($true) { 
