@@ -51,8 +51,9 @@ Perform these steps on CL1.
 1. On the disk with a size of 100 GB, create an NTFS volume with the name **Data** and assign it to drive letter **E**.
 
     ````powershell
+    # Replace the disk number as appropriate
     New-Volume `
-        -DiskNumber 1 ` # Replace the disk number as appropriate
+        -DiskNumber 1 `
         -FileSystem NTFS `
         -FriendlyName Data `
         -DriveLetter E `
