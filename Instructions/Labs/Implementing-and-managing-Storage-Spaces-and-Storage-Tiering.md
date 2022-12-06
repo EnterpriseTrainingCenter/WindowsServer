@@ -294,7 +294,7 @@ In the instance of Windows PowerShell or Terminal, where you removed the hard di
 
 Leave all instances **Windows PowerShell (Admin)** or **Terminal** open with the copy process running, while continuing with the next tasks.
 
-Repeat [task 3](#task-3-validate-the-results-from-a-failed-disk).
+Repeat [task 4](#task-4-validate-the-results-from-a-failed-disk).
 
 ### Task 6: Add new virtual hard disks
 
