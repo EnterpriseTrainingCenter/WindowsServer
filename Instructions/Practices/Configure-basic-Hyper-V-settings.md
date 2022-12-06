@@ -46,7 +46,7 @@ Perform these steps on CL1.
 1. Under Virtual Machines, click **Browse...**.
 1. In Select Folder, expand **pm-srv1.ad.adatum.com**, **Local Disk (C:)** and click **hyper-v**. Click **Select Folder**.
 1. In **Hyper-V Settings for PM-SRV1**, click **Live Migrations**.
-1. Under Live Migrations, activate **Enable incoming and outgoing live migrations** and click **Use any available network for the live migration.
+1. Under Live Migrations, activate **Enable incoming and outgoing live migrations** and click **Use any available network for the live migration**.
 1. In the left pane, expand **Live Migrations** and click **Advanced Features**.
 1. Under Advanced Features, ensure **Use Credential Security Support Provider (CredSSP)** is selected. Under **Performance options**, ensure **Compression** is selected.
 1. Click **OK**.
