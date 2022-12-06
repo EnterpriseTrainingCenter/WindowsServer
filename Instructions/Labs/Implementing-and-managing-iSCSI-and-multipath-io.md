@@ -502,7 +502,7 @@ Perform this task on the host.
    New-PSDrive `
       -Name V `
       -PSProvider FileSystem `
-      -Root \\vn1-srv5\d$ `
+      -Root \\vn1-srv5\f$ `
       -Credential Administrator
    ````
 
