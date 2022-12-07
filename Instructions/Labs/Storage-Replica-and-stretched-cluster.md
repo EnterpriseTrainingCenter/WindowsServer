@@ -139,11 +139,12 @@ Perform these steps on CL1.
    | VN3-CLST1-Log.vhdx    | 10 GB  |
 
    ````powershell
+   $computerName = 'VN1-SRV10'
    $path = "$($driveLetter):\$name"
    $diskParams = @(
       @{ Path = "$path\VN2-CLST1-Data.vhdx"; SizeBytes = 20GB }
       @{ Path = "$path\VN2-CLST1-Log.vhdx"; SizeBytes = 10GB }
-      @{ Path = "$path\VN3-CLST1-Data.vhdx"; SizeBytes = 10GB }
+      @{ Path = "$path\VN3-CLST1-Data.vhdx"; SizeBytes = 20GB }
       @{ Path = "$path\VN3-CLST1-Log.vhdx"; SizeBytes = 10GB }
    )
    $iscsiVirtualDisk = $diskParams | ForEach-Object {
