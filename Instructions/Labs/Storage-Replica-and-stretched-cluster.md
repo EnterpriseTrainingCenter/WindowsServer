@@ -140,6 +140,8 @@ Perform these steps on CL1.
 
    ````powershell
    $computerName = 'VN1-SRV10'
+   $driveLetter = 'D'
+   $name = 'iSCSIVirtualDisks'
    $path = "$($driveLetter):\$name"
    $diskParams = @(
       @{ Path = "$path\VN2-CLST1-Data.vhdx"; SizeBytes = 20GB }
