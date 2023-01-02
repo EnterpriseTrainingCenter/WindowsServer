@@ -20,7 +20,6 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Manage the guest operating system from the host](/Instructions/Practices/Manage-the-guest-operating-system-from-the-host.md)
 1. [Manage dynamic disks](/Instructions//Practices/Manage-dynamic-disks.md)
 1. [NIC teaming](/Instructions/Practices/NIC-teaming.md)
-1. Storage QoS
 
 ## Labs
 
@@ -30,5 +29,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Implementing and managing iSCSI and multipath I/O](/Instructions/Labs/Implementing-and-managing-iSCSI-and-multipath-io.md)
 1. [Installing and configuring a fail-over-cluster](/Instructions/Labs/Installing-and-configuring-a-fail-over-cluster.md)
 1. [Configuring and managing Storage Spaces Direct and hyper-converged virtualization](/Instructions/Labs/Configuring-and-managing-Storage-Spaces-Direct-and-hyper-converged-virtualization.md)
+<!-- 1. Storage QoS
 1. Implementing and managing storage replication
 1. Configuring Windows Network Load Balancing
+-->

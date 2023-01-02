@@ -8,7 +8,7 @@
 
 ## Task
 
-In the virtual machine PM-SRV20, set the administrator password, set the IP address to 10.1.200.160/26, the default gateway to 10.1.200.1 and the DNS client server to 10.1.1.8. Join the virtual machine to the domain ad.adatum.com and rename the guest operating system computer.
+In the virtual machine PM-SRV20, set the administrator password, set the IP address to 10.1.200.160/24, the default gateway to 10.1.200.1 and the DNS client server to 10.1.1.8. Join the virtual machine to the domain ad.adatum.com and rename the guest operating system computer.
 
 > How can you paste the IP address into the virtual machine?
 
