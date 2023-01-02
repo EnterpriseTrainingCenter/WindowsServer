@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV5
+* VN2-SRV1
 * CL1
 
 ## Task
@@ -30,13 +30,13 @@ Resolve the name **etc.at** without using the local cache, then resolve the name
 
 Resolve the MX record for **microsoft.com**. Query the SRV record for **_sip._tls.microsoft.com**. Resolve the SOA record for **microsoft.com**. Query for the name servers of **microsoft.com**.
 
-Clear the DNS client cache and the DNS server cache of **VN1-SRV1**. Then, query for the name **office.com**. Clear the DNS client cache and the DNS server cache of **VN1-SRV5**. Resolve the name **office.com** using **VN1-SRV5** as DNS server without changing the dns client settings.
+Clear the DNS client cache and the DNS server cache of **VN1-SRV1**. Then, query for the name **office.com**. Clear the DNS client cache and the DNS server cache of **VN2-SRV1**. Resolve the name **office.com** using **VN2-SRV1** as DNS server without changing the dns client settings.
 
 > Why did you receive an answer?
 
-> Why did response from VN1-SRV5 take significantly longer than from VN1-SRV1?
+> Why did response from VN2-SRV1 take significantly longer than from VN1-SRV1?
 
-Resolve the name **ad.adatum.com** using **VN1-SRV5** as DNS server without changing the DNS client settings.
+Resolve the name **ad.adatum.com** using **VN2-SRV1** as DNS server without changing the DNS client settings.
 
 > Why do you get the error message **DNS name does not exist**?
 
@@ -124,15 +124,15 @@ Perform this task on CL1.
     Resolve-DnsName -Name office.com
     ````
 
-1. Clear the DNS client cache and the DNS server cache of **VN1-SRV5**. Resolve the name **office.com** using **VN1-SRV5** as DNS server without changing the DNS client settings.
+1. Clear the DNS client cache and the DNS server cache of **VN2-SRV1**. Resolve the name **office.com** using **VN2-SRV1** as DNS server without changing the DNS client settings.
 
     ````powershell
     Clear-DnsClientCache
-    Clear-DnsServerCache -ComputerName vn1-srv5.ad.adatum.com -Force
-    Resolve-DnsName -Name office.com -Server vn1-srv5.ad.adatum.com
+    Clear-DnsServerCache -ComputerName VN2-SRV1.ad.adatum.com -Force
+    Resolve-DnsName -Name office.com -Server VN2-SRV1.ad.adatum.com
     ````
 
-    > VN1-SRV5 uses the DNS root servers to resolve the query.
+    > VN2-SRV1 uses the DNS root servers to resolve the query.
 
     > VN1-SRV1 uses a DNS forwarder with a large cache, which boosts the DNS query performance on small networks.
 
@@ -143,9 +143,9 @@ Perform this task on CL1.
     Clear-DnsServerCache -ComputerName vn1-srv1.ad.adatum.com -Force
     Measure-Command { Resolve-DnsName -Name office.com }
     Clear-DnsClientCache
-    Clear-DnsServerCache -ComputerName vn1-srv5.ad.adatum.com -Force
+    Clear-DnsServerCache -ComputerName VN2-SRV1.ad.adatum.com -Force
     Measure-Command {
-        Resolve-DnsName -Name office.com -Server vn1-srv5.ad.adatum.com
+        Resolve-DnsName -Name office.com -Server VN2-SRV1.ad.adatum.com
     }
     ````
 
@@ -157,10 +157,10 @@ Perform this task on CL1.
 
     > You should get the IP address 10.1.1.8 as response.
 
-1. Resolve the name **ad.adatum.com** using **VN1-SRV5** as DNS server without changing the DNS client settings.
+1. Resolve the name **ad.adatum.com** using **VN2-SRV1** as DNS server without changing the DNS client settings.
 
     ````powershell
-    Resolve-DnsName -Name ad.adatum.com -Server vn1-srv5.ad.adatum.com
+    Resolve-DnsName -Name ad.adatum.com -Server VN2-SRV1.ad.adatum.com
     ````
 
     > Why do you get the error message **DNS name does not exist**?
