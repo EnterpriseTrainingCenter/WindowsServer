@@ -13,5 +13,6 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install the Remote Server Administration DNS Server Tools](Practices/Install-the-Remot-Server-Administration-DNS-Server-Tools.md)
 1. [Install the DNS server role](Practices/Install-the-DNS-server-role.md)
 1. [Query DNS](Practices/Query-DNS.md)
+1. [Update root hints](Practices/Update-root-hints.md)
 
 ## Labs

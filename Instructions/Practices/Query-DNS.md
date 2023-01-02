@@ -46,6 +46,7 @@ Display the contents of the DNS client cache.
 
 Perform this task on CL1.
 
+1. Sign in as **ad\Administrator**.
 1. Open **Windows Terminal**
 1. Resolve the name **microsoft.com**.
 
