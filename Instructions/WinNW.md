@@ -15,5 +15,6 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Query DNS](Practices/Query-DNS.md)
 1. [Update root hints](Practices/Update-root-hints.md)
 1. [Configure forwarders](Practices/Configure-forwarders.md)
+1. [Configure aging and scavenging](Practices/Configure-aging-and-scavenging.md)
 
 ## Labs
