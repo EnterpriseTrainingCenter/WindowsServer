@@ -18,3 +18,5 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Configure aging and scavenging](Practices/Configure-aging-and-scavenging.md)
 
 ## Labs
+
+1. [Managing DNS](Labs/Managing-DNS.md)

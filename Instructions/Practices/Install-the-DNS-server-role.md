@@ -5,7 +5,7 @@
 * VN1-SRV1
 * VN2-SRV1
 * PM-SRV1
-* PM-SRV1
+* PM-SRV2
 * CL1
 
 ## Task
@@ -43,7 +43,7 @@ Perform this task on CL1.
 1. In Roles and features, activate the checkbox beside **DNS Server** and click **Install**.
 1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically, if required** and click **Yes**.
 
-After a few minutes, a notification **Install Roles and Features** appears. If you missed the notification, a small number appears beside the icon *Notifications* (in form of a bell) at the top-right of Windows Admin Center. 
+After a few minutes, a notification **Install Roles and Features** appears. If you missed the notification, a small number appears beside the icon *Notifications* (in form of a bell) at the top-right of Windows Admin Center.
 
 Repeat the steps of this task to install the role on **PM-SRV1** and **PM-SRV2**.
 
