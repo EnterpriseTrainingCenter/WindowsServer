@@ -14,7 +14,7 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Introduction
 
-Adatum wants to host its public DNS zone in the perimeter network. Therefore, a new primary zone with resource records must be created. Moreover, Adatum expands to china. A new child domain for China must be created for the internal DNS domain. To provide fault-tolerance, the new zones must be replicated to a second DNS server using zone transfers. Because from the intranet, some resources in adatum.com can only be accessed through internal IP address, you must implement split-brain DNS.
+Adatum wants to host its public DNS zone in the perimeter network. Therefore, a new primary zone with resource records must be created. Moreover, Adatum expands to china. A new child domain for China must be created for the internal DNS domain. To provide fault-tolerance, the new zones must be replicated to a second DNS server using zone transfers. Because from the intranet, some resources in adatum.com can only be accessed through internal IP address, you must implement split-brain DNS. You want to evaluate complete split-brain DNS, a pinpoint DNS zone, and DNS policies to achieve this goal.
 
 Adatum discovers that it would be practical to be able to resolve IP addresses to host names. Therefore, you need to implement reverse lookup zones.
 
@@ -27,9 +27,10 @@ Finally, Adatum discovers that the DNS server for China is used by other DNS ser
 1. [Managing primary zones and delegation](#exercise-1-managing-primary-zones-and-delegation)
 1. [Managing secondary zones](#exercise-2-managing-secondary-zones)
 1. [Managing split-brain DNS](#exercise-3-managing-split-brain-dns)
-1. [Managing reverse lookup zones](#exercise-4-managing-reverse-lookup-zones)
-1. [Managing the Global Names zone](#exercise-5-managing-the-global-names-zone)
-1. [Managing stub zones](#exercise-6-managing-stub-zones)
+1. [Managing DNS policies](#exercise-4-managing-dns-policies)
+1. [Managing reverse lookup zones](#exercise-5-managing-reverse-lookup-zones)
+1. [Managing the Global Names zone](#exercise-6-managing-the-global-names-zone)
+1. [Managing stub zones](#exercise-7-managing-stub-zones)
 
 ## Exercise 1: Managing primary zones and delegation
 
@@ -492,7 +493,7 @@ Note: If you run short on time, you may skip the first 4 tasks in this exercise.
     |-------|------------------------|------------------------------------------------|
     | A     | remote                 | 10.1.200.24                                    |
     | A     | remote                 | 10.1.200.32                                    |
-    | MX    | @                      | 0 adatum-com.mail.protection.outlook.com       |
+    | MX    | @                      | 0 smtp.ad.adatum.com                           |
     | TXT   | @                      | v=spf1 include:spf.protection.outlook.com -all |
     | CNAME | autodiscover           | autodiscover.outlook.com                       |
     | CNAME | sip                    | sipdir.online.lync.com                         |
@@ -523,6 +524,8 @@ Note: If you run short on time, you may skip the first 4 tasks in this exercise.
     > Why would you choose a complete split-brain DNS zone over the pinpoint DNS zone?
 
 1. [Verify the resource records in the pinpoint DNS zone](#task-8-verify-the-resource-records-in-the-pinpoint-dns-zone) on VN1-SRV1
+
+> Is there any difference to the complete split-brain DNS zone in the responses?
 
 ### Task 1: Create an Active Directory integrated primary zone
 
@@ -571,7 +574,7 @@ Perform this task on CL1.
 1. In the message box The host record remote.adatum.com was successfully created, click **OK**.
 1. In **New Host**, click **Done**.
 1. In **DNS Manager**, in the context-menu of **adatum.com**, click **New Mail Exchanger (MX)...**
-1. In New Resource Record, leave the text field under **Host or child domain** blank. In **Fully qualified domain name (FQDN) of mail server**, type **adatum-com.mail.protection.outlook.com**. In **Mail server priority**, type **0**. Click **OK**.
+1. In New Resource Record, leave the text field under **Host or child domain** blank. In **Fully qualified domain name (FQDN) of mail server**, type **smtp.ad.adatum.com**. In **Mail server priority**, type **0**. Click **OK**.
 1. In **DNS Manager**, in the context-menu of **adatum.com**, click **Other New Records...**
 1. In Resource Record Type, under **Select a resource record type**, click **Text (TXT)** and click **Create Record...**
 1. In New Resource Record, leave the text field under **Record name (uses parent domain if left blank)** blank. In **Text**, type **v=spf1 include:spf.protection.outlook.com -all**. Click **OK**.
@@ -614,7 +617,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name adatum.com -Type MX -Server $server
     ````
 
-    > You should get adatum-com.mail.protection.outlook.com as response.
+    > You should get smtp.ad.adatum.com as response.
 
 1. Resolve the text record for adatum.com on PM-SRV1.
 
@@ -756,7 +759,281 @@ Perform this task on CL1.
 
 Refer to [Task 3: Verify the resource records by resolving the names on VN1-SRV1](#task-3-verify-the-resource-records-by-resolving-the-names-on-vn1-srv1) to verify the correct resolution of all records in adatum.com.
 
-## Exercise 4: Managing reverse lookup zones
+> For the MX record, you will receive adatum-com.mail.protection.outlook.com as response.
+
+## Exercise 4: Managing DNS policies
+
+1. [Create a zone scope](#task-1-create-a-zone-scope) Intranet for the adatum.com zone on PM-SRV1 and PM-SRV2
+1. [Create resource records in zone scope](#task-2-create-resource-records-in-zone-scope) according to the table below
+
+    | Type | Name   | Value                |
+    |------|--------|----------------------|
+    | A    | remote | 10.1.200.24          |
+    | A    | remote | 10.1.200.32          |
+    | MX   | @      | 0 smtp.ad.adatum.com |
+
+1. [Create client subnets and a query resolution policy](#task-3-create-client-subnets-and-a-query-resolution-policy): Create subnets for VNet1, VNet2, and VNet3. The query policy should respond from the scope Intranet for clients in these subnet.
+
+1. [Verify scoped name resolution](#task-4-verify-scoped-name-resolution)
+
+    > Querying the A record of remote.adatum.com from CL1, what is the response?
+
+    > Querying the MX record of adatum.com from CL1, what is the response?
+
+    > Querying the CNAME record of autodiscover.adatum.com from CL1, what is the response?
+
+    > Querying the A record of remote.adatum.com from PM-SRV1, what is the response?
+
+    > Querying the MX record of adatum.com from PM-SRV1, what is the response?
+
+    > Querying the CNAME record of autodiscover.adatum.com from PM-SRV1, what is the response?
+
+    > How do DNS policies compare to split-brain or pinpoint DNS zones in this case?
+
+### Task 1: Create a zone scope
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. On **PM-SRV1** and **PM-SRV2**, add a zone scope named **Intranet** to the zone **adatum.com**.
+
+    ````powershell
+    $computerName = 'pm-srv1.ad.adatum.com', 'pm-srv2.ad.adatum.com'
+    $zoneName = 'adatum.com'
+    $zoneScope = 'Intranet'
+
+    Add-DnsServerZoneScope `
+        -ComputerName $computerName[0] -ZoneName $zoneName -ZoneScope $zoneScope 
+    ````
+
+1. Query the zone scopes of **adatum.com**.
+
+    ````powershell
+    Get-DnsServerZoneScope -ComputerName $computerName[0] -ZoneName $zoneName
+    ````
+
+    You should see two zone scopes with the names adatum.com and Intranet on each server.
+
+1. Copy the zone scopes except for the default scope to **PM-SRV2**.
+
+    ````powershell
+    Get-DnsServerZoneScope -ComputerName $computerName[0] -ZoneName $zoneName | 
+    Where-Object { $PSItem.ZoneScope -ne $zoneName } | 
+    Add-DnsServerZoneScope -ComputerName $computerName[1]
+    ````
+
+1. On **PM-SRV1**, configure the primary zone to allow zone transfers to **PM-SRV2**.
+
+    ````powershell
+    $secondaryServers = (
+            Resolve-DnsName -Name $computerName[1] -Type A
+        ).IPAddress
+
+    Set-DnsServerPrimaryZone `
+        -ComputerName $computerName[0] `
+        -Name $zoneName `
+        -SecondaryServers $secondaryServers `
+        -SecureSecondaries TransferToSecureServers
+    ````
+
+    Note: You must configure zone transfers explicitely when using zone scopes. The automatic permission for servers listed as name servers, does not work.
+
+1. Add a name server record for pm-srv2.ad.adatum.com to the new zone scope.
+
+    ````powershell
+    Add-DnsServerResourceRecord `
+        -ComputerName $computerName[0] `
+        -ZoneName $zoneName `
+        -ZoneScope $zoneScope `
+        -NS `
+        -Name '@' `
+        -NameServer $computerName[1]
+    ````
+
+### Task 2: Create resource records in zone scope
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. On **PM-SRV1**, add **A** records to the scope **Intranet** with the name **remote** and the IP addresses **10.1.200.24** and **10.1.200.32**.
+
+    ````powershell
+    $computerName = 'pm-srv1.ad.adatum.com', 'pm-srv2.ad.adatum.com'
+    $zoneName = 'adatum.com'
+    $zoneScope = 'Intranet'
+    $name = 'remote'
+    Add-DnsServerResourceRecord `
+        -ComputerName $computerName[0] `
+        -ZoneName $zoneName `
+        -ZoneScope $zoneScope `
+        -A `
+        -Name $name `
+        -IPv4Address 10.1.200.24
+    Add-DnsServerResourceRecord `
+        -ComputerName $computerName[0] `
+        -ZoneName $zoneName `
+        -ZoneScope $zoneScope `
+        -A `
+        -Name $name `
+        -IPv4Address 10.1.200.32
+    ````
+
+1. Add an **MX** record to the scope with the name of the parent domain and the mail exchanger **smpt.ad.adatum.com** with the preference of **0**.
+
+    ````powershell
+    Add-DnsServerResourceRecord `
+        -ComputerName $computerName[0] `
+        -ZoneName $zoneName `
+        -ZoneScope $zoneScope `
+        -MX `
+        -Name '@' `
+        -MailExchange smtp.ad.adatum.com `
+        -Preference 0
+    ````
+
+1. Query the zone scopes of **adatum.com** on PM-SRV1 and PM-SRV2.
+
+    ````powershell
+    Get-DnsServerZoneScope -ComputerName $computerName[0] -ZoneName $zoneName
+    Get-DnsServerZoneScope -ComputerName $computerName[1] -ZoneName $zoneName
+    ````
+
+    You should see two zone scopes with the names adatum.com and Intranet on each server.
+
+1. Query the records in the scope **adatum.com**.
+
+    ````powershell
+    Get-DnsServerResourceRecord `
+        -ComputerName $computerName[0] `
+        -ZoneName $zoneName `
+        -ZoneScope adatum.com
+    Get-DnsServerResourceRecord `
+        -ComputerName $computerName[1] `
+        -ZoneName $zoneName `
+        -ZoneScope adatum.com
+    ````
+
+    For each server, you should see approximately 18 records including CNAME and SRV records.
+
+1. Query the records in the scope **Intranet**.
+
+    ````powershell
+    Get-DnsServerResourceRecord `
+        -ComputerName $computerName[0] `
+        -ZoneName $zoneName `
+        -ZoneScope Intranet
+    Get-DnsServerResourceRecord `
+        -ComputerName $computerName[1] `
+        -ZoneName $zoneName `
+        -ZoneScope Intranet
+    ````
+
+    For each server, you should see approximately 6 records. There are no CNAME or SRV records.
+
+### Task 3: Create client subnets and a query resolution policy
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. On **PM-SRV1**, create client subnets for **VNet1**, **VNet2**, and **VNet3**.
+
+    ````powershell
+    $computerName = 'pm-srv1.ad.adatum.com', 'pm-srv2.ad.adatum.com'
+    Add-DnsServerClientSubnet `
+        -ComputerName $computerName[0] -Name VNet1 -IPv4Subnet 10.1.1.0/24
+    Add-DnsServerClientSubnet `
+        -ComputerName $computerName[0] -Name VNet2 -IPv4Subnet 10.1.2.0/24
+    Add-DnsServerClientSubnet `
+        -ComputerName $computerName[0] -Name VNet3 -IPv4Subnet 10.1.3.0/24
+    ````
+
+1. Copy the client subnets to **PM-SRV2**.
+
+    ````powershell
+    Get-DnsServerClientSubnet -ComputerName $computerName[0] |
+    Add-DnsServerClientSubnet -ComputerName $computerName[1]
+    ````
+
+1. On **PM-SRV1** and **PM-SRV2**, create client subnets for **VNet1**, **VNet2**, and **VNet3**.
+
+    ````powershell
+    $computerName = 'pm-srv1.ad.adatum.com', 'pm-srv2.ad.adatum.com'
+    $zoneName = 'adatum.com'
+    $computerName | ForEach-Object {
+        Add-DnsServerQueryResolutionPolicy `
+            -ComputerName $PSItem `
+            -ZoneName $zoneName `
+            -Name IntranetPolicy `
+            -ClientSubnet 'eq, VNet1, VNet2, VNet3' `
+            -Action ALLOW `
+            -ZoneScope Intranet
+    }
+    ````
+
+### Task 4: Verify scoped name resolution
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Resolve the name **remote.adatum.com** using **PM-SRV1**.
+
+    ````powershell
+    $server = 'PM-SRV1'
+    Resolve-DnsName -Name remote.adatum.com -Type A -Server $server
+    ````
+
+    > This returns the IP addresses 10.1.200.24 and 10.1.200.32.
+
+1. Query the **MX** record for **adatum.com** using **PM-SRV1**.
+
+    ````powershell
+    Resolve-DnsName -Name adatum.com -Type MX -Server $server
+    ````
+
+    > This returns smtp.ad.adatum.com.
+
+1. Resolve the **CNAME** of **autodiscover.adatum.com** using **PM-SRV1**.
+
+    ````powershell
+    Resolve-DnsName -Name autodiscover.adatum.com -Type CNAME -Server $server
+    ````
+
+    > This returns an error message DNS name does not exist, because this record does not exist in the Intranet scope.
+
+1. Open a remote PowerShell session to **PM-SRV1**.
+
+    ````powershell
+    Enter-PSSession PM-SRV1
+    ````
+
+1. Resolve the name **remote.adatum.com** using **PM-SRV1**.
+
+    ````powershell
+    $server = 'PM-SRV1'
+    Resolve-DnsName -Name remote.adatum.com -Type A -Server $server
+    ````
+
+    > This returns the IP addresses 20.81.111.85 and 20.53.203.50.
+
+1. Query the **MX** record for **adatum.com** using **PM-SRV1**.
+
+    ````powershell
+    Resolve-DnsName -Name adatum.com -Type MX -Server $server
+    ````
+
+    > This returns adatum-com.mail.protection.outlook.com.
+
+1. Resolve the **CNAME** of **autodiscover.adatum.com** using **PM-SRV1**.
+
+    ````powershell
+    Resolve-DnsName -Name autodiscover.adatum.com -Type CNAME -Server $server
+    ````
+
+    > This returns autodiscover.outlook.com.
+
+> DNS policies are similar to a complete split-brain DNS implementation regarding features and maintenance. But instead of two DNS server instances, only one instance is required.
+
+## Exercise 5: Managing reverse lookup zones
 
 1. [Create reverse lookup zones](#task-1-create-reverse-lookup-zones) for 10.1 on VN1-SRV1 as Active Directory integrated zone with forest-wide replication and secure dynamic updates enabled and for 10.1.2.0 on VN2-SRV1 with dynamic updates disabled
 1. [Create a delegation for reverse lookup zone](#task-2-create-a-delegation-for-reverse-lookup-zone) for 10.1.2 on VN1-SRV1 pointing to vn2-srv1.ad.adatum.com
@@ -925,7 +1202,7 @@ Repeat the last step to verify the IP addresses and host names according to the 
 | 10.1.2.8   | vn2-srv1.ad.adatum.com |
 | 10.1.2.16  | vn2-srv2.ad.adatum.com |
 
-## Exercise 5: Managing the Global Names zone
+## Exercise 6: Managing the Global Names zone
 
 1. [Enable the GlobalNames zone functionality](#task-1-enable-the-globalnames-zone-functionality) on VN1-SRV1
 1. [Create the Global Names zone](#task-2-create-the-global-names-zone)
@@ -1020,7 +1297,7 @@ Repeat the last step for the names **rca** and **sql1**. This should return resp
 | rca        | vn1-srv2.ad.adatum.com |
 | sql1       | vn1-srv3.ad.adatum.com |
 
-## Exercise 6: Managing stub zones
+## Exercise 7: Managing stub zones
 
 1. [Verify non-recursive resolution using a conditional forwarder](#task-1-verify-non-recursive-resolution-using-a-conditional-forwarder) of ad.adatum.com on VN2-SRV1
 
