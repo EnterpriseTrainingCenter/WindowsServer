@@ -14,7 +14,9 @@ On CL1, sign in as **ad\Administrator**.
 
 ## Introduction
 
-Adatum wants to host its public DNS zone in the perimeter network. Therefore, a new primary zone with resource records must be created. Moreover, Adatum expands to china. A new child domain for China must be created for the internal DNS domain. To provide fault-tolerance, the new zones must be replicated to a second DNS server using zone transfers. Because from the intranet, some resources in adatum.com can only be accessed through internal IP address, you must implement split-brain DNS. You want to evaluate complete split-brain DNS, a pinpoint DNS zone, and DNS policies to achieve this goal.
+Adatum wants to host its public DNS zone in the perimeter network. Therefore, a new primary zone with resource records must be created. To provide fault-tolerance, the new zone must be replicated to a second DNS server using zone transfers. Moreover, Adatum expands to china. A new child domain for China must be created for the internal DNS domain.
+
+Because from the intranet, some resources in adatum.com can only be accessed through internal IP address, you must implement split-brain DNS. You want to evaluate complete split-brain DNS, a pinpoint DNS zone, and DNS policies to achieve this goal.
 
 Adatum discovers that it would be practical to be able to resolve IP addresses to host names. Therefore, you need to implement reverse lookup zones.
 
@@ -336,8 +338,6 @@ Perform this task on CL1.
 1. [Add additional name server record](#task-1-add-additional-name-server-record) PM-SRV2 to adatum.com
 1. [Create a secondary zone](#task-2-create-a-secondary-zone) for adatum.com on PM-SRV2
 1. [Verify name resolution](#task-3-verify-name-resolution) for adatum.com on PM-SRV2
-1. [Add additional name server record](#task-4-add-additional-name-server-record) VN1-SRV1 to china.ad.adatum.com
-1. [Create a secondary zone](#task-5-create-a-secondary-zone) for china.ad.adatum.com on VN1-SRV1
 
 ### Task 1: Add additional name server record
 
@@ -408,79 +408,6 @@ Perform this task on CL1.
     > You should get the IP addresses 20.53.203.50 and 20.81.111.85 as response.
 
 If time permits, you may refer to [Exercise 1, Task 3: Verify the resource records by resolving the names](#task-3-verify-the-resource-records-by-resolving-the-names) to query additional records on pm-srv2.ad.adatum.com.
-
-### Task 4: Add additional name server record
-
-Perform this task on CL1.
-
-1. Open **DNS**.
-
-    If the dialog **Connect to DNS Server** appears, click **The following computer**, type **vn2-srv1.ad.adatum.com** below and click **OK**.
-
-1. In DNS Manager, click **vn2-srv1.ad.adatum.com**
-
-    If vn2-srv1.ad.adatum.com is not available:
-
-    1. In the context menu of **DNS**, click **Connect to DNS Server...**.
-    1. In Connect to DNS Server, click **The following computer**, type **vn2-srv1.ad.adatum.com** below and click **OK**.
-
-1. Expand **vn2-srv1.ad.adatum.com** and click **Forward Lookup Zones**.
-1. In the context-menu of **china.adadatum.com**, click **Properties**.
-1. In china.ad.adatum.com Properties, click the tab **Name Servers**.
-1. On tab Name Servers, click **Add...**.
-1. In New Name Server Record, under **Server fully qualified domain name (FQDN)**, type **vn1-srv1.ad.adatum.com** and click **Resolve**.
-
-    Note: You can ignore the error message, that th server with this IP address is not authoritative for the required zone.
-
-1. Click **OK**.
-1. In **china.ad.adatum.com Properties**, click **OK**.
-1. In DNS Manager, click **vn1-srv1.ad.adatum.com**
-
-    If vn1-srv1.ad.adatum.com is not available:
-
-    1. In the context menu of **DNS**, click **Connect to DNS Server...**.
-    1. In Connect to DNS Server, click **The following computer**, type **vn1-srv1.ad.adatum.com** below and click **OK**.
-
-1. Expand **vn2-srv1.ad.adatum.com**, **Forward Lookup Zones**, **ad.adatum.com** and click **china**.
-1. In china, double-click the record of **Type** **Name Server (NS)**.
-1. In china Properties, on tab Name Servers, click **Add...**.
-1. In New Name Server Record, under **Server fully qualified domain name (FQDN)**, type **vn1-srv1.ad.adatum.com** and click **Resolve**.
-
-    Note: You can ignore the error message, that th server with this IP address is not authoritative for the required zone.
-
-1. Click **OK**.
-1. In **china Properties**, click **OK**.
-
-### Task 5: Create a secondary zone
-
-Perform this task on CL1.
-
-1. Open **DNS**.
-
-    If the dialog **Connect to DNS Server** appears, click **The following computer**, type **vn1-srv1.ad.adatum.com** below and click **OK**.
-
-1. In DNS Manager, click **vn1-srv1.ad.adatum.com**.
-
-    If vn1-srv1.ad.adatum.com is not available:
-
-    1. In the context menu of **DNS**, click **Connect to DNS Server...**.
-    1. In Connect to DNS Server, click **The following computer**, type **vn1-srv1.ad.adatum.com** below and click **OK**.
-
-1. Expand **vn1-srv1.ad.adatum.com** and click **Forward Lookup Zones**.
-1. In the context-menu of **Forward Lookup Zones**, click **New Zone...**
-1. In the New Zone Wizard, on page Welcome to the New Zone Wizard, click **Next >**.
-1. On page Zone Type, click **Secondary zone** and click **Next >**.
-1. On page Zone Name, under **Zone name**, type **china.ad.adatum.com** and click **Next >**.
-
-    Note: You could also browse for the zone name.
-
-1. On page Master DNS Servers, under **Master Servers** in **\<Click here to add and IP Address or DNS name\>**, enter **vn2-srv1.ad.adatum.com**.
-1. Click the entry **No such host is known** and click **Delete**.
-1. Click **Next >**.
-1. On page Completing the New Zone Wizard, click **Finish**.
-1. In **DNS Manager**, under **Forward Lookup Zones**, click **china.ad.adatum.com**.
-
-    > You should see all records from the original zone on vn2-srv1.ad.adatum.com.
 
 ## Exercise 3: Managing split-brain DNS
 

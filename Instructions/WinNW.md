@@ -20,3 +20,4 @@ The instructions are to be used in conjunction with the original presentation sl
 ## Labs
 
 1. [Managing DNS](Labs/Managing-DNS.md)
+1. [DNSSEC](Labs/DNSSEC.md)
