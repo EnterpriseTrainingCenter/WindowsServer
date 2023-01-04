@@ -1031,6 +1031,12 @@ Perform this task on CL1.
 
     > This returns autodiscover.outlook.com.
 
+1. Exit from the remote PowerShell session
+
+    ````powershell
+    Exit-PSSession
+    ````
+
 > DNS policies are similar to a complete split-brain DNS implementation regarding features and maintenance. But instead of two DNS server instances, only one instance is required.
 
 ## Exercise 5: Managing reverse lookup zones
