@@ -22,6 +22,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Add a DHCP scope](Practices/Add-a-DHCP-scope.md)
 1. [Add DHCP reservations](Practices/Add-DHCP-reservations.md)
 1. [Authorize DHCP server and activate scope](Practices/Authorize-DHCP-server-and-activate-scope.md)
+1. [Verify DHCP functionality](Practices/Verify-DHCP-functionality.md)
 
 ## Labs
 
