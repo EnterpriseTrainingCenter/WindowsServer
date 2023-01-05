@@ -18,6 +18,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Configure aging and scavenging](Practices/Configure-aging-and-scavenging.md)
 1. [Install the Remote Server Administration DHCP Server Tools](Practices/Install-the-Remote-Server-Administration-DHCP-Server-Tools.md)
 1. [Install the DHCP server role](Practices/Install-the-DHCP-server-role.md)
+1. [Configure DHCP server options](Practices/Configure-DHCP-server-options.md)
 
 ## Labs
 
