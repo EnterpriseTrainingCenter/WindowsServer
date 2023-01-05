@@ -20,6 +20,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install the DHCP server role](Practices/Install-the-DHCP-server-role.md)
 1. [Configure DHCP server options](Practices/Configure-DHCP-server-options.md)
 1. [Add a DHCP scope](Practices/Add-a-DHCP-scope.md)
+1. [Add DHCP reservations](Practices/Add-DHCP-reservations.md)
 
 ## Labs
 
