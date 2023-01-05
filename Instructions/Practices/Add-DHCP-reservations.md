@@ -8,6 +8,8 @@
 
 ## Task
 
+For all servers in VNet 1, create reservations on VN1-SRV6.
+
 ## Instructions
 
 Perform this task on CL1.
