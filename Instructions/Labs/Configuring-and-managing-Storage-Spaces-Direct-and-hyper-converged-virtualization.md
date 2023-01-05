@@ -556,7 +556,7 @@ Perform this task on CL1.
 
 1. Open **File Explorer**.
 1. In File Explorer, copy **\\\\VN1-SRV6\\C$\\LabResources\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
-1. Rename **\\\\VN1-SRV4\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **VN1-SRV24.vhdx**
+1. Rename **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **VN1-SRV24.vhdx**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
 1. In **Failover Cluster Manager**, in the context-menu of **Roles**, click **Virtual Machines...**, **New Virtual Machine...**.
@@ -571,7 +571,7 @@ Perform this task on CL1.
 1. In **New Virtual Machine Wizard**, on page **Connect Virtual Hard Disk**, click **Next >**.
 1. On page Completing the New Virtual Machine Wizard, click **Finish**.
 1. In the **High Availability Wizard**, on page **Summary**, click **Finish**.
-1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV23**, click **Start**.
+1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV24**, click **Start**.
 
 ### Task 5: Configure Windows Server
 

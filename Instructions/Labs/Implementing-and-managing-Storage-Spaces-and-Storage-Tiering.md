@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Setup
@@ -231,7 +231,7 @@ Perform this task on the host.
    ````
 
 1. Enter the credentials of **Administrator** on VN1-SRV10.
-1. Copy **C:\\Labs\\ISOs\\2022_x64_EN_Eval** from the host to **D:\\** on WIN-VN1-SRV5 in an infinite loop. Pause for 10 seconds after each iteration.
+1. Copy **C:\\Labs\\ISOs\\2022_x64_EN_Eval** from the host to **V:\\** in an infinite loop.
 
    ````powershell
    while ($true) { 
@@ -294,7 +294,7 @@ In the instance of Windows PowerShell or Terminal, where you removed the hard di
 
 Leave all instances **Windows PowerShell (Admin)** or **Terminal** open with the copy process running, while continuing with the next tasks.
 
-Repeat [task 3](#task-3-validate-the-results-from-a-failed-disk).
+Repeat [task 4](#task-4-validate-the-results-from-a-failed-disk).
 
 ### Task 6: Add new virtual hard disks
 
@@ -454,7 +454,7 @@ Perform these steps on CL1.
    Set-PhysicalDisk -MediaType SSD -CimSession $cimSession
    ````
 
-1. On VN1-SRV10, set the media type of the **1 TB** physical disks to **SSD**.
+1. On VN1-SRV10, set the media type of the **1 TB** physical disks to **HDD**.
 
    ````powershell
    Get-PhysicalDisk -CimSession $cimSession | 
@@ -496,8 +496,7 @@ Perform these steps on CL1.
    1. In **Server Manager**, **Storage Pools**, under **STORAGE POOLS**, click **TASKS**, **Refresh**.
    1. Restart the creation of the storage pool at step 4.
 
-   Activate all available disks and click **Next >**.
-
+1. Activate all available disks and click **Next >**.
 1. On page Confirmation, click **Create**.
 1. On page results, click **Close**.
 
