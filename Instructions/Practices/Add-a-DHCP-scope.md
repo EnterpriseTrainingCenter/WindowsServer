@@ -8,7 +8,7 @@
 
 ## Task
 
-On VN1-SRV6, add a scope with the range 10.1.1.2 to 10.1.1.128 with a lease duration of 2 hours. Configure the router option to 10.1.1.1.
+On VN1-SRV6, add a scope with the range 10.1.1.2 to 10.1.1.254 with a lease duration of 2 hours. Configure the router option to 10.1.1.1.
 
 > Why would you prefer a short lease duration?
 
@@ -25,7 +25,7 @@ Perform this task on CL1.
 1. In the context-menu of **IPv4**, click **New Scope...**
 1. In the New Scope Wizard, on page Welcome to the New Scope Wizard, click **Next >**.
 1. On page Scope Name, in **Name**, type **VNet1** and click **Next >**.
-1. On page IP Address Range, in **Start IP address**, type **10.1.1.2**. In **End IP address**, type **10.1.1.128**. In **Length**, type **24**. Click **Next >**
+1. On page IP Address Range, in **Start IP address**, type **10.1.1.2**. In **End IP address**, type **10.1.1.254**. In **Length**, type **24**. Click **Next >**
 
     In **Length**, you can also click the up arrow button to increase it to 24. Alternatively, in **Subnet mask**, you could type **255.255.255.0**.
 
