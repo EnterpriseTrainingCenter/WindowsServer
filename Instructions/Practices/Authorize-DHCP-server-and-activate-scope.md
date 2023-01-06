@@ -19,7 +19,7 @@ Perform this task on CL1.
 1. Open **DHCP**.
 1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
 1. In Add Server, under **This server**, type **VN1-SRV6** and click **OK**.
-1. In **DHCP**, expand **vn1-srv6.ad.adatum.com**, **IPv4**., **Scope [10.1.10] VNet1**.
+1. In **DHCP**, expand **vn1-srv6.ad.adatum.com**, **IPv4**., **Scope [10.1.1.0] VNet1**.
 1. In the context-menu of **vn1-srv6.ad.adatum.com**, click **Authorize**.
 1. In the context-menu of **DHCP**, click **Manage authorized servers...**
 

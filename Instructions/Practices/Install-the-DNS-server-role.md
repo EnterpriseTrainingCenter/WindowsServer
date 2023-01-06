@@ -26,8 +26,6 @@ Perform this task on CL1.
 1. On the page Server Roles, activate the checkbox next to **DNS Server** and click **Next >**.
 1. On the page Features, click **Next >**.
 1. On the page DNS Server, click **Next >**.
-1. On the page **Role Services**, click **Next >**.
-1. On the page **Web Server Role (IIS)**, click **Next >**.
 1. On the page Confirmation, verify your selection and click **Install**.
 1. On the page **Results**, click **Close**.
 

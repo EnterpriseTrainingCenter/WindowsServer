@@ -8,7 +8,6 @@
 * VN1-SRV4
 * VN1-SRV5
 * VN1-SRV6
-* VN1-SRV7
 * VN1-SRV8
 * VN1-SRV9
 * VN1-SRV10
@@ -58,7 +57,7 @@ Perform this task on CL1.
     ipconfig.exe /renew
     ````
 
-Repeat these steps for VN1-SRV2, VN1-SRV3, VN1-SRV4, VN1-SRV5, VN1-SRV7, VN1-SRV8, VN1-SRV9,VN1-SRV10, and CL1. To save time, you may define $computerName as an array, like
+Repeat these steps for VN1-SRV2, VN1-SRV3, VN1-SRV4, VN1-SRV5, VN1-SRV8, VN1-SRV9,VN1-SRV10, and CL1. To save time, you may define $computerName as an array, like
 
 ````powershell
 $computerName = @(
@@ -67,7 +66,6 @@ $computerName = @(
         'VN1-SRV3'
         'VN1-SRV4'
         'VN1-SRV5'
-        'VN1-SRV7'
         'VN1-SRV8'
         'VN1-SRV9'
         'VN1-SRV10'
@@ -83,7 +81,7 @@ $computerName | ForEach-Object { Get-NetIPConfiguration -ComputerName $PSItem }
 
 ### SConfig
 
-Perform this task on VN1-SRV1, VN1-SRV2, VN1-SRV3, VN1-SRV4, VN1-SRV5, and VN1-SRV7.
+Perform this task on VN1-SRV1, VN1-SRV2, VN1-SRV3, VN1-SRV4, and VN1-SRV5.
 
 1. Sign in as **ad\Administrator**.
 1. On **VN1-SRV1** only: Start **SConfig**.
@@ -167,7 +165,7 @@ Perform this task on CL1.
 1. Open **Microsoft Edge**
 1. In Microsoft Edge, navigate to <https://admincenter>
 1. In Windows Admin Center, click **vn1-srv1.ad.adatum.com**.
-1. Connected to vn1-srv1.ad.adatum.com, under **Tools**, click Networks.
+1. Connected to vn1-srv1.ad.adatum.com, under **Tools**, click **Networks**.
 1. Under Networks, click any network with an **IPv4 Address** starting with **10.1.1** and click **Settings**
 1. Under IPv4, click **Obtain an IP address automatically** and **Obtain DNS server address automatically**. Click **Save**.
 1. In the message box Update IPv4 settings for ..., click **Yes**.
@@ -184,3 +182,9 @@ Perform this task on CL1.
 1. Under Networks, click the network you just configured.
 
     In the bottom pane, verify that IPv4 DHCP is set to Yes, the computer has obtained the IP address you added as reservation, the IPv4 Default Gateway is 10.1.1.1 and the IPv4 DNS Servers is 10.1.1.8.
+
+1. In the top-left corner, click **Windows Admin Center**.
+
+Repeat from step 3 for VN1-SRV2, VN1-SRV3, VN1-SRV4, VN1-SRV5, VN1-SRV8, VN1-SRV9,VN1-SRV10, and CL1.
+
+To add CL1 to the Windows Admin Center, on the connections page, click **Add**. In the pane Add or create resources, under **Windows PCs**, click **Add**. In **Computer name**, type **CL1** and click **Add**.

@@ -82,7 +82,7 @@ For the rest of the practice, choose your favorite tool.
 1. Open **DHCP**.
 1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
 1. In Add Server, under **This server**, type **VN1-SRV6** and click **OK**.
-1. In **DHCP**, expand  **vn1-srv6.ad.adatum.com**, **IPv4**., **Scope [10.1.10] VNet1**, and click **Reservations**.
+1. In **DHCP**, expand  **vn1-srv6.ad.adatum.com**, **IPv4**., **Scope [10.1.1.0] VNet1**, and click **Reservations**.
 
 Perform these steps for each line of the table in Terminal.
 
@@ -99,7 +99,7 @@ Perform these steps for each line of the table in Terminal.
 
 Perform these steps for each line of the table in Terminal.
 
-1. In Vnet [10.1.1.0], under **Address reservations**, click **New reservation**.
+1. In VNet1 [10.1.1.0], under **Address reservations**, click **New reservation**.
 1. In the panel Create a new reservation, under **Reservation name**, type the value of **PSComputerName**. Under **IP address**, type the value of **IPAddress**. In **MAC address**, type the value of **MacAddress**. Click **Create**.
 
 ### PowerShell
