@@ -50,7 +50,7 @@ Repeat the steps of this task to install the role on **PM-SRV1** and **PM-SRV2**
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Install Active Directory Rights Management Server on VN2-SRV1 and VN2-SRV2.
+1. Install the DNS role on VN2-SRV1 and VN2-SRV2.
 
     ````powershell
     Invoke-Command -ComputerName VN2-SRV1, PM-SRV1, PM-SRV2 -ScriptBlock {
