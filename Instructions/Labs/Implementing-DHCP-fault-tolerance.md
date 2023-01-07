@@ -277,7 +277,7 @@ Perform this task on CL2.
 
 ## Exercise 2: Implement DHCP relay
 
-1. Split DHCP scope for VNet2 and configure 20 % of the available range on VN1-SRV6
+1. [Split DHCP scope](#task-1-split-dhcp-scope) for VNet2 and configure 20 % of the available range on VN1-SRV6
 
     > Why do you not configure a delay for the backup DHCP scope?
 
