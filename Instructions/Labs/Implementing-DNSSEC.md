@@ -1,4 +1,4 @@
-# Lab: DNSSEC
+# Lab: Implmenting DNS Security
 
 ## Required VMs
 

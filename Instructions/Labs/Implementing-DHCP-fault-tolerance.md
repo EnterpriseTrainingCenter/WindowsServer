@@ -1,4 +1,4 @@
-# Lab: Implement DHCP fault-tolerance
+# Lab: Implementing DHCP fault-tolerance
 
 ## Required VMs
 

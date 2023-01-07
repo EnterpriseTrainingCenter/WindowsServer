@@ -27,5 +27,5 @@ The instructions are to be used in conjunction with the original presentation sl
 ## Labs
 
 1. [Managing DNS](Labs/Managing-DNS.md)
-1. [DNSSEC](Labs/DNSSEC.md)
-1. [Implement DHCP fault-tolerance](Labs/Implement-DHCP-fault-tolerance.md)
+1. [Implementing DNS Security](Labs/DNSSEC.md)
+1. [Implementing DHCP fault-tolerance](Labs/Implement-DHCP-fault-tolerance.md)
