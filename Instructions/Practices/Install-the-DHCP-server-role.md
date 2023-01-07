@@ -50,7 +50,7 @@ Repeat the steps of this task to install the role on **VN1-SRV7** and **VN2-SRV2
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Install DHCP role on VN2-SRV1 and VN2-SRV2.
+1. Install DHCP role on VN1-SRV6, VN1-SRV7, and VN2-SRV2.
 
     ````powershell
     Invoke-Command -ComputerName VN1-SRV6, VN1-SRV7, VN2-SRV2 -ScriptBlock {
