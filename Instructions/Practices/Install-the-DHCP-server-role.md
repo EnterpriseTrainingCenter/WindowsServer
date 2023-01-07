@@ -28,6 +28,10 @@ Perform this task on CL1.
 1. On the page DHCP Server, click **Next >**.
 1. On the page Confirmation, verify your selection and click **Install**.
 1. On the page **Results**, click **Close**.
+1. In **Server Manager**, when a yellow warning triangle appears beside the Notifications icon, click the *Notifications* icon, **Complete DHCP configuration**.
+1. In the DHCP Post-Install configuration wizard, on page Description, click **Next >**.
+1. On page Authorization, click **Skip AD authorization** and click **Commit**.
+1. On page Summary, click **Close**.
 
 Repeat the steps of this task to install the role on **VN1-SRV7** and **VN2-SRV2**.
 
@@ -41,9 +45,45 @@ Perform this task on CL1.
 1. In Roles and features, activate the checkbox beside **DHCP Server** and click **Install**.
 1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically, if required** and click **Yes**.
 
-After a few minutes, a notification **Install Roles and Features** appears. If you missed the notification, a small number appears beside the icon *Notifications* (in form of a bell) at the top-right of Windows Admin Center.
+    After a few minutes, a notification **Install Roles and Features** appears. If you missed the notification, a small number appears beside the icon *Notifications* (in form of a bell) at the top-right of Windows Admin Center.
+
+1. Under **Tools**, click **PowerShell**.
+1. Under PowerShell, enter the password for AD\Administrator.
+1. Add security groups to DHCP servers.
+
+    ````powershell
+    Add-DhcpServerSecurityGroup
+    ````
+
+1. Notify Server Manager that post-install DHCP configuration is complete.
+
+    ````powershell
+    Set-ItemProperty `
+        –Path HKLM:\SOFTWARE\Microsoft\ServerManager\Roles\12 `
+        –Name ConfigurationState `
+        –Value 2
+    ````
+
+1. Exit from the PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
 
 Repeat the steps of this task to install the role on **VN1-SRV7** and **VN2-SRV2**.
+
+From step 7 on, alternatively, open **Server Manager** and refer to the steps from 11 in section [Desktop experience](#desktop-experience). You can also use the local **Terminal** instead.
+
+````powershell
+$computerName = 'VN1-SRV6', 'VN1-SRV7', 'VN2-SRV2'
+Invoke-Command -ComputerName $computerName -ScriptBlock {
+    Add-DhcpServerSecurityGroup 
+    Set-ItemProperty `
+        –Path HKLM:\SOFTWARE\Microsoft\ServerManager\Roles\12 `
+        –Name ConfigurationState `
+        –Value 2
+}
+
 
 ### PowerShell
 
@@ -53,7 +93,26 @@ Perform this task on CL1.
 1. Install DHCP role on VN1-SRV6, VN1-SRV7, and VN2-SRV2.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6, VN1-SRV7, VN2-SRV2 -ScriptBlock {
+    $computerName = 'VN1-SRV6', 'VN1-SRV7', 'VN2-SRV2'
+    Invoke-Command -ComputerName $computerName -ScriptBlock {
         Install-WindowsFeature -Name DHCP -IncludeManagementTools -Restart 
+    }
+    ````
+
+1. Add security groups to DHCP servers.
+
+    ````powershell
+    Invoke-Command -ComputerName $computerName -ScriptBlock {
+        Add-DhcpServerSecurityGroup 
+    }
+
+1. Notify Server Manager that post-install DHCP configuration is complete.
+
+    ````powershell
+    Invoke-Command -ComputerName $computerName -ScriptBlock {
+        Set-ItemProperty `
+            –Path HKLM:\SOFTWARE\Microsoft\ServerManager\Roles\12 `
+            –Name ConfigurationState `
+            –Value 2
     }
     ````
