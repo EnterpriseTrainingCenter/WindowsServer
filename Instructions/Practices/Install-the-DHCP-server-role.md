@@ -21,7 +21,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on the page **Before You Begin**, click **Next >**.
-1. On the page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On the page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On the page Server Selection, click **VN1-SRV6.ad.adatum.com** and click **Next >**.
 1. On the page Server Roles, activate the checkbox next to **DHCP Server** and click **Next >**.
 1. On the page Features, click **Next >**.

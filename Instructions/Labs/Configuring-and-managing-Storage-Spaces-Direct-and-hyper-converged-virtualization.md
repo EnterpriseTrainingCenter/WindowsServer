@@ -56,7 +56,7 @@ Perform this task on CL1.
 1. Open Server Manager.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV6.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, click **Next >**.
 1. On page Features, activate **Failover Clustering**.
@@ -305,7 +305,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV6.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **File Server** and click **Next >**.
 1. On page Features, click **Next >**.
@@ -487,7 +487,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV6.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, activate **Hyper-V**
 1. In Add features that are required for Hyper-V, click **Add Features**.

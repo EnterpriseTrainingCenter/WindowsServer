@@ -21,7 +21,7 @@ Perform these steps on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **PM-SRV1.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, activate **Hyper-V**
 1. In Add features that are required for Hyper-V, click **Add Features**.
