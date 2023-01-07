@@ -322,7 +322,7 @@ Perform this task on VN2-SRV1.
 
 1. In **Server Manager**, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on the page **Before You Begin**, click **Next >**.
-1. On the page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On the page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On the page Server Selection, ensure **VN2-SRV1.ad.adatum.com** is selected, and click **Next >**.
 1. On the page Server Roles, activate the checkbox next to **Remote Access** and click **Next >**.
 1. On the page Features, click **Next >**.

@@ -21,7 +21,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on the page **Before You Begin**, click **Next >**.
-1. On the page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On the page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On the page Server Selection, click **VN2-SRV1.ad.adatum.com** and click **Next >**.
 1. On the page Server Roles, activate the checkbox next to **DNS Server** and click **Next >**.
 1. On the page Features, click **Next >**.
@@ -50,7 +50,7 @@ Repeat the steps of this task to install the role on **PM-SRV1** and **PM-SRV2**
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Install Active Directory Rights Management Server on VN2-SRV1 and VN2-SRV2.
+1. Install the DNS role on VN2-SRV1, PM-SRV1, and PM-SRV2.
 
     ````powershell
     Invoke-Command -ComputerName VN2-SRV1, PM-SRV1, PM-SRV2 -ScriptBlock {
