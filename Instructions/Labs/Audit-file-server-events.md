@@ -21,55 +21,17 @@
 
 ## Exercise 1: Audit access to a folder
 
-1. [Install the Group Policy Management Console](#task-1-install-the-group-policy-management-console) on CL1
-1. [Create a group policy object](#task-2-create-a-group-policy-object)
-1. [Edit the audit policy in the group policy object](#task-3-edit-the-audit-policy-in-the-group-policy-object)
-1. [Apply the group policy object to file servers](#task-4-apply-the-group-policy-object-to-file-servers) by creating an organizational unit, linking the group policy object to the OU and moving VN1-SRV6 into the OU.
-1. [Enable auditing of read access](#task-5-enable-auditing-of-read-access) on the D:\Shares\Finance
-1. [Create auditing events](#task-6-create-auditing-events) by accessing files in the Finance share
-1. [View auditing events](#task-7-view-auditing-events) on VN1-SRV6
+1. [Create a group policy object](#task-1-create-a-group-policy-object)
+1. [Edit the audit policy in the group policy object](#task-2-edit-the-audit-policy-in-the-group-policy-object)
+1. [Apply the group policy object to file servers](#task-3-apply-the-group-policy-object-to-file-servers) by creating an organizational unit, linking the group policy object to the OU and moving VN1-SRV6 into the OU.
+1. [Enable auditing of read access](#task-4-enable-auditing-of-read-access) on the D:\Shares\Finance
+1. [Create auditing events](#task-5-create-auditing-events) by accessing files in the Finance share
+1. [View auditing events](#task-6-view-auditing-events) on VN1-SRV6
 
     > Which event IDs are associated with file access?
     > Can you identify the file, Pia accessed?
 
-### Task 1: Install the Group Policy Management Console
-
-#### Desktop experience
-
-Perform these steps on CL1.
-
-1. Open **Settings**.
-1. In Settings, click **Apps**.
-1. In Apps, click **Optional features**.
-1. In Optional features, click the button **View features**.
-1. In Add an optional feature, in the text field **Find an available optional feature**, type **RSAT**.
-1. Activate the checkbox beside **RSAT: Group Policy Management Tools**.
-1. Click **Next**.
-1. Click **Install**.
-1. If required, restart the computer and Sign in as **ad\Administrator** again.
-1. In **Settings**, **Apps** > **Optional feautre**, click **More windows features** (scroll to the bottom).
-1. In Windows features, expand **Hyper-V**, activate the checkbox **Hyper-V Management Tools**, and click **OK**.
-1. If required, restart the computer.
-
-#### PowerShell
-
-Perform these steps on CL1.
-
-1. Run **Terminal** as Administrator.
-1. Add the windows capability RSAT: Group Policy Management Tools
-
-    ````powershell
-    Get-WindowsCapability -Online -Name 'RSAT.GroupPolicy.Management.Tools*' |
-    Add-WindowsCapability -Online    
-    ````
-
-1. If required, restart the computer.
-
-    ````powershell
-    Restart-Computer
-    ````
-
-### Task 2: Create a group policy object
+### Task 1: Create a group policy object
 
 #### Desktop experience
 
@@ -91,7 +53,7 @@ Perform these steps on CL1.
     New-GPO -Name 'Custom Computer Audit Object Access'
     ````
 
-### Task 3: Edit the audit policy in the group policy object
+### Task 2: Edit the audit policy in the group policy object
 
 Perform this Task on CL1.
 
@@ -105,7 +67,7 @@ Perform this Task on CL1.
 1. In Audit policy change Properties, activate the checkboxes **Define these policy settings** and  **Success**, and click **OK**.
 1. Close **Group Policy Management Editor**.
 
-### Task 4: Apply the group policy object to file servers
+### Task 3: Apply the group policy object to file servers
 
 #### Desktop experience
 
@@ -188,7 +150,7 @@ Perform these steps on CL1.
     Invoke-GPUpdate -Computer 'VN1-SRV6' -Force
     ````
 
-### Task 5: Enable auditing of read access
+### Task 4: Enable auditing of read access
 
 #### Desktop experience
 
@@ -256,14 +218,14 @@ Perform this task on CL1.
     $acl | Set-Acl -Path $path
     ````
 
-### Task 6: Create auditing events
+### Task 5: Create auditing events
 
 Perform this task on CL2.
 
 1. In **File Explorer**, navigate to **\\\\VN1-SRV6\\Finance**.
 1. Open a file.
 
-### Task 7: View auditing events
+### Task 6: View auditing events
 
 #### Desktop experience
 
