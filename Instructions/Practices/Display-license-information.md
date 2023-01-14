@@ -3,12 +3,12 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV5
+* VN1-SRV10
 * CL1
 
 ## Task
 
-Display help for the license manager tool and display the licensing information of VN1-SRV6.
+Display help for the license manager tool and display the licensing information of VN1-SRV10.
 
 ## Instructions
 

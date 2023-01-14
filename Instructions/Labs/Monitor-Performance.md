@@ -3,12 +3,12 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Setup
 
-On **VN1-SRV6**, sign in as **ad\Administrator**.
+On **VN1-SRV10**, sign in as **ad\Administrator**.
 
 On **CL1**, sign in as **ad\Administrator**.
 
@@ -24,15 +24,15 @@ Users complain about the performance of one of your servers. You analyze the per
 
 ## Exercise 1: Monitor performance under low memory conditions
 
-1. [Configure a data collector set with baseline performance counters](#task-1-configure-a-data-collector-set-with-baseline-performance-counters) on VN1-SRV6
-1. [Configure VN1-SRV6 with 1 GB of memory](#task-2-configure-VN1-SRV6-with-1-gb-of-memory)
+1. [Configure a data collector set with baseline performance counters](#task-1-configure-a-data-collector-set-with-baseline-performance-counters) on VN1-SRV10
+1. [Configure VN1-SRV10 with 1 GB of memory](#task-2-configure-VN1-SRV10-with-1-gb-of-memory)
 1. [Start the data collector set](#task-3-start-the-data-collector-set
-1. [Simulate load](#task-4-simulate-load) by copying an ISO file from C:\\LabResources of VN1-SRV6 to CL1.
+1. [Simulate load](#task-4-simulate-load) by copying an ISO file from C:\\LabResources of VN1-SRV10 to CL1.
 1. [Analyze the performance data](#task-5-analyze-the-performance-data)
 
 ### Task 1: Configure a data collector set with baseline performance counters
 
-Perform these steps on VN1-SRV6.
+Perform these steps on VN1-SRV10.
 
 1. Open **Performance Monitor**.
 1. In Performance Monitor, expand **Data Collector Sets**.
@@ -52,7 +52,7 @@ Perform these steps on VN1-SRV6.
 1. On page **Create the data collector set?**, click **Finish**.
 
 
-### Task 2: Configure VN1-SRV6 with 1 GB of memory
+### Task 2: Configure VN1-SRV10 with 1 GB of memory
 
 Perform these steps on the host.
 
@@ -60,14 +60,14 @@ Perform these steps on the host.
 1. In Windows PowerShell, execute
 
     ````powershell
-    C:\Labs\LabResources\Set-VMVN1FS1Memory.ps1 -StartupBytes 1GB
+    C:\Labs\LabResources\Set-VMVN1SRV10Memory.ps1 -StartupBytes 1GB
    ````
 
-Wait for the complete start of VN1-SRV6.
+Wait for the complete start of VN1-SRV10.
 
 ### Task 3: Start the data collector set
 
-Perform these steps on VN1-SRV6.
+Perform these steps on VN1-SRV10.
 
 1. Sign in as **ad\\Administrator**.
 1. Open **Performance Monitor**.
@@ -79,14 +79,14 @@ Perform these steps on VN1-SRV6.
 Perform these steps on CL1.
 
 1. Open **Terminal**.
-1. Measure the time it takes to copy **\\\\VN1-SRV6\\c$\\LabResources\\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso** to **C:\\**.
+1. Measure the time it takes to copy **\\\\VN1-SRV10\\c$\\LabResources\\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso** to **C:\\**.
 
    ````powershell
    Get-Date
    Measure-Command { 
       Copy-Item `
          -Path `
-            '\\VN1-SRV6\c$\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso' `
+            '\\VN1-SRV10\c$\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso' `
          -Destination 'c:\' `
           -Force 
       }
@@ -104,7 +104,7 @@ Perform this task on CL1.
 1. In Performance Monitor Properties, click the tab **Source**.
 1. On the tab Source, click **Log files**.
 1. Click **Add...**
-1. In Select log file, in **File name**, enter **\\\\VN1-SRV6\\c$\\PerfLogs\\Admin\\Baseline**.
+1. In Select log file, in **File name**, enter **\\\\VN1-SRV10\\c$\\PerfLogs\\Admin\\Baseline**.
 1. Open the folder with the highest number.
 1. Open **DataCollector01**.
 1. In **Performance Monitor Properties**, on tab **Source**, under **Total range**, drag the sliders to the start and end times of the copy process.
@@ -131,14 +131,14 @@ Perform this task on CL1.
 
 ## Exercise 2: Monitor performance after a memory upgrade
 
-1. [Configure VN1-SRV6 with 4 GB of memory](#task-1-configure-VN1-SRV6-with-4-gb-of-memory)
+1. [Configure VN1-SRV10 with 4 GB of memory](#task-1-configure-VN1-SRV10-with-4-gb-of-memory)
 1. [Analyze the impact of the memory upgrade](#task-2-analyze-the-impact-of-the-memory-upgrade)
 
    > Can you spot the main difference?
 
 1. [Stop the data collector set](#task-3-stop-the-data-collector-set)
 
-### Task 1: Configure VN1-SRV6 with 4 GB of memory
+### Task 1: Configure VN1-SRV10 with 4 GB of memory
 
 Perform these steps on the host.
 
@@ -146,10 +146,10 @@ Perform these steps on the host.
 1. In Windows PowerShell, execute
 
     ````powershell
-    C:\Labs\LabResources\Set-VMVN1FS1Memory.ps1 -StartupBytes 4GB
+    C:\Labs\LabResources\Set-VMVN1SRV10Memory.ps1 -StartupBytes 4GB
    ````
 
-Wait for the complete start of VN1-SRV6.
+Wait for the complete start of VN1-SRV10.
 
 ### Task 2: Analyze the impact of the memory upgrade
 
@@ -157,7 +157,7 @@ Repeat tasks 3 - 5 from the previous exercise.
 
 ### Task 3: Stop the data collector set
 
-Perform these steps on VN1-SRV6.
+Perform these steps on VN1-SRV10.
 
 1. In **Performance Monitor**, in the context menu of **Baseline**, click **Stop**.
 
@@ -169,7 +169,7 @@ Perform these steps on VN1-SRV6.
 
 ### Task 1: Configure a performance alert
 
-Perform these steps on VN1-SRV6.
+Perform these steps on VN1-SRV10.
 
 1. In **Performance Monitor**, in the context menu of **User Defined**, click **New**, **Data Collector Set**.
 1. In Create new Data Collector Sets, on the page **How would you like to create this new data collector set?**, in **Name**, type **CPU time alert**.
@@ -192,7 +192,7 @@ Perform these steps on VN1-SRV6.
 
 ### Task 2: Simulate CPU load
 
-Perform these steps on VN1-SRV6.
+Perform these steps on VN1-SRV10.
 
 1. Run **Windows PowerShell** as Administrator.
 1. Run **consume.exe** to consume cpu resources.
@@ -205,7 +205,7 @@ Perform these steps on VN1-SRV6.
 
 ### Task 3: Verify the performance alert
 
-Perform these steps on VN1-SRV6.
+Perform these steps on VN1-SRV10.
 
 1. Open **Event Viewer**.
 1. Expand **Applications and Services Logs**, **Microsoft**, **Windows**, **Diagnosis-PLA**, and click **Operational**.

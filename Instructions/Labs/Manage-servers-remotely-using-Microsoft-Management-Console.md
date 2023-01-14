@@ -3,13 +3,13 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Setup
 
 On **CL1**, logon as **ad\Administrator**.
-On **VN1-SRV6**, logon as **ad\Administrator**.
+On **VN1-SRV10**, logon as **ad\Administrator**.
 
 ## Introduction
 
@@ -23,18 +23,18 @@ You want to manage servers remotely using Microsoft Management Console snap-ins.
 
 ## Exercise 1: Evaluate remote administration using Microsoft Management Console and PowerShell
 
-[Use the custom console Basic Administration to open Event Viewer and Disk Management on VN1-SRV6](#task-use-the-custom-console-basic-administration-to-open-event-viewer-and-disk-management-on-VN1-SRV6)
+[Use the custom console Basic Administration to open Event Viewer and Disk Management on VN1-SRV10](#task-use-the-custom-console-basic-administration-to-open-event-viewer-and-disk-management-on-VN1-SRV10)
 
 > Are you able to view the events and disks?
 
-### Task: Use the custom console Basic Administration to open Event Viewer and Disk Management on VN1-SRV6
+### Task: Use the custom console Basic Administration to open Event Viewer and Disk Management on VN1-SRV10
 
 Perform this task on CL1.
 
 1. On the desktop, double-click **Basic Administration**.
 1. In Basic Administration, in the context-menu of **Computer Management (local)**, click **Connect to another computer...**
-1. In Select Computer, Another computer, type **VN1-SRV6** and click **OK**.
-1. In Basic Administration, expand **Computer Management (VN1-SRV6)**.
+1. In Select Computer, Another computer, type **VN1-SRV10** and click **OK**.
+1. In Basic Administration, expand **Computer Management (VN1-SRV10)**.
 1. Expand **System Tools**.
 
     > You will receive an error message telling you to enable these firewall rules:
@@ -49,14 +49,14 @@ Perform this task on CL1.
 
 ## Exercise 2: Configure Windows Defender Firewall rules for remote administration
 
-1. [Enable firewall rules to allow for remote event log and volume management](#task-1-enable-firewall-rules-to-allow-for-remote-event-log-and-volume-management) on VN1-SRV6
+1. [Enable firewall rules to allow for remote event log and volume management](#task-1-enable-firewall-rules-to-allow-for-remote-event-log-and-volume-management) on VN1-SRV10
 1. [Enable firewall rules to allow remote volume management](#task-2-enable-firewall-rules-to-allow-remote-volume-management) on CL1
 
 ### Task 1: Enable firewall rules to allow for remote event log and volume management
 
 #### Desktop experience
 
-Perform this task on VN1-SRV6.
+Perform this task on VN1-SRV10.
 
 1. Open **Windows Defender Firewall with Advanced Security**.
 1. In Windows Defender Firewall with Advanced Security, click **Inbound Rules**.
@@ -72,8 +72,8 @@ Perform this task on VN1-SRV6.
 Perform this task on CL1.
 
 1. In Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **VN1-SRV6.ad.adatum.com**.
-1. Connected to VN1-SRV6.ad.adatum.com, under Tools, click **Firewall**.
+1. In Windows Admin Center, click **VN1-SRV10.ad.adatum.com**.
+1. Connected to VN1-SRV10.ad.adatum.com, under Tools, click **Firewall**.
 1. Under Firewall, click the tab **Incoming rules**.
 1. In the search box, enter **COM+ Network Access**.
 1. Click the rule **COM+ Remote Administration (DCOM-In)** and click **Settings**.
@@ -89,10 +89,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Start an interactive PowerShell remote session with VN1-SRV6.
+1. Start an interactive PowerShell remote session with VN1-SRV10.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. Find the firewall rule **COM+ Network Access**.
@@ -133,7 +133,7 @@ Perform this task on CL1.
 Note: You could perform all the commands in just one command.
 
 ````powershell
-Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
     Set-NetFirewallRule `
         -Name ComPlusRemoteAdministration-DCOM-In `
         -Enabled True `
@@ -181,18 +181,18 @@ Perform this task on CL1.
 
 ## Exercise 3: Verify the ability of remote administration using Computer Management
 
-[Connect Computer Management to VN1-SRV6 and open Event Viewer and Disk Management](#task-connect-computer-management-to-VN1-SRV6-and-open-event-viewer-and-disk-management)
+[Connect Computer Management to VN1-SRV10 and open Event Viewer and Disk Management](#task-connect-computer-management-to-VN1-SRV10-and-open-event-viewer-and-disk-management)
 
 > Are you able to view events and the disks?
 
-### Task: Connect Computer Management to VN1-SRV6 and open Event Viewer and Disk Management
+### Task: Connect Computer Management to VN1-SRV10 and open Event Viewer and Disk Management
 
 Perform this task on CL1.
 
 1. On the desktop, double-click **Basic Administration**.
 1. In Basic Administration, in the context-menu of **Computer Management (local)**, click **Connect to another computer...**
-1. In Select Computer, Another computer, type **VN1-SRV6** and click **OK**.
-1. In Basic Administration, expand **Computer Management (VN1-SRV6)**.
+1. In Select Computer, Another computer, type **VN1-SRV10** and click **OK**.
+1. In Basic Administration, expand **Computer Management (VN1-SRV10)**.
 1. Expand **System Tools**, **Event Viewer**, **Windows Logs**, **System**.
 
     > You should see events from the System log.

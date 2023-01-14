@@ -2,9 +2,9 @@
 
 ## Required VMs
 
-* VN1-SRV6
 * VN1-SRV5
 * VN1-SRV7
+* VN1-SRV10
 * VN2-SRV2
 * PM-SRV1
 * CL1
@@ -1040,10 +1040,10 @@ Perform this task on the host.
 1. [Verify DNS name resolution between the forests](#task-3-verify-dns-name-resolution-between-the-forests)
 1. [Create a forest trust](#task-4-create-a-forest-trust)
 1. [Add a principal from an external forest to a domain-local group](#task-5-add-a-principal-from-an-external-forest-to-a-domain-local-group): Add Wil to Marketing Read.
-1. [Verify the effect of selective authentication accessing resources](#task-6-verify-the-effect-of-selective-authentication-accessing-resources) by trying to access \\\\VN1-SRV6 with the user Wil@contoso.com.
+1. [Verify the effect of selective authentication accessing resources](#task-6-verify-the-effect-of-selective-authentication-accessing-resources) by trying to access \\\\VN1-SRV10 with the user Wil@contoso.com.
 1. [Verify the effect of selective authentication on sign in](#task-7-verify-the-effect-of-selective-authentication-on-sign-in) by traing to sign in to CL4 as Wil@contoso.com.
-1. [Allow users from the external forest to access computers](#task-8-allow-users-from-the-external-forest-to-access-computers) VN1-SRV6 and CL4
-1. [Verify sign in and resource access over a forest trust](#task-9-verify-sign-in-and-resource-access-over-a-forest-trust) with the user Wil@contoso.com signing into CL4 and accessing \\\\VN1-SRV6\\Marketing.
+1. [Allow users from the external forest to access computers](#task-8-allow-users-from-the-external-forest-to-access-computers) VN1-SRV10 and CL4
+1. [Verify sign in and resource access over a forest trust](#task-9-verify-sign-in-and-resource-access-over-a-forest-trust) with the user Wil@contoso.com signing into CL4 and accessing \\\\VN1-SRV10\\Marketing.
 
 ### Task 1: Implement DNS name resolution of ad.contoso.com
 
@@ -1190,7 +1190,7 @@ Perform this task on CL1.
 Perform this task on CL3.
 
 1. Sign in as **wil@contoso.com** and change the password.
-1. Using **File Explorer**, navigate to \\\\vn1-srv6.ad.adatum.com.
+1. Using **File Explorer**, navigate to \\\\VN1-SRV10.ad.adatum.com.
 
     > You will receive an error message like in [figure 1].
 
@@ -1208,12 +1208,12 @@ Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **Global Search**.
-1. In Global Search, in **Search**, type **VN1-SRV6** and click **Search**.
-1. Double-click **VN1-SRV6**.
+1. In Global Search, in **Search**, type **VN1-SRV10** and click **Search**.
+1. Double-click **VN1-SRV10**.
 1. In CL4, click **Extensions**.
 1. In Extensions, on tab **Security**, click **Add...**.
 1. In **Select Users, Contacts, or Other Objects**, in **Enter the object names to select**, type **Marketing Read** and click **OK**.
-1. In **VN1-SRV6**, under **Permissions for Marketing Read**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
+1. In **VN1-SRV10**, under **Permissions for Marketing Read**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
 1. In **Active Directory Administrative Center**, on the menu, click **Manage**, **Add Navigation Nodes...**
 1. In Add Navigation Nodes, in the middle pane, click **clients**, click **>>**, and click **OK**.
 1. In **Active Directory Administrative Center**, click **clients**.
@@ -1239,7 +1239,7 @@ Perform this task on CL4.
 
     > You should be able sign in.
 
-1. Using File Explorer, navigate to **\\\\VN1-SRV6.ad.adatum.com\\Marketing**.
+1. Using File Explorer, navigate to **\\\\VN1-SRV10.ad.adatum.com\\Marketing**.
 
     > You should be able to access the share.
 
@@ -1359,7 +1359,7 @@ Perform this task on CL2.
 
     > You will have to change the password.
 
-1. Using **File Explorer**, navigate to \\\\VN1-SRV6\\Marketing.
+1. Using **File Explorer**, navigate to \\\\VN1-SRV10\\Marketing.
 
     > Ada should still have access.
 
