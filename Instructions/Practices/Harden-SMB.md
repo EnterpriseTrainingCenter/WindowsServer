@@ -3,8 +3,8 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV10
 * VN1-SRV5
+* VN1-SRV10
 * CL1
 
 ## Task
