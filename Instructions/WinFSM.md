@@ -7,8 +7,9 @@ The instructions are to be used in conjunction with the original presentation sl
 ## Practices
 
 1. [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md)
+1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
+1. [Configure Windows Admin Center](Practices/Configure-Windows-Admin-Center.md)
 1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
-1. [Install roles using Server manager](Practices/Install-roles-using-Server-Manager.md)
 1. [Install prerequisites for file serving](Practices/Install-prerequisites-for-file-serving.md)
 1. [Harden SMB](Practices/Harden-SMB.md)
 1. [Install File Server Resource Manager](Practices/Install-File-Server-Resource-Manager.md)
