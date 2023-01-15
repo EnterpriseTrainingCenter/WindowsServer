@@ -14,6 +14,8 @@ CL1
 
 ## Introduction
 
+Adatum wants to use dynamic access control to streamline permissions and fulfill GDPR requirements. First, you have to enable the support for claims for the Kerberos protocol. Then you will grant permissions to files in a share based on user and device properties. Furthermore, to demonstrate the dynamic nature, you will grant permissions based on file resource properties, which could be assigned using File Server Resource Manager. Finally, you will grant permissions based on a Central Access Policy, which can be applied to any share on any server.
+
 ## Known issues
 
 [Exercise 3: Manage access based on device properties does not work as expected](<https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/191>)
@@ -24,7 +26,7 @@ CL1
 1. [Manage access based on user properties](#exercise-2-manage-access-based-on-user-properties)
 1. [Manage access based on device properties](#exercise-3-manage-access-based-on-device-properties)
 1. [Manage access based on file resource properties](#exercise-4-manage-access-based-on-file-resource-properties)
-1. [Manage access using a central access policy](#exercise-5-manage-access-using-a-central-access-policy)
+1. [Manage access using a Central Access Policy](#exercise-5-manage-access-using-a-central-access-policy)
 
 ## Exercise 1: Enable support for claims
 
