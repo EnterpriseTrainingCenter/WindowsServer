@@ -2,7 +2,7 @@
 
 ## Required VMs
 
-* VN1-SRV5
+* VN1-SRV1
 * CL1
 
 ## Task
@@ -15,7 +15,7 @@ On CL1, install Group Policy Management.
 
 Perform these steps on CL1.
 
-1. Sign in as **.\Administrator**.
+1. Sign in as **.\Administrator** or **ad\Administrator**.
 1. Open **Settings**.
 1. In Settings, click **Apps**.
 1. In Apps, click **Optional features**.
@@ -33,7 +33,7 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. Sign in as **.\Administrator**.
+1. Sign in as **.\Administrator** or **ad\Administrator**.
 1. Run **Terminal** as Administrator.
 1. Add the windows capability RSAT: Group Policy Management Tools
 

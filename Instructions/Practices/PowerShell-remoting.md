@@ -4,12 +4,12 @@
 
 * VN1-SRV1
 * VN1-SRV5
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Task
 
-On CL1, check the value IPEnableRouter on VN1-SRV5 using an interactive remote session. Check the same value on VN1-SRV6 by invoking remote commands.
+On CL1, check the value IPEnableRouter on VN1-SRV5 using an interactive remote session. Check the same value on VN1-SRV10 by invoking remote commands.
 
 ## Instructions
 
@@ -43,10 +43,10 @@ Perform these steps on CL1.
     $path = 'HKLM:\system\CurrentControlSet\services\Tcpip\Parameters'
     ````
 
-1. Invoke a command with VN1-SRV6 to query the same registry value as above.
+1. Invoke a command with VN1-SRV10 to query the same registry value as above.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
         Get-ItemProperty -Path $using:path -Name IPEnableRouter
     }
     ````
