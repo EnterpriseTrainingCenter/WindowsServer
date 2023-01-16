@@ -56,7 +56,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Install DHCP role on VN1-SRV6, VN1-SRV7, and VN2-SRV2.
+1. Install the Data Deduplication role service on **VN1-10**.
 
     ````powershell
     Install-WindowsFeature `
