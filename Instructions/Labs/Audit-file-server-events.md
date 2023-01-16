@@ -13,6 +13,7 @@
 
 ## Introduction
 
+Because of regulatory requirements, Adatum needs to audit all read operations on finance files. Furthermore, Adatum wants to audit delete operations on all files on any share of the file servers.
 
 ## Exercises
 
@@ -22,7 +23,7 @@
 ## Exercise 1: Audit access to a folder
 
 1. [Create a group policy object](#task-1-create-a-group-policy-object)
-1. [Edit the audit policy in the group policy object](#task-2-edit-the-audit-policy-in-the-group-policy-object)
+1. [Edit the audit policy in the group policy object](#task-2-edit-the-audit-policy-in-the-group-policy-object) to enable auditing object access and policy change
 1. [Apply the group policy object to file servers](#task-3-apply-the-group-policy-object-to-file-servers) by creating an organizational unit, linking the group policy object to the OU and moving VN1-SRV10 into the OU.
 1. [Enable auditing of read access](#task-4-enable-auditing-of-read-access) on the D:\Shares\Finance
 1. [Create auditing events](#task-5-create-auditing-events) by accessing files in the Finance share
