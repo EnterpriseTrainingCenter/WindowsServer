@@ -26,3 +26,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [File server resource management](Labs/File-server-resource-management.md)
 1. [Dynamic Access Control](Labs/Dynamic-Access-Control.md)
 1. [Data Deduplication](Labs/Data-Deduplication.md)
+1. [BranchCache](Labs/BranchCache.md)
