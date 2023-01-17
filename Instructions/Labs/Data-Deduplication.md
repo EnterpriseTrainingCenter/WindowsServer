@@ -17,6 +17,7 @@ As storage spaces on the file server is valuable, Adatum want to save space usin
 ## Exercises
 
 1. [Install and configure Data Deduplication](#exercise-1-install-and-configure-data-deduplication)
+1. [Test deduplication](#exercise-2-test-deduplication)
 
 ## Exercise 1: Install and configure Data Deduplication
 
