@@ -3,6 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
+* VN1-SRV4
 * VN2-SRV1
 * PM-SRV1
 * PM-SRV2
