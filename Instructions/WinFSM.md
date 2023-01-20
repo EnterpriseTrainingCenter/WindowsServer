@@ -12,6 +12,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
 1. [Install prerequisites for file serving](Practices/Install-prerequisites-for-file-serving.md)
 1. [Harden SMB](Practices/Harden-SMB.md)
+1. [Install Group Policy Management](Practices/Install-group-policy-management.md)
 1. [Install File Server Resource Manager](Practices/Install-File-Server-Resource-Manager.md)
 1. [Configure e-mail notifications in FSRM](Practices/Configure-e-mail-notifications-in-FSRM.md)
 1. [Configure Access-Denied-Assistance](Practices/Configure-access-denied-assistance.md)
@@ -21,11 +22,11 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Labs
 
-1. [Audit file server events](Labs/Audit-file-server-events.md)
-1. [Active Directory Rights Management Service](Labs/Active-Directory-Rights-Management-Service.md)
-1. [File server resource management](Labs/File-server-resource-management.md)
-1. [Dynamic Access Control](Labs/Dynamic-Access-Control.md)
-1. [Data Deduplication](Labs/Data-Deduplication.md)
 1. [BranchCache](Labs/BranchCache.md)
 1. [Distributed File System](Labs/Distributed-File-System.md)
+1. [Data Deduplication](Labs/Data-Deduplication.md)
+1. [File server resource management](Labs/File-server-resource-management.md)
+1. [Dynamic Access Control](Labs/Dynamic-Access-Control.md)
+1. [Audit file server events](Labs/Audit-file-server-events.md)
+1. [Active Directory Rights Management Service](Labs/Active-Directory-Rights-Management-Service.md)
 1. [Storage migraation](Labs/Storage-migration.md)
