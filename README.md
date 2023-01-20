@@ -6,6 +6,7 @@ Currently, this repository contains labs for these courses:
 
 * [Windows Server: Administration Basics (WinGLA)](Instructions/WinGLA.md)
 * [Windows Server: Active Directory and Identities (WinADI)](Instructions/WinADI.md)
+* [Windows Server: File Server Management (WinFSM)](Instructions/WinFSM.md)
 
 See also Issues not only containing current known issues with possible solutions, but also allows to raise new issues.
 

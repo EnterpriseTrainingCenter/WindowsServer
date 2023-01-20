@@ -1,3 +1,9 @@
+# Course Prerequisites
+
+## [Windows Server: File Server Management](../WinFSM.md)
+
+For lab [Distributed File System and Azure File Sync](../Labs/Distributed-File-System-and-Azure-File-Sync.md) students need access to an active Azure subscription.
+
 # Practice and lab dependencies
 
 To get a list of dependencies for each practice or lab, on any VM, run
