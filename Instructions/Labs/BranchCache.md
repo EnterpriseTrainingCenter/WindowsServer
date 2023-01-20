@@ -56,8 +56,8 @@ Adatum wants to improve the performance accessing the file server from VNet2 and
 ## Exercises
 
 1. [Configuring the file server and Active Directory for BranchCache](#exercise-1-configuring-the-file-server-and-active-directory-for-branchcache)
-1. [Configuríng and validating centralized BranchCache](#exercise-2-configuring-and-validating-branchcache-in-hosted-cache-mode)
-1. [Configuring and validating peer-to-peer BranchCache](#exercise-3-validating-branchcache-in-distributed-cache-mode)
+1. [Configuring and validating centralized BranchCache](#exercise-2-configuring-and-validating-branchcache-in-hosted-cache-mode)
+1. [Configuring and validating peer-to-peer BranchCache](#exercise-3-configuring-and-validating-branchcache-in-distributed-cache-mode)
 
 ## Exercise 1: Configuring the file server and Active Directory for BranchCache
 
