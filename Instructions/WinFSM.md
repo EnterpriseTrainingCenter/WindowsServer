@@ -30,4 +30,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Audit file server events](Labs/Audit-file-server-events.md)
 1. [Dynamic Access Control](Labs/Dynamic-Access-Control.md)
 1. [Active Directory Rights Management Service](Labs/Active-Directory-Rights-Management-Service.md)
-1. [Storage migraation](Labs/Storage-migration.md)
+1. [Storage migration](Labs/Storage-migration.md)
