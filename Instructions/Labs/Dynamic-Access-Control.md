@@ -1,4 +1,4 @@
-# Lab: File server resource management
+# Lab: Dynamic Access Control
 
 ## Required VMs
 
