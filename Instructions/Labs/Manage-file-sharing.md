@@ -64,7 +64,7 @@ Perform this task on CL1.
 1. From the desktop, open **Basic Administration**.
 1. In Basic Ádministration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
 1. In the context-menu of **ad.adatum.com**, click **New**, **Organizational Unit**.
-1. In New Object - Organizational Unit, in **Name**, enter **Entitling groups** and click **OK**.
+1. In New Object - Organizational Unit, in **Name**, type **Entitling groups** and click **OK**.
 
 #### Active Directory Administrative Center
 
@@ -72,9 +72,11 @@ Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
 1. In the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
-1. In Create Organizational Unit, in **Name**, enter **Entitling groups** and click **OK**.
+1. In Create Organizational Unit, in **Name**, type **Entitling groups** and click **OK**.
 
 #### Windows Admin Center
+
+Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
@@ -82,7 +84,7 @@ Perform this task on CL1.
 1. Under Active Directory Domain Services, click the tab **Browse**.
 1. Click **DC=ad, DC=adatum, DC=com**.
 1. In the right pane, click **Create**, **OU**.
-1. In the pane Add Organizational Unit, in **Name**, enter **Entitling groups** and click **Create**.
+1. In the pane Add Organizational Unit, in **Name**, type **Entitling groups** and click **Create**.
 
 #### PowerShell
 
@@ -125,7 +127,7 @@ Perform this task on CL1.
 1. Click **ad (local)**.
 1. Double-click **Entitling groups**.
 1. In the pane **Tasks**, click **New**, **Group**.
-1. In Create Group, in **Group name**, enter the name of the new group.
+1. In Create Group, in **Group name**, type the name of the new group.
 1. Under **Group scope**, click **Domain local**.
 1. On the left, click **Members**.
 1. Under Members, click **Add...**.
@@ -152,7 +154,7 @@ Perform this task on CL1.
 1. Click **Create**.
 1. In the right pane, left to the search box, click the icon *Refresh*.
 1. Click the new group.
-1. click **Properties**.
+1. Click **Properties**.
 1. In Group properties: ..., on the left, click **Membership**.
 1. Click **Add**.
 1. In the pane Add Group Membership, under **User SamAccountname**, type the name of the member and click **Add**.

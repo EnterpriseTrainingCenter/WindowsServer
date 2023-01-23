@@ -40,4 +40,4 @@ Perform these steps on CL1.
     Add-WindowsCapability -Online
     ````
 
-You do not need to wait for the completion of the installation
+You do not need to wait for the completion of the installation.
