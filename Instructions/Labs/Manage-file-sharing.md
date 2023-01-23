@@ -76,6 +76,8 @@ Perform this task on CL1.
 
 #### Windows Admin Center
 
+Perform this task on CL1.
+
 1. Using Microsoft edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
 1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
@@ -152,7 +154,7 @@ Perform this task on CL1.
 1. Click **Create**.
 1. In the right pane, left to the search box, click the icon *Refresh*.
 1. Click the new group.
-1. click **Properties**.
+1. Click **Properties**.
 1. In Group properties: ..., on the left, click **Membership**.
 1. Click **Add**.
 1. In the pane Add Group Membership, under **User SamAccountname**, type the name of the member and click **Add**.
