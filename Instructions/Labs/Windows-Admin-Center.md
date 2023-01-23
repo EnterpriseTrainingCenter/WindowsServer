@@ -33,7 +33,7 @@
         -Template 'WebServer' -ComputerName 'VN1-SRV4'
     ````
 
-1. On **CL2**, sign in as **ad\Ida**.
+1. On **CL2**, sign in as **ad\Pia**.
 1. On **VN1-SRV4**, sign in as **ad\Administrator**.
 1. In SConfig, enter **15**.
 
@@ -41,11 +41,14 @@ You need sign-in credentials for an active Azure Subscription in which you have 
 
 ## Introduction
 
+Adatum wants to use Windows Admin Center for server management. After installing Windows Admin Center, Adatum wants to add all computers efficiently. Moreover, Adatum wants to integrate Windows Admin Center with Azure. Furthermore, Adatum wants to restrict access to Windows Admin Center and wants some users in IT to manage servers through Windows Admin Center without granting adding them to the local Administrators group.
+
 ## Exercises
 
 1. [Installing Windows Admin Center](#exercise-1-installing-windows-admin-center)
 1. [Configuring Windows Admin Center](#exercise-2-configuring-windows-admin-center)
-1. Securing Windows Admin Center
+1. [Securing Windows Admin Center](#exercise-3-securing-windows-admin-center)
+
 
 ## Exercise 1: Installing Windows Admin Center
 
@@ -226,9 +229,9 @@ Perform this task on CL1.
 1. [Register Windows Admin Center with Azure](#task-4-register-windows-admin-center-with-azure)
 1. [Validate access by users](#task-5-validate-access-by-users)
 
-    > Can Ida access Windows Admin Center and see all shared connections?
+    > Can Pia access Windows Admin Center and see all shared connections?
 
-    > Can Ida get administrative access to a server through Windows Admin Center?
+    > Can Pia get administrative access to a server through Windows Admin Center?
 
 ### Task 1: Create shared connections from a CSV file
 
@@ -413,12 +416,217 @@ Perform this task on CL2.
 
 1. Click **vn1-srv1.ad.adatum.com**.
 
-    > The pane Specify your credentials opens, because Ida does not have administrative permissions on this server.
+    > The pane Specify your credentials opens, because Pia does not have administrative permissions on this server.
 
 ## Exercise 3: Securing Windows Admin Center
 
-1. Restrict access
-1. Verify access restrictions
-1. Configure role-based access control
-1. Verify role-based access control
+1. [Create groups in Active Directory](#task-1-create-groups-in-active-directory): Create an organizational unit named Entitling groups and, within that organizational unit, the domain-local groups Windows Admin Center users and Windows Admin Center administrators.
+1. [Restrict access to Windows Admin Center](#task-2-restrict-access-to-windows-admin-center) with local Administrators and the domain group Windows Admin Center administrators as Gateway administratory and the domain group Windows Admin Center users as Gateway users only
+1. [Verify access by unauthorized user](#task-3-verify-access-by-unauthorized-user)
 
+    > Can Pia access Windows Admin Center?
+
+1. [Verify access by authorized user](#task-4-verify-access-by-authorized-user)
+
+    > Can Ida access Widnows Admin Center?
+
+    > Can Ida connect to VN1-SRV5 using Windows Admin Center?
+
+1. [Apply role-based access control](#task-5-apply-role-based-access-control) to server VN1-SRV5 allowing members of the domain group IT to administer the server
+1. [Verify role-based access control](#task-6-verify-role-based-access-control)
+
+    > Can Ida connect to VN1-SRV5 using Windows Admin Center?
+
+    > Can Ida stop and start services on VN1-SRV5 using Windows Admin Center?
+
+    > Can Ida stop and start services on VN1-SRV5 using PowerShell?
+
+### Task 1: Create groups in Active Directory
+
+#### Active Directory Users and Computer
+
+Perform this task on CL1.
+
+1. From the desktop, open **Active Directory Users and Computers**.
+1. In Active Directory Users and Computer, expand **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **New**, **Organizational Unit**.
+1. In New Object - Organizational Unit, in **Name**, enter **Entitling groups** and click **OK**.
+1. In Active Directory Users and Computers, in the left pane, click **Entitling Groups**.
+1. In the context-menu of Entitling Groups, click **New**, **Group**.
+1. In New Object - Group, in **Group name**, type **Windows Admin Center users**. **Group scope** should be **Domain local** and **Group type** should be **Security**. Click **OK**.
+1. In the context-menu of Entitling Groups, click **New**, **Group**.
+1. In New Object - Group, in **Group name**, type **Windows Admin Center administrators**. **Group scope** should be **Domain local** and **Group type** should be **Security**. Click **OK**.
+1. Double-click the group **Windows Admin Center users**.
+1. In Windows Admin Center users Properties, click the tab **Members**.
+1. On the tab Members, click **Add...**.
+1. In Select Groups, Contacts, Computers, Service Accounts, or Groups, in **Enter the object names to select**, type **IT** and click **OK**.
+1. In Windows Admin Center users Properties, on the tab **Members**, click **OK**.
+
+#### Active Directory Administrative Center
+
+Perform this task on CL1.
+
+1. Open **Active Directory Administrative Center**.
+1. In the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
+1. In Create Organizational Unit, in **Name**, type **Entitling groups** and click **OK**.
+1. In Active Directory Administrative Center, double-click **Entitling groups**.
+1. In the pane **Tasks**, click **New**, **Group**.
+1. In Create Group, in **Group name**, type **Windows Admin Center users**.
+1. Under **Group scope**, click **Domain local**.
+1. On the left, click **Members**.
+1. Under Members, click **Add...**.
+1. In Select Groups, Contacts, Computers, Service Accounts, or Groups, in **Enter the object names to select**, type **IT** and click **OK**.
+1. In Create Group: Windows Admin Center users, click **OK**.
+1. In Active Directory Administrative Center, under Entitling Groups, in the pane **Tasks**, click **New**, **Group**.
+1. In Create Group, in **Group name**, type **Windows Admin Center administrators**. Under **Group scope**, click **Domain local**. Click **OK**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Using Microsoft edge, navigate to <https://admincenter>.
+1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
+1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
+1. Under Active Directory Domain Services, click the tab **Browse**.
+1. Click **DC=ad, DC=adatum, DC=com**.
+1. In the right pane, click **Create**, **OU**.
+1. In the pane Add Organizational Unit, in **Name**, enter **Entitling groups** and click **Create**.
+1. In the tree pane, click **Entitling Groups**.
+1. In the right pane, click **Create**, **Group**.
+1. In the pane Add Group, in **Name**, type **Windows Admin Center users**.
+1. Under **Group Scope**, ensure **Domain local** is selected.
+1. In **Sam Account Name**, type **Windows Admin Center users**.
+1. Right to **Create in**, click **Change...**.
+1. In Select Path, click **Entitling Groups**.
+1. Click **Select**.
+1. Click **Create**.
+1. In the right pane, left to the search box, click the icon *Refresh*.
+1. Click the group **Windows Admin Center users**.
+1. Click **Properties**.
+1. In Group properties: Windows Admin Center users, on the left, click **Membership**.
+1. Click **Add**.
+1. In the pane Add Group Membership, under **User SamAccountname**, type **IT** and click **Add**.
+1. Click **Save**.
+1. Click **Close**.
+1. In the right pane, click **Create**, **Group**.
+1. In the pane Add Group, in **Name**, type **Windows Admin Center administrators**.
+1. Under **Group Scope**, ensure **Domain local** is selected.
+1. In **Sam Account Name**, type **Windows Admin Center users**.
+1. Right to **Create in**, click **Change...**.
+1. In Select Path, click **Entitling Groups**.
+1. Click **Select**.
+1. Click **Create**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Create the organizational unit **Entitling groups** at the domain level.
+
+    ````powershell
+    $aDorganizationalUnit = New-ADOrganizationalUnit `
+        -Path 'DC=ad, DC=adatum, DC=com' `
+        -Name 'Entitling groups' `
+        -PassThru
+    ````
+
+1. In the new organizational unit, create the group **Windows Admin Center users** and add the group **IT** as member.
+
+    ````powershell
+    New-ADGroup `
+        -Name 'Windows Admin Center users' `
+        -Path $aDorganizationalUnit.DistinguishedName `
+        -GroupScope DomainLocal `
+        -PassThru | 
+    Add-ADGroupMember -Members 'IT'
+    ````
+
+1. In the new organizational unit, create the group **Windows Admin Center administrators**.
+
+    ````powershell
+    New-ADGroup `
+        -Name 'Windows Admin Center administrators' `
+        -Path $aDorganizationalUnit.DistinguishedName `
+        -GroupScope DomainLocal
+    ````
+
+### Task 2: Restrict access to Windows Admin Center
+
+Perform this task on CL1.
+
+1. Using Microsoft edge, navigate to <https://admincenter>.
+1. Click *Settings*.
+1. In Settings, click **Access**.
+1. Under Gateway Access, under **Allowed Groups**, click **Add**.
+1. In the pane Add an allowed group, under **Name**, type **ad\Windows Admin Center users**. Under **Role**, ensure **Gateway users** is selected. Under **Type**, ensure **Gateway users security group** is selected. Click **Save**.
+
+    Note: You can ignore the error message regarding the invalid group name format.
+
+1. Under Gateway Access, under **Allowed Groups**, click **Add**.
+1. In the pane Add an allowed group, under **Name**, type **ad\Windows Admin Center administrators**. Under **Role**, click **Gateway administrators**. Under **Type**, ensure **Gateway users security group** is selected. Click **Save**.
+1. Under Gateway Access, under **Allowed Groups** click **BUILTIN\Users** and click **Delete**.
+1. In the message box Delete, click **Yes**.
+
+### Task 3: Verify access by unauthorized user
+
+Perform this task on CL2.
+
+1. Open **Microsoft Edge** and navigate to <https://admincenter>.
+
+    > Pia cannot access Windows Admin Center anymore.
+
+1. Sign out.
+
+### Task 4: Verify access by authorized user
+
+Perform this task on CL2.
+
+1. Sign in as **ad\Ida**.
+1. Open **Microsoft Edge** and navigate to <https://admincenter>.
+
+    > Ida can access Windows Admin Center and sees all connections.
+
+1. Click **vn1-srv5.ad.adatum.com**.
+
+    > The pane Specify your credentials opens, because Ida does not have administrative permissions on this server.
+
+### Task 5: Apply role-based access control
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge** and navigate to <https://admincenter>.
+1. In Windows Admin Center, click **vn1-srv5.ad.adatum.com**.
+1. Connected to vn1-srv5.ad.adatum.com, under **Tools**, click **Firewall**.
+1. Under Firewall, click **File and Printer Sharing (SMB-in)** and click **Enable**.
+1. Under **Tools**, click **Settings**.
+
+1. In Settings, click **Role-based Access control**.
+1. Under Role-based access control, click **Apply**.
+1. In message box Restart the WinRM service, click **Yes**.
+
+    Wait a few minutes, refresh the page, until the status of **Role-based access control** changes to **Applied**. It can take up to 10 minutes until this happens.
+
+1. Under **Tools, click **Local users & groups**.
+1. Under Local users and groups, click the tab **Groups**.
+1. On the tab Groups, click **Windows Admin Center Administrators**.
+1. In the bottom pane, Details - Windows Admin Center Administrators, click **Add user**.
+1. In Add a user to the Windows Admin Center Administrators group, under **Username**, type **ad\IT** and click **Submit**.
+
+### Task 6: Verify role-based access control
+
+Perform this task on CL2.
+
+1. Open **Microsoft Edge** and navigate to <https://admincenter>.
+1. Click **vn1-srv5.ad.adatum.com**.
+
+    > Ida can connect to the server, because she is member of the Windows Admin Center administrators group on that server.
+
+    Note: If a Specify your credentials pane appears at any time, enter the credentials of **ad\Ida**.
+
+1. Under **Tools**, click **Services**.
+1. Under Services, click **W32Time** and click **Stop**.
+
+    > Ida can stop the service.
+
+1. Click **Start**.
