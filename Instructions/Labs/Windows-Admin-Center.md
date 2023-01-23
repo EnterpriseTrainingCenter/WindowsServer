@@ -49,7 +49,6 @@ Adatum wants to use Windows Admin Center for server management. After installing
 1. [Configuring Windows Admin Center](#exercise-2-configuring-windows-admin-center)
 1. [Securing Windows Admin Center](#exercise-3-securing-windows-admin-center)
 
-
 ## Exercise 1: Installing Windows Admin Center
 
 1. [Install the Remote Server Administration DNS Server Tools](#task-1-install-the-remote-server-administration-dns-server-tools) on CL1
