@@ -1,5 +1,7 @@
 # Lab: Windows Admin Center
 
+<!-- Required time: 75 minutes -->
+
 ## Required VMs
 
 * VN1-SRV1
@@ -310,7 +312,7 @@ Perform this task on CL1.
     All imported connections are shared connections and are visible for all users.
 
 1. Click **Windows Admin Center** to return to the connections page.
-1. Click **vn1-srv1.ad.adatum.com**.
+1. Click **vn1-srv5.ad.adatum.com**.
 
     > The pane Specify your credentials opens, because single sign-on with Kerberos constrained delegation is not configured yet.
 
@@ -353,7 +355,7 @@ Perform this task on CL1.
     ````
 
 1. Open **Microsoft Edge** and navigate to <https://admincenter.ad.adatum.com>.
-1. Click **vn1-srv1.ad.adatum.com**.
+1. Click **vn1-srv5.ad.adatum.com**.
 
     You should be connected without having to enter additional credentials.
 
@@ -413,7 +415,7 @@ Perform this task on CL2.
 
     > Pia can access Windows Admin Center and sees all connections.
 
-1. Click **vn1-srv1.ad.adatum.com**.
+1. Click **vn1-srv5.ad.adatum.com**.
 
     > The pane Specify your credentials opens, because Pia does not have administrative permissions on this server.
 
@@ -606,7 +608,7 @@ Perform this task on CL1.
 
     Wait a few minutes, refresh the page, until the status of **Role-based access control** changes to **Applied**. It can take up to 10 minutes until this happens.
 
-1. Under **Tools, click **Local users & groups**.
+1. Under **Tools**, click **Local users & groups**.
 1. Under Local users and groups, click the tab **Groups**.
 1. On the tab Groups, click **Windows Admin Center Administrators**.
 1. In the bottom pane, Details - Windows Admin Center Administrators, click **Add user**.
