@@ -8,6 +8,7 @@ The instructions are to be used in conjunction with the original presentation sl
 
 1. [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md)
 1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
+1. [Analyze best practices](Practices/Analyze-best-practices.md)
 1. [Secure Shell](Labs/Secure-Shell.md)
 
 ## Labs
