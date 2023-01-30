@@ -1,10 +1,25 @@
 # Lab: Secure Shell
 
+## Required VMs
+
+* VN1-SRV1
+* VN1-SRV5
+* CL1
+
 ## Setup
 
 1. On **CL1**, sign in as **ad\Administrator**.
 1. On **VN1-SRV5**, sign in as **ad\Administrator**.
 1. In SConfig, enter **15**.
+
+## Introduction
+
+For secure remote command line administration, Adatum wants to deploy the proven SSH protocol. For added security, Adatum wants to use key-based authentication.
+
+## Exercises
+
+1. [Installing and verifying OpenSSH server](#exercise-1-installing-and-verifying-openssh-server)
+1. [Configuring key-based authentication](#exercise-2-configuring-key-based-authentication)
 
 ## Exercise 1: Installing and verifying OpenSSH server
 
