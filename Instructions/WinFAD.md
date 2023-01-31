@@ -9,6 +9,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md)
 1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
 1. [Analyze best practices](Practices/Analyze-best-practices.md)
+1. [Install the Remote Server Administration Windows Server Update Services Tools](Practices/Install-the-Remote-Server-Administration-Windows-Update-Services-Tools.md)
 
 ## Labs
 
