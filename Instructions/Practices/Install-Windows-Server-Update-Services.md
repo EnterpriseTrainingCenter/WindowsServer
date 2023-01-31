@@ -20,7 +20,7 @@ Note: Depending on previous labs, the Windows Server Update Services role might 
 
 ### Desktop experience
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Server Manager**.
@@ -45,7 +45,7 @@ Repeat the steps of this task to install the role on **VN2-SRV1**.
 
 ### Windows Admin Center
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
@@ -83,7 +83,7 @@ Repeat the steps of this task to install the role on **VN2-SRV1**.
 
 ### PowerShell
 
-Perform this task on CL1.
+Perform these steps on CL1.
 
 1. Open **Terminal**.
 1. Install Windows Server Update Services role on VN1-SRV5 and VN2-SRV1.
