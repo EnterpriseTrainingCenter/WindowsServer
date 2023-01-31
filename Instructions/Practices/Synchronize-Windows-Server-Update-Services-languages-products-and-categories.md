@@ -1,4 +1,4 @@
-# Practice: Synchronize languages, products, and categories
+# Practice: Synchronize Windows Server Update Services languages, products, and categories
 
 ## Required VMs
 

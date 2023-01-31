@@ -8,8 +8,7 @@
 
 ## Task
 
-Confinue configuration of VN1-SRV5 from practice [Synchronize languages, products, and categories](Synchronize-languages-products-and-categories.md)
-
+Confinue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md)
 
 ## Instructions
 
