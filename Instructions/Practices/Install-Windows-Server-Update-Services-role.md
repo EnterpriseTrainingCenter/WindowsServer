@@ -1,4 +1,4 @@
-# Practice: Install Windows Server Update Services
+# Practice: Install Windows Server Update Services role
 
 ## Required VMs
 

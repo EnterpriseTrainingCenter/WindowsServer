@@ -8,7 +8,7 @@
 
 ## Task
 
-Confinue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md)
+Confinue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md) and configure it to synchronize all languages, products, and categories once a day during off-peak hours. Initiate the initial synchronization of the server.
 
 ## Instructions
 
@@ -41,7 +41,7 @@ Continue with the configuration.
 1. On page Choose Languages, ensure **Download updates in all languages, including new languages** is selected and click **Next >**.
 1. On page Choose Products, activate the checkbox **All Products** and click **Next >**.
 1. On page Choose Classifications, activate the checkbox **All Classifications** and click **Next >**.
-1. On page Configure Sync Schedule, click **Synchronize automatically**. Beside **First synchronization**, enter a time off peak hours, e.g. 18:00:00. Beside **Synchronizations per day**, ensure **1** is filled in. Click **Next >**.
+1. On page Configure Sync Schedule, click **Synchronize automatically**. Beside **First synchronization**, enter a time during off-peak hours, e.g. 18:00:00. Beside **Synchronizations per day**, ensure **1** is filled in. Click **Next >**.
 1. On page Finished, activate **Begin initial synchronization** and click **Next >**.
 1. On page What's Next, click **Finish**.
 
@@ -80,7 +80,7 @@ Perform these steps on CL1.
     Get-WsusClassification -UpdateServer $wsusServer | Set-WsusClassification
     ````
 
-1. Configure the synchronization for off-peak-hours once a day, e.g., at 18:00:00.
+1. Configure the synchronization for off-peak hours once a day, e.g., at 18:00:00.
 
     `````powershell
     $subscription = $wsusServer.GetSubscription()
