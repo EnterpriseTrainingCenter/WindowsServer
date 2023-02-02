@@ -13,9 +13,13 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install Windows Server Update Services role](Practices/Install-Windows-Server-Update-Services-role.md)
 1. [Synchronize Windows Server Update Services languages, products, and categories](Practices/Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md)
 1. [Configure Windows Server Update Services synchronization](Practices/Configure-Windows-Server-Update-Services-synchronization.md)
+1. [Create Windows Server Update Services computer groups](Practices/Create-Windows-Server-Update-Services-computer-groups.md)
+1. [Create Windows Server Update Services automatic approval rules](Practices/Create-Windows-Server-Update-Services-automatic-approval-rules.md)
+1. [Install Group Policy Management](Practices/Install-group-policy-management.md)
 
 ## Labs
 
 1. [Secure Shell](Labs/Secure-Shell.md)
 1. [Windows Admin Center](Labs/Windows-Admin-Center.md)
 1. [Azure Arc](Labs/Azure-Arc.md)
+1. [Managing Windows Server Update Services](Labs/Managing-Windows-Server-Update-Services.md)
