@@ -106,14 +106,6 @@ Perform these steps on CL1.
     }
     ````
 
-
-1. Add security groups to DHCP servers.
-
-    ````powershell
-    Invoke-Command -ComputerName $computerName -ScriptBlock {
-        Add-DhcpServerSecurityGroup 
-    }
-
 1. Notify Server Manager that post-install WSUS configuration is complete.
 
     ````powershell
