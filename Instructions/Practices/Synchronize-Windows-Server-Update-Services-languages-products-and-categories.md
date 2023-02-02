@@ -17,6 +17,19 @@ Configure VN1-SRV5 to synchronize from Microsoft Update and start synchronizing 
 Perform these steps on CL1.
 
 1. On **CL1**, sign in as **ad\Administrator**.
+1. Open **Terminal**.
+1. Increase the private memory limit of the WsusPool application pool to 3 GB.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
+        Import-Module WebAdministration
+        Set-ItemProperty `
+            -Path IIS:\AppPools\WsusPool `
+            -Name recycling.periodicRestart.privateMemory `
+            -Value (3GB) 
+    }
+    ````
+
 1. Open **Windows Server Update Services**.
 1. In Update Services, in the context-menu of **Update Services**, click **Connect to Server...**
 1. In Connect to Server, beside **Server name**, type **VN1-SRV5** and click **Connect**.
@@ -25,6 +38,7 @@ Perform these steps on CL1.
 
     1. In Update Services, expand **Update Services**, **VN1-SRV5** and click **Options**.
     1. In Options, click **WSUS Server Configuration Wizard**.
+
 1. In Windows Server Update Services Configuration Wizard:VN1-SRV5, on page Before You Begin, click **Next >**.
 1. On page Microsoft Update Improvement Program, click **Next >**.
 
@@ -44,6 +58,18 @@ Perform these steps on CL1.
 
 1. On **CL1**, sign in as **ad\Administrator**.
 1. Open **Terminal**.
+1. Increase the private memory limit of the WsusPool application pool to 3 GB.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
+        Import-Module WebAdministration
+        Set-ItemProperty `
+            -Path IIS:\AppPools\WsusPool `
+            -Name recycling.periodicRestart.privateMemory `
+            -Value (3GB) 
+    }
+    ````
+
 1. Connect to Update Services.
 
     ````powershell
