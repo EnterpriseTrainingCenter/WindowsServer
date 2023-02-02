@@ -8,7 +8,9 @@
 
 ## Task
 
-Confinue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md) and configure it to synchronize all languages, products, and categories once a day during off-peak hours. Initiate the initial synchronization of the server.
+Confinue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md) and configure it to synchronize all languages, products, and categories except Drivers once a day during off-peak hours. Initiate the initial synchronization of the server.
+
+*Note*: In real world, you should leave Drivers activated. For this lab, Drivers is deactivated for performance reasons, because all computers are virtual machines.
 
 ## Instructions
 
@@ -38,11 +40,12 @@ Perform these steps on CL1.
 
 Continue with the configuration.
 
+1. On page Connect to Upstream Server, click **Next >**.
 1. On page Choose Languages, ensure **Download updates in all languages, including new languages** is selected and click **Next >**.
 1. On page Choose Products, activate the checkbox **All Products** and click **Next >**.
-1. On page Choose Classifications, activate the checkbox **All Classifications** and click **Next >**.
+1. On page Choose Classifications, activate the checkbox **All Classifications** and deactivate the checkbox **Drivers**. Click **Next >**.
 1. On page Configure Sync Schedule, click **Synchronize automatically**. Beside **First synchronization**, enter a time during off-peak hours, e.g. 18:00:00. Beside **Synchronizations per day**, ensure **1** is filled in. Click **Next >**.
-1. On page Finished, activate **Begin initial synchronization** and click **Next >**.
+1. On page Finished, ensure **Begin initial synchronization** is deactivated and click **Next >**.
 1. On page What's Next, click **Finish**.
 
 ### PowerShell
@@ -50,7 +53,6 @@ Continue with the configuration.
 Perform these steps on CL1.
 
 *Important*: If the Windows Server Update Services Configuration Wizard:VN1-SRV5 is not running anymore, perform these steps:
-
 
 1. On **CL1**, sign in as **ad\Administrator**.
 1. Open **Terminal**.
@@ -74,10 +76,18 @@ Perform these steps on CL1.
     Get-WsusProduct -UpdateServer $wsusServer | Set-WsusProduct
     ````
 
-1. Enable all classifications.
+1. Enable all classifications except for drivers.
 
     ````powershell
-    Get-WsusClassification -UpdateServer $wsusServer | Set-WsusClassification
+    <#
+        You might have to replace 'Treiber' with a similiar word in your local
+        language, such as 'Driver'. If you are unsure, run
+        Get-WsusClassification -UpdateServer $wsusServer
+        first and look out for the correct title.
+    #>
+    Get-WsusClassification -UpdateServer $wsusServer | 
+    Where-Object { $PSItem.Classification.Title -ne 'Treiber' } | 
+    Set-WsusClassification
     ````
 
 1. Configure the synchronization for off-peak hours once a day, e.g., at 18:00:00.
@@ -89,10 +99,4 @@ Perform these steps on CL1.
         (New-TimeSpan -Hours 18 -Minutes 0 -Seconds 0)
     $subscription.NumberOfSynchronizationsPerDay = 1
     $subscription.Save()
-    ````
-
-1. Start synchronization.
-
-    ````powershell
-    $subscription.StartSynchronization()
     ````
