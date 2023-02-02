@@ -1,6 +1,6 @@
 # Lab: Azure Arc
 
-<!-- Required time: 45 minutes -->
+<!-- Required time: 75 minutes -->
 
 ## Required VMs
 
@@ -16,7 +16,16 @@ You need sign-in credentials for an active Azure Subscription in which you have 
 
 ## Introduction
 
-To increase manageability and security of servers, Adatum wants to add on-premises servers as Azure resources using Azure Arc. Policies should be implemented to monitor configuration glitches. Data should be collected from the connected servers for further analysis in the Azure Portal. Finally, Adatum wants to manage the on-premises server using Windows Admin Center without an on-premises Windows Admin Center installation.
+To increase manageability and security of servers, Adatum wants to add on-premises servers as Azure resources using Azure Arc. Policies should be implemented to monitor configuration glitches. Data should be collected from the connected servers for further analysis in the Azure Portal. Moreover, Adatum wants to manage the on-premises server using Windows Admin Center without an on-premises Windows Admin Center installation. Finally, Adatum wants to manage updates for servers using the Azure Portal and ensure, the servers are up-to-date.
+
+## Exercises
+
+1. [Onboarding to Azure Arc](#exercise-1-onboarding-to-azure-arc)
+1. [Working with policies](#exercise-2-working-with-policies)
+1. [Monitor a hybrid machine with VM insights](#exercise-3-monitor-a-hybrid-machine-with-vm-insights)
+1. [Tracking changes](#exercise-4-tracking-changes)
+1. [Using Windows Admin Center in the Azure Portal](#exercise-5-using-windows-admin-center-in-the-azure-portal)
+1. [Azure update management](#exercise-6-azure-update-management)
 
 ## Exercise 1: Onboarding to Azure Arc
 
@@ -375,3 +384,113 @@ Perform this task on the host computer.
 1. Under **Tools**, click **Roles & features**.
 1. In Roles and Features, click **Windows Server Update Services**. Deactivate the checkbox beside **SQL Server Connectivity**. Click **Install**.
 1. In the pane Install roles and Features, click **Yes**.
+
+## Exercise 6: Azure update management
+
+1. [Using Update management center, check for updates](#task-1-using-update-management-center-check-for-updates) on VN1-SRV5
+1. [Enable periodic assessement](#task-2-enable-periodic-assessement) on VN1-SRV5
+1. [Install updates](#task-3-install-updates) on VN1-SRV5
+1. [Create a maintenance plan](#task-4-create-a-maintenance-plan) for VN1-SRV5 to automatically install all updates of all classifications daily at 7:00 PM
+1. [Assign a policy](#task-5-assign-a-policy) to assign the maintenance plan to all machines added the the resource group WinFAD in the future
+
+### Task 1: Using Update management center, check for updates
+
+Perform this task on the host computer.
+
+1. Open **Microsoft Edge**.
+1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
+1. In Update management center (Preview), under **Getting started**, under **On-demand assessment and updates**, click **Check for updates**.
+1. Under Select resources and check for updates, activate the checkbox left to **VN1-SRV5** and click **Check for updates**.
+
+    If you do not see VN1-SRV5, ensure that the filter **Subscription** shows the correct subscription.
+
+    Wait for the assessment to complete. You will be notified in the *Notications* icon. This will take some minutes.
+
+### Task 2: Enable periodic assessement
+
+Perform this task on the host computer.
+
+1. Open **Microsoft Edge**.
+1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
+1. In Update management center (Preview), click **Overview**.
+
+    Review the data on the page.
+
+1. Click **Update settings**.
+1. In Change update settings, click **Add machine**.
+1. In Select resources, activate the checkbox left to **VN1-SRV5** and click **Add**.
+1. In **Change update settings**, under **Windows (1)**, in the top row, in column **Periodic assessment**, click **Enable**. Click **Save**.
+
+    You might want to review the options in columns **Hotpatch** and **Patch orchetration**. However, these options are available for native Azure VMs only.
+
+### Task 3: Install updates
+
+Perform this task on the host computer.
+
+1. Open **Microsoft Edge**.
+1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
+1. In Update management center (Preview), under **Manage**, click **Machines**.
+1. Under Update management center (Preview) | Machines, activate the checkbox **Select all**, click **One-time update** and click **Install Now**.
+1. In Install one-time updates, on tab Machines, ensure **VN1-SRV5** was added, and click **Next**.
+1. On tab Updates, review the Windows updates to install and click **Next**.
+1. On tab Properties, beside **Reboot option**, click **Reboot of required**. Beside **Maintenance windows (in minutes)**, type **60**. Click **Next**.
+1. On tab Review + install, click **Install**.
+
+### task 4: Create a maintenance plan
+
+Perform this task on the host computer.
+
+1. Open **Microsoft Edge**.
+1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
+1. In Update management center (Preview), under **Manage**, click **Machines**.
+1. In Update management center (Preview) | Machines, activate the checkbox **Select all**.
+1. Click **Schedule updates**.
+1. In Create a maintenance configuration, on the tab Basics, ensure that beside **Subscription** the subscription for this lab is selected. Beside **Resource Group**, click **WinFAD**. Beside **Configuration name**, type **adatum-server-updates**. Beside **Region**, click a region close to you, e.g. (Europe) West Europe. Beside **Maintenance scope**, ensure **Guest (Azure VM, Arc-enabled VMs/servers)** is selected. Beside **Reboot setting**, ensure **Reboot if required** is selected. Click **Add a schedule**.
+1. In the pane Add/Modify schedule, beside **Start on**, select today's date and enter **7:00 PM**. Click **Save**.
+1. In **Create a maintenance configuration**, on tab **Basics**, click **Next: Machines>**.
+1. On tab machines, ensure **VN1-SRV5** is added, and click **Next: Updates**.
+1. On tab Updates, click **Include update classification**.
+1. In the pane Include update classification, under **Windows machines**, activate **Select all** and click **Add**.
+1. In **Create a maintenance configuration**, click **Review + create**.
+1. On tab Review + Create, click **Create**.
+
+    Wait for the deployment to complete. This should take less than a minute.
+
+### Task 5: Assign a policy
+
+Perform this task on the host computer.
+
+1. Open **Microsoft Edge**.
+1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Maintenance Configurations** and click it.
+1. Under Maintenance Configurations, click **adatum-server-updates**.
+1. In adatum-server-updates, under **Settings**, click **Properties**.
+1. Under adatum-server-updates | Properties, beside **Id**, click the icon *Copy to clipboard*.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
+1. In Update management center (Preview), click **Getting started**.
+1. Under Update management center (Previes) | Getting started, under **Update automatically at scale**, click **Assign policy**.
+1. In Definitions, click **[Preview]: Schedule recurring updates using Update Management Center**.
+1. In [Preview]: Schedule recurring updates using Update Management Center, click **Assign**.
+1. In [Preview]: Schedule recurring updates using Update Management Center, on tab Basics, under **Scope**, click the ellipsis.
+1. In the pane Scope, under **Subscription**, click the subscription for this lab. Under **Resource Group**, click **WinFAD**. Click **Select**.
+1. In **[Preview]: Schedule recurring updates using Update Management Center**, click the tab **Parameters**.
+1. On tab Parameters, under **Maintenance Configuration ARM ID**, paste the id from the clipboard.
+1. Click **Review + Create**.
+1. On tab Review + Create, click **Create**.
+
+### Task 6: Review the update status of server
+
+Perform this task on the host computer.
+
+1. Open **Microsoft Edge**.
+1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **VN1-SRV5** and click it.
+1. In VN1-SRV5, under **Operations**, click **Updates**.
+
+    Review the data on the tab **Recommende updates**.
+
+1. Click the tab **History** and review the data.
