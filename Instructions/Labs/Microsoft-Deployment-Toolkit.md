@@ -22,6 +22,8 @@
 
 ## Introduction
 
+Adatum wants to automate some steps when deploying new servers. For this reason, you install and configure Microsoft Deployment Toolkit.
+
 ## Exercices
 
 1. Configure a Windows Server installation in Microsoft Deployment Toolkit
@@ -323,4 +325,4 @@ Perform this task on the host computer.
 
     During the deployment, the computer should remain locked now.
 
-If time permits, you could try to create and verify an additional task sequence to install Windows Server with desktop experience.
+If time permits, you could try to create and verify an additional task sequence to install Windows Server with desktop experience. You may skip verification, as you can verify the task sequence in the next lab.
