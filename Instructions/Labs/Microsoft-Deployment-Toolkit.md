@@ -325,4 +325,4 @@ Perform this task on the host computer.
 
     During the deployment, the computer should remain locked now.
 
-If time permits, you could try to create and verify an additional task sequence to install Windows Server with desktop experience.
+If time permits, you could try to create and verify an additional task sequence to install Windows Server with desktop experience. You may skip verification, as you can verify the task sequence in the next lab.
