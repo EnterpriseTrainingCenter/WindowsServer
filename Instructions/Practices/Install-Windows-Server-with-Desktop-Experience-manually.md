@@ -12,7 +12,7 @@ Perform these steps on the host.
 1. In Windows PowerShell, execute
 
     ````powershell
-    c:\Labs\WS2022\LabResources\New-VMVN1SRV10.ps1
+    c:\Labs\WS2022\LabResources\New-VMVN1SRV20.ps1
     ````
 
 1. In **Hyper-V Manager**, in the context menu of **WIN-VN1-SRV20**, click **Start**.
