@@ -16,6 +16,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Create Windows Server Update Services computer groups](Practices/Create-Windows-Server-Update-Services-computer-groups.md)
 1. [Create Windows Server Update Services automatic approval rules](Practices/Create-Windows-Server-Update-Services-automatic-approval-rules.md)
 1. [Install Group Policy Management](Practices/Install-group-policy-management.md)
+1. [Install the Microsoft Deployment Toolkit](Practices/Install-the-Microsoft-Deployment-Toolkit.md)
 
 ## Labs
 
@@ -23,3 +24,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Windows Admin Center](Labs/Windows-Admin-Center.md)
 1. [Azure Arc](Labs/Azure-Arc.md)
 1. [Managing Windows Server Update Services](Labs/Managing-Windows-Server-Update-Services.md)
+1. [Microsoft Deployment Toolkit](Labs/Microsoft-Deployment-Toolkit.md)

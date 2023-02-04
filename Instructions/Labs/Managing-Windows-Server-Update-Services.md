@@ -98,7 +98,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Group Policy Management**.
-1. In Group Policy Management, expand **Domains**, **ad.adatum.com**, **Devise**, and click **Clients**.
+1. In Group Policy Management, expand **Domains**, **ad.adatum.com**, **Device**, and click **Clients**.
 1. In the context-menu of **Clients**, click **Create a GPO in this domain, and Link it here...**
 1. In New GPO, under **Name**, type **Custom Computer Windows Update** and click **OK**.
 1. In **Group Policy Management**, in the context-menu of **Custom Computer Windows Update**, click **Edit**.
@@ -109,7 +109,10 @@ Perform this task on CL1.
 1. In Specify deadlines for automatic updates and restarts, click **Enabled**. Under **Quality Updates**, ensure that for **Deadline (days)** **7** is selected. Beside **Grace period (days)**, click **1**. Under **Feature Uupdates**, beside **Deadline (days)**, click **30**. Beside **Grace period (days)**, click **7**. Click **OK**.
 1. In **Group Policy Management Editor**, under **Manage end user experience**, double-click **Remove access to "Pause updates" feature**.
 1. In Remove access to "Pause updates" feature, click **Enabled** and click **OK**.
-1. Close **Group Policy Management Editor**
+1. In **Group Policy Management Editor**, under **Administrative Templates**, click **Sytem**.
+1. Under System, double-click **Specify settings for optional component installation and component repair**.
+1. In Specify settings for optional component installation and component repair, click **Enabled** and **Download repair content and optional features directly from Windows Update instead of Windows Server Update Services (WSUS)**. Click **OK**.
+1. Close **Group Policy Management Editor**.
 
 ### Task 4: Configure clients to use WSUS server
 

@@ -24,23 +24,23 @@ After the initial setup, Windows Servers require some post-installation configur
 
 ## Exercise 1: Configure password, TCP/IP, domain join and time zone on Windows Server with Desktop Experience
 
-1. [Set the default Administrator password](#task-1-set-the-default-administrator-password-on-VN1-SRV20)
-1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.160/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-VN1-SRV20)
-1. [Set the computer name to VN1-SRV20 and join the domain ad.adatum.com](#task-3-set-the-computer-name-to-VN1-SRV20-and-join-the-domain)
-1. [Add the VN1-SRV20 to Windows Admin Center](#task-4-add-the-VN1-SRV20-to-windows-admin-center)
+1. [Set the default Administrator password](#task-1-set-the-default-administrator-password) on VN1-SRV20
+1. [Configure the Ethernet adapter](#task-2-configure-the-ethernet-adapter) on VN1-SRV20 with the IPv4 address 10.1.1.160/24, default gateway 10.1.1.1 and DNS server 10.1.1.8
+1. [Set the computer name and join the domain ad.adatum.com](#task-3-set-the-computer-name-and-join-the-domain); the computer name should be VN1-SRV20
+1. [Add the server to Windows Admin Center](#task-4-add-the-server-to-windows-admin-center)
 
     > Why does single sign-on not work with the new server?
 
-1. [Set the time zone](#task-5-set-the-time-zone-on-VN1-SRV20)
+1. [Set the time zone](#task-5-set-the-time-zone-on-vn1-srv20)
 
-### Task 1: Set the default Administrator password on VN1-SRV20
+### Task 1: Set the default Administrator password
 
 Perform this task on VN1-SRV20.
 
 1. In Customize settings, enter a secure password in Password and **Reenter password** and click **Finish**.
 1. Logon as **Administrator** with the password from the previous step.
 
-### Task 2: Configure the Ethernet adapter on VN1-SRV20
+### Task 2: Configure the Ethernet adapter
 
 #### Desktop experience
 
@@ -83,7 +83,7 @@ Perform this task on VN1-SRV20.
         -ServerAddresses 10.1.1.8
     ````
 
-### Task 3: Set the computer name to VN1-SRV20 and join the domain
+### Task 3: Set the computer name and join the domain
 
 #### Desktop experience
 
@@ -133,7 +133,7 @@ Perform this task on VN1-SRV20.
 
 1. Enter the credentials for **ad\Administrator**.
 
-### Task 4: Add the VN1-SRV20 to Windows Admin Center
+### Task 4: Add the server to Windows Admin Center
 
 Perform this task von CL1.
 
