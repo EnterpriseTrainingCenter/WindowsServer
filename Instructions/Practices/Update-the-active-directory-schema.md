@@ -13,7 +13,7 @@ On CL1, update the Active Directory schema to the current version.
 
 Perform these steps on the host.
 
-1. In the menu of **"WIN-CL1" on "..." - Connection to virtual computer**, click Media, DVD Drive, **Insert disk...**
+1. In the menu of **"WIN-CL1" on "..." - Connection to virtual computer**, click **Media**, **DVD Drive**, **Insert disk...**
 1. In **Open**, open **C:\Labs\ISOs\2022_x64_EN_Eval.iso**.
 
 Perform these steps on VN1-CL1.
