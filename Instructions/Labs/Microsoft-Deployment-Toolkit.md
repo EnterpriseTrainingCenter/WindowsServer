@@ -22,6 +22,8 @@
 
 ## Introduction
 
+Adatum wants to automate some steps when deploying new servers. For this reason, you install and configure Microsoft Deployment Toolkit.
+
 ## Exercices
 
 1. Configure a Windows Server installation in Microsoft Deployment Toolkit
