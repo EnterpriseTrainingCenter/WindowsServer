@@ -205,7 +205,7 @@ Perform this task on the host.
 1. Create the virtual machine.
 
     ````powershell
-    C:\Labs\WS2022\LabResources\New-VMVN1SRV20.ps1
+    C:\Labs\Resources\New-VMVN1SRV20.ps1
     ````
 
 ### Task 2: Run the Microsoft Deployment Kit Wizard

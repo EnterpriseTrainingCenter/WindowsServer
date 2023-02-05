@@ -2,7 +2,7 @@
 
 ## Task
 
-Run ````c:\Labs\WS2022\LabResources\New-VMVN1SRV21.ps1```` to create a new VM and install Windows Server Datacenter Edition on it.
+Run ````C:\Labs\Resources\New-VMVN1SRV21.ps1```` to create a new VM and install Windows Server Datacenter Edition on it.
 
 ## Instructions
 
@@ -12,7 +12,7 @@ Perform these steps on the host.
 1. In Windows PowerShell, execute
 
     ````powershell
-    c:\Labs\WS2022\LabResources\New-VMVN1SRV21.ps1
+    C:\Labs\Resources\New-VMVN1SRV21.ps1
     ````
 
 1. In **Hyper-V Manager**, in the context menu of **WIN-VN1-SRV21**, click **Start**.
