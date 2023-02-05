@@ -15,7 +15,7 @@
 1. In Windows PowerShell, connect WIN-CL3 to VNet3.
 
     ````powershell
-    C:\Labs\WS2022\LabResources\Move-VMtoVNet.ps1 `
+    C:\Labs\Resources\Move-VMtoVNet.ps1 `
         -VMName WIN-CL3 -SwitchName VNet2 -NewSwitchName VNet3 -SubnetValue 3
     ````
 
@@ -23,7 +23,7 @@
 1. Join CL3 to the domain.
 
     ````powershell
-    C:\Labs\WS2022\LabResources\Add-VMToDomain.ps1 -VMName WIN-CL3
+    C:\Labs\Resources\Add-VMToDomain.ps1 -VMName WIN-CL3
     ````
 
 1. At the prompt Enter the password of the local Administrator account of WIN-C3*, enter the local Administrator password of CL3.

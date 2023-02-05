@@ -128,7 +128,7 @@ Perform these steps on the host computer.
 1. In Windows PowerShell, execute
 
     ````powershell
-    c:\Labs\WS2022\LabResources\New-VMVN1SRV21.ps1
+    C:\Labs\Resources\New-VMVN1SRV21.ps1
     ````
 
 1. In **Hyper-V Manager**, in the context menu of **WIN-VN1-SRV21**, click **Start**.
@@ -199,7 +199,7 @@ Perform these steps on the host computer.
 1. In Windows PowerShell, execute
 
     ````powershell
-    c:\Labs\WS2022\LabResources\New-VMVN1SRV22.ps1
+    C:\Labs\Resources\New-VMVN1SRV22.ps1
     ````
 
 1. In **Hyper-V Manager**, in the context menu of **WIN-VN1-SRV22**, click **Start**.
