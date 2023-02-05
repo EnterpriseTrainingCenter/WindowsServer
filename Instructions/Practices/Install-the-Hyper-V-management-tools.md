@@ -19,4 +19,4 @@ Perform these steps on CL1.
 1. Under Apps, click **Optional features**.
 1. Under Optional features, click **More Windows features** (you might have to scroll down).
 1. In Windows Features, expand **Hyper-V** and activate **Hyper-V Management Tools**. Click **OK**.
-1. On page Windows completd the requested changes, cick **Close**.
+1. On page Windows completed the requested changes, cick **Close**.
