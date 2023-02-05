@@ -205,7 +205,7 @@ Perform this task on the host.
 1. Create the virtual machine.
 
     ````powershell
-    C:\Labs\Resources\New-VMVN1SRV20.ps1
+    C:\Labs\Resources\New-VM.ps1 -Name VN1-SRV20
     ````
 
 ### Task 2: Run the Microsoft Deployment Kit Wizard
@@ -214,8 +214,7 @@ Perform this task on the host.
 
 1. Open **Hyper-V Manager**.
 1. In Hyper-V Manager, double-click **WIN-VN1-SRV20** to open the console.
-1. In WIN-VN1-SRV20 on ... - Virtual Machine Connection, in the menu, click **Media**, **DVD Drive**, **Eject "2022_x64_EN_Eval.iso"**.
-1. In the menu, click **Media**, **DVD Drive**, **Insert Disk...**
+1. In WIN-VN1-SRV20 on ... - Virtual Machine Connection, in the menu, click **Media**, **DVD Drive**, **Insert Disk...**
 1. In Open, open **C:\\Labs\\ISOs\\LiteTouchPE_x64.iso**.
 1. Click **Start**.
 1. As soon as the message Press any key to boot from CD or DVD appears, press any key.
