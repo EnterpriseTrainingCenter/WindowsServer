@@ -17,22 +17,12 @@ Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Open **Terminal**.
-1. In Terminal, create a remote PowerShell session to PM-SRV1.
-
-    ````powershell
-    Enter-PSSession PM-SRV1
-    ````
-
 1. On PM-SRV1, create a directory **C:\\Hyper-V\\Virtual Hard Disks**
 
     ````powershell
-    New-Item -Path 'C:\Hyper-V\Virtual Hard Disks' -ItemType Directory
-    ````
-
-1. Exit from the remote PowerShell session.
-
-    ````powershell
-    Exit-PSSession
+    Invoke-Command -ComputerName PM-SRV1 -ScriptBlock {
+        New-Item -Path 'C:\Hyper-V\Virtual Hard Disks' -ItemType Directory
+    }
     ````
 
 1. Open **Hyper-V Manager**.
@@ -52,7 +42,7 @@ Perform these steps on CL1.
 1. Click **OK**.
 1. In **Hyper-V Manager**, in the context-menu of **PM-SRV1**, click **Virtual Switch Manager...**
 1. In Virtual Switch Manager for PM-SRV1, in the left pane, ensure **New virtual network switch** is selected. In the right pane, under **Create virtual switch**, ensure **External** is selected and click **Create Virtual Switch**.
-1. Under Name, type **External**. Under **Connection type**, ensure **External network** and **Microsoft Hyper-V Network Adapter** is selected. Ensure, **Allow management operating system to share this network adapter** is activated. Click **OK**.
+1. Under **Name**, type **External**. Under **Connection type**, ensure **External network** and **Microsoft Hyper-V Network Adapter** is selected. Ensure, **Allow management operating system to share this network adapter** is activated. Click **OK**.
 1. In the message box Apply Networking Changes, click **Yes**.
 
-Repeat this task for **PM-SRV2**.
+Repeat this task from step 3 for **PM-SRV2**.
