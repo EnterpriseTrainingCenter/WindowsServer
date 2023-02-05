@@ -29,6 +29,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Implementing and managing iSCSI and multipath I/O](/Instructions/Labs/Implementing-and-managing-iSCSI-and-multipath-io.md)
 1. [Installing and configuring a fail-over-cluster](/Instructions/Labs/Installing-and-configuring-a-fail-over-cluster.md)
 1. [Configuring and managing Storage Spaces Direct and hyper-converged virtualization](/Instructions/Labs/Configuring-and-managing-Storage-Spaces-Direct-and-hyper-converged-virtualization.md)
+1. [Storage Replica and stretched cluster](/Instructions/Labs/Storage-Replica-and-stretched-cluster.md)
 <!-- 1. Storage QoS
 1. Implementing and managing storage replication
 1. Configuring Windows Network Load Balancing
