@@ -390,6 +390,13 @@ Perform this task on CL1.
    $cimSession = New-CimSession -ComputerName VN1-SRV10
    ````
 
+1. Remove the virtual disk **Data**.
+   
+   ````powershell
+   Remove-VirtualDisk -FriendlyName Data -CimSession $cimSession
+   ````
+ 
+1. At the prompt VN1-SRV10: This will remove the VirtualDisk "Data" and will erase all of the data that it contains, enter **y**.
 1. Remove the storage pool **Pool1**.
 
    ````powershell
@@ -397,6 +404,7 @@ Perform this task on CL1.
    Remove-StoragePool
    ````
 
+1. At the prompt VN1-SRV10: This will remove the StoragePool "Pool1", enter **y**.
 1. Remove the CIM session
 
    ````powershell
