@@ -28,7 +28,7 @@
 
 ## Exercise 1: Preparing for Storage Replica and stretched cluster
 
-1. [Configure nested virtualization](#task-1-configure-nested-virtualization) on WIN-VN2-SRV1 and WIN-VN3-SRV1 and assign them 4 GB of memory
+1. [Configure nested virtualization](#task-1-configure-nested-virtualization) on WIN-VN2-SRV1 and WIN-VN3-SRV1 and assign them 3 GB of memory
 1. [Configure iSCSI target and disks](#task-2-configure-iscsi-targets-and-disks): 2 tagets for VN2-SRV1 and VN3-SRV1, with 2 disks each with 20 GB and 10 GB capacity
 1. [Connect to to iSCSI targets](#task-3-connect-to-iscsi-targets) on VN2-SRV1 and VN3-SRV1
 1. [Create volumes](#task-4-create-volumes) on the iSCSI disks; name the 20 GB disks Data and assign them the drive letter D, and the 10 GB disks Log and assign them the drive letter E.
@@ -58,10 +58,10 @@ Perform this task on the host.
     Set-VMNetworkAdapter -MacAddressSpoofing On
     ````
 
-1. Disable dynamic memory and set the startup memory to 4 GB.
+1. Disable dynamic memory and set the startup memory to 3 GB.
 
     ````powershell
-    Set-VM -VMName $vMName -StaticMemory -MemoryStartupBytes 4GB
+    Set-VM -VMName $vMName -StaticMemory -MemoryStartupBytes 3GB
     ````
 
 1. Start the virtual machines.
@@ -656,7 +656,7 @@ Perform this task on CL1.
 
 Perform these steps on CL1.
 
-1. In File Explorer, copy **\\\\vn2-srv1\\c$\\LabResources\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **\\vn2-srv1\\c$\\ClusterStorage\\Volume1\\Hyper-V\\Virtual Hard Disks**
+1. In File Explorer, copy **\\\\vn2-srv1\\c$\\LabResources\\TinyCorePure64.vhdx** to **\\vn2-srv1\\c$\\ClusterStorage\\Volume1\\Hyper-V\\Virtual Hard Disks**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN2-VN3-CLST1.ad.adatum.com** and click **Roles**.
 1. In the context-menu of **Roles**, click **Virtual Machines...**, **New Hard Disk...**
@@ -666,15 +666,15 @@ Perform these steps on CL1.
 1. On page Choose Disk Type, click **Differencing** and click **Next >**.
 1. On page Specify Name and Location, in **Name**, type **VN2-SRV20.vhdx** and click **Next >**
 1. On page Configure disk, click **Browse...**.
-1. In Open, click **2022_x64_datacenter_en_core_eval.vhdx** and click **Open**.
+1. In Open, click **TinyCorePure64.vhdx** and click **Open**.
 1. In **New Virtual Hard Disk Wizard**, on page **Configure disk**, click **next >**.
 1. On page Summary, click **Finish**.
 1. In **Failover Cluster Manager**, in the context-menu of **Roles**, click **Virtual Machines...**, **New Virtual Machine...**
 1. In New Virtual Machine, click **VN2-SRV1** and click **OK**.
 1. In New Virtual Machine Wizard, on page Before You Begin, click **Next >**.
 1. On page Specify Name and Location, in **Name**, type **VN2-SRV20** and click **Next >**.
-1. On page Specify Generation, click **Generation 2** and click **Next >**.
-1. On page Assign Memory, in **Startup memory**, type 1024 and click **Next >**.
+1. On page Specify Generation, click **Generation 1** and click **Next >**.
+1. On page Assign Memory, in **Startup memory**, type **256** and click **Next >**.
 1. On page Configure Networking, click **Next >**.
 1. On page Connect Virtual Hard Disk, click **Use an existing virtual hard disk** and click **Browse**.
 1. In Open, click **vn2-srv20.vhdx** and click **Open**.
@@ -683,8 +683,6 @@ Perform these steps on CL1.
 1. In High Availability Wizard, click **Finish**.
 1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN2-SRV20**, click **Start**.
 1. In the context-menu of **VN2-SRV20**, click **Connect...**.
-1. In VN2-SRV20 on VN2-SRV1 - Virtual Machine Connection, at the prompt **The user's password must be changed before signing in.**, select **OK**.
-1. In **New password** and **Confirm password**, enter a secure password.
 
 SConfig will appear.
 
@@ -707,9 +705,8 @@ Perform these steps on CL1.
    > VN2-SRV20 should be running on node VN3-SRV1.
 
 1. In the context-menu of **VN2-SRV20**, click **Connect...**.
-1. In VN2-SRV20 on VN2-SRV1 - Virtual Machine Connection, sign in with the password you set before.
 
-   > The sign in process should work.
+   > You should see a running operating system
 
 1. In **Failover Cluster Manager**, expand *Storage* and click **Disks**.
 1. Click the 20 GB disk, that is still online.
@@ -747,8 +744,6 @@ Perform this task on CL1.
 It can take a few minutes before everything is fine again.
 
 ### Task 7: Reverse replication
-
-#### Desktop Experience
 
 Perform these steps on CL1.
 

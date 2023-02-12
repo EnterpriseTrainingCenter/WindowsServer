@@ -242,22 +242,12 @@ Perform this task on VN1-SRV5.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. In Terminal, create a remote PowerShell session to **VN1-SRV5**.
+1. In Terminal, activate the Multipath I/O support for iSCSI devices on **VN1-SRV5**.
 
    ````powershell
-   Enter-PSSession VN1-SRV5
-   ````
-
-1. Activate the Multipath I/O support for iSCSI devices.
-
-   ````powershell
-   Enable-MSDSMAutomaticClaim -BusType iSCSI
-   ````
-
-1. Close the remote PowerShell session.
-
-   ````powershell
-   Exit-PSSession
+   Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
+      Enable-MSDSMAutomaticClaim -BusType iSCSI
+   }
    ````
 
 ### Task 3: Connect to the iSCSI target

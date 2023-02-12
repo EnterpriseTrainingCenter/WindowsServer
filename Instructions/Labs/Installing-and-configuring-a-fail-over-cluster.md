@@ -66,7 +66,7 @@ Perform this task on CL1.
 Peform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. In Terminal, install the windows feature **iSCSI Target Server** on **VN1-SRV10**.
+1. In Terminal, install the windows feature **iSCSI Target Server** on **VN1-SRV4**.
 
     ````powershell
     Install-WindowsFeature `
@@ -97,23 +97,13 @@ Perform this task on VN1-SRV4.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. In Terminal, create a remote PowerShell session to **VN1-SRV4**.
+1. In Terminal, activate the Multipath I/O support for iSCSI devices on **VN1-SRV4**.
 
-   ````powershell
-   Enter-PSSession VN1-SRV4
-   ````
-
-1. Activate the Multipath I/O support for iSCSI devices.
-
-   ````powershell
-   Enable-MSDSMAutomaticClaim -BusType iSCSI
-   ````
-
-1. Close the remote PowerShell session.
-
-   ````powershell
-   Exit-PSSession
-   ````
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV4 -ScriptBlock {
+        Enable-MSDSMAutomaticClaim -BusType iSCSI
+    }
+    ````
 
 ### Task 3: Connect to the iSCSI target
 
@@ -322,6 +312,8 @@ Perform this task on VN1-SRV4.
 
 ### Task 5: Configure the quorum
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
@@ -336,18 +328,103 @@ Perform this task on CL1.
 1. On page Confirmation, click **Next >**.
 1. On page Summary, click **Finish**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, query the disks on the cluster **VN1-CLST1**.
+
+    ````powershell
+    $cluster = 'VN1-CLST1'
+    $cimSession = New-CimSession -ComputerName $cluster
+    Get-ClusterResource -Cluster $cluster | 
+    Where-Object { $PSItem.ResourceType -eq 'Physical Disk' } | 
+    Get-ClusterParameter -Name DiskGuid | ForEach-Object { 
+        $name = $PSItem.ClusterObject
+        Get-Disk -CimSession $cimSession -Path "\\?\Disk$($PSItem.Value)" | 
+        Select-Object `
+            @{ label = 'Name'; expression = { $name } }, `
+            PartitionStyle, `
+            @{ 
+                label = 'Total Size'
+                expression = { "$($PSItem.Size / 1GB) GB" } 
+            } 
+    }
+    Remove-CimSession -CimSession $cimSession
+    ````
+
+    Take a note of the GPT disk's name with a total size of 1 GB.
+
+1. Set the cluster quorum to node and disk majority.
+
+    ````powershell
+    # Replace the name 'Cluster Disk 1' with the name you took note of.
+
+    Set-ClusterQuorum -Cluster $cluster -NodeAndDiskMajority 'Cluster Disk 2'
+    ````
+
 ### Task 6: Configure Cluster Shared Volumes
+
+#### Desktop experience
 
 Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com**, **Storage** and click **Disks**.
 1. Refer to the table above. Under Disks (4), in the context-menu of the first disk with the capacity noted in the table and **Assigned To** **Available Storage**, click **Add to Cluster Shared Volumes**.
-1. Click the same disk again. In the bottom pane, take a note of the path of the volume. E.g., **C:\ClusterStorage\Volume1**. Record the paths in form of a table like the table above.
+1. Click the same disk again. In the bottom pane, take a note of the path of the volume, e.g., **C:\ClusterStorage\Volume1**. Record the paths in form of a table like the table above.
 
 Repeat from step 3 for all disks from the table above and **Assigned To** **Available Storage**.
 
 In result, one disk should be assigned to **Disk Witness in Quorum**, the disks with a capacity from the table above should be assigned to **Cluster Shared Volume**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, query the disks on the cluster **VN1-CLST1**.
+
+    ````powershell
+    $cluster = 'VN1-CLST1'
+    $cimSession = New-CimSession -ComputerName $cluster
+    $cluster = 'VN1-CLST1'
+    $cimSession = New-CimSession -ComputerName $cluster
+    Get-ClusterResource -Cluster $cluster | 
+    Where-Object { $PSItem.ResourceType -eq 'Physical Disk' } | 
+    Get-ClusterParameter -Name DiskGuid | ForEach-Object { 
+        $name = $PSItem.ClusterObject
+        Get-Disk -CimSession $cimSession -Path "\\?\Disk$($PSItem.Value)" | 
+        Select-Object `
+            @{ label = 'Name'; expression = { $name } }, `
+            PartitionStyle, `
+            @{ 
+                label = 'Total Size'
+                expression = { "$($PSItem.Size / 1GB) GB" } 
+            } 
+    }
+
+    Remove-CimSession -CimSession $cimSession
+    ````
+
+    Take a note of the GPT disk's name with a total size corresponding to the capacity in the table above. Complete the column name in the table.
+
+1. Add the disks from the table as cluster shared volume.
+
+    ````powershell
+    # Replace the names with the names from the table.
+
+    Add-ClusterSharedVolume -Cluster $cluster -Name 'Cluster Disk 1'
+    Add-ClusterSharedVolume -Cluster $cluster -Name 'Cluster Disk 4'
+    ````
+
+1. Query the paths of the cluster shared volumes and fill the column path in the table above.
+
+    ````powershell
+    Get-ClusterSharedVolume -Cluster $cluster | 
+    Select-Object Name, SharedVolumeInfo
+    ````
 
 ### Task 7: Configure cluster networks
 
@@ -362,11 +439,11 @@ Perform this task on CL1.
 
 ## Exercise 3: Use Hyper-V on a cluster
 
-1. [Configure nested virtualization](#task-1-configure-nested-virtualization) by explsing virtualization extensions and enabling MAC address spoofing for WIN-VN1-SRV4 and WIN-VN1-SRV5. Configure the machines with static memory of 4 GB.
+1. [Configure nested virtualization](#task-1-configure-nested-virtualization) by exposing virtualization extensions and enabling MAC address spoofing for WIN-VN1-SRV4 and WIN-VN1-SRV5. Configure the machines with static memory of 3 GB.
 1. [Install Hyper-V](#task-2-install-hyper-v) on VN1-SRV4 and VN1-SRV5 and set the default locations to the 80 GB CSV
 1. [Configure a virtual switch](#task-3-configure-a-virtual-switch) VN1-SRV4 and VN1-SRV5 connected to the network adapter VNet1
-1. [Create a virtual machine](#task-4-create-a-virtual-machine) on the cluster using a diffencing disk based on 2022_x64_Datacenter_EN_Core_Eval.vhdx with 1 GB memory.
-1. [Configure Windows Server](#task-5-configure-windows-server) in the virtual machine to use the IP address 10.1.1.184
+1. [Create a virtual machine](#task-4-create-a-virtual-machine) on the cluster using a diffencing disk based on TinyCorePure64.vhdx with 256 MB memory.
+1. [Configure the virtual machine's operating system](#task-5-configure-the-virtual-machines-operating-system) to use the IP address 10.1.1.184
 
 ### Task 1: Configure nested virtualization
 
@@ -446,7 +523,7 @@ Perform this task on CL1.
 1. On **VN1-SRV4** and **VN1-SRV5**, set the default stores to the cluster shared volume of 80 GB capacity, you recorded in the previous exercise.
 
     ````powershell
-    $volumeNumber = 0 # Replace with the volume number recorded for 80 GB disk
+    $volumeNumber = 4 # Replace with the volume number recorded for 80 GB disk
     Set-VMHost `
         -ComputerName $computerName `
         -VirtualHardDiskPath `
@@ -475,16 +552,16 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **File Explorer**.
-1. In File Explorer, copy **\\\\VN1-SRV4\\C$\\LabResources\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **\\\\VN1-SRV4\\C$\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
-1. Rename **\\\\VN1-SRV4\\C$\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **VN1-SRV23.vhdx**
+1. In File Explorer, copy **\\\\VN1-SRV4\\C$\\LabResources\\TinyCorePure64.vhdx** to **\\\\VN1-SRV4\\C$\\ClusterStorage\\Volume4\\Hyper-V\\Virtual Hard Disks**. Replace 4 with the volume number of the 80 GB disk.
+1. Rename **\\\\VN1-SRV4\\C$\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks\\TinyCorePure64.vhdx** to **VN1-SRV23.vhdx**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
 1. In **Failover Cluster Manager**, in the context-menu of **Roles**, click **Virtual Machines...**, **New Virtual Machine...**.
 1. In New Virtual Machine, click **VN1-SRV4** and click **OK**.
 1. In New Virtual Machine Wizard, on page Before You Begin, click **Next >**.
 1. On page Specify Name and Location, in **Name**, type **VN1-SRV23** and click **Next >**.
-1. On page Specify Generation, click **Generation 2** and click **Next >**.
-1. On page Assign Memory, in **Startup memory**, type **1024** and click **Next >**.
+1. On page Specify Generation, click **Generation 1** and click **Next >**.
+1. On page Assign Memory, in **Startup memory**, type **256** and click **Next >**.
 1. On page Configure Networking, in **Connection**, click **External** and click **Next >**.
 1. On page Connect Virtual Hard Disk, click **Use an existing virtual hard disk** and click **Browse...**.
 1. In Open, click **VN1-SRV23.vhdx** and click **Open**.
@@ -493,49 +570,16 @@ Perform this task on CL1.
 1. In the **High Availability Wizard**, on page **Summary**, click **Finish**.
 1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV23**, click **Start**.
 
-### Task 5: Configure Windows Server
+### Task 5: Configure the virtual machine's operating system
 
 Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
 1. Under Roles (1), in the context-menu of **VN1-SRV23**, click **Connect...**.
-1. In VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection, at the prompt **The user's password must be changed before signing in.**, select **OK**.
-1. In **New password** and **Confirm password**, enter a secure password.
-1. At the prompt **Your password has been changed**, press **ENTER**.
-1. In SConfig, enter **8**.
-1. In Network settings, enter  **1**.
-1. In Network adapter settings, enter **1**.
-1. Beside **Select (D)HCP or (S)tatic IP address (Blank=Canel)**, enter **S**.
-1. Beside **Enter static IP address (Blank=Cancel)**, enter **10.1.1.184**.
-1. Beside **Enter subnet mask (Blank=255.255.255.0)**, press ENTER.
-1. Beside **Enter default gateway (Blank=Cancel)**, enter **10.1.1.1**.
-1. Under 4 success messages, press ENTER.
-1. In **SConfig**, enter **15**.
-1. Set the keyboard language, e.g., to German. You may replace the BCP 47 language tag of German by the language of your keyboard.
-
-    ````powershell
-    Set-WinUserLanguageList -LanguageList DE-DE
-    ````
-
-1. At the prompt continue with this operation, enter **Y**.
-1. Open Region.
-
-    ````powershell
-    intl.cpl
-    ````
-
-1. In Region, under **Format**, click the format of your region.
-1. Click the tab **Administrative**.
-1. On tab Administrative, click **Copy settings...**.
-1. In the dialog Change Regional Options, click **Apply**.
-1. In Welcome screen and new user account settings, activate the checkboxes **Welcome screen and system accounts** and **New user accounts**, and click **OK**.
-1. In **Region** click **OK**.
-1. Enable ICMP Echo requests on the firewall.
-
-    ````powershell
-    Enable-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-In'
-    ````
+1. In VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection, click on the desktop, **System tools**, **ControlPanel**.
+1. In ControlPanel, click **Network**.
+1. In Network, under **IP Address**, type  **10.1.1.184**. Under **Gateway**, type **10.1.1.1**. Under **NameServers**, type **10.1.1.8**. Ensure that under **Save Configuration**, **Yes** is selected. Click **Apply** and click **Exit**.
 
 ### Task 6: Compare live migration and quick migration
 
@@ -806,14 +850,7 @@ Perform this task on CL1.
     1. In the following dialog, select the other node and click **OK**.
 
 1. In Roles, in the context-menu of **VN1-SRV23**, click **Connect...**.
-1. In **VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection**, sign in to VN1-SRV23.
-1. In SConfig, enter 15.
-1. At the command prompt, execute some command, e.g.,
-
-    ````powershell
-    Get-Process
-    ````
-
+1. In VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection, open an application, e.g. Editor.
 1. Arrange the window of **VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection** so, that you can monitor it, while continuing with the next steps.
 
 Keep all windows open for the next task.

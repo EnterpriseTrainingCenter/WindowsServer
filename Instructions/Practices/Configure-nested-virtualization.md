@@ -13,11 +13,11 @@ For WIN-PM-SRV1 and WIN-PM-SRV2 disable dynamic memory, set the memory to 4 GB, 
 Perform these steps on the host.
 
 1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click the name of your compuer.
+1. In Hyper-V Manager, click the name of your computer.
 1. Under Virtual Machines, in the context-menu of **WIN-PM-SRV1**, click **Shut down...**.
 1. In the context-menu of **WIN-PM-SRV1**, click **Settings...**
 1. In Settings for WIN-PM-SRV1, in the left pane, click **Memory**.
-1. Under Memory, in **RAM**, type 4096. Deactivate **Enable Dynamic Memory**.
+1. Under Memory, in **RAM**, type **4096**. Deactivate **Enable Dynamic Memory**.
 1. In the left pane, expand the first **Network Adapter** and click **Advanced Features**.
 1. Under Advanced Features, **MAC address**, activate **Enable MAC address spoofing**.
 1. In the left pane, expand the second **Network Adapter** and click **Advanced Features**.
@@ -32,4 +32,4 @@ Perform these steps on the host.
 1. Switch to **Hyper-V Manager**.
 1. In the context-menu of **WIN-PM-SRV1**, click **Start**.
 
-Repeat this task for **WIN-PM-SRV2**.
+Repeat this task from step 3 for **WIN-PM-SRV2**.
