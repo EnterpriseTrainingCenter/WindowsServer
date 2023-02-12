@@ -443,7 +443,7 @@ Perform this task on CL1.
 1. [Install Hyper-V](#task-2-install-hyper-v) on VN1-SRV4 and VN1-SRV5 and set the default locations to the 80 GB CSV
 1. [Configure a virtual switch](#task-3-configure-a-virtual-switch) VN1-SRV4 and VN1-SRV5 connected to the network adapter VNet1
 1. [Create a virtual machine](#task-4-create-a-virtual-machine) on the cluster using a diffencing disk based on TinyCorePure64.vhdx with 256 MB memory.
-1. [Configure the virtual machine's operating system](#task-5-configure-the-virtual-machines-operating-system) in the virtual machine to use the IP address 10.1.1.184
+1. [Configure the virtual machine's operating system](#task-5-configure-the-virtual-machines-operating-system) to use the IP address 10.1.1.184
 
 ### Task 1: Configure nested virtualization
 

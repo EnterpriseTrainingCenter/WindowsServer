@@ -27,7 +27,6 @@ Adatum wants to evaluate Storage Spaces Direct. First, Storage Spaces Direct sho
 1. [Using a Scale-Out File Server with Hyper-V](#exercise-2-using-a-scale-out-file-server-with-hyper-v)
 1. [Creating a hyper-converged virtualization cluster](#exercise-3-creating-a-hyper-converged-virtualization-cluster)
 1. [Testing the resiliency of the hyper-converged virtualization](#exercise-4-testing-the-resiliency-of-the-hyper-converged-virtualization)
-1. [Shut down the Storage Spaces Direct cluster](#exercise-5-shut-down-the-storage-spaces-direct-cluster)
 
 ## Exercise 1: Configuration of Storage Spaces Direct
 
@@ -455,7 +454,7 @@ Perform this task on CL1.
 1. [Install Hyper-V](#task-2-install-hyper-v) on WIN-VN1-SRV6, WIN-VN1-SRV7, WIN-VN1-SRV8, and WIN-VN1-SRV9
 1. [Configure a virtual switch](#task-3-configure-a-virtual-switch) connected to the external network adapter on WIN-VN1-SRV6, WIN-VN1-SRV7, WIN-VN1-SRV8, and WIN-VN1-SRV9
 1. [Create a virtual machine](#task-4-create-a-virtual-machine) on the cluster with 1 GB RAM using a copy of the VHDX file for Windows Server 2022 Core
-1. [Configure Windows Server](#task-5-configure-windows-server) on the virtual machine with the IP address 10.1.1.192
+1. [Configure the virtual machine's operating system](#task-5-configure-the-virtual-machines-operating-system) with the IP address 10.1.1.192
 
 ### Task 1: Configure nested virtualization
 
@@ -555,16 +554,16 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **File Explorer**.
-1. In File Explorer, copy **\\\\VN1-SRV6\\C$\\LabResources\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
-1. Rename **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **VN1-SRV24.vhdx**
+1. In File Explorer, copy **\\\\VN1-SRV6\\C$\\LabResources\\TinyCorePure64.vhdx** to **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
+1. Rename **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks\\TinyCorePure64.vhdx** to **VN1-SRV24.vhdx**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
 1. In **Failover Cluster Manager**, in the context-menu of **Roles**, click **Virtual Machines...**, **New Virtual Machine...**.
 1. In New Virtual Machine, click **VN1-SRV6** and click **OK**.
 1. In New Virtual Machine Wizard, on page Before You Begin, click **Next >**.
 1. On page Specify Name and Location, in **Name**, type **VN1-SRV24** and click **Next >**.
-1. On page Specify Generation, click **Generation 2** and click **Next >**.
-1. On page Assign Memory, in **Startup memory**, type **1024** and click **Next >**.
+1. On page Specify Generation, click **Generation 1** and click **Next >**.
+1. On page Assign Memory, in **Startup memory**, type **256** and click **Next >**.
 1. On page Configure Networking, in **Connection**, click **External** and click **Next >**.
 1. On page Connect Virtual Hard Disk, click **Use an existing virtual hard disk** and click **Browse...**.
 1. In Open, click **VN1-SRV24.vhdx** and click **Open**.
@@ -573,49 +572,16 @@ Perform this task on CL1.
 1. In the **High Availability Wizard**, on page **Summary**, click **Finish**.
 1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV24**, click **Start**.
 
-### Task 5: Configure Windows Server
+### Task 5: Configure the virtual machine's operating system
 
 Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
-1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
-1. Under Roles (1), in the context-menu of **VN1-SRV23**, click **Connect...**.
-1. In VN1-SRV24 on VN1-SRV4 - Virtual Machine Connection, at the prompt **The user's password must be changed before signing in.**, select **OK**.
-1. In **New password** and **Confirm password**, enter a secure password.
-1. At the prompt **Your password has been changed**, press **ENTER**.
-1. In SConfig, enter **8**.
-1. In Network settings, enter  **1**.
-1. In Network adapter settings, enter **1**.
-1. Beside **Select (D)HCP or (S)tatic IP address (Blank=Canel)**, enter **S**.
-1. Beside **Enter static IP address (Blank=Cancel)**, enter **10.1.1.192**.
-1. Beside **Enter subnet mask (Blank=255.255.255.0)**, press ENTER.
-1. Beside **Enter default gateway (Blank=Cancel)**, enter **10.1.1.1**.
-1. Under 4 success messages, press ENTER.
-1. In **SConfig**, enter **15**.
-1. Set the keyboard language, e.g., to German. You may replace the BCP 47 language tag of German by the language of your keyboard.
-
-    ````powershell
-    Set-WinUserLanguageList -LanguageList DE-DE 
-    ````
-
-1. At the prompt continue with this operation, enter **Y**.
-1. Open Region.
-
-    ````powershell
-    intl.cpl
-    ````
-
-1. In Region, under **Format**, click the format of your region.
-1. Click the tab **Administrative**.
-1. On tab Administrative, click **Copy settings...**.
-1. In the dialog Change Regional Options, click **Apply**.
-1. In Welcome screen and new user account settings, activate the checkboxes **Welcome screen and system accounts** and **New user accounts**, and click **OK**.
-1. In **Region** click **OK**.
-1. Enable ICMP Echo requests on the firewall.
-
-    ````powershell
-    Enable-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-In'
-    ````
+1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
+1. Under Roles (1), in the context-menu of **VN1-SRV24**, click **Connect...**.
+1. In VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection, click on the desktop, **System tools**, **ControlPanel**.
+1. In ControlPanel, click **Network**.
+1. In Network, under **IP Address**, type  **10.1.1.192**. Under **Gateway**, type **10.1.1.1**. Under **NameServers**, type **10.1.1.8**. Ensure that under **Save Configuration**, **Yes** is selected. Click **Apply** and click **Exit**.
 
 ## Exercise 4: Testing the resiliency of the hyper-converged virtualization
 
