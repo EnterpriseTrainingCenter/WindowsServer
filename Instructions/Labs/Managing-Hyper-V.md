@@ -11,11 +11,9 @@
 
 On CL1, sign in as **ad\Administrator**.
 
-### Known issues and workarounds
-
-1. <https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/103>
-
 ## Introduction
+
+After the first steps with Hyper-V, Adatum wants to use differencing disks for faster server deployment. Moreover, Adatum wants to use checkpoints and advanced virtual switching features. Finally, important virtual machines should be replicated to another Hyper-V server.
 
 ## Exercises
 
