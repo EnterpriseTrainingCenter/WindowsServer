@@ -602,7 +602,7 @@ Perform these steps on CL1.
    $virtualDisk = $storagePool | New-VirtualDisk `
       -FriendlyName 'Tiered Disk 1' `
       -ResiliencySettingName 'Mirror' `
-      -StorageTiers $storageTier `
+      -StorageTiers $storageTiers `
       -StorageTierSizes 32GB, 64GB
    ````
 

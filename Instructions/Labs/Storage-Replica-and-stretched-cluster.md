@@ -13,7 +13,7 @@
 ## Setup
 
 1. On CL1, sign in as **ad\Administrator**.
-2. On VN2-SRV1, sign in as **ad\Administrator**.
+1. On VN2-SRV1, sign in as **ad\Administrator**.
 
 ## Known issues
 
@@ -31,7 +31,8 @@
 1. [Configure nested virtualization](#task-1-configure-nested-virtualization) on WIN-VN2-SRV1 and WIN-VN3-SRV1 and assign them 3 GB of memory
 1. [Configure iSCSI target and disks](#task-2-configure-iscsi-targets-and-disks): 2 tagets for VN2-SRV1 and VN3-SRV1, with 2 disks each with 20 GB and 10 GB capacity
 1. [Connect to to iSCSI targets](#task-3-connect-to-iscsi-targets) on VN2-SRV1 and VN3-SRV1
-1. [Create volumes](#task-4-create-volumes) on the iSCSI disks; name the 20 GB disks Data and assign them the drive letter D, and the 10 GB disks Log and assign them the drive letter E.
+1. [Create volumes](#task-4-create-volumes): name the 20 GB disks Data and assign them the drive letter D, and the 10 GB disks Log and assign them the drive letter E on VN2-SRV1 and VN3-SRV1
+1. [Install Storage Replica feature](#task-5-install-storage-replica-feature) on VN2-SRV1 and VN3-SRV1
 
 ### Task 1: Configure nested virtualization
 
@@ -72,6 +73,8 @@ Perform this task on the host.
 
 ### Task 2: Configure iSCSI targets and disks
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Server Manager**.
@@ -87,7 +90,7 @@ Perform this task on CL1.
 1. In Add initiator ID, ensure **Query initiator computer for ID** is selected, type **VN2-SRV1** and click **OK**.
 1. In **New iSCSI Virtual Disk Wizard**, on page **Specify access servers**, click **Add...**.
 1. In Add initiator ID, ensure **Query initiator computer for ID** is selected and click **Browse...**.
-1. In Select Computer, under **Enter the object name to select**, type **VN1-SRV5** and click **OK**.
+1. In Select Computer, under **Enter the object name to select**, type **VN2-SRV1** and click **OK**.
 1. In **Add initiator ID**, click **OK**.
 1. In **New iSCSI Virtual Disk Wizard**, on page **Specify access servers**, click **Next >**.
 1. On page Enable Authentication, click **Next >**.
@@ -95,7 +98,7 @@ Perform this task on CL1.
 1. On page Results, click **Close**.
 1. In **Server Manager**, in **iSCSI**, in the right pane, in the drop-down **TASKS**, click **New iSCSI Virtual Disk...**.
 1. In New iSCSI Virtual Disk Wizard, on page iSCSI Virtual Disk Location, under **Server**, click **VN1-SRV10**. Under **Storage location**, click **D:**. Click **Next >**.
-1. On page Specify iSCSI virtual disk name, in **Name**, type **VN3-CLST1-Log** and click **Next >**.
+1. On page Specify iSCSI virtual disk name, in **Name**, type **VN2-CLST1-Log** and click **Next >**.
 1. On page Specify iSCSI virtual disk size, in **Size**, type **10** and ensure **GB** is selected. Ensure, **Dynamically expanding** is selected and click **Next >**.
 1. On page Assign iSCSI target, ensure **Existing iSCSI target** is selected and click **vn2-clst1**. Click **Next >**.
 1. On page Confirmation, click **Create**.
@@ -110,7 +113,7 @@ Perform this task on CL1.
 1. In Add initiator ID, ensure **Query initiator computer for ID** is selected, type **VN3-SRV1** and click **OK**.
 1. In **New iSCSI Virtual Disk Wizard**, on page **Specify access servers**, click **Add...**.
 1. In Add initiator ID, ensure **Query initiator computer for ID** is selected and click **Browse...**.
-1. In Select Computer, under **Enter the object name to select**, type **VN1-SRV5** and click **OK**.
+1. In Select Computer, under **Enter the object name to select**, type **VN3-SRV1** and click **OK**.
 1. In **Add initiator ID**, click **OK**.
 1. In **New iSCSI Virtual Disk Wizard**, on page **Specify access servers**, click **Next >**.
 1. On page Enable Authentication, click **Next >**.
@@ -162,11 +165,11 @@ Perform these steps on CL1.
    ````powershell
    $initiatorIdPrefix = 'IQN:iqn.1991-05.com.microsoft:'
    New-IscsiServerTarget `
-      -TargetName "$initatorIdPrefix.VN2-CLST1 `
+      -TargetName "$initatorIdPrefix.VN2-CLST1" `
       -InitiatorIds "VN2-SRV1" `
       -ComputerName $computerName
    New-IscsiServerTarget `
-      -TargetName "$initatorIdPrefix.VN3-CLST1 `
+      -TargetName "$initatorIdPrefix.VN3-CLST1" `
       -InitiatorIds "VN3-SRV1" `
       -ComputerName $computerName
    ````
@@ -207,8 +210,10 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, click **File and Storage Services**.
 1. Under File and Storage Services, click **Disks**.
-1. In Disks, under **VN2-SRV1**, in the context menu of the disk with a **Capacity** of **20 GB**, attached to **Bus Type** **iSCSI**, click **Bring online**.
+1. In Disks, under **VN2-SRV1**, in the context menu of the disk with a **Capacity** of **20 GB**, click **Bring online**.
 1. In Bring Disk Online, click **Yes**.
+1. In **Server Manager**, under **Disks**, in the context-menu the Disk of the disk with a **Capacity** of **20 GB**, attached to **Bus Type** **iSCSI**, click **Initialize**.
+1. In Initialize Disk, click **Yes**
 1. In **Server Manager**, under **Disks**, in the context-menu the Disk of the disk with a **Capacity** of **20 GB**, attached to **Bus Type** **iSCSI**, click **New Volume...**.
 1. In New Volume Wizard, on page Before You Begin, click **Next >**.
 1. On page Server and Disk, ensure **VN2-SRV1** and a disk with **Capacity** of **20 GB** are selected and click **Next >**.
@@ -219,12 +224,14 @@ Perform this task on CL1.
 1. On page Results, click **Close**.
 1. In **Server Manager**, under **Disks**, under **VN2-SRV1**, in the context menu of the disk with a **Capacity** of **10,0 GB**, attached to **Bus Type** **iSCSI**, click **Bring online**.
 1. In Bring Disk Online, click **Yes**.
+1. In **Server Manager**, under **Disks**, in the context-menu the Disk of the disk with a **Capacity** of **10 GB**, attached to **Bus Type** **iSCSI**, click **Initialize**.
+1. In Initialize Disk, click **Yes**
 1. In **Server Manager**, under **Disks**, in the context-menu of the disk with a **Capacity** of **10,0 GB**, attached to **Bus Type** **iSCSI**, click **New Volume...**.
 1. In New Volume Wizard, on page Before You Begin, click **Next >**.
 1. On page Server and Disk, ensure **VN2-SRV1** and a disk with **Capacity** of **10,0 GB** are selected and click **Next >**.
 1. On page size, in **Volume size**, ensure **9,98** is filled in and **GB** is selected. Click **Next >**.
 1. On page Drive Letter or Folder, ensure **Drive letter** and **E** is selected and click **Next >**.
-1. On page File System Settings, in **File System**, click **ReFS**. In **Volume label**, type **Data**. Click **Next >**.
+1. On page File System Settings, in **File System**, click **ReFS**. In **Volume label**, type **Log**. Click **Next >**.
 1. On page Confirmation, click **Create**.
 1. On page Results, click **Close**.
 
@@ -308,14 +315,7 @@ Perform these steps on CL1.
 
 1. Leave Windows PowerShell open for the next task. -->
 
-## Exercise 2: Testing Storage Replica storage
-
-1. [Install Storage Replica feature](#task-1-install-storage-replica-feature) on VN2-SRV1 and VN3-SRV1
-1. [Run the Storage Replica test](#task-2-run-the-storage-replica-test) on VN2-SRV1 and VN3-SRV1 using the D and E volumes
-
-   > According to the report, will Storage Replica work in this environment?
-
-### Task 1: Install Storage Replica feature
+### Task 5: Install Storage Replica feature
 
 <!-- You can skip this task when using Windows Admin Center in the next exercise. The necessary features are installed when using them.
  -->
@@ -324,7 +324,7 @@ Perform these steps on CL1.
 
 Perform this task on CL1.
 
-1. Open Server Manager.
+1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
@@ -356,7 +356,14 @@ Perform this task on CL1.
     }
     ````
 
-### Task 2: Run the Storage Replica test
+## Exercise 2: Testing Storage Replica storage
+
+1. [Run the Storage Replica test](#task-1-run-the-storage-replica-test) on VN2-SRV1 and VN3-SRV1 using the D and E volumes
+1. [Evaluate the Storage Replica test](#task-2-evaluate-the-storage-replica-test)
+
+   > According to the report, will Storage Replica work in this environment?
+
+### Task 1: Run the Storage Replica test
 
 Perform this task on VN2-SRV1.
 
@@ -391,7 +398,7 @@ Perform this task on VN2-SRV1.
 
    This will take 2 - 3 minutes.
 
-### Task 7: Evaluate the Storage Replica test
+### Task 2: Evaluate the Storage Replica test
 
 Perform this task on CL1.
 
@@ -401,12 +408,55 @@ From **\\\VN2-SRV1\\C$\\Temp** open the report in a browser.
 
 ## Exercise 3: Create a stretched Hyper-V cluster
 
-1. [Add cluster nodes to group](#task-1-add-cluster-nodes-to-group) Witness VN1-CLST2 Modify: VN2-SRV1 and VN3-SRV1
-1. [Create a failover cluster](#task-2-create-a-failover-cluster) with VN2-SRV1 and VN3-SRV1 as nodes and the IP addresses 10.1.2.9 and 10.3.9; use \\\\vn1-clst1-fs\\Witness VN1-CLST2 as witness and set the resilience default period to 10; set the preffered site to the 10.1.2.0 subnet; add all available disks to the cluster
-1. [Add disk to cluster shared volume](#task-3-add-disk-to-cluster-shared-volumes): disk Data from VN2-SRV1
-1. [Configure storage replica](#task-4-configure-storage-replica) to replicate the Data volume from VN2-SRV1 to VN3-SRV1 using the Log volume as log disk
+1. [Install the failover clustering feature](#task-1-install-the-failover-clustering-feature) on VN2-SRV1 and VN3-SRV1
+1. [Add cluster nodes to group](#task-2-add-cluster-nodes-to-group) Witness VN1-CLST2 Modify: VN2-SRV1 and VN3-SRV1
+1. [Create a failover cluster](#task-3-create-a-failover-cluster) with VN2-SRV1 and VN3-SRV1 as nodes and the IP addresses 10.1.2.9 and 10.3.9; use \\\\vn1-clst1-fs\\Witness VN1-CLST2 as witness and set the resilience default period to 10; set the preffered site to the 10.1.2.0 subnet; add all available disks to the cluster
+1. [Add disk to cluster shared volume](#task-4-add-disk-to-cluster-shared-volumes): disk Data from VN2-SRV1
+1. [Configure storage replica](#task-5-configure-storage-replica) to replicate the Data volume from VN2-SRV1 to VN3-SRV1 using the Log volume as log disk
 
-### Task 1: Add cluster nodes to group
+### Task 1: Install the failover clustering feature
+
+#### Desktop Experience
+
+Perform this task on CL1.
+
+1. Open Server Manager.
+1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
+1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Server Selection, click **VN2-SRV1.ad.adatum.com** and click **Next >**.
+1. On page Server Roles, click **Next >**.
+1. On page Features, activate **Failover Clustering**.
+1. In Add features that are required for Failover Clustering, click **Add Features**.
+1. In **Add Roles and Features Wizard**, on page **Features**, click **Next >**.
+1. On page Confirmation, verify your selection and click **Install**.
+1. On  page **Results**, do not wait for the installation to succeed. Click **Close**.
+
+Repeat the steps of this task to install the role on **VN3-SRV1**.
+
+Do not wait for the installation to succeed. Continue with the next task.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Install **Failover Clustering** on **VN2-SRV1** and **VN3-SRV1**
+
+    ````powershell
+    Invoke-Command `
+      -ComputerName VN2-SRV1, VN3-SRV1 `
+      -ScriptBlock {
+        Install-WindowsFeature `
+            -Name Failover-Clustering `
+            -IncludeManagementTools `
+            -Restart
+    }
+    ````
+
+Do not wait for the installation to succeed. Continue with the next task.
+
+### Task 2: Add cluster nodes to group
 
 Perform this task on CL1.
 
@@ -421,7 +471,7 @@ Perform this task on CL1.
 1. In **Select Users, Contacts, Computers, Services Accounts, or Groups**, under **Enter the object names to select**, type **VN2-SRV1; VN3-SRV1** and click **OK**.
 1. In **Witness VN1-CLST Modify**, click **OK**.
 
-### Task 2: Create a failover cluster
+### Task 3: Create a failover cluster
 
 <!-- #### Windows Admin Center
 
@@ -515,6 +565,20 @@ Perform this task on VN2-SRV1.
    $cluster.ResiliencyDefaultPeriod = 10
    ````
 
+1. Create the sites **Primary** and **Secondary**.
+
+   ````powershell
+   New-ClusterFaultDomain -Name Primary -Type Site
+   New-ClusterFaultDomain -Name Secondary -Type Site
+   ````
+
+1. Add **VN2-SRV1** to the site **Primary** and **VN3-SRV2** to the site **Secondary**.
+
+   ````powershell
+   Set-ClusterFaultDomain -Name VN2-SRV1 -Parent Primary
+   Set-ClusterFaultDomain -Name VN3-SRV1 -Parent Secondary
+   ````
+
 1. Read the cluster fault domains.
 
    ````powershell
@@ -523,12 +587,11 @@ Perform this task on VN2-SRV1.
 
    Note the sites and childrens.
 
-1. Set the preferred site **Site 10.1.2.0/24**.
+1. Set the preferred site **Primary**.
 
    ````powershell
-   $cluster.PreferredSite = 'Site 10.1.2.0/24'
+   $cluster.PreferredSite = 'Primary'
    ````
-
 
 1. Add all Disks to the cluster.
 
@@ -543,7 +606,7 @@ Perform this task on VN2-SRV1.
    Set-ADComputer $clusterName -PrincipalsAllowedToDelegateToAccount $gw 
    ````
  -->
-### Task 3: Add disk to cluster shared volumes
+### Task 4: Add disk to cluster shared volumes
 
 Perform this task on CL1.
 
@@ -553,7 +616,7 @@ Perform this task on CL1.
 1. In Failover Cluster Manager, expand **VN2-VN3-CLST1.ad.adatum.com**, **Storage**, and click **Disks**.
 1. Under Disks (4), in the context menu of the disk with **Capacity** of **20 GB** with a **Status** of **Online**, click **Add to Cluster Shared Volumes**.
 
-### Task 4: Configure storage replica
+### Task 5: Configure storage replica
 
 Perform this task on VN2-SRV1.
 
