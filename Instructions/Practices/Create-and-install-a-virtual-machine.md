@@ -6,10 +6,6 @@
 * PM-SRV1
 * CL1
 
-### Known issues and workarounds
-
-<https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/103>
-
 ## Task
 
 On PM-SRV1, create a new virtual machine with the name PM-SRV20. The virtual machine should have 1 GB of memory, 4 virtual processor, time synchronization disabled, and should install Windows Server Core from 2022_x64_EN_Eval.iso.
