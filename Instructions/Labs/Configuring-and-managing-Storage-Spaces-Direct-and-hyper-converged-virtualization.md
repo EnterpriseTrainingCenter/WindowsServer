@@ -46,7 +46,7 @@ Adatum wants to evaluate Storage Spaces Direct. First, Storage Spaces Direct sho
 
 ### Task 1: Install the failover clustering feature
 
-For this task, for time purposes, it is recommended to use PowerShell.
+For this task, to save on time, it is recommended to use PowerShell.
 
 #### Desktop Experience
 
