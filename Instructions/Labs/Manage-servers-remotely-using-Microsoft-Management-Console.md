@@ -24,11 +24,11 @@ You want to manage servers remotely using Microsoft Management Console snap-ins.
 
 ## Exercise 1: Evaluate remote administration using Microsoft Management Console and PowerShell
 
-[Use the custom console Basic Administration to open Event Viewer and Disk Management on VN1-SRV10](#task-use-the-custom-console-basic-administration-to-open-event-viewer-and-disk-management-on-VN1-SRV10)
+[Use the custom console Basic Administration to open Event Viewer and Disk Management](#task-use-the-custom-console-basic-administration-to-open-event-viewer-and-disk-management) on VN1-SRV10
 
 > Are you able to view the events and disks?
 
-### Task: Use the custom console Basic Administration to open Event Viewer and Disk Management on VN1-SRV10
+### Task: Use the custom console Basic Administration to open Event Viewer and Disk Management
 
 Perform this task on CL1.
 
@@ -50,7 +50,7 @@ Perform this task on CL1.
 
 ## Exercise 2: Configure Windows Defender Firewall rules for remote administration
 
-1. [Enable firewall rules to allow for remote event log and volume management](#task-1-enable-firewall-rules-to-allow-for-remote-event-log-and-volume-management) on VN1-SRV10
+1. [Enable firewall rules to allow for remote event log and volume management](#task-1-enable-firewall-rules-to-allow-for-remote-event-log-and-volume-management) on VN1-SRV10 and CL2
 1. [Enable firewall rules to allow remote volume management](#task-2-enable-firewall-rules-to-allow-remote-volume-management) on CL1
 
 ### Task 1: Enable firewall rules to allow for remote event log and volume management
@@ -66,7 +66,9 @@ Perform this task on VN1-SRV10.
 1. Click the tab **Advanced**.
 1. On tab Advanced, deactive the checkboxes **Private** and **Public**. Click **OK**.
 1. Repeat the steps above for the 3 rules in the group **Remove Event Log Management**.
-1. Repeat the steps above the the 3 rules in the group **Remote Volume Management**
+1. Repeat the steps above the the 3 rules in the group **Remote Volume Management**.
+
+Repeat this task on **CL2**.
 
 #### Windows Admin Center
 
@@ -76,14 +78,16 @@ Perform this task on CL1.
 1. In Windows Admin Center, click **VN1-SRV10.ad.adatum.com**.
 1. Connected to VN1-SRV10.ad.adatum.com, under Tools, click **Firewall**.
 1. Under Firewall, click the tab **Incoming rules**.
-1. In the search box, enter **COM+ Network Access**.
+<!-- 1. In the search box, enter **COM+ Network Access**.
 1. Click the rule **COM+ Remote Administration (DCOM-In)** and click **Settings**.
 1. In Firewall Rule COM+ Remote Administration (DCOM-In) Settings, in **General**, set **Enable Firewall Rule** to **Yes**. Under **Profiles** deactivate the checkboxes **Private** and **Public**. Click **Save**.
-1. Click **Close**.
+1. Click **Close**. -->
 1. In the search box, enter **Remote Event Log**. 3 rules will be found.
 1. Repeat the steps above to enable each rule for the Domain profile.
 1. In the search box, enter **Remote Volume Management**. 3 rules will be found.
 1. Repeat the steps above to enable each rule for the Domain profile.
+
+Repeat from step 2 for **CL2.ad.adatum.com**.
 
 #### PowerShell
 
@@ -96,7 +100,7 @@ Perform this task on CL1.
     Enter-PSSession VN1-SRV10
     ````
 
-1. Find the firewall rule **COM+ Network Access**.
+<!-- 1. Find the firewall rule **COM+ Network Access**.
 
     ````powershell
     Get-NetFirewallRule -DisplayName 'COM+ Network Access*'
@@ -110,7 +114,7 @@ Perform this task on CL1.
         -Enabled True `
         -Profile Domain
     ````
-
+ -->
 1. Enable all rules in the group **Remote Event Log Management** for the domain profile only.
 
     ````powershell
@@ -131,14 +135,12 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
+Repeat from step 2 for **CL2**.
+
 Note: You could perform all the commands in just one command.
 
 ````powershell
-Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
-    Set-NetFirewallRule `
-        -Name ComPlusRemoteAdministration-DCOM-In `
-        -Enabled True `
-        -Profile Domain
+Invoke-Command -ComputerName CL2, VN1-SRV10 -ScriptBlock {
     # Remote Event Log Management
     Get-NetFirewallRule -Group '@FirewallAPI.dll,-29252' |
     Set-NetFirewallRule -Enabled True -Profile Domain
@@ -182,11 +184,11 @@ Perform this task on CL1.
 
 ## Exercise 3: Verify the ability of remote administration using Computer Management
 
-[Connect Computer Management to VN1-SRV10 and open Event Viewer and Disk Management](#task-connect-computer-management-to-VN1-SRV10-and-open-event-viewer-and-disk-management)
+[Connect Computer Management and open Event Viewer and Disk Management](#task-connect-computer-management-and-open-event-viewer-and-disk-management) for VN1-SRV10
 
 > Are you able to view events and the disks?
 
-### Task: Connect Computer Management to VN1-SRV10 and open Event Viewer and Disk Management
+### Task: Connect Computer Management and open Event Viewer and Disk Management
 
 Perform this task on CL1.
 

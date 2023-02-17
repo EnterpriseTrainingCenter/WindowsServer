@@ -110,7 +110,7 @@ Perform this task on CL1.
 
 ## Exercise 2: Manage connections
 
-[In Windows Admin Center, add connections to VN1-SRV1, VN1-SRV5, VN1-SRV6, VN1-SRV2, and CL2](#task-in-windows-admin-center-add-connections).
+[In Windows Admin Center, add connections to VN1-SRV1, VN1-SRV5, VN1-SRV6, VN1-SRV2, CL1, and CL2](#task-in-windows-admin-center-add-connections).
 
 ### Task: In Windows Admin Center, add connections
 
@@ -123,6 +123,10 @@ Perform this task on CL1.
 1. Click **Add**.
 1. In the panel **Add or create resources**, under **Windows PCs**, click **Add**.
 1. Click the tab **Search Active Directory**.
+1. Enter **CL1** and click **Search**.
+1. Activate the checkbox left to **CL1.ad.adatum.com** and click **Add**.
+1. In the panel **Add or create resources**, under **Windows PCs**, click **Add**.
+1. Click the tab **Search Active Directory**.
 1. Enter **CL2** and click **Search**.
 1. Activate the checkbox left to **CL2.ad.adatum.com** and click **Add**.
 1. In the panel **Add or create resources**, under **Server**, click **Add**.
@@ -132,7 +136,7 @@ Perform this task on CL1.
 
 ## Exercise 3: Install extensions
 
-[Install the Active Directory extension](#task-1-install-the-active-directory-extension).
+[Install the Active Directory extension](#task-install-the-active-directory-extension).
 
 ### Task: Install the Active Directory extension
 
