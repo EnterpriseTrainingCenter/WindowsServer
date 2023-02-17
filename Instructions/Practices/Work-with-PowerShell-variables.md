@@ -112,5 +112,5 @@ Perform these steps on CL1.
 1. Calculate the number of bytes of 1 TB.
 
     ````powershell
-    7TB
+    1TB
     ````
