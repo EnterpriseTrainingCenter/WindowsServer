@@ -91,7 +91,7 @@ Perform this task on CL1.
 1. On tab Security, click **Local intranet**.
 1. Click the button **Sites**.
 1. In Local intranet, click the button **Advanced**.
-1. In Local intranet, under **Add this website to the zone**, enter **https://admincenter.etc.at** and click **Add**.
+1. In Local intranet, under **Add this website to the zone**, enter **https://admincenter.ad.adatum.com** and click **Add**.
 1. Click **Close**.
 1. In Local intranet, click **OK**.
 1. in Internet Properties, click **OK**.
