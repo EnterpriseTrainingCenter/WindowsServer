@@ -68,16 +68,16 @@ Perform this task on CL1.
     ````shell
     Name                    InterfaceAlias ClientId          IPAddress
     ----                    -------------- --------          ---------
-    VN1-SRV6.ad.adatum.com  VNet1          00-15-5D-00-01-30 10.1.1.48
     VN1-SRV1.ad.adatum.com  Ethernet       00-15-5D-00-01-08 10.1.1.8
-    VN1-SRV7.ad.adatum.com  VNet1          00-15-5D-00-01-38 10.1.1.56
-    VN1-SRV4.ad.adatum.com  VNet1          00-15-5D-00-01-20 10.1.1.32
-    VN1-SRV5.ad.adatum.com  VNet1          00-15-5D-00-01-28 10.1.1.40
+    VN1-SRV10.ad.adatum.com VNet1          00-15-5D-00-01-50 10.1.1.80
     VN1-SRV2.ad.adatum.com  Ethernet       00-15-5D-00-01-10 10.1.1.16
     VN1-SRV3.ad.adatum.com  Ethernet       00-15-5D-00-01-18 10.1.1.24
-    VN1-SRV10.ad.adatum.com VNet1          00-15-5D-00-01-50 10.1.1.80
-    VN1-SRV9.ad.adatum.com  VNet1          00-15-5D-00-01-48 10.1.1.72
+    VN1-SRV4.ad.adatum.com  VNet1          00-15-5D-00-01-20 10.1.1.32
+    VN1-SRV5.ad.adatum.com  VNet1          00-15-5D-00-01-28 10.1.1.40
+    VN1-SRV6.ad.adatum.com  VNet1          00-15-5D-00-01-30 10.1.1.48
+    VN1-SRV7.ad.adatum.com  VNet1          00-15-5D-00-01-38 10.1.1.56
     VN1-SRV8.ad.adatum.com  VNet1          00-15-5D-00-01-40 10.1.1.64
+    VN1-SRV9.ad.adatum.com  VNet1          00-15-5D-00-01-48 10.1.1.72
     ````
 
     Leave **Terminal** open.
