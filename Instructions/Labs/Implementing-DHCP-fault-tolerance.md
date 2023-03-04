@@ -98,8 +98,7 @@ Perform this task on CL1.
         },
         InterfaceAlias,
         ClientId,
-        IPAddress
-
+        IPAddress |
     Sort-Object Name, IPAddress
 
     $vNet2ServerAddresses |
@@ -278,25 +277,87 @@ Perform this task on CL2.
 
 ## Exercise 2: Implement DHCP relay
 
-1. [Split DHCP scope](#task-1-split-dhcp-scope) for VNet2 and configure 20 % of the available range on VN1-SRV6
+1. [Install the Remote Server Administration Remote Access Management Tools](#task-1-install-the-remote-server-administration-remote-access-management-tools)
+1. [Install the Routing and Remote Access role](#task-2-install-the-routing-and-remote-access-role) on VN2-SRV1
+1. [Split DHCP scope](#task-3-split-dhcp-scope) for VNet2 and configure 20 % of the available range on VN1-SRV6
 
     > Why do you not configure a delay for the backup DHCP scope?
 
-1. [Install the Routing and Remote Access role](#task-2-install-the-routing-and-remote-access-role) on VN2-SRV1
-1. [Configure DHCP relay](#task-3-configure-dhcp-relay) for VNet2 on VN2-SRV1
+1. [Configure DHCP relay](#task-4-configure-dhcp-relay) for VNet2 on VN2-SRV1
 
     Note: In real-world, this functionality typically is configured on the router. For the purpose of this lab, you will configure it on a Windows server.
 
-1. [Verify fault-tolerance for DHCP](#task-4-verify-fault-tolerance-for-dhcp) on VNet2
+1. [Verify fault-tolerance for DHCP](#task-5-verify-fault-tolerance-for-dhcp) on VNet2
 
-### Task 1: Split DHCP scope
+### Task 1: Install the Remote Server Administration Remote Access Management Tools
+
+#### Desktop experience
+
+Perform these steps on CL1.
+
+1. Open **Settings**.
+1. In Settings, click **Apps**.
+1. In Apps, click **Optional features**.
+1. In Optional features, click the button **View features**.
+1. In Add an optional feature, in the text field **Find an available optional feature**, type **RSAT**.
+1. Activate the check box beside **RSAT: Remote Access Management Tools**.
+1. Click **Next**.
+1. Click **Install**.
+1. If required, restart the computer.
+
+You do not need to wait for the completion of the installation
+
+#### PowerShell
+
+Perform these steps on CL1.
+
+1. In the context menu of **Start**, click **Terminal (Admin)**.
+1. Add the windows capabilities **RSAT: Server DNS Server tools**.
+
+    ````powershell
+    Get-WindowsCapability -Online -Name 'Rsat.RemoteAccess.Management.Tools*' |
+    Add-WindowsCapability -Online
+    ````
+
+You do not need to wait for the completion of the installation.
+
+### Task 2: Install the Routing and Remote Access role
+
+Perform this task on CL1.
+
+1. Open **Server Manager**.
+1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
+1. In the Add Rules and Features Wizard, on the page **Before You Begin**, click **Next >**.
+1. On the page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On the page Server Selection, click **VN2-SRV1.ad.adatum.com** and click **Next >**.
+1. On the page Server Roles, activate the checkbox next to **Remote Access** and click **Next >**.
+1. On the page Features, click **Next >**.
+1. On the page Remote Access, click **Next >**.
+1. On the page **Role Services**, activate **Routing**.
+1. In Add feature that are required for Routing?, click **Add Features**.
+1. In the **Add Rules and Features Wizard**, on the page **Role Services**, click **Next >**.
+1. On the page **Web Server Role (IIS)**, click **Next >**.
+1. On the page **Role Services**, click **Next >**.
+1. On the page Confirmation, verify your selection, activate **Restart the destination server automatically if required**, and click **Install**.
+
+    Wait for the installation to finish.
+
+1. On the page **Results**, click **Close**.
+
+If the server restarts, sign in again as **ad\Administrator**.
+
+### Task 3: Split DHCP scope
 
 Perform this task on CL1.
 
 1. Open **DHCP**.
-1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
-1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
 1. In **DHCP**, expand  **vn2-srv2.ad.adatum.com**, **IPv4**, and click **Scope [10.1.2.0] VNet2**.
+
+    If you do not see vn2-srv2.ad.adatum.com, perform these steps:
+
+    1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
+    1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
+
 1. In the context menu of **Scope [10.1.2.0] VNet2**, click **Advanced...**, **Split Scope**.
 1. In Dhcp Split-Scope Configuration Wizard, on page DHCP Split-Scope, click **Next >**.
 1. On page Additional DHCP Server, click **Add Server**.
@@ -317,42 +378,22 @@ Perform this task on CL1.
 1. In **DHCP**, expand  **vn1-srv6.ad.adatum.com**, **IPv4**, and click **Scope [10.1.2.0] VNet2**.
 1. In the context menu of **Scope [10.1.2.0] VNet2**, click **Activate**.
 
-### Task 2: Install the Routing and Remote Access role
+### Task 4: Configure DHCP relay
 
-Perform this task on VN2-SRV1.
-
-1. In **Server Manager**, in the menu, click **Manage**, **Add Roles and Reatures**.
-1. In the Add Rules and Features Wizard, on the page **Before You Begin**, click **Next >**.
-1. On the page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
-1. On the page Server Selection, ensure **VN2-SRV1.ad.adatum.com** is selected, and click **Next >**.
-1. On the page Server Roles, activate the checkbox next to **Remote Access** and click **Next >**.
-1. On the page Features, click **Next >**.
-1. On the page Remote Access, click **Next >**.
-1. On the page **Role Services**, activate **Routing**.
-1. In Add feature that are required for Routing?, click **Add Features**.
-1. In the **Add Rules and Features Wizard**, on the page **Role Services**, click **Next >**.
-1. On the page **Web Server Role (IIS)**, click **Next >**.
-1. On the page **Role Services**, click **Next >**.
-1. On the page Confirmation, verify your selection, activate **Restart the destination server automatically if required**, and click **Install**.
-
-    Wait for the installation to finish.
-
-1. On the page **Results**, click **Close**.
-
-If the server restarts, sign in again as **ad\Administrator**.
-
-### Task 3: Configure DHCP relay
-
-Perform this task on VN2-SRV1.
+Perform this task on CL1.
 
 1. Open **Routing and Remote Access**.
-1. In Routing and Remote Access, in the context-menu of **VN2-SRV1 (local)**, click **Configure and Enable Routing and Remote Access**.
+1. In Routing and Remote Access, in the context-menu of **Routing and Remote Access**, click **Add Server...**
+1. In Add Server, click **The following computer**, below, type **VN2-SRV1.ad.adatum.com**, and click **OK**.
+1. In **Routing and Remote Access**, in the context-menu of **vn2-srv1.ad.adatum.com**, click **Configure and Enable Routing and Remote Access**.
 1. In the Routing and Remote Access Server Setup Wizard, on page Welcome to the Routing and Remote Access Server Setup Wizard, click **Next >**.
 1. On page Configuration, click **Secure connection between two private networks** and click **Next >**.
 1. On page Demand-Dial Connections, click **No** and click **Next >**.
 1. On page Completing the Routing and Remote Access Server Setup Wizard, click **Finish**.
-1. In **Routing and Remote Access**, expand **VN2-SRV1 (local)**, **IPv4**, and click **General**.
-1. Under **IPv4**, in the context-menu of **General**, click **New Routing Protocol...**
+1. In the warning message box **Routing and Remote Access**, click **OK**.
+1. In the dialog Routing and Remote Access, click **OK**.
+1. In **Routing and Remote Access**, expand **vn2-srv1.ad.adatum.com**, **IPv4**, and click **General**.
+1. In the context-menu of **General**, click **New Routing Protocol...**
 1. In New Routing Protocol, click **DHCP Relay Agent** and click **OK**.
 1. In **Routing and Remote Access**, in the context-menu of **DHCP Relay Agent**, click **Properties**.
 1. In DHCP Relay Agent Properties, under **Server address**, type **10.1.1.48** and click **Add**. Click **OK**.
@@ -362,7 +403,7 @@ Perform this task on VN2-SRV1.
 
     > If there is no DHCP server on the subnet, you should set the boot threshold to the smallest possible value.
 
-### Task 4: Verify fault-tolerance for DHCP
+### Task 5: Verify fault-tolerance for DHCP
 
 Perform this task on CL1.
 
