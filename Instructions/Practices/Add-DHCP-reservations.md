@@ -56,8 +56,7 @@ Perform this task on CL1.
         },
         InterfaceAlias,
         ClientId,
-        IPAddress
-
+        IPAddress |
     Sort-Object Name, IPAddress
 
     $vNet1ServerAddresses |
