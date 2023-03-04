@@ -16,7 +16,7 @@
 
 ## Task
 
-For all servers in VNet 1, create reservations on VN1-SRV6.
+For all servers in VNet1, create reservations on VN1-SRV6.
 
 ## Instructions
 
