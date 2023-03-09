@@ -29,4 +29,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Managing DNS](Labs/Managing-DNS.md)
 1. [Implementing DNS Security](Labs/Implementing-DNSSEC.md)
 1. [Implementing DHCP fault-tolerance](Labs/Implementing-DHCP-fault-tolerance.md)
-1. [Implementing IP address management](Labs/Implementing-DHCP-fault-tolerance.md)
+1. [Implementing IP address management](Labs/Implementing-IP-address-management.md)
