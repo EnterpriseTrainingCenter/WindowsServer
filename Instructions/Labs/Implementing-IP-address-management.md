@@ -42,6 +42,16 @@ Because of the growing complexity of managing IP addresses and host names, you m
 1. [Provision the IP Address Management (IPAM) server](#task-4-provision-the-ip-address-management-ipam-server)
 1. [Discover servers](#task-5-discover-servers)
 
+    | Server name (FQDN)     | Server type |
+    |------------------------|-------------|
+    | vn1-srv1.ad.adatum.com | DC, DNS     |
+    | vn1-srv6.ad.adatum.com | DHCP        |
+    | vn1-srv7.ad.adatum.com | DHCP        |
+    | vn2-srv1.ad.adatum.com | DNS         |
+    | vn2-srv2.ad.adatum.com | DHCP        |
+    | pm-srv1.ad.adatum.com  | DNS         |
+    | pm-srv2.ad.adatum.com  | DNS         |
+
 ### Task 1: Install the IP Address Management (IPAM) Client
 
 #### Desktop experience
@@ -186,7 +196,12 @@ Perform this task on CL1.
 
 1. Click **SERVER INVENTORY**.
 
-    You should see VN1-SRV1, VN1-SRV6, VN1-SRV7, VN2-SRV1, VN2-SRV2, PM-SRV1, and PM-SRV2 with a **Recommended Action** of **Set Manageability Status**.
+    You should see VN1-SRV1, VN1-SRV6, VN1-SRV7, VN2-SRV1, VN2-SRV2, PM-SRV1, and PM-SRV2 with a **Recommended Action** of **Set Manageability Status**. If not, perform these steps:
+
+    1. Click **TASKS**, **Add Server...**
+    1. In Add or Edit Server, beside **Server name (FQDN)**, type the FQDN of one of the missing servers. Beside **Server type**, activate the role according to the table above.Click **OK**.
+
+    Repeat the steps for each missing server.
 
 1. Click on the column header **Recommended Action** to sort the server list.
 1. Click the first server with a **Recommended Action** of **Set Manageability Status**, hold down SHIFT and click the last server with a **Recommended Action** of **Set Manageability Status**.
@@ -212,6 +227,7 @@ Perform this task on CL1.
         -ScriptBlock {
             gpupdate.exe
         }
+    ````
 
 1. Switch to **Server Manager**.
 1. With servers with a **Recommended Action** of **Unblock IPAM Access** still selected, in the context-menu of one of the selected server, click **Refresh Server Access Status**.
