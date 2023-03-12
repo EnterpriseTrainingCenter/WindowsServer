@@ -64,8 +64,8 @@ Perform this task on VN1-SRV10.
 1. Double-click the rule **COM+ Remote Administration (DCOM-In)**.
 1. In COM+ Network Access (DCOM-In) Properties, on tab **General**, activate the checkbox **Enabled**.
 1. Click the tab **Advanced**.
-1. On tab Advanced, deactive the checkboxes **Private** and **Public**. Click **OK**.
-1. Repeat the steps above for the 3 rules in the group **Remove Event Log Management**.
+1. On tab Advanced, deactivate the checkboxes **Private** and **Public**. Click **OK**.
+1. Repeat the steps above for the 3 rules in the group **Remote Event Log Management**.
 1. Repeat the steps above the the 3 rules in the group **Remote Volume Management**.
 
 Repeat this task on **CL2**.
