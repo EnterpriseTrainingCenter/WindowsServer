@@ -133,7 +133,7 @@ Perform this task on CL1.
 
 1. Open **Group Policy Management**.
 1. In Group Policy Management, expand **Forest: ad.adatum.com**, **Domains**, **ad.adatum.com**.
-1. In the context-menu of **Custom User Store Disalbe**, click **Edit...**
+1. In the context-menu of **Custom User Store Disable**, click **Edit...**
 1. In Group Policy Management Editor, expand **User Configuration**, **Policies**, **Administrative Templates**, **Windows Components**, and click **Store**.
 1. In the right pane, double-click **Turn off the Store application**.
 1. In Turn off the Store application, click **Enabled** and click **OK**.
