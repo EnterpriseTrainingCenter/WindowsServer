@@ -23,6 +23,7 @@ Perform these steps on CL1.
 1. Activate the check boxes of these tools:
     * RSAT: Active Directory Domain Services and Lightweight Directory Services Tools
     * RSAT: File Services tools
+    * RSAT: Group Policy Management Tools
     * RSAT: Server Manager
 1. Click **Next**.
 1. Click **Install**.
@@ -49,5 +50,6 @@ Perform these steps on CL1.
     Get-WindowsCapability -Online -Name 'Rsat.FileServices.Tools*' | 
     Add-WindowsCapability -Online
     # With the File Services tools, Server Manager is installed automatically
+    Get-WindowsCapability -Online -Name 'Rsat.GroupPolicy.Management.Tools*' |
+    Add-WindowsCapability -Online    
     ````
-
