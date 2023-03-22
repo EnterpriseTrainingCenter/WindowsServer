@@ -15,7 +15,6 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Configure Windows Server Update Services synchronization](Practices/Configure-Windows-Server-Update-Services-synchronization.md)
 1. [Create Windows Server Update Services computer groups](Practices/Create-Windows-Server-Update-Services-computer-groups.md)
 1. [Create Windows Server Update Services automatic approval rules](Practices/Create-Windows-Server-Update-Services-automatic-approval-rules.md)
-1. [Install Group Policy Management](Practices/Install-group-policy-management.md)
 1. [Install the Microsoft Deployment Toolkit](Practices/Install-the-Microsoft-Deployment-Toolkit.md)
 
 ## Labs
