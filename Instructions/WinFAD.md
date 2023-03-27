@@ -15,13 +15,16 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Configure Windows Server Update Services synchronization](Practices/Configure-Windows-Server-Update-Services-synchronization.md)
 1. [Create Windows Server Update Services computer groups](Practices/Create-Windows-Server-Update-Services-computer-groups.md)
 1. [Create Windows Server Update Services automatic approval rules](Practices/Create-Windows-Server-Update-Services-automatic-approval-rules.md)
+1. [Create a log Analytics Workspace](Practices/Create-a-Log-Analytics-Workspace.md)
+1. [Create an Automation account](Practices/Create-an-Automation-account.md)
+1. [Add server to Azure Arc](Practices/Add-server-to-Azure-Arc.md)
 1. [Install the Microsoft Deployment Toolkit](Practices/Install-the-Microsoft-Deployment-Toolkit.md)
 
 ## Labs
 
-1. [Secure Shell](Labs/Secure-Shell.md)
 1. [Windows Admin Center](Labs/Windows-Admin-Center.md)
-1. [Azure Arc](Labs/Azure-Arc.md)
+1. [Secure Shell](Labs/Secure-Shell.md)
 1. [Managing Windows Server Update Services](Labs/Managing-Windows-Server-Update-Services.md)
+1. [Azure Arc](Labs/Azure-Arc.md)
 1. [Microsoft Deployment Toolkit](Labs/Microsoft-Deployment-Toolkit.md)
 1. [Windows Deployment Services](Labs/Windows-Deployment-Services.md)
