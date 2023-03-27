@@ -1,6 +1,4 @@
-# Lab: Azure Arc
-
-<!-- Required time: 75 minutes -->
+# Lab: Managing hybrid servers using Azure Arc
 
 ## Required VMs
 
