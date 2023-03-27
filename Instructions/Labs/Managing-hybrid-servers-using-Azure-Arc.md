@@ -266,7 +266,8 @@ Perform this task on the host computer.
 1. Open **Microsoft Edge**.
 1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
 1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
-1. In Update management center (Preview), under **Getting started**, under **On-demand assessment and updates**, click **Check for updates**.
+1. In Update management center (Preview), click **Getting started**.
+1. In Update management center (Preview) | Getting started, under **On-demand assessment and updates**, click **Check for updates**.
 1. Under Select resources and check for updates, activate the checkbox left to **VN1-SRV5** and click **Check for updates**.
 
     If you do not see VN1-SRV5, ensure that the filter **Subscription** shows the correct subscription.
