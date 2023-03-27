@@ -6,7 +6,7 @@ None
 
 ## Task
 
-Create a Log Analyitcs Workspace in your Azure subscription.
+Create a Log Analytics Workspace in your Azure subscription.
 
 ## Instructions
 
