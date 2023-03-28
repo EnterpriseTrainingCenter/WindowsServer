@@ -10,9 +10,9 @@
 
 In Update Services on VN1-SRV5, create computer groups
 
-    * Insider
-    * Target
-    * Standard
+* Insider
+* Target
+* Standard
 
 ## Instructions
 

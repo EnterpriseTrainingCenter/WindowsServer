@@ -10,17 +10,15 @@
 
 In Update Services on VN1-SRV5, create automatic approval rules:
 
-    * Definition updates should be approved immediately.
-    * Critical updates should be approved after 2 days.
-    * For the Insider group, all updates should be approved immediately.
-    * For the Target group, all other updates should be approved after 7 days.
-    * For the Standard group, all other updates should be approved after 14 days.
+* Definition updates should be approved immediately.
+* Critical updates should be approved after 2 days.
+* For the Insider group, all updates should be approved immediately.
+* For the Target group, all other updates should be approved after 7 days.
+* For the Standard group, all other updates should be approved after 14 days.
 
 Start the synchronization manually.
 
 ## Instructions
-
-### Task 2: Create an automatic approval rule for definition updates
 
 Perform this task on CL1.
 
