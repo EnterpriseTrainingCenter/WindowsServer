@@ -34,12 +34,15 @@ Perform these steps on CL1.
 1. On the page Features, click **Next >**.
 1. On the page WSUS Server, click **Next >**.
 1. On the page Role Services, ensure **WID Connectivity** and **WSUS Services** are activated, while **SQL Server Connectivity** is deactivated. Click **Next >**.
-1. On page Content, ensure the check box **Store updates in the following location (choose) a valid local path on VN1-SRV5.ad.adatum.com, or a remote path** is activated, and, below, type C:\WSUS. Click **Next >**.
-
+1. On page Content, ensure the check box **Store updates in the following location (choose) a valid local path on VN1-SRV5.ad.adatum.com, or a remote path** is activated, and, below, type **C:\WSUS**. Click **Next >**.
 1. On page Web Server Role (IIS), click **Next >**.
 1. On page Role Services, click **Next >**.
 1. On the page Confirmation, verify your selection and click **Install**.
 1. On the page **Results**, click **Close**.
+1. In **Server Manager**, click *Refresh*.
+1. *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Windows Server Update Services at VN1-SRV5**, click **Launch Post-Installation tasks**.
+
+    The configuration will run unattended. After less than a minute, the yellow triangle will disappear and the notification will indicate that the installation succeeded.
 
 Repeat the steps of this task to install the role on **VN2-SRV1**.
 
