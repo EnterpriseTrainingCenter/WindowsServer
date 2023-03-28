@@ -248,10 +248,27 @@ Perform these steps on CL1.
     ````powershell
     Invoke-Command -ComputerName VN2-SRV1 -ScriptBlock {
         Import-Module WebAdministration
+        $path = 'IIS:\AppPools\WsusPool'
         Set-ItemProperty `
-            -Path IIS:\AppPools\WsusPool `
+            -Path $path `
+            -Name queueLength `
+            -Value 2000
+        Set-ItemProperty `
+            -Path $path `
+            -Name processModel.idleTimeout `
+            -Value ([TimeSpan]::FromMinutes(0))
+        Set-ItemProperty `
+            -Path $path `
+            -Name processModel.pingingEnabled `
+            -Value $false
+        Set-ItemProperty `
+            -Path $path `
             -Name recycling.periodicRestart.privateMemory `
-            -Value (3GB) 
+            -Value 0
+        Set-ItemProperty `
+            -Path $path `
+            -Name recycling.periodicRestart.time `
+            -Value ([TimeSpan]::FromMinutes(0))
     }
     ````
 
@@ -414,7 +431,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Microsoft Edge**. 
+1. Open **Microsoft Edge**.
 1. Navigate to <https://www.microsoft.com/en-us/download/details.aspx?id=29065>.
 1. On page Download MICROSOFT SQL SERVER 2012 Feature Pack, beside **Select Language**, ensure **English** is selected.
 1. Click on **Install Instructions**.

@@ -18,15 +18,32 @@ Perform these steps on CL1.
 
 1. On **CL1**, sign in as **ad\Administrator**.
 1. Open **Terminal**.
-1. Increase the private memory limit of the WsusPool application pool to 3 GB.
+1. Increase the private memory limit of the **WsusPool** application pool to **3 GB**.
 
     ````powershell
     Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
         Import-Module WebAdministration
+        $path = 'IIS:\AppPools\WsusPool'
         Set-ItemProperty `
-            -Path IIS:\AppPools\WsusPool `
+            -Path $path `
+            -Name queueLength `
+            -Value 2000
+        Set-ItemProperty `
+            -Path $path `
+            -Name processModel.idleTimeout `
+            -Value ([TimeSpan]::FromMinutes(0))
+        Set-ItemProperty `
+            -Path $path `
+            -Name processModel.pingingEnabled `
+            -Value $false
+        Set-ItemProperty `
+            -Path $path `
             -Name recycling.periodicRestart.privateMemory `
-            -Value (3GB) 
+            -Value 0
+        Set-ItemProperty `
+            -Path $path `
+            -Name recycling.periodicRestart.time `
+            -Value ([TimeSpan]::FromMinutes(0))
     }
     ````
 
@@ -42,13 +59,13 @@ Perform these steps on CL1.
 1. In Windows Server Update Services Configuration Wizard:VN1-SRV5, on page Before You Begin, click **Next >**.
 1. On page Microsoft Update Improvement Program, click **Next >**.
 
-    Optionally, you might deactivate **Yes, I would like to join the Microsoft Update Improvement Program** before clicking **Next >**.
+    Optionally, you might want to deactivate **Yes, I would like to join the Microsoft Update Improvement Program** before clicking **Next >**.
 
 1. On page Choose Upstream Server, ensure **Synchronize from Microsoft Update** is selected and click **Next >**.
 1. On page Specify Proxy Server, ensure, **Use a proxy server when synchronizing** is deactivated and click **Next >**.
 1. Click **Start Connecting**.
 
-Do not wait for products and languages to finish synchronizing. This will take about 10 minutes.
+    Do not wait for products and languages to finish synchronizing. This will take about 10 minutes.
 
 Stay signed in and keep everything open for the next practice.
 
@@ -63,10 +80,27 @@ Perform these steps on CL1.
     ````powershell
     Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
         Import-Module WebAdministration
+        $path = 'IIS:\AppPools\WsusPool'
         Set-ItemProperty `
-            -Path IIS:\AppPools\WsusPool `
+            -Path $path `
+            -Name queueLength `
+            -Value 2000
+        Set-ItemProperty `
+            -Path $path `
+            -Name processModel.idleTimeout `
+            -Value ([TimeSpan]::FromMinutes(0))
+        Set-ItemProperty `
+            -Path $path `
+            -Name processModel.pingingEnabled `
+            -Value $false
+        Set-ItemProperty `
+            -Path $path `
             -Name recycling.periodicRestart.privateMemory `
-            -Value (3GB) 
+            -Value 0
+        Set-ItemProperty `
+            -Path $path `
+            -Name recycling.periodicRestart.time `
+            -Value ([TimeSpan]::FromMinutes(0))
     }
     ````
 
