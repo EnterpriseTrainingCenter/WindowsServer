@@ -8,7 +8,7 @@
 
 ## Task
 
-Confinue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md) and configure it to synchronize all languages, products, and categories except Drivers once a day during off-peak hours. Initiate the initial synchronization of the server.
+Continue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md) and configure it to synchronize all languages, products, and categories except Drivers once a day during off-peak hours. Initiate the initial synchronization of the server.
 
 *Note*: In real world, you should leave Drivers activated. For this lab, Drivers is deactivated for performance reasons, because all computers are virtual machines.
 
@@ -51,8 +51,6 @@ Continue with the configuration.
 ### PowerShell
 
 Perform these steps on CL1.
-
-*Important*: If the Windows Server Update Services Configuration Wizard:VN1-SRV5 is not running anymore, perform these steps:
 
 1. On **CL1**, sign in as **ad\Administrator**.
 1. Open **Terminal**.
