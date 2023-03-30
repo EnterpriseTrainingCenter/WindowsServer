@@ -13,6 +13,7 @@ On CL1, install the Microsoft Deployment Toolkit the Windows ADK for Windows 10,
 
 Perform this task on CL1.
 
+1. Sign in as **ad\Administrator**.
 1. Open **Microsoft Edge**.
 1. In Microsoft Edge, navigate to <https://www.microsoft.com/en-us/download/details.aspx?id=54259>.
 1. On page Download Microsoft Deployment Toolkit (MDT) from Official Microsoft Download Center, click **Download**.
@@ -27,19 +28,7 @@ Perform this task on CL1.
 1. Switch to **Microsoft Edge**.
 1. Navigate to <https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install>.
 1. On page Download and install the Windows ADK | Microsoft Learn, click the link **Other ADK Downloads**.
-1. Under Other ADK Downlods, click the link **Windows ADK for Windows 10, version 2004**.
-1. Under Downloads, under **adksetup.exe**, click **Open file**.
-1. In Windows Assessment and Deployment Kit, on page Specify Location, click **Next**.
-1. On page Windows Kits Privacy, make a selection of your choice and click **Next**.
-1. On page License Agreement, click **Accept**.
-1. On page Select the feature you want to install, deactivate all checkboxes except for the checkbox beside **Deployment Tools**, and click **Install**
-
-    Wait for the download and installation to complete. This takes a minute or two.
-
-1. On page Welcome to the Windows Assessment and Deployment Kit, click **Close**.
-
-1. Switch to **Microsoft Edge**.
-1. In Microsoft Edge, on page Download and install the Windows ADK | Microsoft Learn, click the link **Download the Windows PE add-on for the ADK, version 2004**.
+1. Click the link **Download the Windows PE add-on for the ADK, version 2004**.
 1. Under Downloads, under **adkwinpesetup.exe**, click **Open file**.
 1. In Windows Assessment and Deployment Kit Windows Preinstallation Environment Add-Ons - Windows 10, on page Specify Location, click **Next**.
 1. On page Windows Kits Privacy, make a selection of your choice and click **Next**.
