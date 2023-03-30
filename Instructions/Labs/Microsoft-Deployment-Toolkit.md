@@ -19,8 +19,9 @@ Adatum wants to automate some steps when deploying new servers. For this reason,
 
 ## Exercices
 
-1. Configure a Windows Server installation in Microsoft Deployment Toolkit
-1. Install a Windows Server using the Microsoft Deployment Toolkit
+1. [Configure a Windows Server installation in Microsoft Deployment Toolkit](#exercise-1-configure-a-windows-server-installation-in-microsoft-deployment-toolkit)
+1. [Install a Windows Server using the Microsoft Deployment Toolkit](#exercise-2-install-a-windows-server-using-the-microsoft-deployment-toolkit)
+1. [Integrate MDT with WDS](#exercise-3-integrate-mdt-with-wds)
 
 ## Exercise 1: Configure a Windows Server installation in Microsoft Deployment Toolkit
 
