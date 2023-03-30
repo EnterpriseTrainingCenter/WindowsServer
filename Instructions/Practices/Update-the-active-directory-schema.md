@@ -40,4 +40,4 @@ Perform these steps on VN1-CL1.
 
 Perform these steps on the host.
 
-1. In the menu of **"WIN-CL1" on "..." - Connection to virtual computer**, click Media, DVD Drive, **Eject "2022_x64_EN_Eval.iso"**.
+1. In the menu of **"WIN-CL1" on "..." - Connection to virtual computer**, click **Media**, **DVD Drive**, **Eject "2022_x64_EN_Eval.iso"**.
