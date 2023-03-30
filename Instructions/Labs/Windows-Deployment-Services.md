@@ -39,12 +39,12 @@ Adatum does not want to handle ISO images or physical media anymore to deploy op
 
 ## Exercises
 
-1. Install and configure Windows Deployment Services
-1. Use Windows Deployment Services and Microsoft Deployment Toolkit together
-1. Configure Windows Deployment Services for operating system deployment
-1. Install Windows Server using Windows Deployment Services
+1. [Installing and configuring Windows Deployment Services](#exercise-1-installing-and-configuring-windows-deployment-services)
+1. [Creating answer files](#exercise-2-creating-answer-files)
+1. [Adding images and answer files to WDS](#exercise-3-adding-images-and-answer-files-to-wds)
+1. [Using WDS to install operating systems](#exercise-4-using-wds-to-install-operating-systems)
 
-## Exercise 1: Install and configure Windows Deployment Services
+## Exercise 1: Installing and configuring Windows Deployment Services
 
 1. [Install Windows Deployment Services](#task-1-install-windows-deployment-services) on VN1-SRV8
 1. [Create a volume](#task-2-create-a-volume) on VN1-SRV8 using one of the additional disks
@@ -407,7 +407,7 @@ Perform this task on VN1-SRV8.
 1. In **Select Unattend File**, click **OK**.
 1. In **Image Properties**, click **OK**.
 
-## Exercise 3: Using WDS to install operating systems
+## Exercise 4: Using WDS to install operating systems
 
 Install a new server using WDS.
 
