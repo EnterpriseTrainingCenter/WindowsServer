@@ -24,6 +24,7 @@ The instructions are to be used in conjunction with the original presentation sl
 
 1. [Secure Shell](Labs/Secure-Shell.md)
 1. [Windows Admin Center](Labs/Windows-Admin-Center.md)
+1. [Managing local administrator passwords](Labs/Managing-local-administrator-passwords.md)
 1. [Managing hybrid servers using Azure Arc](Labs/Managing-hybrid-servers-using-Azure-Arc.md)
 1. [Managing Windows Server Update Services](Labs/Managing-Windows-Server-Update-Services.md)
 1. [Windows Deployment Services](Labs/Windows-Deployment-Services.md)
