@@ -146,12 +146,12 @@ Perform this task on VN1-SRV4.
 
 #### Desktop experience
 
-Perform this task on VN1-SRV1.
+Perform this task on VN1-SRV4.
 
 1. Launch the installer.
 
     ````powershell
-    mmsiexec.exe /i C:\LabResources\WindowsAdminCenter.msi
+    msiexec.exe /i C:\LabResources\WindowsAdminCenter.msi
     ````
 
 1. In Windows Admin Center Setup, on page MICROSOFT SOFTWARE LICENSE TERMS, activate **I accept these terms** and click **Next**.
@@ -202,7 +202,7 @@ Perform this task on VN1-SRV1.
 
 #### PowerShell
 
-Perform this task on VN1-SRV1.
+Perform this task on VN1-SRV4.
 
 1. Get the certificate. If you left everything open and the variable ````$certificate```` contains a value from the previous task, you may skip this step.
 
