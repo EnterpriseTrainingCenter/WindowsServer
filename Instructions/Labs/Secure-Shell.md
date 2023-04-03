@@ -120,7 +120,7 @@ Perform this task on CL1.
     ssh-keygen.exe -t ed25519 -f '.ssh\Administrator@ad.adatum.com'
     ````
 
-1. At the prompt Enter passphrase and Enter same passphrase again, enter a secure password of your choice. Make sure you write down the passphrase in a secure location.
+1. At the prompt Enter passphrase and Enter same passphrase again, enter a secure passphrase of your choice. Make sure you write down the passphrase in a secure location.
 
 ### Task 2: Deploy the public key
 
@@ -178,8 +178,7 @@ Perform this task on CL1.
     ssh.exe vn1-srv5.ad.adatum.com -i "~\.ssh\Administrator@ad.adatum.com"
     ````
 
-    There should be no password prompt.
-
+1. At the prompt Enter passphrase for ~\\.ssh\\Administrator@ad.adatum.com, type the passphrase you created an took note of in a previous task.
 1. Confirm the user name you are connected with.
 
     ````shell
@@ -210,8 +209,11 @@ Perform this task on CL1.
 1. Load your key files into ssh-agent.
 
     ````powershell
-    ssh-add.exe "~\.ssh\Administrator@ad.adatum.com"
+    ssh-add.exe ".ssh\Administrator@ad.adatum.com"
     ````
+
+1. At the prompt Enter passphrase for .ssh\\Administrator@ad.adatum.com, type the passphrase you created an took note of in a previous task.
+
 
 ### Task 5: Verify the connectivity with ssh-agent
 
