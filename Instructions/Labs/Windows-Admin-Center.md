@@ -18,7 +18,7 @@
 1. Set permissions on the Web Server certificate template.
 
     ````powershell
-    C:\LabResources\Solutions\Set-CertTemplatePermissions.ps1 `
+    C:\LabResources\Set-CertTemplatePermissions.ps1 `
         -Template 'WebServer' -ComputerName 'VN1-SRV4'
     ````
 
