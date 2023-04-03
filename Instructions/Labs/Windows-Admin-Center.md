@@ -154,14 +154,6 @@ Perform this task on VN1-SRV1.
     mmsiexec.exe /i C:\LabResources\WindowsAdminCenter.msi
     ````
 
-    If you prefer to install Windows Admin Center using a single command line, execute the following command.
-
-    ````powershell
-    msiexec.exe /i C:\LabResources\WindowsAdminCenter.msi /qb+ /L*v 'C:\WAC-Install.log' CHK_REDIRECT_PORT_80=1 SME_PORT=443 SSL_CERTIFICATE_OPTION=installed SME_THUMBPRINT=$($certificate.Thumbprint)
-    ````
-
-    Wait for the installation to complete. This should take about a minute. Skip to step 15.
-
 1. In Windows Admin Center Setup, on page MICROSOFT SOFTWARE LICENSE TERMS, activate **I accept these terms** and click **Next**.
 1. On page Send diagnostic data to Microsoft, select your preferred option and click **Next**.
 1. On page Use Microsoft Updte to help keep your computer secure and up-to-date, ensure **I don't want to use Microsoft Update** is selected and click **Next**.
