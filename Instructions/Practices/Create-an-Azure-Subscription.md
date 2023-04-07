@@ -4,7 +4,7 @@
 
 In your lab host provider, in course AZ-801, under **Module 9. Implementing operational monitoring in hybrid scenarios**, click **Launch Lab**.
 
-    Take a note of the credentials for Azure.
+Take a note of the credentials for Azure.
 
 ## Task
 
