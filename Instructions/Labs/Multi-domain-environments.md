@@ -197,7 +197,6 @@ Perform this task on CL1.
 
 1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
 1. In **VN1-SRV7.clients.ad.adatum.com Properties**, click **OK**.
-1. In the context-menu of **VN1-SRV7.clients.ad.adatum.com**, click **Clear cache**.
 
 > You should prefer conditional forwarders, because general forwarding of all unresolved queries may impact the performance of external Internet services negatively.
 
@@ -223,7 +222,7 @@ Perform this task on CL1.
         -ComputerName $computerName
     ````
 
-1. On **VN1-SRV7**, remove the DNS forwarder **10.1.1.8**.
+1. On **VN1-SRV7**, set the DNS forwarders to **8.8.8.8** and **8.8.4.4**.
 
     ````powershell
     Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName $computerName 
@@ -232,14 +231,6 @@ Perform this task on CL1.
     > The name resolution to the root domain worked, because of the general forwarder.
 
 1. At the prompt **Do you want to remove the forwarder 10.1.1.8 on VN1-SRV7 server?**, enter **y**.
-
-1. On **VN1-SRV7**, clear the DNS server's cache.
-
-    ````powershell
-    Clear-DnsServerCache -ComputerName $computerName
-    ````
-
-1. At the prompt **This will delete all the cached records on the server and might impact performance, do you want to continue?**, enter **y**.
 
 > You should prefer conditional forwarders, because general forwarding of all unresolved queries may impact the performance of external Internet services negatively.
 
