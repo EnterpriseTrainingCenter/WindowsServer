@@ -528,8 +528,8 @@ Perform this task on VN1-SRV5.
     Remove-NetIPAddress -InterfaceAlias $interfaceAlias -IPAddress 10.1.1.40
     ````
 
-1. At the prompt Performing operation "Remove" on Target "NetIPAddress -IPv4Address 10.1.1.40 -InterfaceIndex 2 -Store Active", enter **y**.
-1. At the prompt Performing operation "Remove" on Target "NetIPAddress -IPv4Address 10.1.1.40 -InterfaceIndex 2 -Store Persistent", enter **y**.
+1. At the prompt **Performing operation "Remove" on Target "NetIPAddress -IPv4Address 10.1.1.40 -InterfaceIndex 2 -Store Active"**, enter **y**.
+1. At the prompt **Performing operation "Remove" on Target "NetIPAddress -IPv4Address 10.1.1.40 -InterfaceIndex 2 -Store Persistent"**, enter **y**.
 1. Add the IP address **10.1.1.8** with the prefix length of **24** to the interface **VNet1**.
 
     ````powershell
@@ -673,9 +673,15 @@ Perform this task on CL1.
     Set-ADDomainMode -Identity ad.adatum.com -DomainMode Windows2016Domain
     ````
 
-    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level.
+    If you receive an error message **Set-ADDomainMode : A referral was returned from the server**, restart both domain controllers and try again.
+
+    ````powershell
+    Restart-Computer -ComputerName vn1-srv5, vn2-srv1 -WsmanAuthentication Default
+    ````
 
 1. At the prompt **Performing the operation "Set" on target "DC=ad,DC=adatum,DC=com".**, enter **y**.
+
+    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level.
 
 ### Task 2: Raise the forest functional level
 
@@ -698,12 +704,12 @@ Perform this task on CL1.
 1. Set the forest mode to Windows Server 2016.
 
     ````powershell
-    Set-ADForestMode -Identity ad.adatum.com -DomainMode Windows2016Forest
+    Set-ADForestMode -Identity ad.adatum.com -ForestMode Windows2016Forest
     ````
 
 1. At the prompt **Performing the operation "Set" on target "CN=Partitions,CN=Configuration,DC=ad,DC=adatum,DC=com".**, enter **y**.
 
-    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level. Therefore, you will receive an error message.
+    > You will receive the error message **Set-ADForestMode : The functional level of the domain (or forest) cannot be lowered to the requested value**. The highest possible forest functional level is Windows Server 2016. The domain is already at that level.
 
 1. Check the forest mode.
 
@@ -737,7 +743,7 @@ Perform this task on VN2-SRV2.
 1. On page **Server Roles**, click **Next >**.
 1. On page Features, click **Next >**.
 1. On page **AD DS**, click **Next >**.
-1. On page **Confirmation**, click **Install**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
 #### PowerShell
@@ -749,8 +755,7 @@ Peform this task on VN2-SRV2.
 
     ````powershell
     Install-WindowsFeature `
-        -Name AD-Domain-Services `
-        -IncludeManagementTools
+        -Name AD-Domain-Services -IncludeManagementTools -Restart
     ````
 
 ### Task 2: Configure Active Directory Domain Services as new forest
