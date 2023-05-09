@@ -21,6 +21,10 @@
 * PM-SRV4
 * CL1
 
+## Setup
+
+If you skipped previous practices or labs, on CL1, run ````C:\Labs\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
 ## Task
 
 On CL1, in Server Manager, add all Servers with a name starting with VN or PM and explore Server Manager.
