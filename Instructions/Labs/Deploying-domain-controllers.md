@@ -18,6 +18,9 @@
 
 If you skipped previous practices or labs, on CL1, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
 
+## Known issues
+
+<https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/291>
 
 ## Introduction
 
@@ -92,7 +95,7 @@ Perform this task on CL1.
 1. On page **Server Roles**, click **Next >**.
 1. On page Features, click **Next >**.
 1. On page **AD DS**, click **Next >**.
-1. On page **Confirmation**, click **Install**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
 Repeat these steps, but in step 5, on page **Server Selection**, click **VN2-SRV1**.
@@ -106,7 +109,8 @@ Peform this task on CL1.
 
     ````powershell
     Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -ScriptBlock {
-        Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+        Install-WindowsFeature `
+            -Name AD-Domain-Services -IncludeManagementTools -Restart
     }
     ````
 
@@ -187,8 +191,10 @@ Perform this task on CL1.
 1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
 1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
 1. In **VN1-SRV5.ad.adatum.com Properties**, click **OK**.
+1. In **DNS Manager**, in the context-menu of **DNS**, click **Connect to DNS Server...**
+1. In **Connect to DNS Server**, click **The following computer**, type **VN2-SRV1.ad.adatum.com**, and click **OK**.
 
-Repeat these steps, but in step 4, connect to **VN2-SRV1.ad.adatum.com**.
+Repeat from step 4 for **vn2.srv1.ad.adatum.com**.
 
 #### PowerShell
 
@@ -256,7 +262,7 @@ Perform this task on VN2-SRV1.
 1. In Network Connections, in the context-menu of **Ethernet**, click **Properties**.
 1. In Ethernet Properties, click **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
 1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.1.40**, in **Alternate DNS server**, ensure **127.0.0.1** is filled in, and click **OK**.
-1. In **Ethernet Properties**, click **Close**.
+1. In **Ethernet Properties**, click **OK**.
 1. Sign out.
 
 #### PowerShell
@@ -306,7 +312,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **DNS**.
-1. In the dialog **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5**, and click **OK**.
+1. If the dialog **Connect to DNS Server** appears, click **The following computer**, type **VN1-SRV5**, and click **OK**.
 1. In DNS, click **VN1-SRV5**.
 1. Expand **VN1-SRV5**, **Forward Lookup Zones** and click **_msdcs.ad.adatum.com**
 
@@ -314,7 +320,7 @@ Perform this task on CL1.
 
 1. Expand **ad.adatum.com**, and click **_tcp**.
 
-    > There should 12 SRV records for the services _gc, _kerberos, _kpasswd, and _ldap, pointing to VN1-SRV1.ad.adatum.com, VN1-SRV5.ad.adatum.com, and vn2-srv1.ad.adatum.com.
+    > There should 9 SRV records for the services \_kerberos, \_kpasswd, and \_ldap, pointing to VN1-SRV1.ad.adatum.com, VN1-SRV5.ad.adatum.com, and vn2-srv1.ad.adatum.com. There is an additional SRV record for the service  \_gc pointing to VN1-SRV1.ad.adatum.com, but this record was present originally.
 
 ### Task 2: Verify shares for Active Directory
 
@@ -494,27 +500,41 @@ Perform this task on CL1.
 
 ### Task 2: Add the IP address of the decommissioned domain controller to the new domain controller
 
-Perform this task on CL1.
+#### SConfig
 
-1. In the context menu of **Start**, click **Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV5**.
+Perform this task on VN1-SRV5.
+
+1. Sign in as **ad\Administrator**.
+1. In Sconfig, enter **8**.
+1. In Network settings, enter **1**.
+1. In Network Adapter settings, enter **1**.
+1. Beside Select DHCP, Static IP, enter **s**.
+1. Beside Enter static IP address, enter **10.1.1.8**.
+1. Beside Enter subnet mask, enter **255.255.255.0**.
+1. Beside Enter default gateway, enter **10.1.1.1**.
+1. In Server Configuration, enter **12**.
+1. In message box **Are you sure to log off?**, click **Yes**.
+
+#### PowerShell
+
+Perform this task on VN1-SRV5.
+
+1. Sign in as **ad\Administrator**.
+1. In Sconfig, enter **15**.
+1. Remove the IP address **10.1.1.40** from the interface **VNet1**
 
     ````powershell
-    Enter-PSSession -ComputerName VN1-SRV5
+    $interfaceAlias = 'VNet1'
+    Remove-NetIPAddress -InterfaceAlias $interfaceAlias -IPAddress 10.1.1.40
     ````
 
-    Note: Currently, there is no valid DNS server. Therefore, this takes a bit longer than expected.
-
-1. Add the IP address **10.1.1.8** to the network interface **VNet1**.
-
-    ````powershell
-    New-NetIPAddress -InterfaceAlias VNet1 -IPAddress 10.1.1.8
-    ````
-
-1. Exit from the remote PowerShell session.
+1. At the prompt Performing operation "Remove" on Target "NetIPAddress -IPv4Address 10.1.1.40 -InterfaceIndex 2 -Store Active", enter **y**.
+1. At the prompt Performing operation "Remove" on Target "NetIPAddress -IPv4Address 10.1.1.40 -InterfaceIndex 2 -Store Persistent", enter **y**.
+1. Add the IP address **10.1.1.8** with the prefix length of **24** to the interface **VNet1**.
 
     ````powershell
-    Exit-PSSession
+    New-NetIPAddress `
+        -InterfaceAlias $interfaceAlias -IPAddress 10.1.1.8 -PrefixLength 24
     ````
 
 ### Task 3: Demote the old domain controller
