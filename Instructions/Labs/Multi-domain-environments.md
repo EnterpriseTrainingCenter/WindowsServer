@@ -45,7 +45,7 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 
 ## Exercise 1: Deploy a child domain
 
-1. [Install Active Directory Domain Services on VN1-SRV7](#task-1-install-active-directory-domain-services-on-VN1-SRV7)
+1. [Install Active Directory Domain Services on VN1-SRV7](#task-1-install-active-directory-domain-services)
 1. [Configure Active Directory Domain Services as new child domain](#task-2-configure-active-directory-domain-services-as-new-child-domain) clients.ad.adatum.com on VN1-SRV7
 1. [Optimize name resolution using conditional forwarders](#task-3-optimize-name-resolution-performance-using-conditional-forwarders) on VN1-SRV7
 
@@ -65,7 +65,7 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 1. [Change the DNS client settings](#task-6-change-the-dns-client-settings) on CL4 to use 10.1.1.56 (VN1-SRV7)
 1. [Connect to domain](#task-7-connect-to-domain) clients.ad.contoso.com on CL4.
 
-### Task 1: Install Active Directory Domain Services on VN1-SRV7
+### Task 1: Install Active Directory Domain Services
 
 #### Desktop experience
 
@@ -81,7 +81,7 @@ Perform this task on CL1.
 1. On page **Server Roles**, click **Next >**.
 1. On page Features, click **Next >**.
 1. On page **AD DS**, click **Next >**.
-1. On page **Confirmation**, click **Install**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
 #### PowerShell
@@ -95,7 +95,8 @@ Peform this task on CL1.
     Install-WindowsFeature `
         -Name AD-Domain-Services `
         -IncludeManagementTools `
-        -ComputerName VN1-SRV7
+        -ComputerName VN1-SRV7 `
+        -Restart
     ````
 
 ### Task 2: Configure Active Directory Domain Services as new child domain
@@ -119,6 +120,7 @@ Perform this task on CL1.
 1. On page Review Options, click **Next >**.
 1. On page Prerequisites Check, click **Install**.
 1. On page Results, click **Close**.
+1. Sign out.
 
 #### PowerShell
 
@@ -168,17 +170,24 @@ Perform this task on CL1.
 
     Note: You may receive an error message that the session was closed or broken. You can safely ignore that error. This is normal, as the server reboots.
 
+1. Sign out.
+
+    ````powershell
+    logoff
+    ````
+
 ### Task 3: Optimize name resolution performance using conditional forwarders
 
 #### Desktop experience
 
 Perform this task on CL1.
 
+1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. Open **DNS**.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV7.clients.ad.adatum.com**, and click **OK**.
 1. In DNS Manager, click and expand **VN1-SRV7.clients.ad.adatum.com**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
-1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.40** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and ensure **All DNS servers in this forest** is selected. Click **OK**.
+1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.40** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, in the drop-downbelow, click **All DNS servers in this forsst**. Click **OK**.
 1. In **DNS Manager**, click **VN1-SRV7.clients.ad.adatum.com**.
 1. In the right pane, double-click **Forwarders**.
 1. In VN1-SRV7.clients.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
@@ -196,6 +205,7 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
+1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
 1. Store the name of the DNS server **VN1-SRV7** in a variable.
 
@@ -244,7 +254,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name ad.adatum.com -Server VN1-SRV7.clients.ad.adatum.com
     ````
 
-    > The IP addresses 10.1.1.8, 10.1.1.40 and 10.1.2.8 should be returned.
+    > The IP addresses 10.1.1.8 and 10.1.2.8 should be returned.
 
 1. Try to resolve the DNS name **clients.ad.adatum.com** on the DNS server **VN1-SRV5.ad.adatum.com**.
 
@@ -364,7 +374,7 @@ Perform this task on CL4.
 
     > Why do you need to add this conditional forwarder before deploying the new tree?
 
-1. [Install Active Directory Domain Services on PM-SRV1](#task-2-install-active-directory-domain-services-on-PM-SRV1)
+1. [Install Active Directory Domain Services on PM-SRV1](#task-2-install-active-directory-domain-services)
 1. [Configure Active Directory Domain Services as new tree](#task-3-configure-active-directory-domain-services-as-new-tree) named extranet.adatum.com on PM-SRV1
 1. [Verify name resolution of the new tree](#task-4-verify-name-resolution-of-the-new-tree)
 
@@ -416,7 +426,7 @@ Perform this task on CL1.
 
 > You need to add this conditional forwarder to ensure name resolution for the new tree from the existing root domain. Without this name resolution, creation of the trust between the root domain and the new tree fails.
 
-### Task 2: Install Active Directory Domain Services on PM-SRV1
+### Task 2: Install Active Directory Domain Services
 
 #### Desktop experience
 
