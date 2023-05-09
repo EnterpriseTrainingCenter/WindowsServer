@@ -139,7 +139,7 @@ Perform this task on CL1.
 1. On page Prerequisites Check, click **Install**.
 1. On page Results, click **Close**.
 
-Repeat these steps to promote VN2-SRV1 to a domain controller.
+Repeat these steps to promote VN2-SRV1 to a domain controller, but, in step 6, leave **Global Catalog (GC)** activated.
 
 #### PowerShell
 
@@ -162,15 +162,29 @@ Perform this task on CL1.
     ````
 
 1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
-1. Promote **VN1-SRV5** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
+1. Promote **VN1-SRV5** to a domain controller in the domain **ad.adatum.com**. Install DNS at the same time, but do not make it a Global Catalog server.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
     Install-ADDSDomainController `
             -DomainName ad.adatum.com `
             -Credential $using:credential `
             -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
-            -InstallDns 
+            -InstallDns `
+            -NoGlobalCatalog
+    }
+    ````
+
+1. At the prompts **The target server will be configured as a domain controller and restarted when this operation is complete.**, enter **y**.
+1. Promote **VN2-SRV1** to a domain controller in the domain **ad.adatum.com**. Install DNS at the same time, and make it a Global Catalog server.
+
+    ````powershell
+    Invoke-Command -ComputerName VN2-SRV1 -ScriptBlock {
+    Install-ADDSDomainController `
+            -DomainName ad.adatum.com `
+            -Credential $using:credential `
+            -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
+            -InstallDns
     }
     ````
 
