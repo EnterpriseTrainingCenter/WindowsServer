@@ -546,7 +546,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
 1. In Remove Roles and Features Wizard, on page Befor You Begin, click **Next >**.
-1. On page Server Selection, click VN1-SRV1.ad.adatum.com and click **Next >**.
+1. On page Server Selection, click **VN1-SRV1.ad.adatum.com** and click **Next >**.
 1. On page Remove server roles, deactivate **Active Directory Domain Services**.
 1. In dialog Remove features that require Active Directory Domain Services, click **Remove Features**.
 1. In dialog Validation Results, click **Demote this domain controller**.
@@ -601,7 +601,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
 1. In Remove Roles and Features Wizard, on page Befor You Begin, click **Next >**.
-1. On page Server Selection, click VN1-SRV1.ad.adatum.com and click **Next >**.
+1. On page Server Selection, click **VN1-SRV1.ad.adatum.com** and click **Next >**.
 1. On page Remove server roles, deactivate **Active Directory Domain Services**.
 1. In dialog Remove features that require Active Directory Domain Services, click **Remove Features**.
 1. On page **Remove server roles**, deactivate **DNS Server**.
@@ -617,7 +617,7 @@ Perform this task on CL1.
 1. Shut down **VN1-SRV1**.
 
     ````powershell
-    Stop-Computer -ComputerName VN1-SRV1
+    Stop-Computer -ComputerName VN1-SRV1 -WsmanAuthentication Default
     ````
 
 #### PowerShell
@@ -636,7 +636,7 @@ Perform this task on CL1.
 1. Shut down VN1-SRV1.
 
     ````powershell
-    Stop-Computer -ComputerName VN1-SRV1
+    Stop-Computer -ComputerName VN1-SRV1 -WsmanAuthentication Default
     ````
 
 ## Exercise 5: Raise the domain and forest functional level
