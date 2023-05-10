@@ -8,7 +8,7 @@
 
 ## Task
 
-On VN1-SRV4, to install Windows Admin Center, run **C:\LabResources\Solutions\Install-AdminCenter.ps1**.
+On VN1-SRV4, to install Windows Admin Center, run **C:\LabResources\Install-AdminCenter.ps1**.
 
 ## Instructions
 
@@ -19,5 +19,5 @@ Perform these steps on VN1-SRV4.
 1. At the command prompt run
 
     ````powershell
-    C:\LabResources\Solutions\Install-AdminCenter.ps1
+    C:\LabResources\Install-AdminCenter.ps1
     ````
