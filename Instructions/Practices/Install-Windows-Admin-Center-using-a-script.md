@@ -19,5 +19,5 @@ Perform these steps on VN1-SRV4.
 1. At the command prompt run
 
     ````powershell
-    C:\LabResources\Install-AdminCenter.ps1
+    C:\LabResources\Solutions\Install-AdminCenter.ps1
     ````
