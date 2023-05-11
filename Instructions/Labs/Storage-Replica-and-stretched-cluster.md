@@ -164,13 +164,14 @@ Perform these steps on CL1.
 
    ````powershell
    $initiatorIdPrefix = 'IQN:iqn.1991-05.com.microsoft:'
+   $DomainSuffix = '.ad.adatum.com'
    New-IscsiServerTarget `
-      -TargetName "$initatorIdPrefix.VN2-CLST1" `
-      -InitiatorIds "VN2-SRV1" `
+      -TargetName "VN2-CLST1" `
+      -InitiatorIds ($initatorIdPrefix + "VN2-SRV1" + $DomainSuffix) `
       -ComputerName $computerName
    New-IscsiServerTarget `
-      -TargetName "$initatorIdPrefix.VN3-CLST1" `
-      -InitiatorIds "VN3-SRV1" `
+      -TargetName "VN3-CLST1" `
+      -InitiatorIds ($initatorIdPrefix + "VN3-SRV1" + $DomainSuffix) `
       -ComputerName $computerName
    ````
 
@@ -179,13 +180,13 @@ Perform these steps on CL1.
    ````powershell
    $diskParams | Where-Object { $PSItem -like "$path\VN2-*" } | ForEach-Object { 
       Add-IscsiVirtualDiskTargetMapping `
-         -TargetName "$initiatorIdPrefix.VN2-CLST1" `
+         -TargetName "VN2-CLST1" `
          -Path $PSItem.Path `
          -ComputerName $computerName 
    }
    $diskParams | Where-Object { $PSItem -like "$path\VN3-*" } | ForEach-Object { 
       Add-IscsiVirtualDiskTargetMapping `
-         -TargetName "$initiatorIdPrefix.VN3-CLST1" `
+         -TargetName "VN3-CLST1" `
          -Path $PSItem.Path `
          -ComputerName $computerName 
    }
@@ -325,7 +326,7 @@ Perform these steps on CL1.
 Perform this task on CL1.
 
 1. Open **Server Manager**.
-1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
+1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN2-SRV1.ad.adatum.com** and click **Next >**.
@@ -421,7 +422,7 @@ From **\\\VN2-SRV1\\C$\\Temp** open the report in a browser.
 Perform this task on CL1.
 
 1. Open Server Manager.
-1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
+1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN2-SRV1.ad.adatum.com** and click **Next >**.
