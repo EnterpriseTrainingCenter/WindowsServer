@@ -163,7 +163,7 @@ Perform this task on CL1.
     ````
 
 1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
-1. Promote **VN1-SRV5** to a domain controller in the domain **ad.adatum.com**. Install DNS at the same time, but do not make it a Global Catalog server.
+1. Promote **VN1-SRV5** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
 
     ````powershell
     $job = Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -AsJob -ScriptBlock {
