@@ -18,7 +18,20 @@
 1. In the context menu of **Start**, click **Terminal**.
 1. In Terminal, execute ````C:\LabResources\Solutions\New-Shares.ps1````.
 
-    You do not have to wait for the script to finish.
+    You do not have to wait for the script to finish. You can safely ignore the following warnings:
+
+    ````text
+    WARNING: Certificate cannot be requested!
+    ````
+
+    ````text
+    WARNING: This script cannot add computers to Windows Admin Center
+    ````
+
+    ````text
+    WARNING: Junction cannot be created.
+    ````
+
 
 1. On **CL3**, sign in ad **.\\Administrator**.
 1. On **CL4**, sign in ad **.\\Administrator**.
@@ -162,7 +175,7 @@ Perform this task on CL1.
 
 1. At the prompt **The target server will be configured as a domain controller and restarted when this operation is complete.**, enter **y**.
 
-1. Exit the remote PowerShell session
+1. Exit the remote PowerShell session.
 
     ````powershell
     Exit-PSSession
@@ -399,12 +412,6 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@ad.adatum.com**.
 1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. Store the name of the DNS server **VN1-SRV5** in a variable.
-
-    ````powershell
-    $computerName = 'VN1-SRV5'
-    ````
-
 1. On **VN1-SRV5**, add a conditional forwarder for zone **extranet.adatum.com** pointing to **10.1.200.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
@@ -433,7 +440,7 @@ Perform this task on CL1.
 1. On page **Server Roles**, click **Next >**.
 1. On page Features, click **Next >**.
 1. On page **AD DS**, click **Next >**.
-1. On page **Confirmation**, click **Install**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 1. Run **Terminal**.
 1. In Terminal, configure the inbound rule for Windows Remote Management (HTTP-In) for public networks in Windows Firewall on PM-SRV1 to allow for connections beyond the local subnet.
@@ -460,6 +467,7 @@ Peform this task on CL1.
     Install-WindowsFeature `
         -Name AD-Domain-Services, DNS `
         -IncludeManagementTools `
+        -Restart `
         -ComputerName PM-SRV1
     ````
 

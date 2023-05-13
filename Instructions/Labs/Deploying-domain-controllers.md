@@ -16,7 +16,7 @@
 1. On **VN1-SRV1** sign in as **ad\\Administrator**.
 1. On **VN2-SRV2** sign in as **.\\Administrator**.
 
-If you skipped previous practices or labs, on CL1, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
+If you skipped previous practices or labs, in **Terminal** on **CL1**, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
 
 ## Known issues
 
@@ -34,6 +34,8 @@ The domain controller still running Windows Server 2019 must be replaced by a Wi
 1. [Decommission a domain controller](#exercise-4-decommission-a-domain-controller)
 1. [Raise domain and forest functional level](#exercise-5-raise-the-domain-and-forest-functional-level)
 1. [Deploy a new forest](#exercise-6-deploy-a-new-forest)
+
+Note: Exercise 6 is not dependent on the other exercises. To safe time, you may run the tasks of exercise 6 while you are waiting for execution of tasks in the other exercises.
 
 ## Exercise 1: Deploy additional domain controllers
 
@@ -164,16 +166,31 @@ Perform this task on CL1.
 1. Promote **VN1-SRV5** to a domain controller in the domain **ad.adatum.com**. Install DNS at the same time, but do not make it a Global Catalog server.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -ScriptBlock {
+    $job = Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -AsJob -ScriptBlock {
     Install-ADDSDomainController `
             -DomainName ad.adatum.com `
             -Credential $using:credential `
             -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
-            -InstallDns 
+            -InstallDns `
+            -Force
     }
     ````
 
-1. At the prompts **The target server will be configured as a domain controller and restarted when this operation is complete.**, enter **y**.
+1. Wait for the job to complete.
+
+    ````powershell
+    $job | Wait-Job
+    ````
+
+    This will take a few minutes.
+
+1. Read the output of the job.
+
+    ````powershell
+    $job | Receive-Job
+    ````
+
+    The value of the property **Status** should be **Success** for both servers.
 
 ### Task 4: Configure forwarders
 
@@ -454,7 +471,7 @@ Perform this task on CL1.
     ````powershell
     New-NetIPAddress `
         -InterfaceAlias Ethernet `
-        -IPAddress 10.1.1.200 `
+        -IPAddress 10.1.1.9 `
         -PrefixLength 24 `
         -CimSession $cimSession
     ````
@@ -478,7 +495,13 @@ Perform this task on CL1.
         -Confirm: $false
     ````
 
-    Note: During execution of the command, the network connection to VN1-SRV1 will be dropped. You do not need to wait for the reconnection.
+    Note: During execution of the command, the network connection to VN1-SRV1 will be dropped. You do not need to wait for the reconnection, because the creconnection may take a few minutes. Continue with the next task and revisit this task afterwards for the last step.
+
+1. Remove the CIM session.
+
+    ````powershell
+    Remove-CimSession $cimSession
+    ````
 
 ### Task 2: Add the IP address of the decommissioned domain controller to the new domain controller
 
@@ -557,31 +580,40 @@ Perform this task on CL1.
     Clear-DnsClientCache
     ````
 
-1. Open a remote PowerShell session to **VN1-SRV1**.
+1. Store the new local administrator password in a variable.
 
     ````powershell
-    Enter-PSSession -ComputerName VN1-SRV1
+    $localAdministratorPassword = Read-Host `
+        -Prompt 'LocalAdministratorPassword' `
+        -AsSecureString
     ````
 
-1. Demote the domain controller.
+1. At the prompt **LocalAdministratorPassword** enter a secure password and take a note.
+
+1. Demote the domain controller VN1-SRV1.
 
     ````powershell
-    Uninstall-ADDSDomainController -NoRebootOnCompletion
+    $job = Invoke-Command -ComputerName VN1-SRV1 -AsJob -ScriptBlock {
+        Uninstall-ADDSDomainController `
+            -LocalAdministratorPassword $using:localAdministratorPassword -Force
+    }
     ````
 
-1. At the prompts **LocalAdministratorPassword** and **Confirm LocalAdministratorPassword** enter a secure password and take a note.
-1. At the prompt **The server will be automatically restarted when this operation is complete. The domain will no longer exist after you uninstall Active Directory Domain Services from the last domain controller in the domain.**, enter **y**.
-1. Exit from the remote PowerShell session.
+1. Wait for the job to complete.
 
     ````powershell
-    Exit-PSSession
+    $job | Wait-Job
     ````
 
-1. Restart VN1-SRV1.
+    This will take a few minutes.
+
+1. Read the output of the job.
 
     ````powershell
-    Restart-Computer VN1-SRV1 -WsmanAuthentication Default
+    $job | Receive-Job
     ````
+
+    The value of the property **Status** should be **Success**.
 
 ### Task 4: Remove roles from the decommissioned domain controller
 
@@ -871,6 +903,7 @@ Perform this task on VN2-SRV2.
 
 Perform this task on VN2-SRV2.
 
+1. Sign in as **Administrator@ad.contoso.com**.
 1. Run **Windows PowerShell (Admin)**.
 1. In Windows PowerShell (Admin), configure the forwarder to **8.8.8.8** and **8.8.4.4**.
 
