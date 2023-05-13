@@ -1156,7 +1156,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name extranet.adatum.com -Server 10.1.2.16
     ````
 
-    > You should get the IP address 10.1.200.8.
+    > You should get the IP address 10.1.200.8 and 10.1.200.9.
 
 ### Task 4: Create a forest trust
 
@@ -1170,7 +1170,7 @@ Perform this task on CL1.
 1. On page Trust Name, in **Name**, type **ad.contoso.com** and click **Next >**.
 1. On page Trust Type, click **Forest trust** and click **Next >**.
 1. On page Direction of Trust, ensure Two-way is selected and click **Next >**.
-1. On page Side of Trust, click **Both this domain and the specified doman** and click **Next >**.
+1. On page Side of Trust, click **Both this domain and the specified domain** and click **Next >**.
 1. On page User name and Password, type the credentials for **Administrator@ad.contoso.com**.
 1. On page **Outgoing Trust Authentication Level-Local Forest**, click **Selective authentication** and click **Next >**.
 1. On page **Outgoing Trust Authentication Level-Specified Forest**, click **Forest-wide authentication** and click **Next >**.
@@ -1225,7 +1225,7 @@ Perform this task on CL1.
 1. In Active Directory Administrative Center, click **Global Search**.
 1. In Global Search, in **Search**, type **VN1-SRV10** and click **Search**.
 1. Double-click **VN1-SRV10**.
-1. In CL4, click **Extensions**.
+1. In VN1-SRV10, click **Extensions**.
 1. In Extensions, on tab **Security**, click **Add...**.
 1. In **Select Users, Contacts, or Other Objects**, in **Enter the object names to select**, type **Marketing Read** and click **OK**.
 1. In **VN1-SRV10**, under **Permissions for Marketing Read**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
