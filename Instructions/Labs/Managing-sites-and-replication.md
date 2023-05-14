@@ -157,6 +157,8 @@ Perform this task on CL1.
 
 ### Task 4: Move domain controllers into sites
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
@@ -168,6 +170,50 @@ Perform this task on CL1.
 1. In Move Server, click **VNet2** and click **OK**.
 1. In the context-menu of **PM-SRV1**, click **Move...**.
 1. In Move Server, click **Perimeter** and click **OK**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. List domain controllers in site VNet1.
+
+    ````powershell
+    $adReplicationSite = Get-ADReplicationSite -Identity VNet1
+    Get-ADObject `
+        -SearchBase "CN=Servers, $($adReplicationSite.DistinguishedName)" `
+        -Filter 'ObjectClass -eq "server"'
+
+1. Delete VN1-SRV1.
+
+    ````powershell
+    Get-ADObject `
+        -SearchBase "CN=Servers, $($adReplicationSite.DistinguishedName)" `
+        -Filter 'ObjectClass -eq "server" -and Name -eq "VN1-SRV1"' |
+    Remove-ADObject -Recursive
+    ````
+
+1. At the prompt
+
+    ````text
+    Are you sure you want to perform this action?
+    Performing the operation "Remove" on target
+    "CN=VN1-SRV1,CN=Servers,CN=VNet1,CN=Sites,CN=Configuration,DC=ad,DC=adatum,DC=com".
+    ````
+
+    enter **y**.
+
+1. Move the domain controller **VN2-SRV1** to site **VNet2**.
+
+    ````powershell
+    Move-ADDirectoryServer -Identity VN2-SRV1 -Site VNet2
+    ````
+
+1. Move the domain controller **PM-SRV1** to site **Perimeter**.
+
+    ````powershell
+    Move-ADDirectoryServer -Identity PM-SRV1 -Site Perimeter
+    ````
 
 ### Task 5: Verify the site of client
 
