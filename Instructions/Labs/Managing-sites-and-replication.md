@@ -87,6 +87,8 @@ Perform this task on CL1.
 
 ### Task 2: Create sites
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
@@ -108,6 +110,24 @@ Perform this task on CL1.
     click **OK**.
 
 Repeat steps 3 - 5 to create the sites **VNet3** and **Perimeter**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Rename the site **Default-First-Site-Name** to **VNet1**.
+
+    ````PowerShell
+    Get-ADReplicationSite -Identity Default-First-Site-Name | Rename-ADObject -NewName VNet1
+    ````
+
+1. Create the sites **Vnet2**, **VNet3**, and **Perimeter**.
+
+    ````powershell
+    'VNet2', 'VNet3', 'Perimeter' | 
+    ForEach-Object { New-ADReplicationSite -Name $PSItem }
+    ````
 
 ### Task 3: Create subnets
 
