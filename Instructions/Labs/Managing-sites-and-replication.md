@@ -217,6 +217,19 @@ Perform this task on CL1.
 
 ### Task 5: Verify the site of client
 
+#### Desktop experience
+
+Perform this task on CL2.
+
+1. Restart the computer.
+1. Sign in as **ad\Administrator**.
+1. Open **Registry Editor**.
+1. In Registry Editor, expand **Computer**, **HKEY_LOCAL_MACHINE**, **SYSTEM**, **CurrentControlSet**, **Netlogon**, **Parameters**.
+
+    > The value DynamicSiteName should be VNet2.
+
+#### PowerShell
+
 Perform this task on CL1.
 
 1. Restart **CL2**.
