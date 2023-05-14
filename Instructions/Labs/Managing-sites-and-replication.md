@@ -12,6 +12,7 @@
 ## Setup
 
 On **CL1**, sign in as **ad\\Administrator**.
+On **CL2**, sign in as **ad\\Administrator**.
 
 ## Introduction
 
@@ -50,6 +51,17 @@ The virtual networks in Adatum represent different locations. Adatum wants to mi
 1. [Verify sites in DNS]
 
 ### Task 1: Verify the site of client
+
+#### Desktop experience
+
+Perform this task on CL2.
+
+1. Open **Registry Editor**.
+1. In Registry Editor, expand **Computer**, **HKEY_LOCAL_MACHINE**, **SYSTEM**, **CurrentControlSet**, **Netlogon**, **Parameters**.
+
+    > The value DynamicSiteName should be Default-First-Site-Name.
+
+#### PowerShell
 
 Perform this task on CL1.
 
