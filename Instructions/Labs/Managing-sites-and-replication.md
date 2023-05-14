@@ -327,6 +327,8 @@ Perform this task on CL1.
 
 ### Task 1: Create site links
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
@@ -337,6 +339,44 @@ Perform this task on CL1.
 1. In VNet1 - VNet2 Properties, in **Cost**, type **1**, in **Replicate every**, type **15**, and click **OK**.
 
 Repeat steps 3 - 6 to create the site links **VNet1 - VNet3** and **VNet1 - Perimeter**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Create a new site link between VNet1 and VNet2 with the cost 1 replicating every 15 minutes.
+
+    ````powershell
+    New-ADReplicationSiteLink `
+        -Name 'VNet1 - VNet2' `
+        -SitesIncluded VNet1, VNet2 `
+        -InterSiteTransportProtocol IP `
+        -Cost 1 `
+        -ReplicationFrequencyInMinutes 15
+    ````
+
+1. Create a new site link between VNet1 and VNet3 with the cost 1 replicating every 15 minutes.
+
+    ````powershell
+    New-ADReplicationSiteLink `
+        -Name 'VNet1 - VNet3' `
+        -SitesIncluded VNet1, VNet3 `
+        -InterSiteTransportProtocol IP `
+        -Cost 1 `
+        -ReplicationFrequencyInMinutes 15
+    ````
+
+1. Create a new site link between VNet1 and Perimeter with the cost 1 replicating every 15 minutes.
+
+    ````powershell
+    New-ADReplicationSiteLink `
+        -Name 'VNet1 - Perimeter' `
+        -SitesIncluded VNet1, Perimeter `
+        -InterSiteTransportProtocol IP `
+        -Cost 1 `
+        -ReplicationFrequencyInMinutes 15
+    ````
 
 ### Task 2: Disable the default site link bridging
 
