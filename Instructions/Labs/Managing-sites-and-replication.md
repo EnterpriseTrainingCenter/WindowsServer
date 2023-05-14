@@ -131,13 +131,29 @@ Perform this task on CL1.
 
 ### Task 3: Create subnets
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
 1. In Active Directory Sites and Services, in the context-menu of **Subnets**, click **New Subnet...**
-1. In New Object - Subnet, under **Prefix**, type 10.1.1.0/24. Click **VN1** and click **OK**.
+1. In New Object - Subnet, under **Prefix**, type 10.1.1.0/24. Click **VNet1** and click **OK**.
 
 Repeat steps 2 and 3 to create the subnets according to the table above.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Create subnets and associate them with the sites according to the table above.
+
+    ````powershell
+    New-ADReplicationSubnet -Name 10.1.1.0/24 -Site VNet1
+    New-ADReplicationSubnet -Name 10.1.2.0/24 -Site VNet2
+    New-ADReplicationSubnet -Name 10.1.3.0/24 -Site VNet3
+    New-ADReplicationSubnet -Name 10.1.200.0/24 -Site Perimeter
+    ````
 
 ### Task 4: Move domain controllers into sites
 
