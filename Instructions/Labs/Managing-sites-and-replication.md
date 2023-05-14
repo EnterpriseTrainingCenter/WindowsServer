@@ -277,9 +277,11 @@ Perform this task on CL1.
 
 ## Exercise 2: Configure global catalogs
 
-Remove the global catalog from VN1-SRV7.
+Remove the global catalog from VN1-SRV5.
 
 ### Detailed steps
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -287,6 +289,34 @@ Perform this task on CL1.
 1. In Active Directory Sites and Services, expand **VNet1**, **Servers**, and **VN1-SRV7**.
 1. Under VN1-SRV7, in the context menu of **NTDS Settings**, click **Properties**.
 1. In NTDS Settings Properties, on tab General, deactivate **Global Catalog**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Store site **VNet1** in a variable.
+
+    ````powershell
+    $adReplicationSite = Get-ADReplicationSite -Identity VNet1
+    ````
+
+1. Find the server **VN1-SRV5** in the site.
+
+    ````powershell
+    $server = Get-ADObject `
+        -SearchBase "CN=Servers, $($adReplicationSite.DistinguishedName)" `
+        -Filter 'ObjectClass -eq "server" -and Name -eq "VN1-SRV5"'
+
+    ````
+
+1. Disable the Global Catalog on the server.
+
+    ````powershell
+    Set-ADObject `
+        -Identity "CN=NTDS Settings, $($server.distinguishedName)" `
+        -Replace @{options='0'} `
+    ````
 
 ## Exercise 3: Create site links
 
