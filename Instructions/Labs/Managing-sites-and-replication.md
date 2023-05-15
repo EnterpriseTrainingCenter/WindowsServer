@@ -422,6 +422,8 @@ Perform this task on CL1.
 
 ### Task 3: Configure the site links for notification-based replication
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
@@ -444,6 +446,19 @@ Perform this task on CL1.
 1. In **Vnet1 - Perimeter Properties**, click **OK**.
 
 Repeat steps 3 - 6 for **VNet1 - VNet2** and **VNet1 - VNet3**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. 1. On the options property of all site links, set the flag UN (NTDSSITELINK_OPT_USE_NOTIFY). The flag is bit # 0 (decimal value of 1).
+
+    ````powershell
+    Get-ADReplicationSiteLink -Filter * -Properties options | ForEach-Object { 
+        $PSItem | Set-ADObject -Replace @{ 'options' = $PSItem.options -bor 1 } 
+    }
+    ````
 
 ### Task 4: Run the Inter-Site topology generator
 
