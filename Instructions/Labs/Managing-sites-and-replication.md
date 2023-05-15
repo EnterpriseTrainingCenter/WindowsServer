@@ -462,6 +462,8 @@ Perform this task on CL1.
 
 ### Task 4: Run the Inter-Site topology generator
 
+#### Desktop Experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
@@ -474,10 +476,33 @@ Perform this task on CL1.
 
 Repeat steps 2 - 7 for the sites **VNet2** and **VNet3**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Retrieve the DNS host names of the inter-site topology generators (ISTG) for each site and store them in a variable.
+
+    ````powershell
+    $istgDNSHostName = (
+        Get-ADReplicationSite -Filter * | 
+        Where-Object { $PSItem.InterSiteTopologyGenerator } | 
+        Select-Object -ExpandProperty InterSiteTopologyGenerator
+    ) -replace 'CN=NTDS Settings,', '' | 
+    Get-ADObject -Properties dNSHostName | 
+    Select-Object -ExpandProperty dNSHostName
+    ````
+
+1. Run the knowledge consistency checker on the ISTG servers.
+
+    ````powershell
+    $istgDNSHostName | ForEach-Object {  repadmin.exe /kcc $PSItem }
+    ````
+
 ## Exercise 4: Verify replication topology changes
 
 This is an optional exercise, if time permits.
 
-Wait for 1 hour at least after completing exercise 3 in this lab, before performing this exercise.
+Wait for at least 1 hour  after completing exercise 3 in this lab, before performing this exercise.
 
 Refer to [Practice: Explore intra-site replication](/Instructions/Practices/Explore-intra-site-replication.md) to document the changes in replication topology caused by the new site design.
