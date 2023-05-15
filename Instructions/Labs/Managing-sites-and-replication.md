@@ -12,6 +12,7 @@
 ## Setup
 
 On **CL1**, sign in as **ad\\Administrator**.
+On **CL2**, sign in as **ad\\Administrator**.
 
 ## Introduction
 
@@ -51,6 +52,17 @@ The virtual networks in Adatum represent different locations. Adatum wants to mi
 
 ### Task 1: Verify the site of client
 
+#### Desktop experience
+
+Perform this task on CL2.
+
+1. Open **Registry Editor**.
+1. In Registry Editor, expand **Computer**, **HKEY_LOCAL_MACHINE**, **SYSTEM**, **CurrentControlSet**, **Netlogon**, **Parameters**.
+
+    > The value DynamicSiteName should be Default-First-Site-Name.
+
+#### PowerShell
+
 Perform this task on CL1.
 
 1. Create a remote PowerShell session to **CL2**.
@@ -75,6 +87,8 @@ Perform this task on CL1.
 
 ### Task 2: Create sites
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
@@ -97,17 +111,53 @@ Perform this task on CL1.
 
 Repeat steps 3 - 5 to create the sites **VNet3** and **Perimeter**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Rename the site **Default-First-Site-Name** to **VNet1**.
+
+    ````PowerShell
+    Get-ADReplicationSite -Identity Default-First-Site-Name | Rename-ADObject -NewName VNet1
+    ````
+
+1. Create the sites **Vnet2**, **VNet3**, and **Perimeter**.
+
+    ````powershell
+    'VNet2', 'VNet3', 'Perimeter' | 
+    ForEach-Object { New-ADReplicationSite -Name $PSItem }
+    ````
+
 ### Task 3: Create subnets
+
+#### Desktop experience
 
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
 1. In Active Directory Sites and Services, in the context-menu of **Subnets**, click **New Subnet...**
-1. In New Object - Subnet, under **Prefix**, type 10.1.1.0/24. Click **VN1** and click **OK**.
+1. In New Object - Subnet, under **Prefix**, type 10.1.1.0/24. Click **VNet1** and click **OK**.
 
 Repeat steps 2 and 3 to create the subnets according to the table above.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Create subnets and associate them with the sites according to the table above.
+
+    ````powershell
+    New-ADReplicationSubnet -Name 10.1.1.0/24 -Site VNet1
+    New-ADReplicationSubnet -Name 10.1.2.0/24 -Site VNet2
+    New-ADReplicationSubnet -Name 10.1.3.0/24 -Site VNet3
+    New-ADReplicationSubnet -Name 10.1.200.0/24 -Site Perimeter
+    ````
+
 ### Task 4: Move domain controllers into sites
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -121,7 +171,64 @@ Perform this task on CL1.
 1. In the context-menu of **PM-SRV1**, click **Move...**.
 1. In Move Server, click **Perimeter** and click **OK**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. List domain controllers in site VNet1.
+
+    ````powershell
+    $adReplicationSite = Get-ADReplicationSite -Identity VNet1
+    Get-ADObject `
+        -SearchBase "CN=Servers, $($adReplicationSite.DistinguishedName)" `
+        -Filter 'ObjectClass -eq "server"'
+
+1. Delete VN1-SRV1.
+
+    ````powershell
+    Get-ADObject `
+        -SearchBase "CN=Servers, $($adReplicationSite.DistinguishedName)" `
+        -Filter 'ObjectClass -eq "server" -and Name -eq "VN1-SRV1"' |
+    Remove-ADObject -Recursive
+    ````
+
+1. At the prompt
+
+    ````text
+    Are you sure you want to perform this action?
+    Performing the operation "Remove" on target
+    "CN=VN1-SRV1,CN=Servers,CN=VNet1,CN=Sites,CN=Configuration,DC=ad,DC=adatum,DC=com".
+    ````
+
+    enter **y**.
+
+1. Move the domain controller **VN2-SRV1** to site **VNet2**.
+
+    ````powershell
+    Move-ADDirectoryServer -Identity VN2-SRV1 -Site VNet2
+    ````
+
+1. Move the domain controller **PM-SRV1** to site **Perimeter**.
+
+    ````powershell
+    Move-ADDirectoryServer -Identity PM-SRV1 -Site Perimeter
+    ````
+
 ### Task 5: Verify the site of client
+
+#### Desktop experience
+
+Perform this task on CL2.
+
+1. Restart the computer.
+1. Sign in as **ad\Administrator**.
+1. Open **Registry Editor**.
+1. In Registry Editor, expand **Computer**, **HKEY_LOCAL_MACHINE**, **SYSTEM**, **CurrentControlSet**, **Netlogon**, **Parameters**.
+
+    > The value DynamicSiteName should be VNet2.
+
+#### PowerShell
 
 Perform this task on CL1.
 
@@ -170,9 +277,11 @@ Perform this task on CL1.
 
 ## Exercise 2: Configure global catalogs
 
-Remove the global catalog from VN1-SRV7.
+Remove the global catalog from VN1-SRV5.
 
 ### Detailed steps
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -180,6 +289,34 @@ Perform this task on CL1.
 1. In Active Directory Sites and Services, expand **VNet1**, **Servers**, and **VN1-SRV7**.
 1. Under VN1-SRV7, in the context menu of **NTDS Settings**, click **Properties**.
 1. In NTDS Settings Properties, on tab General, deactivate **Global Catalog**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Store site **VNet1** in a variable.
+
+    ````powershell
+    $adReplicationSite = Get-ADReplicationSite -Identity VNet1
+    ````
+
+1. Find the server **VN1-SRV5** in the site.
+
+    ````powershell
+    $server = Get-ADObject `
+        -SearchBase "CN=Servers, $($adReplicationSite.DistinguishedName)" `
+        -Filter 'ObjectClass -eq "server" -and Name -eq "VN1-SRV5"'
+
+    ````
+
+1. Disable the Global Catalog on the server.
+
+    ````powershell
+    Set-ADObject `
+        -Identity "CN=NTDS Settings, $($server.distinguishedName)" `
+        -Replace @{options='0'} `
+    ````
 
 ## Exercise 3: Create site links
 
@@ -189,6 +326,8 @@ Perform this task on CL1.
 1. [Run the Inter-Site topology generator](#task-4-run-the-inter-site-topology-generator)
 
 ### Task 1: Create site links
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -201,18 +340,89 @@ Perform this task on CL1.
 
 Repeat steps 3 - 6 to create the site links **VNet1 - VNet3** and **VNet1 - Perimeter**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Create a new site link between VNet1 and VNet2 with the cost 1 replicating every 15 minutes.
+
+    ````powershell
+    New-ADReplicationSiteLink `
+        -Name 'VNet1 - VNet2' `
+        -SitesIncluded VNet1, VNet2 `
+        -InterSiteTransportProtocol IP `
+        -Cost 1 `
+        -ReplicationFrequencyInMinutes 15
+    ````
+
+1. Create a new site link between VNet1 and VNet3 with the cost 1 replicating every 15 minutes.
+
+    ````powershell
+    New-ADReplicationSiteLink `
+        -Name 'VNet1 - VNet3' `
+        -SitesIncluded VNet1, VNet3 `
+        -InterSiteTransportProtocol IP `
+        -Cost 1 `
+        -ReplicationFrequencyInMinutes 15
+    ````
+
+1. Create a new site link between VNet1 and Perimeter with the cost 1 replicating every 15 minutes.
+
+    ````powershell
+    New-ADReplicationSiteLink `
+        -Name 'VNet1 - Perimeter' `
+        -SitesIncluded VNet1, Perimeter `
+        -InterSiteTransportProtocol IP `
+        -Cost 1 `
+        -ReplicationFrequencyInMinutes 15
+    ````
+
 ### Task 2: Disable the default site link bridging
+
+#### Desktop experience
 
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
 1. In Active Directory Sites and Services, expand **Inter-Site Transports** and click **IP**.
 1. In IP, in the context-menu of DEFAULTIPSITELINK, click Delete.
-1. In the message box **Are you sure you want to delete the Site link mnames 'DEFAULTIPSITELINK'?**, click **Yes**.
+1. In the message box **Are you sure you want to delete the Site link named 'DEFAULTIPSITELINK'?**, click **Yes**.
 1. Under Inter-Site Transports, in the context-menu of **IP**, click **Properties**.
 1. In IP Properties, deactivate **Bridge all site links** and click **OK**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Delete the site link **DEFAULTIPSITELINK**.
+
+    ````powershell
+    Remove-ADReplicationSiteLink -Identity DEFAULTIPSITELINK
+    ````
+
+1. At the prompt Performing the operation "Remove" on target "CN=DEFAULTIPSITELINK,CN=IP,CN=Inter-Site Transports,CN=Sites,CN=Configuration,DC=ad,DC=adatum,DC=com", enter **Y**.
+
+1. Store the **IP** object including the property **options** of **Inter-Site Transports** in a variable.
+
+    ````powershell
+    $configurationNamingContext = 'CN=Configuration, DC=ad, DC=adatum,DC=com'
+    $aDObject = Get-ADObject `
+        -Identity `
+            "CN=IP,CN=Inter-Site Transports,CN=Sites,$configurationNamingcontext" `
+        -Properties options
+    ````
+
+1. On the options property, set the flag BR (NTDSTRANSPORT_OPT_BRIDGES_REQUIRED). The flag is bit # 1 (decimal value of 2).
+
+    ````powershell
+    $aDObject | Set-ADObject -Replace @{"options" = $aDObject.options -bor 2 }
+    ````
+
 ### Task 3: Configure the site links for notification-based replication
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -235,9 +445,24 @@ Perform this task on CL1.
 
 1. In **Vnet1 - Perimeter Properties**, click **OK**.
 
-Repeat steps 3 - 6 for **VNet1 - VNet2** and **Vnet1 - VNet3**.
+Repeat steps 3 - 6 for **VNet1 - VNet2** and **VNet1 - VNet3**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. 1. On the options property of all site links, set the flag UN (NTDSSITELINK_OPT_USE_NOTIFY). The flag is bit # 0 (decimal value of 1).
+
+    ````powershell
+    Get-ADReplicationSiteLink -Filter * -Properties options | ForEach-Object { 
+        $PSItem | Set-ADObject -Replace @{ 'options' = $PSItem.options -bor 1 } 
+    }
+    ````
 
 ### Task 4: Run the Inter-Site topology generator
+
+#### Desktop Experience
 
 Perform this task on CL1.
 
@@ -251,10 +476,33 @@ Perform this task on CL1.
 
 Repeat steps 2 - 7 for the sites **VNet2** and **VNet3**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Retrieve the DNS host names of the inter-site topology generators (ISTG) for each site and store them in a variable.
+
+    ````powershell
+    $istgDNSHostName = (
+        Get-ADReplicationSite -Filter * | 
+        Where-Object { $PSItem.InterSiteTopologyGenerator } | 
+        Select-Object -ExpandProperty InterSiteTopologyGenerator
+    ) -replace 'CN=NTDS Settings,', '' | 
+    Get-ADObject -Properties dNSHostName | 
+    Select-Object -ExpandProperty dNSHostName
+    ````
+
+1. Run the knowledge consistency checker on the ISTG servers.
+
+    ````powershell
+    $istgDNSHostName | ForEach-Object {  repadmin.exe /kcc $PSItem }
+    ````
+
 ## Exercise 4: Verify replication topology changes
 
 This is an optional exercise, if time permits.
 
-Wait for 1 hour at least after completing exercise 3 in this lab, before performing this exercise.
+Wait for at least 1 hour  after completing exercise 3 in this lab, before performing this exercise.
 
 Refer to [Practice: Explore intra-site replication](/Instructions/Practices/Explore-intra-site-replication.md) to document the changes in replication topology caused by the new site design.
