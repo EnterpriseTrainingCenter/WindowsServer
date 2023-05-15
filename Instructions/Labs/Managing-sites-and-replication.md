@@ -380,14 +380,45 @@ Perform this task on CL1.
 
 ### Task 2: Disable the default site link bridging
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
 1. In Active Directory Sites and Services, expand **Inter-Site Transports** and click **IP**.
 1. In IP, in the context-menu of DEFAULTIPSITELINK, click Delete.
-1. In the message box **Are you sure you want to delete the Site link mnames 'DEFAULTIPSITELINK'?**, click **Yes**.
+1. In the message box **Are you sure you want to delete the Site link named 'DEFAULTIPSITELINK'?**, click **Yes**.
 1. Under Inter-Site Transports, in the context-menu of **IP**, click **Properties**.
 1. In IP Properties, deactivate **Bridge all site links** and click **OK**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Delete the site link **DEFAULTIPSITELINK**.
+
+    ````powershell
+    Remove-ADReplicationSiteLink -Identity DEFAULTIPSITELINK
+    ````
+
+1. At the prompt Performing the operation "Remove" on target "CN=DEFAULTIPSITELINK,CN=IP,CN=Inter-Site Transports,CN=Sites,CN=Configuration,DC=ad,DC=adatum,DC=com", enter **Y**.
+
+1. Store the **IP** object including the property **options** of **Inter-Site Transports** in a variable.
+
+    ````powershell
+    $configurationNamingContext = 'CN=Configuration, DC=ad, DC=adatum,DC=com'
+    $aDObject = Get-ADObject `
+        -Identity `
+            "CN=IP,CN=Inter-Site Transports,CN=Sites,$configurationNamingcontext" `
+        -Properties options
+    ````
+
+1. On the options property, set the flag BR (NTDSTRANSPORT_OPT_BRIDGES_REQUIRED). The flag is bit # 1 (decimal value of 2).
+
+    ````powershell
+    $aDObject | Set-ADObject -Replace @{"options" = $aDObject.options -bor 2 }
+    ````
 
 ### Task 3: Configure the site links for notification-based replication
 
@@ -412,7 +443,7 @@ Perform this task on CL1.
 
 1. In **Vnet1 - Perimeter Properties**, click **OK**.
 
-Repeat steps 3 - 6 for **VNet1 - VNet2** and **Vnet1 - VNet3**.
+Repeat steps 3 - 6 for **VNet1 - VNet2** and **VNet1 - VNet3**.
 
 ### Task 4: Run the Inter-Site topology generator
 
