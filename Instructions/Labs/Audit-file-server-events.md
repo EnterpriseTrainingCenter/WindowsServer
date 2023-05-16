@@ -3,7 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Setup
@@ -13,6 +13,7 @@
 
 ## Introduction
 
+Because of regulatory requirements, Adatum needs to audit all read operations on finance files. Furthermore, Adatum wants to audit delete operations on all files on any share of the file servers.
 
 ## Exercises
 
@@ -21,55 +22,17 @@
 
 ## Exercise 1: Audit access to a folder
 
-1. [Install the Group Policy Management Console](#task-1-install-the-group-policy-management-console) on CL1
-1. [Create a group policy object](#task-2-create-a-group-policy-object)
-1. [Edit the audit policy in the group policy object](#task-3-edit-the-audit-policy-in-the-group-policy-object)
-1. [Apply the group policy object to file servers](#task-4-apply-the-group-policy-object-to-file-servers) by creating an organizational unit, linking the group policy object to the OU and moving VN1-SRV6 into the OU.
-1. [Enable auditing of read access](#task-5-enable-auditing-of-read-access) on the D:\Shares\Finance
-1. [Create auditing events](#task-6-create-auditing-events) by accessing files in the Finance share
-1. [View auditing events](#task-7-view-auditing-events) on VN1-SRV6
+1. [Create a group policy object](#task-1-create-a-group-policy-object)
+1. [Edit the audit policy in the group policy object](#task-2-edit-the-audit-policy-in-the-group-policy-object) to enable auditing object access and policy change
+1. [Apply the group policy object to file servers](#task-3-apply-the-group-policy-object-to-file-servers) by creating an organizational unit, linking the group policy object to the OU and moving VN1-SRV10 into the OU.
+1. [Enable auditing of read access](#task-4-enable-auditing-of-read-access) on the D:\Shares\Finance
+1. [Create auditing events](#task-5-create-auditing-events) by accessing files in the Finance share
+1. [View auditing events](#task-6-view-auditing-events) on VN1-SRV10
 
     > Which event IDs are associated with file access?
     > Can you identify the file, Pia accessed?
 
-### Task 1: Install the Group Policy Management Console
-
-#### Desktop experience
-
-Perform these steps on CL1.
-
-1. Open **Settings**.
-1. In Settings, click **Apps**.
-1. In Apps, click **Optional features**.
-1. In Optional features, click the button **View features**.
-1. In Add an optional feature, in the text field **Find an available optional feature**, type **RSAT**.
-1. Activate the checkbox beside **RSAT: Group Policy Management Tools**.
-1. Click **Next**.
-1. Click **Install**.
-1. If required, restart the computer and Sign in as **ad\Administrator** again.
-1. In **Settings**, **Apps** > **Optional feautre**, click **More windows features** (scroll to the bottom).
-1. In Windows features, expand **Hyper-V**, activate the checkbox **Hyper-V Management Tools**, and click **OK**.
-1. If required, restart the computer.
-
-#### PowerShell
-
-Perform these steps on CL1.
-
-1. Run **Terminal** as Administrator.
-1. Add the windows capability RSAT: Group Policy Management Tools
-
-    ````powershell
-    Get-WindowsCapability -Online -Name 'RSAT.GroupPolicy.Management.Tools*' |
-    Add-WindowsCapability -Online    
-    ````
-
-1. If required, restart the computer.
-
-    ````powershell
-    Restart-Computer
-    ````
-
-### Task 2: Create a group policy object
+### Task 1: Create a group policy object
 
 #### Desktop experience
 
@@ -91,7 +54,7 @@ Perform these steps on CL1.
     New-GPO -Name 'Custom Computer Audit Object Access'
     ````
 
-### Task 3: Edit the audit policy in the group policy object
+### Task 2: Edit the audit policy in the group policy object
 
 Perform this Task on CL1.
 
@@ -105,7 +68,7 @@ Perform this Task on CL1.
 1. In Audit policy change Properties, activate the checkboxes **Define these policy settings** and  **Success**, and click **OK**.
 1. Close **Group Policy Management Editor**.
 
-### Task 4: Apply the group policy object to file servers
+### Task 3: Apply the group policy object to file servers
 
 #### Desktop experience
 
@@ -126,14 +89,14 @@ Perform this Task on CL1.
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, in the left pane, click **ad (local)**.
 1. In the middle pane, double-click **Computers**.
-1. In Active Directory Administrative Center > ad (local) > Computers, in the context-menu of **VN1-SRV6**, click **Move...**
+1. In Active Directory Administrative Center > ad (local) > Computers, in the context-menu of **VN1-SRV10**, click **Move...**
 1. In Move, in the middle column, click **Devices**.
 1. In the right column, click **Servers**.
 1. In the right column, click **File Servers** and click **OK**.
 1. Switch to **Group Policy Management**.
 1. In the context-menu of **File Servers**, click **Group Policy Update...**
 1. In Force Group Policy update, verify that **1 computer** is affected, and click **Yes**.
-1. In **Remote Group Policy update results**, verify that the update on **VN1-SRV6.ad.adatum.com** **Succeeded** and click **Close**.
+1. In **Remote Group Policy update results**, verify that the update on **VN1-SRV10.ad.adatum.com** **Succeeded** and click **Close**.
 
 #### PowerShell
 
@@ -175,48 +138,48 @@ Perform these steps on CL1.
         -Target $organizationalUnit.DistinguishedName
     ````
 
-1. Move **VN1-SRV6** to the organizational unit **File Servers**.
+1. Move **VN1-SRV10** to the organizational unit **File Servers**.
 
     ````powershell
-    Get-ADComputer 'VN1-SRV6' | 
+    Get-ADComputer 'VN1-SRV10' | 
     Move-ADObject -TargetPath $organizationalUnit.DistinguishedName
     ````
 
-1. Update group policy settings on **VN1-SRV6**.
+1. Update group policy settings on **VN1-SRV10**.
 
     ````powershell
-    Invoke-GPUpdate -Computer 'VN1-SRV6' -Force
+    Invoke-GPUpdate -Computer 'VN1-SRV10' -Force
     ````
 
-### Task 5: Enable auditing of read access
+### Task 4: Enable auditing of read access
 
 #### Desktop experience
 
 Perform this task on CL1.
 
-1. In **File Explorer**, navigate to **\\\\VN1-SRV6**.
+1. In **File Explorer**, navigate to **\\\\VN1-SRV10**.
 1. In the context-menu of **Finance**, click **Properties**.
-1. In Finance (\\\\VN1-SRV6) Properties, click the tab **Security**.
+1. In Finance (\\\\VN1-SRV10) Properties, click the tab **Security**.
 1. On the tab Security, click **Advanced**.
-1. In Advanced Security Settings for Finance (\\\\VN1-SRV6), click the tab **Auditing**.
+1. In Advanced Security Settings for Finance (\\\\VN1-SRV10), click the tab **Auditing**.
 1. On the tab Auditing, click **Add**.
-1. In Auditing Entry for Finance (\\\\VN1-SRV6), click the link **Select a principal**.
+1. In Auditing Entry for Finance (\\\\VN1-SRV10), click the link **Select a principal**.
 1. In Select User, Computer, Service Account, or Group, under **Enter the object name to select**, type **Everyone** and click **OK**.
-1. In **Auditing Entry for Finance (\\\\VN1-SRV6)**, in **Type**, ensure **Success** is selected.
+1. In **Auditing Entry for Finance (\\\\VN1-SRV10)**, in **Type**, ensure **Success** is selected.
 1. In **Applies to**, ensure **This folder, subfolder and files** is selected.
 1. Under **Basic permissions**, ensure **Read & execute**, **List folder contents**, and **Read** are activated and click **OK**.
-1. In **Advanced Security Settings for Finance (\\\\VN1-SRV6)**, click  **OK**.
-1. In **Finance (\\\\VN1-SRV6) Properties**, click **OK**.
+1. In **Advanced Security Settings for Finance (\\\\VN1-SRV10)**, click  **OK**.
+1. In **Finance (\\\\VN1-SRV10) Properties**, click **OK**.
 
 #### PowerShell
 
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV6**.
+1. Open a remote PowerShell session to **VN1-SRV10**.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. On **D:\\Shares\\Finance**, disable inheritance for the audit rules, removing all existing rules.
@@ -256,14 +219,14 @@ Perform this task on CL1.
     $acl | Set-Acl -Path $path
     ````
 
-### Task 6: Create auditing events
+### Task 5: Create auditing events
 
 Perform this task on CL2.
 
-1. In **File Explorer**, navigate to **\\\\VN1-SRV6\\Finance**.
+1. In **File Explorer**, navigate to **\\\\VN1-SRV10\\Finance**.
 1. Open a file.
 
-### Task 7: View auditing events
+### Task 6: View auditing events
 
 #### Desktop experience
 
@@ -271,7 +234,7 @@ Perform this task on CL1.
 
 1. Open **Event Viewer**.
 1. In Event Viewer, in the left pane, in the context-menu of **Event Viewer (local)**, click **Connect to Another computer...**.
-1. In Select Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
+1. In Select Computer, click **Another computer**, type **VN1-SRV10**, and click **OK**.
 1. Expand **Windows Logs** and click **Security**.
 1. In the context-menu of **Security**, click **Filter Current Log...**
 1. In Filter Current log, in **\<All Event IDs\>**, type **4663, 4656** and click **OK**.
@@ -284,10 +247,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Retrieve all entries from the security event log on VN1-SRV6 and store them in a variable.
+1. Retrieve all entries from the security event log on VN1-SRV10 and store them in a variable.
 
     ````powershell
-    $log = Get-EventLog -LogName Security -ComputerName VN1-SRV6
+    $log = Get-EventLog -LogName Security -ComputerName VN1-SRV10
     ````
 
 1. Filter the retrieved events to find events containing **D:\\Shares\\Finance**.
@@ -342,13 +305,13 @@ Perform this task on CL1.
 1. In **Group Policy Management**, expand **Devices** and **Servers**.
 1. In the context-menu of **File Servers**, click **Group Policy Update...**
 1. In Force Group Policy update, verify that **1 computer** is affected, and click **Yes**.
-1. In **Remote Group Policy update results**, verify that the update on **VN1-SRV6.ad.adatum.com** **Succeeded** and click **Close**.
+1. In **Remote Group Policy update results**, verify that the update on **VN1-SRV10.ad.adatum.com** **Succeeded** and click **Close**.
 
 ### Task 2: Create auditing events
 
 Perform this task on CL2.
 
-1. In **File Explorer**, navigate to **\\\\VN1-SRV6\\Finance**.
+1. In **File Explorer**, navigate to **\\\\VN1-SRV10\\Finance**.
 1. Delete a file.
 
 ### Task 3: View auditing events
@@ -359,7 +322,7 @@ Perform this task on CL1.
 
 1. Open **Event Viewer**.
 1. In Event Viewer, in the left pane, in the context-menu of **Event Viewer (local)**, click **Connect to Another computer...**.
-1. In Select Computer, click **Another computer**, type **VN1-SRV6**, and click **OK**.
+1. In Select Computer, click **Another computer**, type **VN1-SRV10**, and click **OK**.
 1. Expand **Windows Logs** and click **Security**.
 1. In the context-menu of **Security**, click **Filter Current Log...**
 1. In Filter Current log, in **\<All Event IDs\>**, type **4663** and click **OK**.
@@ -372,14 +335,14 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Retrieve all entries from the security event log on VN1-SRV6 and store them in a variable.
+1. Retrieve all entries from the security event log on VN1-SRV10 and store them in a variable.
 
     ````powershell
     $log Get-EventLog `
         -LogName Security `
         -Newest 20 `
         -InstanceId 4663 `
-        -ComputerName VN1-SRV6
+        -ComputerName VN1-SRV10
     ````
 
 1. View events as list to see details of the events.

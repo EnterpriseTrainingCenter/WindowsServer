@@ -16,6 +16,12 @@
 1. On **VN1-SRV1** sign in as **ad\\Administrator**.
 1. On **VN2-SRV2** sign in as **.\\Administrator**.
 
+If you skipped previous practices or labs, in **Terminal** on **CL1**, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
+
+## Known issues
+
+<https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/291>
+
 ## Introduction
 
 The domain controller still running Windows Server 2019 must be replaced by a Windows Server 2022 domain controller. Moreover, Adatum is expanding to a new location. An additional domain controller must be installed at the new location. Moreover, Adatum launches a new subsidiary with the name Contoso. Because it is expected, that the subsidiary will be sold soon, a new forest needs to be created for the subsidiary.
@@ -29,14 +35,15 @@ The domain controller still running Windows Server 2019 must be replaced by a Wi
 1. [Raise domain and forest functional level](#exercise-5-raise-the-domain-and-forest-functional-level)
 1. [Deploy a new forest](#exercise-6-deploy-a-new-forest)
 
+Note: Exercise 6 is not dependent on the other exercises. To safe time, you may run the tasks of exercise 6 while you are waiting for execution of tasks in the other exercises.
+
 ## Exercise 1: Deploy additional domain controllers
 
 1. [Install the Remote Server Administration DNS Server Tools](#task-1-install-the-remote-server-administration-dns-server-tools) on CL1
 1. [Install Active Directory Domain Services](#task-2-install-active-directory-domain-services) on VN1-SRV5 and VN2-SRV1
 1. [Configure Active Directory Domain Services as a additional domain controller in an existing domain](#task-3-configure-active-directory-domain-services-as-a-additional-domain-controller-in-an-existing-domain) on VN1-SRV5 and VN2-SRV1
 1. [Configure forwarders](#task-4-configure-forwarders) on VN1-SRV5 and VN2-SRV1 to 8.8.8.8 and 8.8.4.4
-1. [Configure DNS client settings using core experience](#task-5-configure-dns-client-settings-using-core-experience) on VN1-SRV5 to use VN2-SRV1 as preferred DNS server
-1. [Configure DNS client settings using desktop experience](#task-6-configure-dns-client-settings-using-desktop-experience) on VN2-SRV1 to use VN1-SRV5 as preferred DNS server
+1. [Configure DNS client settings](#task-5-configure-dns-client-settings) on VN1-SRV5 to use VN2-SRV1 as preferred DNS server
 
 Note: It is recommended to use another domain controller as DNS server. However, in real world, you should choose a DNS server on the same network.
 
@@ -82,14 +89,14 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV5** and click **Next >**.
 1. On page Server Roles, activate **Active Directory Domain Services**.
 1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
 1. On page Features, click **Next >**.
 1. On page **AD DS**, click **Next >**.
-1. On page **Confirmation**, click **Install**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
 Repeat these steps, but in step 5, on page **Server Selection**, click **VN2-SRV1**.
@@ -103,7 +110,8 @@ Peform this task on CL1.
 
     ````powershell
     Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -ScriptBlock {
-        Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+        Install-WindowsFeature `
+            -Name AD-Domain-Services -IncludeManagementTools -Restart
     }
     ````
 
@@ -121,7 +129,7 @@ Perform this task on CL1.
 1. In Active Directory Domain Services Configuration Wizard, on page Deployment Configuration, ensure **Add a domain controller to an existing domain** is selected. In **Domain**, ensure **ad.adatum.com** is filled in. Beside **\<No credentials provided\>**, click **Change...**.
 1. In the dialog Credentials for deployment operation, enter the credentials for **Administrator@ad.adatum.com** and click **OK**.
 1. On page **Deployment Configuration**, click **Next >**.
-1. On page **Domain Controller Options**, ensure **Domain Name System (DNS) server** is activated and deactivate **Global Catalog (GC)**. Under **Type the Directory Services Restore Mode (DSRM) password**, in **Password** and **Confirm password**, type a secure password and take a note. You will need the password for a later lab. Click **Next >**.
+1. On page **Domain Controller Options**, ensure **Domain Name System (DNS) server** and **Global Catalog (GC)** are activated. Under **Type the Directory Services Restore Mode (DSRM) password**, in **Password** and **Confirm password**, type a secure password and take a note. You will need the password for a later lab. Click **Next >**.
 1. On page DNS Options, click **Next >**.
 1. On page **Additional Options**, click **Next >**.
 1. On page **Paths**, click **Next >**.
@@ -158,16 +166,31 @@ Perform this task on CL1.
 1. Promote **VN1-SRV5** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -ScriptBlock {
+    $job = Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -AsJob -ScriptBlock {
     Install-ADDSDomainController `
             -DomainName ad.adatum.com `
             -Credential $using:credential `
             -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
-            -InstallDns 
+            -InstallDns `
+            -Force
     }
     ````
 
-1. At the prompts **The target server will be configured as a domain controller and restarted when this operation is complete.**, enter **y**.
+1. Wait for the job to complete.
+
+    ````powershell
+    $job | Wait-Job
+    ````
+
+    This will take a few minutes.
+
+1. Read the output of the job.
+
+    ````powershell
+    $job | Receive-Job
+    ````
+
+    The value of the property **Status** should be **Success** for both servers.
 
 ### Task 4: Configure forwarders
 
@@ -184,8 +207,10 @@ Perform this task on CL1.
 1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
 1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
 1. In **VN1-SRV5.ad.adatum.com Properties**, click **OK**.
+1. In **DNS Manager**, in the context-menu of **DNS**, click **Connect to DNS Server...**
+1. In **Connect to DNS Server**, click **The following computer**, type **VN2-SRV1.ad.adatum.com**, and click **OK**.
 
-Repeat these steps, but in step 4, connect to **VN2-SRV1.ad.adatum.com**.
+Repeat from step 4 for **vn2.srv1.ad.adatum.com**.
 
 #### PowerShell
 
@@ -199,7 +224,7 @@ Perform this task on CL1.
     Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4  -ComputerName VN2-SRV1
     ````
 
-### Task 5: Configure DNS client settings using core experience
+### Task 5: Configure DNS client settings
 
 #### SConfig
 
@@ -241,47 +266,6 @@ Perform this task on CL1.
     Remove-CimSession $cimSession
     ````
 
-### Task 6: Configure DNS client settings using desktop experience
-
-#### Desktop experience
-
-Perform this task on VN2-SRV1.
-
-1. Sign in as **ad\administrator**.
-1. In Server Manager, click **Local Server**.
-1. Under PROPERTIES for VN2-SRV1, beside **Ethernet**, click **10.1.2.8, IPv6 enabled**.
-1. In Network Connections, in the context-menu of **Ethernet**, click **Properties**.
-1. In Ethernet Properties, click **Internet Protocol Version 4 (TCP/IPv4)** and click **Properties**.
-1. In Internet Protocol Version 4 (TCP/IPv4) Properties, in **Preferred DNS server**, type **10.1.1.40**, in **Alternate DNS server**, ensure **127.0.0.1** is filled in, and click **OK**.
-1. In **Ethernet Properties**, click **Close**.
-1. Sign out.
-
-#### PowerShell
-
-Perform this task on CL1.
-
-1. In the context menu of **Start**, click **Terminal**.
-1. Create a CIM session to **VN2-SRV1**.
-
-    ````powershell
-    $cimSession = New-CimSession -ComputerName VN2-SRV1
-    ````
-
-1. Set the DNS client server address for **VN2-SRV1** to **10.1.1.40** and **127.0.0.1**.
-
-    ````powershell
-    Set-DnsClientServerAddress `
-        -InterfaceAlias Ethernet `
-        -ServerAddresses 10.1.1.40, 127.0.0.1 `
-        -CimSession $cimSession
-    ````
-
-1. Close and remove the CIM session.
-
-    ````powershell
-    Remove-CimSession $cimSession
-    ````
-
 ## Exercise 2: Check domain controller health
 
 1. [Verify DNS entries for Active Directory](#task-1-verify-dns-entries-for-active-directory)
@@ -303,7 +287,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **DNS**.
-1. In the dialog **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5**, and click **OK**.
+1. If the dialog **Connect to DNS Server** appears, click **The following computer**, type **VN1-SRV5**, and click **OK**.
 1. In DNS, click **VN1-SRV5**.
 1. Expand **VN1-SRV5**, **Forward Lookup Zones** and click **_msdcs.ad.adatum.com**
 
@@ -311,7 +295,7 @@ Perform this task on CL1.
 
 1. Expand **ad.adatum.com**, and click **_tcp**.
 
-    > There should 12 SRV records for the services _gc, _kerberos, _kpasswd, and _ldap, pointing to VN1-SRV1.ad.adatum.com, VN1-SRV5.ad.adatum.com, and vn2-srv1.ad.adatum.com.
+    > There should 9 SRV records for the services \_gc, \_kerberos, \_kpasswd, and \_ldap, pointing to VN1-SRV1.ad.adatum.com, VN1-SRV5.ad.adatum.com, and vn2-srv1.ad.adatum.com.
 
 ### Task 2: Verify shares for Active Directory
 
@@ -434,9 +418,9 @@ Perform this task on CL1.
         -Confirm:$false
     ````
 
-## Exercise 4: decommission a domain controller
+## Exercise 4: Decommission a domain controller
 
-1. [Change the IP address of the domain controller to decommission](#task-1-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200
+1. [Change the IP address of the domain controller to decommission](#task-1-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
 1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-2-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV5
 1. [Demote the old domain controller](#task-3-demote-the-old-domain-controller) VN1-SRV1
 1. [Remove roles from the decommissioned domain controller](#task-4-remove-roles-from-the-decommissioned-domain-controller) VN1-SRV1
@@ -462,12 +446,77 @@ Perform this task on VN1-SRV1.
 1. Beside Enter static IP address, enter **10.1.1.200**.
 1. Beside Enter subnet mask, enter **255.255.255.0**.
 1. Beside Enter default gateway, enter **10.1.1.1**.
-1. In Network Adapter settings, enter **2**.
+1. In Network Adapter Settings, enter **2**.
 1. Beside Enter new preferred DNS server, enter **10.1.1.40**.
-1. In message box **Preferred DNS server set.**, click **OK**.
+1. In the message box Preferred DNS server set, click **OK**.
 1. Beside Enter alternate DNS server, enter **10.1.2.8**.
-1. In message box **Alternate DNS server set.**, click **OK**.
-1. In Network Adapter settings, enter **4**.
+1. In the message box Alternate DNS server set, click **OK**.
+1. In Network Adapter Settings, enter **4**.
+1. In Server Configuration, enter **12**.
+1. In the message box **Are you sure to log off?**, click **Yes**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Create a CIM session to **VN1-SRV1**.
+
+    ````powershell
+    $cimSession = New-CimSession -ComputerName VN1-SRV1
+    ````
+
+1. Add the IP address **10.1.1.200**. with the prefix length of **24** to VN1-SRV1.
+
+    ````powershell
+    New-NetIPAddress `
+        -InterfaceAlias Ethernet `
+        -IPAddress 10.1.1.9 `
+        -PrefixLength 24 `
+        -CimSession $cimSession
+    ````
+
+1. Set the DNS server addresses for VN1-SRV1 to 10.1.1.40 and 10.1.2.8.
+
+    ````powershell
+    Set-DnsClientServerAddress `
+        -InterfaceAlias Ethernet `
+        -ServerAddresses 10.1.1.40, 10.1.2.8 `
+        -CimSession $cimSession
+    ````
+
+1. Remove the IP address **10.1.1.8** from VN1-SRV1.
+
+    ````powershell
+    Remove-NetIPAddress `
+        -InterfaceAlias Ethernet `
+        -IPAddress 10.1.1.8 `
+        -CimSession $cimSession `
+        -Confirm: $false
+    ````
+
+    Note: During execution of the command, the network connection to VN1-SRV1 will be dropped. You do not need to wait for the reconnection, because the creconnection may take a few minutes. Continue with the next task and revisit this task afterwards for the last step.
+
+1. Remove the CIM session.
+
+    ````powershell
+    Remove-CimSession $cimSession
+    ````
+
+### Task 2: Add the IP address of the decommissioned domain controller to the new domain controller
+
+#### SConfig
+
+Perform this task on VN1-SRV5.
+
+1. Sign in as **ad\Administrator**.
+1. In Sconfig, enter **8**.
+1. In Network settings, enter **1**.
+1. In Network Adapter settings, enter **1**.
+1. Beside Select DHCP, Static IP, enter **s**.
+1. Beside Enter static IP address, enter **10.1.1.8**.
+1. Beside Enter subnet mask, enter **255.255.255.0**.
+1. Beside Enter default gateway, enter **10.1.1.1**.
 1. In Server Configuration, enter **12**.
 1. In message box **Are you sure to log off?**, click **Yes**.
 
@@ -475,43 +524,27 @@ Perform this task on VN1-SRV1.
 
 Perform this task on CL1.
 
-1. In the context menu of **Start**, click **Terminal**.
-1. Remove the IP address **10.1.1.8** and add the IP address **10.1.1.200** with the prefix length of **24**.
+1. Open **Terminal** as Administrator.
+1. Create a CIM session to **VN1-SRV5**.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV1 -ScriptBlock {
-        Remove-NetIPAddress `
-            -InterfaceAlias Ethernet -IPAddress 10.1.1.8 -Confirm: $false
-        New-NetIPAddress `
-            -InterfaceAlias Ethernet -IPAddress 10.1.1.200 -PrefixLength 24
-    }
+    $cimSession = New-CimSession -ComputerName VN1-SRV5
     ````
 
-    Note: During execution of the command, the network connection to VN1-SRV1 will be dropped. Wait for the reconnection.
-
-### Task 2: Add the IP address of the decommissioned domain controller to the new domain controller
-
-Perform this task on CL1.
-
-1. In the context menu of **Start**, click **Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV5**.
+1. Add the IP address **10.1.1.8** with the prefix length of **24** to the interface **VNet1**.
 
     ````powershell
-    Enter-PSSession -ComputerName VN1-SRV5
+    New-NetIPAddress `
+        -InterfaceAlias VNet1 `
+        -IPAddress 10.1.1.8 `
+        -PrefixLength 24 `
+        -CimSession $cimSession
     ````
 
-    Note: Currently, there is no valid DNS server. Therefore, this takes a bit longer than expected.
-
-1. Add the IP address **10.1.1.8** to the network interface **VNet1**.
+1. Remove the CIM session
 
     ````powershell
-    New-NetIPAddress -InterfaceAlias VNet1 -IPAddress 10.1.1.8
-    ````
-
-1. Exit from the remote PowerShell session.
-
-    ````powershell
-    Exit-PSSession
+    Remove-CimSession $cimSession
     ````
 
 ### Task 3: Demote the old domain controller
@@ -523,7 +556,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
 1. In Remove Roles and Features Wizard, on page Befor You Begin, click **Next >**.
-1. On page Server Selection, click VN1-SRV1.ad.adatum.com and click **Next >**.
+1. On page Server Selection, click **VN1-SRV1.ad.adatum.com** and click **Next >**.
 1. On page Remove server roles, deactivate **Active Directory Domain Services**.
 1. In dialog Remove features that require Active Directory Domain Services, click **Remove Features**.
 1. In dialog Validation Results, click **Demote this domain controller**.
@@ -547,27 +580,40 @@ Perform this task on CL1.
     Clear-DnsClientCache
     ````
 
-1. Open a remote PowerShell session to **VN1-SRV1**.
+1. Store the new local administrator password in a variable.
 
     ````powershell
-    Enter-PSSession -ComputerName VN1-SRV1
+    $localAdministratorPassword = Read-Host `
+        -Prompt 'LocalAdministratorPassword' `
+        -AsSecureString
     ````
 
-1. Demote the domain controller.
+1. At the prompt **LocalAdministratorPassword** enter a secure password and take a note.
+
+1. Demote the domain controller VN1-SRV1.
 
     ````powershell
-    Uninstall-ADDSDomainController
+    $job = Invoke-Command -ComputerName VN1-SRV1 -AsJob -ScriptBlock {
+        Uninstall-ADDSDomainController `
+            -LocalAdministratorPassword $using:localAdministratorPassword -Force
+    }
     ````
 
-1. At the prompts **LocalAdministratorPassword** and **Confirm LocalAdministratorPassword** enter a secure password and take a note.
-1. At the prompt **The server will be automatically restarted when this operation is complete. The domain will no longer exist after you uninstall Active Directory Domain Services from the last domain controller in the domain.**, enter **y**.
-1. Exit from the remote PowerShell session.
+1. Wait for the job to complete.
 
     ````powershell
-    Exit-PSSession
+    $job | Wait-Job
     ````
 
-    Note: You may receive an error message **Command 'Exit-PSSession' was not run as the session in which it was intended to run was either closed or broken**. This is normal due to the restart of VN1-SRV1 and can be ignored.
+    This will take a few minutes.
+
+1. Read the output of the job.
+
+    ````powershell
+    $job | Receive-Job
+    ````
+
+    The value of the property **Status** should be **Success**.
 
 ### Task 4: Remove roles from the decommissioned domain controller
 
@@ -578,7 +624,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, on the menu, click **Manage**, **Remove Roles and Features**.
 1. In Remove Roles and Features Wizard, on page Befor You Begin, click **Next >**.
-1. On page Server Selection, click VN1-SRV1.ad.adatum.com and click **Next >**.
+1. On page Server Selection, click **VN1-SRV1.ad.adatum.com** and click **Next >**.
 1. On page Remove server roles, deactivate **Active Directory Domain Services**.
 1. In dialog Remove features that require Active Directory Domain Services, click **Remove Features**.
 1. On page **Remove server roles**, deactivate **DNS Server**.
@@ -594,7 +640,7 @@ Perform this task on CL1.
 1. Shut down **VN1-SRV1**.
 
     ````powershell
-    Stop-Computer -ComputerName VN1-SRV1
+    Stop-Computer -ComputerName VN1-SRV1 -WsmanAuthentication Default
     ````
 
 #### PowerShell
@@ -613,7 +659,7 @@ Perform this task on CL1.
 1. Shut down VN1-SRV1.
 
     ````powershell
-    Stop-Computer -ComputerName VN1-SRV1
+    Stop-Computer -ComputerName VN1-SRV1 -WsmanAuthentication Default
     ````
 
 ## Exercise 5: Raise the domain and forest functional level
@@ -650,9 +696,15 @@ Perform this task on CL1.
     Set-ADDomainMode -Identity ad.adatum.com -DomainMode Windows2016Domain
     ````
 
-    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level.
+    If you receive an error message **Set-ADDomainMode : A referral was returned from the server**, restart both domain controllers and try again.
+
+    ````powershell
+    Restart-Computer -ComputerName vn1-srv5, vn2-srv1 -WsmanAuthentication Default
+    ````
 
 1. At the prompt **Performing the operation "Set" on target "DC=ad,DC=adatum,DC=com".**, enter **y**.
+
+    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level.
 
 ### Task 2: Raise the forest functional level
 
@@ -675,12 +727,12 @@ Perform this task on CL1.
 1. Set the forest mode to Windows Server 2016.
 
     ````powershell
-    Set-ADForestMode -Identity ad.adatum.com -DomainMode Windows2016Forest
+    Set-ADForestMode -Identity ad.adatum.com -ForestMode Windows2016Forest
     ````
 
 1. At the prompt **Performing the operation "Set" on target "CN=Partitions,CN=Configuration,DC=ad,DC=adatum,DC=com".**, enter **y**.
 
-    > The highest possible domain functional level is Windows Server 2016. The domain is already at that level. Therefore, you will receive an error message.
+    > You will receive the error message **Set-ADForestMode : The functional level of the domain (or forest) cannot be lowered to the requested value**. The highest possible forest functional level is Windows Server 2016. The domain is already at that level.
 
 1. Check the forest mode.
 
@@ -707,14 +759,14 @@ Perform this task on VN2-SRV2.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, ensure **VN2-SRV2.ad.adatum.com** is selected and click **Next >**.
 1. On page Server Roles, activate **Active Directory Domain Services**.
 1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
 1. On page Features, click **Next >**.
 1. On page **AD DS**, click **Next >**.
-1. On page **Confirmation**, click **Install**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
 #### PowerShell
@@ -726,8 +778,7 @@ Peform this task on VN2-SRV2.
 
     ````powershell
     Install-WindowsFeature `
-        -Name AD-Domain-Services `
-        -IncludeManagementTools
+        -Name AD-Domain-Services -IncludeManagementTools -Restart
     ````
 
 ### Task 2: Configure Active Directory Domain Services as new forest
@@ -852,6 +903,7 @@ Perform this task on VN2-SRV2.
 
 Perform this task on VN2-SRV2.
 
+1. Sign in as **Administrator@ad.contoso.com**.
 1. Run **Windows PowerShell (Admin)**.
 1. In Windows PowerShell (Admin), configure the forwarder to **8.8.8.8** and **8.8.4.4**.
 

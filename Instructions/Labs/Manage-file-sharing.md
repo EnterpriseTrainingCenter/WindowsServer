@@ -4,7 +4,7 @@
 
 * VN1-SRV1
 * VN1-SRV4
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 * CL2
 
@@ -12,7 +12,7 @@
 
 On **CL1**, logon as **ad\Administrator**.
 
-On **VN1-SRV6**, logon as **ad\Administrator**.
+On **VN1-SRV10**, logon as **ad\Administrator**.
 
 ## Introduction
 
@@ -64,7 +64,7 @@ Perform this task on CL1.
 1. From the desktop, open **Basic Administration**.
 1. In Basic Ádministration, expand **Active Directory Users and Computer**, **ad.adatum.com**.
 1. In the context-menu of **ad.adatum.com**, click **New**, **Organizational Unit**.
-1. In New Object - Organizational Unit, in **Name**, enter **Entitling groups** and click **OK**.
+1. In New Object - Organizational Unit, in **Name**, type **Entitling groups** and click **OK**.
 
 #### Active Directory Administrative Center
 
@@ -72,9 +72,11 @@ Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
 1. In the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
-1. In Create Organizational Unit, in **Name**, enter **Entitling groups** and click **OK**.
+1. In Create Organizational Unit, in **Name**, type **Entitling groups** and click **OK**.
 
 #### Windows Admin Center
+
+Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
@@ -82,7 +84,7 @@ Perform this task on CL1.
 1. Under Active Directory Domain Services, click the tab **Browse**.
 1. Click **DC=ad, DC=adatum, DC=com**.
 1. In the right pane, click **Create**, **OU**.
-1. In the pane Add Organizational Unit, in **Name**, enter **Entitling groups** and click **Create**.
+1. In the pane Add Organizational Unit, in **Name**, type **Entitling groups** and click **Create**.
 
 #### PowerShell
 
@@ -125,7 +127,7 @@ Perform this task on CL1.
 1. Click **ad (local)**.
 1. Double-click **Entitling groups**.
 1. In the pane **Tasks**, click **New**, **Group**.
-1. In Create Group, in **Group name**, enter the name of the new group.
+1. In Create Group, in **Group name**, type the name of the new group.
 1. Under **Group scope**, click **Domain local**.
 1. On the left, click **Members**.
 1. Under Members, click **Add...**.
@@ -152,7 +154,7 @@ Perform this task on CL1.
 1. Click **Create**.
 1. In the right pane, left to the search box, click the icon *Refresh*.
 1. Click the new group.
-1. click **Properties**.
+1. Click **Properties**.
 1. In Group properties: ..., on the left, click **Membership**.
 1. Click **Add**.
 1. In the pane Add Group Membership, under **User SamAccountname**, type the name of the member and click **Add**.
@@ -193,7 +195,7 @@ Perform this task on CL1.
 
 ### Task 3: Create shares and configure file system and share permissions
 
-Create the shares on VN1-SRV6 and configure the permissions according to the table above. Leave the permissions for Administrators, CREATOR OWNER and SYSTEM. Use different administation tools for this task. Below, generic instructions for each tool are provided.
+Create the shares on VN1-SRV10 and configure the permissions according to the table above. Leave the permissions for Administrators, CREATOR OWNER and SYSTEM. Use different administation tools for this task. Below, generic instructions for each tool are provided.
 
 #### Server Manager
 
@@ -204,14 +206,14 @@ Perform this task on CL1.
 1. In File and Storage Services > Servers, on the left, click **Shares**.
 1. In Server Manager > File and Storage Services > Shares, under **SHARES**, click **Tasks**, **New Share**.
 1. In the New Share Wizard, on page **Select Profile**, ensure **SMB Share - Quick** is selected and click **Next >**.
-1. On page **Share Location**, under **Servers** click **VN1-SRV6**.
+1. On page **Share Location**, under **Servers** click **VN1-SRV10**.
 1. Under **Share location**, click **D:** and click **Next >**.
 1. On page **Share Name**, in **Share name**, type the share name and click **Next >**.
 1. On page **Other Settings**, activate the checkboxes **Enable access-based enumeration** and click **Next >**.
 1. On page **Permissions**, click **Customize permissions...**.
 1. In Advanced Security Settings for ..., on tab **Permissions**, click **Disable inheritance**.
 1. In the dialog **What would you like to do with the current inherited permissioons?**, click **Convert inherited permissions into explicit permissions on this object.**
-1. Under **Permission entries**, click the first entry with the **Principal** **Users (VN1-SRV6\\Users)** and click **Remove**. Repeat this step for all entries except for those with Principal **Administrators**, **SYSTEM**, and **CREATOR OWNER**.
+1. Under **Permission entries**, click the first entry with the **Principal** **Users (VN1-SRV10\\Users)** and click **Remove**. Repeat this step for all entries except for those with Principal **Administrators**, **SYSTEM**, and **CREATOR OWNER**.
 1. Click **Add**.
 1. In Permission Entry for ..., click **Select a principal**.
 1. In Select User, Computer, Service Account, or Group, in **Enter the object name to select**, type the name of the group to grant read permissions (e.g. **Finance Read)** and click **OK**.
@@ -225,7 +227,7 @@ Perform this task on CL1.
 
     | Type  | Principal                                | Access         | Inherited from | Applies to                        |
     |-------|------------------------------------------|----------------|----------------|-----------------------------------|
-    | Allow | Administrators (VN1-SRV6\\Administrators) | Full Control   | None           | This folder, subfolders and files |
+    | Allow | Administrators (VN1-SRV10\\Administrators) | Full Control   | None           | This folder, subfolders and files |
     | Allow | SYSTEM                                   | Full Control   | None           | This folder, subfolders and files |
     | Allow | CREATOR OWNER                            | Full Control   | None           | Subfolders and files only         |
     | Allow | Finance Read (ad\\Finance Read)       | Read & execute | None           | This folder, subfolders and files |
@@ -242,7 +244,7 @@ Perform this task on CL1.
 1. In **Advanced Security Settings for ...**, click **Add**.
 1. In Permission entry for ..., click **Select a principal**.
 1. In Select User, Computer, Service Account, or Group, click **Locations...**.
-1. In Locations, click **VN1-SRV6.ad.adatum.com** and click **OK**.
+1. In Locations, click **VN1-SRV10.ad.adatum.com** and click **OK**.
 1. In **Select User, Computer, Service Account, or Group**, in **Enter the object name to select**, type **Administrators** and click **OK**.
 1. In **Permission entry for ...**, under **Permissions**, activate the checkbox **Full Control** and click **OK**.
 1. In **Advanced Security Settings for ...**, click the permission entry with the **Principal** **Everyone** and click **Remove**.
@@ -253,7 +255,7 @@ Perform this task on CL1.
     |-------|------------------------------------------|----------------|
     | Allow | Finance Read (ad\\Finance Read)       | Read           |
     | Allow | Finance Modify (ad\\Finance Modify)   | Change         |
-    | Allow | Administrators (VN1-SRV6\\Administrators) | Full Control   |
+    | Allow | Administrators (VN1-SRV10\\Administrators) | Full Control   |
 
 1. Click **OK**.
 1. On page **Permissions**, click **Next >**.
@@ -265,10 +267,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV6**.
+1. Open a remote PowerShell session to **VN1-SRV10**.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. Create the folder.
@@ -365,15 +367,15 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **File Explorer**.
-1. In File Explorer, copy the contents of the respective folder in \\\\VN1-SRV6\\c$\LabResources\\Sample Documents to the share with the same name on VN1-SRV6.
+1. In File Explorer, copy the contents of the respective folder in \\\\VN1-SRV10\\c$\LabResources\\Sample Documents to the share with the same name on VN1-SRV10.
 
 #### Windows Admin Center
 
 Perform this task on CL1.
 
 1. Using Microsoft edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click **VN1-SRV6.ad.adatum.com**.
-1. Connected to VN1-SRV6.ad.adatum.com, under Tools, click **File & file sharing**.
+1. In Windows Admin Center, click **VN1-SRV10.ad.adatum.com**.
+1. Connected to VN1-SRV10.ad.adatum.com, under Tools, click **File & file sharing**.
 1. In the tab Files, navigate to **C:\LabResources\Sample Documents** and click the respective folder name.
 1. In the right pane, activate the checkbox left to the column name **Name** to select all files and folders.
 1. Click **Copy**. If you do not see Copy, click the ellipsis (**...**).
@@ -385,13 +387,13 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV6**.
+1. Open a remote PowerShell session to **VN1-SRV10**.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
-1. On VN1-SRV6, copy the contents of the respective folder in **C:\\LabResources\\Sample Documents** to **D:\\Shares\\...**.
+1. On VN1-SRV10, copy the contents of the respective folder in **C:\\LabResources\\Sample Documents** to **D:\\Shares\\...**.
 
     ````powershell
     # TODO: Fill the share name between the quotes, e.g., 'Finance'
@@ -409,7 +411,7 @@ Perform this task on CL2.
 Repeat this task for every user from the table above.
 
 1. Sign in with a user from the table above.
-1. Using **File Explorer**, navigate to **\\\\VN1-SRV6**.
+1. Using **File Explorer**, navigate to **\\\\VN1-SRV10**.
 1. Try to access the shares and write down the results.
 1. In each share, try to create a file and write down the results.
 1. Compare the results with the table above.
@@ -432,20 +434,20 @@ Repeat this task for every user from the table above.
 1. [Take CL2 offline](#task-3-take-computer-offline).
 1. [Verify offline access](#task-4-verify-offline-access).
 
-    > Which folders and files are available in  \\\\VN1-SRV6\\IT?
+    > Which folders and files are available in  \\\\VN1-SRV10\\IT?
 
-    > Which folders and files are available in  \\\\VN1-SRV6\\Finance?
+    > Which folders and files are available in  \\\\VN1-SRV10\\Finance?
 
-    > Which folders and files are available in  \\\\VN1-SRV6\\Marketing?
+    > Which folders and files are available in  \\\\VN1-SRV10\\Marketing?
 
 1. [Bring CL2 online](#task-5-bring-computer-online).
 1. [Verify online access](#task-6-verify-online-access).
 
-    > Can you open \\\\VN1-SRV6\\Marketing\\Building Partnerships.pptx?
+    > Can you open \\\\VN1-SRV10\\Marketing\\Building Partnerships.pptx?
 
 ### Task 1: Configure shares for offline access
 
-Configure the Offline Settings of the shares on VN1-SRV6 according to the table above. Use different administation tools for this task. Below, generic instructions for each tool are provided.
+Configure the Offline Settings of the shares on VN1-SRV10 according to the table above. Use different administation tools for this task. Below, generic instructions for each tool are provided.
 
 #### Desktop experience
 
@@ -454,8 +456,8 @@ Perform this task on CL1.
 1. On the desktop, open **Basic Administration**.
 1. In Basic Administration, click **Computer Management (local)**.
 1. From the context-menu of Computer Management (local), click **Connect to another computer...**.
-1. In Select Computer, in **Another computer**, type **VN1-SRV6** and click **OK**.
-1. Expand **Computer Management (VN1-SRV6)**, **System Tools**, **Shared Folders**, and click **Shares**.
+1. In Select Computer, in **Another computer**, type **VN1-SRV10** and click **OK**.
+1. Expand **Computer Management (VN1-SRV10)**, **System Tools**, **Shared Folders**, and click **Shares**.
 1. From the context-menu of the respective share, click **Properties**.
 1. In ... Properties, click **Offline Settings...**.
 1. In the tab Sharing, click **Advanced Sharing...**.
@@ -467,10 +469,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Open a remote PowerShell session to **VN1-SRV6**.
+1. Open a remote PowerShell session to **VN1-SRV10**.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. Configure the caching mode of each share.
@@ -491,14 +493,14 @@ Perform this task on CL1.
 Perform this task on CL2.
 
 1. Sign in as **ad\Pia**.
-1. Using **File Explorer**, navigate to \\\\VN1-SRV6\\IT.
+1. Using **File Explorer**, navigate to \\\\VN1-SRV10\\IT.
 1. In the context menu of **Step-by-Step Guides**, click **Show more options**, **Always available offline**.
-1. Navigate to \\\\VN1-SRV6\\Finance.
+1. Navigate to \\\\VN1-SRV10\\Finance.
 1. In the context menu of any document, click **Show more options**
 
     > The command **Always available offline** is not available.
 
-1. Navigate to \\\\VN1-SRV6\\Marketing.
+1. Navigate to \\\\VN1-SRV10\\Marketing.
 1. Open **Marketing With Partners.pptx**.
 1. If **Sign in to set up Office** appears, close the dialog.
 1. If **Your privacy matters** appears, click **Close**.
@@ -523,15 +525,15 @@ Perform these steps on the host.
 
 Perform these tasks on CL2.
 
-1. Using **File Explorer**, navigate to \\\\VN1-SRV6\\IT.
+1. Using **File Explorer**, navigate to \\\\VN1-SRV10\\IT.
 
     > Step-by-Step Guides and all files in the folder are available offline.
 
-1. Navigate to \\\\VN1-SRV6\\Finance.
+1. Navigate to \\\\VN1-SRV10\\Finance.
 
     > You receive an error message telling you that Windows cannot access the share.
 
-1. Using **File Explorer**, navigate to \\\\VN1-SRV6\\Marketing.
+1. Using **File Explorer**, navigate to \\\\VN1-SRV10\\Marketing.
 
     > All files are visible.
 
@@ -565,7 +567,7 @@ Perform this task on the host.
 
 Perform this task on CL2.
 
-1. Using **File Explorer**, navigate to \\\\VN1-SRV6\\Marketing.
+1. Using **File Explorer**, navigate to \\\\VN1-SRV10\\Marketing.
 1. Open **Building Partnerships.pptx**.
 1. If **Sign in to set up Office** appears, close the dialog.
 
@@ -575,13 +577,13 @@ Perform this task on CL2.
 
 ## Exercise 3: Configure Volume Shadow Copies
 
-1. [Configure Volume Shadow Copies](#task-1-configure-volume-shadow-copies) on D: of VN1-SRV6
+1. [Configure Volume Shadow Copies](#task-1-configure-volume-shadow-copies) on D: of VN1-SRV10
 1. [Delete and modify files on a VSS protected share](#task-2-delete-and-modify-files-on-a-vss-protected-share)
 1. [Undo the changes using a Volume Shadow Copy](#task-3-undo-the-changes-using-a-volume-shadow-copy)
 
 ### Task 1: Configure Volume Shadow Copies
 
-Perform this task on VN1-SRV6.
+Perform this task on VN1-SRV10.
 
 > Note: The configuration interface for Volume Shadow Copies is available on NTFS volumes only, although ReFS supports Volume Shadow Copies.
 
@@ -608,7 +610,7 @@ Perform this task on VN1-SRV6.
 Perform this task on CL2.
 
 1. Sign in as **ad\Pia**.
-1. Using **File Explorer**, navigate to **\\\\VN1-SRV6\\Finance**.
+1. Using **File Explorer**, navigate to **\\\\VN1-SRV10\\Finance**.
 1. In Finance, delete the file **3 Month Snapshot.xls**.
 1. Open **6 Month Snapshot.xlsx**.
 1. In 6 Month Snapshot, click **Sheet1**.
@@ -621,7 +623,7 @@ Perform this task on CL2.
 Perform this task on CL2.
 
 1. Sign in as **ad\Pia**.
-1. Using **File Explorer**, navigate to **\\\\VN1-SRV6\\Finance**.
+1. Using **File Explorer**, navigate to **\\\\VN1-SRV10\\Finance**.
 1. Open **6 Month Snapshot.xlsx**.
 1. Verify, the column **Argumentum** is missing.
 1. Close **6 Month Snapshot**.
@@ -646,6 +648,6 @@ Perform this task on CL2.
 1. Close **6 Month Snapshot**.
 1. In the message box **Want to save your changes to 6 Monath Snapshot.xlsx**, click **Don't Save**.
 1. In **File Explorer**, in the context menu of **Finance** (click an empty area in Finance), click **Properties**.
-1. In Finance (\\\\VN1-SRV6) Properties, click the tab **Previous Versions**.
+1. In Finance (\\\\VN1-SRV10) Properties, click the tab **Previous Versions**.
 1. On the tab Previous Versions, click **Open**. A new File Explorer window opens.
 1. From the new File Explorer window, copy **3 Month Snapshot.xlsx** to the original **Finance** window.

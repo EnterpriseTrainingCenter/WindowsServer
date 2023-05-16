@@ -5,13 +5,13 @@
 * VN1-SRV1
 * VN1-SRV4
 * VN1-SRV5
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Setup
 
 1. On **CL1**, sign in as **ad\Administrator**.
-1. On **VN1-SRV6**, sign in as **ad\Administrator**.
+1. On **VN1-SRV10**, sign in as **ad\Administrator**.
 
 ## Introduction
 
@@ -26,13 +26,13 @@ You want to create virtual disks with volumes, extend volumes and validate mount
 
 ## Exercise 1: Manage disks
 
-[Initialize disks](#task-initialize-disks) on VN1-SRV6 and VN1-SRV5 with GPT partition style
+[Initialize disks](#task-initialize-disks) on VN1-SRV10 and VN1-SRV5 with GPT partition style
 
 > What is the partition style, if you initialize a disk in Server Manager?
 
 ### Task: Initialize disks
 
-Intitialize the new disks on VN1-SRV6 and VN1-SRV5 with the GPT partition style. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
+Intitialize the new disks on VN1-SRV10 and VN1-SRV5 with the GPT partition style. Use the different administration tools for this task. Below, generic instructions for each tool are provided.
 
 #### Disk Management
 
@@ -124,12 +124,12 @@ Perform these steps on CL1.
 
     | Computer  | Disk | Size    | File system | Label      | Drive Letter |
     |-----------|------|---------|-------------|------------|--------------|
-    | VN1-SRV6   | 1    | Maximum | NTFS        | NTFS 1TB   | D            |
-    | VN1-SRV6   | 2    | 512 GB  | ReFS        | ReFS 512GB | E            |
+    | VN1-SRV10   | 1    | Maximum | NTFS        | NTFS 1TB   | D            |
+    | VN1-SRV10   | 2    | 512 GB  | ReFS        | ReFS 512GB | E            |
     | VN1-SRV5 | 1    | 512 GB  | REFS        | ReFS 512GB | D            |
     | VN1-SRV5 | 1    | 128 GB  | NTFS        | NTFS 128GB | E            |
 
-1. [Extend volume](#task-2-extend-volume) NTFS 512GB on VN1-SRV6 to 768GB
+1. [Extend volume](#task-2-extend-volume) NTFS 512GB on VN1-SRV10 to 768GB
 
 ### Task 1: Create volumes
 
@@ -230,7 +230,7 @@ Perform these steps on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the left pane, click **File and Storage Services**.
 1. In File and Storage Services > Servers, on the left, click **Disks**.
-1. On **VN1-SRV6**, click disk 2 with a **Capacity** of **1 TB** and the **Bus Type** **File Backed Virtual**.
+1. On **VN1-SRV10**, click disk 2 with a **Capacity** of **1 TB** and the **Bus Type** **File Backed Virtual**.
 1. Under **VOLUMES**, in the context-menu of the volume with **Capacity** of **512 GB**, click **Extend Volume...**
 1. In Extend Volume, in **New size**, type 768. Ensure **GB** is selected and click **OK**.
 
@@ -239,8 +239,8 @@ Perform these steps on CL1.
 Perform these steps on CL1.
 
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, click the **VN1-SRV6.ad.adatum.com**.
-1. Connected to VN1-SRV6.ad.adatum.com, under Tools, click **Storage**.
+1. In Windows Admin Center, click the **VN1-SRV10.ad.adatum.com**.
+1. Connected to VN1-SRV10.ad.adatum.com, under Tools, click **Storage**.
 1. In Storage, click **Disk 2**.
 1. In the tab **Volumes**, click **ReFS 512GB (E:)**.
 1. Click **Resize**.
@@ -252,10 +252,10 @@ Perform these steps on CL1.
 Perform these steps on CL1.
 
 1. Open **Terminal**.
-1. Create a remote PowerShell session to **VN1-SRV6**.
+1. Create a remote PowerShell session to **VN1-SRV10**.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. List the disks.
@@ -284,7 +284,7 @@ Perform these steps on CL1.
 
 ## Exercise 3: Manage mount points
 
-1. [Create a mount point](#task-1-create-a-mount-point) on VN1-SRV6 for E:\ in D:\ITData
+1. [Create a mount point](#task-1-create-a-mount-point) on VN1-SRV10 for E:\ in D:\ITData
 1. [Validate mount points](#task-2-validate-mount-points)
 
 Perform these steps on CL1.
@@ -299,7 +299,7 @@ Perform these steps on CL1.
 1. In Server Manager, in the left pane, click **File and Storage Services**.
 1. In File and Storage Services > Servers, under **SERVICES** (scroll down), in the context-menu of the service **SERVER**, click **Restart Services**.
 1. On the left, click **Disks**.
-1. On **VN1-SRV6**, click disk 2 with a **Capacity** of **1 TB** and the **Bus Type** **File Backed Virtual**.
+1. On **VN1-SRV10**, click disk 2 with a **Capacity** of **1 TB** and the **Bus Type** **File Backed Virtual**.
 1. Under **VOLUMES**, in the context-menu of the volume **E:**, click **Manage Drive Letter and Access Paths...**
 1. In Manage drive letter and access paths, click **Browse...**.
 1. In Select Folder, click **NTFS 1TB (D:)**.
@@ -312,10 +312,10 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. Create a remote PowerShell session to **VN1-SRV6**.
+1. Create a remote PowerShell session to **VN1-SRV10**.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. Create the folder **D:\ITData**.
@@ -339,15 +339,15 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. Using **File Explorer**, copy the contents of the folder **\\\\VN1-SRV6\\c$\\LabResources\\Sample Documents\\IT** to **\\\\VN1-SRV6\\d$\\ITData**.
-1. Open a second instance of **File Explorer**, navigate to **\\\\VN1-SRV6\\e$** and compare the contents with **\\\\VN1-SRV6\\d$\\ITData**.
+1. Using **File Explorer**, copy the contents of the folder **\\\\VN1-SRV10\\c$\\LabResources\\Sample Documents\\IT** to **\\\\VN1-SRV10\\d$\\ITData**.
+1. Open a second instance of **File Explorer**, navigate to **\\\\VN1-SRV10\\e$** and compare the contents with **\\\\VN1-SRV10\\d$\\ITData**.
 
 #### PowerShell
 
-1. Create a remote PowerShell session to **VN1-SRV6**.
+1. Create a remote PowerShell session to **VN1-SRV10**.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. Copy the contents of **C:\LabResources\\Sample Documents\IT** to **D:\ITData**.
@@ -390,7 +390,7 @@ Perform these steps on CL1.
     > Can you still view the content of the hard link?
 
 1. [Create a new hard link to recover the original file](#task-5-create-a-new-hard-link-to-recover-the-original-file)
-1. [Create a junction](#task-6-create-a-junction) on VN1-SRV6 at D:\\Setup targeting C:\\BootStrap
+1. [Create a junction](#task-6-create-a-junction) on VN1-SRV10 at D:\\Setup targeting C:\\BootStrap
 1. [Verify the junction](#task-7-verify-the-junction) by comparing the content of the folders before and after deleting a file
 
     > Do you see the deleted file on the junction?
@@ -402,10 +402,10 @@ Perform these steps on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Create a hard link **C:\\setupscript.ps1** targeting **C:\\BootStrap\\BootStrap.ps1** on VN1-SRV6.
+1. Create a hard link **C:\\setupscript.ps1** targeting **C:\\BootStrap\\BootStrap.ps1** on VN1-SRV10.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
         $target = 'C:\BootStrap\BootStrap.ps1'
         $name = 'SetupScript.ps1'
         $path = 'C:\'
@@ -421,7 +421,7 @@ Perform this task on CL1.
 1. Compare the content of **C:\\setupscript.ps1** with **C:\\BootStrap\\BootStrap.ps1**.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
         $referenceObject = Get-Content 'C:\BootStrap\BootStrap.ps1'
         $differenceObject = Get-Content 'C:\SetupScript.ps1'
         Compare-Object `
@@ -440,7 +440,7 @@ Perform this task on CL1.
 1. Delete the original file **C:\\BootStrap\\BootStrap.ps1**.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
         Remove-Item 'C:\BootStrap\BootStrap.ps1'
     }
     ````
@@ -453,7 +453,7 @@ Perform this task on CL1.
 1. Get the content of **C:\\setupscript.ps1**.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
         Get-Content 'C:\SetupScript.ps1'
     }
     
@@ -469,7 +469,7 @@ Perform this task on CL1.
 1. Recover the original file by creating a hard link.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
         New-Item `
             -ItemType HardLink `
             -Target 'C:\SetupScript.ps1' `
@@ -483,10 +483,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. On VN1-SRV6, create a junction **D:\\Setup** targeting **C:\\BootStrap**.
+1. On VN1-SRV10, create a junction **D:\\Setup** targeting **C:\\BootStrap**.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV6 -ScriptBlock {
+    Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
         New-Item `
             -ItemType Junction `
             -Target 'C:\BootStrap\' `
@@ -500,10 +500,10 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Open a remote PowerShell session to VN1-SRV6.
+1. Open a remote PowerShell session to VN1-SRV10.
 
     ````powershell
-    Enter-PSSession VN1-SRV6
+    Enter-PSSession VN1-SRV10
     ````
 
 1. List the contents of **D:\\Setup**.
@@ -534,7 +534,7 @@ Perform this task on CL1.
 
 ### Task 8: Create and verify a symbolic link
 
-Perform this task on VN1-SRV6.
+Perform this task on VN1-SRV10.
 
 1. Run **Terminal** or **Windows PowerShell** as Administrator.
 1. Create a symbolic link **D:\\Sysvol** targeting **\\\\VN1-SRV1\\Sysvol**.

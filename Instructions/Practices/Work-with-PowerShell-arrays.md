@@ -6,12 +6,12 @@
 * VN1-SRV2
 * VN1-SRV4
 * VN1-SRV5
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Task
 
-On CL1, query the running services on VN1-SRV1, VN1-SRV4, VN1-SRV6, VN1-SRV5, VN1-SRV2 with a single command using iteration.
+On CL1, query the running services on VN1-SRV1, VN1-SRV2, VN1-SRV4, VN1-SRV5, VN1-SRV10 with a single command using iteration.
 
 ## Instructions
 
@@ -19,10 +19,10 @@ Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
 1. From the context-menu of **Start** (you can press WIN + X), launch **Terminal** as Administrator.
-1. Store the strings VN1-SRV1, VN1-SRV4, VN1-SRV6, VN1-SRV5, VN1-SRV2 in the variable $servers.
+1. Store the strings VN1-SRV1, VN1-SRV4, VN1-SRV10, VN1-SRV5, VN1-SRV2 in the variable $servers.
 
     ````powershell
-    $servers = @('VN1-SRV1', 'VN1-SRV4', 'VN1-SRV6', 'VN1-SRV5', 'VN1-SRV2')
+    $servers = @('VN1-SRV1', 'VN1-SRV2', 'VN1-SRV4', 'VN1-SRV5', 'VN1-SRV10')
     ````
 
 1. Iterate through the array $servers and list the running services on each of the servers while measuring the executing time

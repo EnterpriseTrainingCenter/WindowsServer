@@ -1,4 +1,4 @@
-# Lab: iSCSI and Multipath I/O
+# Lab: Implementing and managing iSCSI and Multipath I/O
 
 ## Required VMs
 
@@ -36,7 +36,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV10.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **iSCSI Target Server**.
 1. In the dialog **Add features that are required for iSCSI Target Server?**, click **Add Features**
@@ -199,7 +199,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV5.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, click **Next >**.
 1. On page Features, activate **Multipath I/O** and click **Next >**.
@@ -242,22 +242,12 @@ Perform this task on VN1-SRV5.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. In Terminal, create a remote PowerShell session to **VN1-SRV5**.
+1. In Terminal, activate the Multipath I/O support for iSCSI devices on **VN1-SRV5**.
 
    ````powershell
-   Enter-PSSession VN1-SRV5
-   ````
-
-1. Activate the Multipath I/O support for iSCSI devices.
-
-   ````powershell
-   Enable-MSDSMAutomaticClaim -BusType iSCSI
-   ````
-
-1. Close the remote PowerShell session.
-
-   ````powershell
-   Exit-PSSession
+   Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
+      Enable-MSDSMAutomaticClaim -BusType iSCSI
+   }
    ````
 
 ### Task 3: Connect to the iSCSI target
@@ -414,7 +404,7 @@ Perform this task on CL1
       @{ Size = 1GB; DriveLetter = 'D'; FileSystemLabel = 'Quorum' }
       @{ Size = 10GB; DriveLetter = 'E'; FileSystemLabel = 'WAC' }
       @{ Size = 80GB; DriveLetter = 'F'; FileSystemLabel = 'Hyper-V' }
-      @{ Size = 100MB, DriveLetter = 'G'; FileSystemLabel = 'Witness Shares' }
+      @{ Size = 100MB; DriveLetter = 'G'; FileSystemLabel = 'Witness Shares' }
    )
    ````
 
@@ -470,7 +460,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV5.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **File Server** and click **Next >**.
 1. On page Features, click **Next >**.
@@ -502,7 +492,7 @@ Perform this task on the host.
    New-PSDrive `
       -Name V `
       -PSProvider FileSystem `
-      -Root \\vn1-srv5\d$ `
+      -Root \\vn1-srv5\f$ `
       -Credential Administrator
    ````
 

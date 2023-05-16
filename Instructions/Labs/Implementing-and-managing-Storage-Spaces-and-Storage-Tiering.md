@@ -1,9 +1,9 @@
-# Lab: Storage Spaces and Storage Tiering
+# Lab: Implementing and managing Storage Spaces and storage tiering
 
 ## Required VMs
 
 * VN1-SRV1
-* VN1-SRV6
+* VN1-SRV10
 * CL1
 
 ## Setup
@@ -183,7 +183,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV10.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **File Server** and click **Next >**.
 1. On page Features, click **Next >**.
@@ -231,7 +231,7 @@ Perform this task on the host.
    ````
 
 1. Enter the credentials of **Administrator** on VN1-SRV10.
-1. Copy **C:\\Labs\\ISOs\\2022_x64_EN_Eval** from the host to **D:\\** on WIN-VN1-SRV5 in an infinite loop. Pause for 10 seconds after each iteration.
+1. Copy **C:\\Labs\\ISOs\\2022_x64_EN_Eval** from the host to **V:\\** in an infinite loop.
 
    ````powershell
    while ($true) { 
@@ -294,7 +294,7 @@ In the instance of Windows PowerShell or Terminal, where you removed the hard di
 
 Leave all instances **Windows PowerShell (Admin)** or **Terminal** open with the copy process running, while continuing with the next tasks.
 
-Repeat [task 3](#task-3-validate-the-results-from-a-failed-disk).
+Repeat [task 4](#task-4-validate-the-results-from-a-failed-disk).
 
 ### Task 6: Add new virtual hard disks
 
@@ -390,6 +390,13 @@ Perform this task on CL1.
    $cimSession = New-CimSession -ComputerName VN1-SRV10
    ````
 
+1. Remove the virtual disk **Data**.
+   
+   ````powershell
+   Remove-VirtualDisk -FriendlyName Data -CimSession $cimSession
+   ````
+ 
+1. At the prompt VN1-SRV10: This will remove the VirtualDisk "Data" and will erase all of the data that it contains, enter **y**.
 1. Remove the storage pool **Pool1**.
 
    ````powershell
@@ -397,6 +404,7 @@ Perform this task on CL1.
    Remove-StoragePool
    ````
 
+1. At the prompt VN1-SRV10: This will remove the StoragePool "Pool1", enter **y**.
 1. Remove the CIM session
 
    ````powershell
@@ -454,7 +462,7 @@ Perform these steps on CL1.
    Set-PhysicalDisk -MediaType SSD -CimSession $cimSession
    ````
 
-1. On VN1-SRV10, set the media type of the **1 TB** physical disks to **SSD**.
+1. On VN1-SRV10, set the media type of the **1 TB** physical disks to **HDD**.
 
    ````powershell
    Get-PhysicalDisk -CimSession $cimSession | 
@@ -496,8 +504,7 @@ Perform these steps on CL1.
    1. In **Server Manager**, **Storage Pools**, under **STORAGE POOLS**, click **TASKS**, **Refresh**.
    1. Restart the creation of the storage pool at step 4.
 
-   Activate all available disks and click **Next >**.
-
+1. Activate all available disks and click **Next >**.
 1. On page Confirmation, click **Create**.
 1. On page results, click **Close**.
 
@@ -595,7 +602,7 @@ Perform these steps on CL1.
    $virtualDisk = $storagePool | New-VirtualDisk `
       -FriendlyName 'Tiered Disk 1' `
       -ResiliencySettingName 'Mirror' `
-      -StorageTiers $storageTier `
+      -StorageTiers $storageTiers `
       -StorageTierSizes 32GB, 64GB
    ````
 

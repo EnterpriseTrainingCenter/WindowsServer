@@ -1,4 +1,4 @@
-# Lab: Storage Spaces Direct and hyper-converged virtualization
+# Lab: Configuring and managing Storage Spaces Direct and hyper-converged virtualization
 
 ## Required VMs
 
@@ -27,7 +27,6 @@ Adatum wants to evaluate Storage Spaces Direct. First, Storage Spaces Direct sho
 1. [Using a Scale-Out File Server with Hyper-V](#exercise-2-using-a-scale-out-file-server-with-hyper-v)
 1. [Creating a hyper-converged virtualization cluster](#exercise-3-creating-a-hyper-converged-virtualization-cluster)
 1. [Testing the resiliency of the hyper-converged virtualization](#exercise-4-testing-the-resiliency-of-the-hyper-converged-virtualization)
-1. [Shut down the Storage Spaces Direct cluster](#exercise-5-shut-down-the-storage-spaces-direct-cluster)
 
 ## Exercise 1: Configuration of Storage Spaces Direct
 
@@ -47,7 +46,7 @@ Adatum wants to evaluate Storage Spaces Direct. First, Storage Spaces Direct sho
 
 ### Task 1: Install the failover clustering feature
 
-For this task, for time purposes, it is recommended to use PowerShell.
+For this task, to save on time, it is recommended to use PowerShell.
 
 #### Desktop Experience
 
@@ -56,7 +55,7 @@ Perform this task on CL1.
 1. Open Server Manager.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV6.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, click **Next >**.
 1. On page Features, activate **Failover Clustering**.
@@ -286,7 +285,7 @@ Perform this task on CL1.
 
 1. [Install the File Server role](#task-1-install-the-file-server-role) on VN1-SRV6, VN1-SRV7, VN1-SRV8, and VN1-SRV9
 1. [Configure the Scale-Out File Server role](#task-2-configure-the-scale-out-file-server-role) on VN1-CLST2 with the client access point VN1-CLST2-SOFS
-1. [Create a group](#task-3-create-a-group) in Active Directory with VN1-SRV4 and VN1-SRV5 as members
+1. [Create a group](#task-3-create-a-group) in Active Directory with VN1-SRV4, VN1-SRV5, VN1-SRV6, VN1-SRV7, VN1-SRV8, and VN1-SRV9 as members
 1. [Create a share](#task-4-create-a-share) on VN1-CLST2-SOFS for Hyper-V Data granting the group from the previous task full control
 1. [Determine the owner node of the virtual machine](#task-5-determine-the-owner-node-of-the-virtual-machine) VN1-SRV23
 1. [Move virtual machine data to the SOFS share](#task-6-move-virtual-machine-data-to-the-sofs-share)
@@ -305,7 +304,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV6.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **File Server** and click **Next >**.
 1. On page Features, click **Next >**.
@@ -319,7 +318,7 @@ Repeat from step 2 for VN1-SRV7, VN1-SRV8, and VN1-SRV9
 Peform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Install the windows feature **File Server** on **VN1-SRV10**.
+1. Install the windows feature **File Server** on **VN1-SRV6**, **VN1-SRV7**, **VN1-SRV8**, and **VN1-SRV9**.
 
     ````powershell
    Invoke-Command `
@@ -361,7 +360,7 @@ Perform this task on CL1.
 1. Under Members, click **Add...**
 1. In Select Groups, Contacts, Computers, Service Accounts, or Groups, click **Object Types...**
 1. In Object Types, activate **Computers** and click **OK**.
-1. In **Select Groups, Contacts, Computers, Service Accounts, or Groups**, in **Enter the object names to select**, type **VN1-SRV4; VN1-SRV5** and click **OK**.
+1. In **Select Groups, Contacts, Computers, Service Accounts, or Groups**, in **Enter the object names to select**, type **VN1-SRV4; VN1-SRV5; VN1-SRV6; VN1-SRV7; VN1-SRV8; VN1-SRV9** and click **OK**.
 1. In **Create Group: Hyper-V Data Full Control**, click OK.
 
 ### Task 4: Create a share
@@ -424,7 +423,7 @@ Perform this task on the owner node of VN1-SRV23.
    ````powershell
    Move-VMStorage `
       -Name VN1-SRV23 `
-      -DestinationStoragePath '\\vn1-clst2-sofs2\Hyper-V Data'
+      -DestinationStoragePath '\\vn1-clst2-sofs\Hyper-V Data'
    ````
 
 ### Task 7: Verify move of the virtual machine
@@ -455,7 +454,7 @@ Perform this task on CL1.
 1. [Install Hyper-V](#task-2-install-hyper-v) on WIN-VN1-SRV6, WIN-VN1-SRV7, WIN-VN1-SRV8, and WIN-VN1-SRV9
 1. [Configure a virtual switch](#task-3-configure-a-virtual-switch) connected to the external network adapter on WIN-VN1-SRV6, WIN-VN1-SRV7, WIN-VN1-SRV8, and WIN-VN1-SRV9
 1. [Create a virtual machine](#task-4-create-a-virtual-machine) on the cluster with 1 GB RAM using a copy of the VHDX file for Windows Server 2022 Core
-1. [Configure Windows Server](#task-5-configure-windows-server) on the virtual machine with the IP address 10.1.1.192
+1. [Configure the virtual machine's operating system](#task-5-configure-the-virtual-machines-operating-system) with the IP address 10.1.1.192
 
 ### Task 1: Configure nested virtualization
 
@@ -484,10 +483,10 @@ Perform this task on the host.
 
 Perform this task on CL1.
 
-1. Open Server Manager.
+1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Reatures**.
 1. In the Add Rules and Features Wizard, on page **Before You Begin**, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-base installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV6.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, activate **Hyper-V**
 1. In Add features that are required for Hyper-V, click **Add Features**.
@@ -496,7 +495,7 @@ Perform this task on CL1.
 1. On page Hyper-V, click **Next >**.
 1. On page Virtual Switches, click **Next >**.
 1. On page Virtual Machine Migration, click **Next >**.
-1. On page Default Stores, in **Default location for virtual hard disk files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V\\Virtual Hard Disks**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. In **Default location for virtualmachine configuration files**, type **C:\\ClusterStorage\\Volume*x*\\Hyper-V**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. Click **Next >**.
+1. On page Default Stores, in **Default location for virtual hard disk files**, type **C:\\ClusterStorage\\Hyper-converged Disk\\Hyper-V\\Virtual Hard Disks**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. In **Default location for virtualmachine configuration files**, type **C:\\ClusterStorage\\Hyper-converged Disk\\Hyper-V**, where x is the volume number you recorded for the 80 GB disk in the previous exercise. Click **Next >**.
 1. On page Confirmation, activate **Restart the destination server automatically if required** and click **Install**.
 1. On  page **Results**, wait for the installation to succeed, then click **Close**.
 
@@ -507,7 +506,7 @@ Repeat the steps of this task to install the role on **VN1-SRV6**, **VN1-SRV7**,
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Install **Hyper-V** on **WIN-VN1-SRV6**, **WIN-VN1-SRV7**, **WIN-VN1-SRV8**, and **WIN-VN1-SRV9** without restarting them.
+1. Install **Hyper-V** on **VN1-SRV6**, **VN1-SRV7**, **VN1-SRV8**, and **VN1-SRV9** without restarting them.
 
    ````powershell
    $computerName = @('VN1-SRV6', 'VN1-SRV7', 'VN1-SRV8', 'VN1-SRV9')
@@ -555,67 +554,34 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **File Explorer**.
-1. In File Explorer, copy **\\\\VN1-SRV6\\C$\\LabResources\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
-1. Rename **\\\\VN1-SRV4\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks\\2022_x64_Datacenter_EN_Core_Eval.vhdx** to **VN1-SRV24.vhdx**
+1. In File Explorer, copy **\\\\VN1-SRV6\\C$\\LabResources\\TinyCorePure64.vhdx** to **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
+1. Rename **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks\\TinyCorePure64.vhdx** to **VN1-SRV24.vhdx**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
 1. In **Failover Cluster Manager**, in the context-menu of **Roles**, click **Virtual Machines...**, **New Virtual Machine...**.
 1. In New Virtual Machine, click **VN1-SRV6** and click **OK**.
 1. In New Virtual Machine Wizard, on page Before You Begin, click **Next >**.
 1. On page Specify Name and Location, in **Name**, type **VN1-SRV24** and click **Next >**.
-1. On page Specify Generation, click **Generation 2** and click **Next >**.
-1. On page Assign Memory, in **Startup memory**, type **1024** and click **Next >**.
+1. On page Specify Generation, click **Generation 1** and click **Next >**.
+1. On page Assign Memory, in **Startup memory**, type **256** and click **Next >**.
 1. On page Configure Networking, in **Connection**, click **External** and click **Next >**.
 1. On page Connect Virtual Hard Disk, click **Use an existing virtual hard disk** and click **Browse...**.
 1. In Open, click **VN1-SRV24.vhdx** and click **Open**.
 1. In **New Virtual Machine Wizard**, on page **Connect Virtual Hard Disk**, click **Next >**.
 1. On page Completing the New Virtual Machine Wizard, click **Finish**.
 1. In the **High Availability Wizard**, on page **Summary**, click **Finish**.
-1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV23**, click **Start**.
+1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN1-SRV24**, click **Start**.
 
-### Task 5: Configure Windows Server
+### Task 5: Configure the virtual machine's operating system
 
 Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
-1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
-1. Under Roles (1), in the context-menu of **VN1-SRV23**, click **Connect...**.
-1. In VN1-SRV24 on VN1-SRV4 - Virtual Machine Connection, at the prompt **The user's password must be changed before signing in.**, select **OK**.
-1. In **New password** and **Confirm password**, enter a secure password.
-1. At the prompt **Your password has been changed**, press **ENTER**.
-1. In SConfig, enter **8**.
-1. In Network settings, enter  **1**.
-1. In Network adapter settings, enter **1**.
-1. Beside **Select (D)HCP or (S)tatic IP address (Blank=Canel)**, enter **S**.
-1. Beside **Enter static IP address (Blank=Cancel)**, enter **10.1.1.192**.
-1. Beside **Enter subnet mask (Blank=255.255.255.0)**, press ENTER.
-1. Beside **Enter default gateway (Blank=Cancel)**, enter **10.1.1.1**.
-1. Under 4 success messages, press ENTER.
-1. In **SConfig**, enter **15**.
-1. Set the keyboard language, e.g., to German. You may replace the BCP 47 language tag of German by the language of your keyboard.
-
-    ````powershell
-    Set-WinUserLanguageList -LanguageList DE-DE 
-    ````
-
-1. At the prompt continue with this operation, enter **Y**.
-1. Open Region.
-
-    ````powershell
-    intl.cpl
-    ````
-
-1. In Region, under **Format**, click the format of your region.
-1. Click the tab **Administrative**.
-1. On tab Administrative, click **Copy settings...**.
-1. In the dialog Change Regional Options, click **Apply**.
-1. In Welcome screen and new user account settings, activate the checkboxes **Welcome screen and system accounts** and **New user accounts**, and click **OK**.
-1. In **Region** click **OK**.
-1. Enable ICMP Echo requests on the firewall.
-
-    ````powershell
-    Enable-NetFirewallRule -Name 'CoreNet-Diag-ICMP4-EchoRequest-In'
-    ````
+1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
+1. Under Roles (1), in the context-menu of **VN1-SRV24**, click **Connect...**.
+1. In VN1-SRV23 on VN1-SRV4 - Virtual Machine Connection, click on the desktop, **System tools**, **ControlPanel**.
+1. In ControlPanel, click **Network**.
+1. In Network, under **IP Address**, type  **10.1.1.192**. Under **Gateway**, type **10.1.1.1**. Under **NameServers**, type **10.1.1.8**. Ensure that under **Save Configuration**, **Yes** is selected. Click **Apply** and click **Exit**.
 
 ## Exercise 4: Testing the resiliency of the hyper-converged virtualization
 
@@ -701,26 +667,3 @@ Perform this task on CL1.
 1. In Roles (2), in the context-menu of **VN1-SRV24** click **Start**.
 
    > The virtual machine should start and run again.
-
-## Exercise 5: Shut down the Storage Spaces Direct cluster
-
-1. [Shut down the clustered virtual machines](#task-1-shut-down-the-clustered-virtual-machines) on VN1-CLST1 and VN1-CLST2
-1. [Shut down the nodes](#task-2-shut-down-the-nodes) VN1-SRV6, VN1-SRV7, VN1-SRV8, and VN1-SRV9
-
-### Task 1: Shut down the clustered virtual machines
-
-Perform this task on CL1.
-
-1. Open **Failover Cluster Manager**.
-1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**.
-1. Under Roles (3), in the context-menu of **VN1-SRV23**, cick **Shut Down**.
-1. Expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
-1. Under Roles (2), in the context-menu of **VN1-SRV24**, cick **Shut Down**.
-
-### Task 2: Shut down the nodes
-
-Perform this task on the host.
-
-1. Open **Hyper-V Manager**.
-1. In Hyper-V Manager, click the name of your computer.
-1. Under Virtual Machines, in the context menu of **VN1-SRV6**, click **Shut down...**. Wait for the computer to turn off. Repeat for **VN1-SRV7**, **VN1-SRV8**, and **VN1-SRV9**.

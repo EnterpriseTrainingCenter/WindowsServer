@@ -3,6 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
+* VN1-SRV4
 * VN1-SRV5
 * VN1-SRV20
 * VN1-SRV21
@@ -23,23 +24,23 @@ After the initial setup, Windows Servers require some post-installation configur
 
 ## Exercise 1: Configure password, TCP/IP, domain join and time zone on Windows Server with Desktop Experience
 
-1. [Set the default Administrator password](#task-1-set-the-default-administrator-password-on-VN1-SRV20)
-1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.160/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-VN1-SRV20)
-1. [Set the computer name to VN1-SRV20 and join the domain ad.adatum.com](#task-3-set-the-computer-name-to-VN1-SRV20-and-join-the-domain)
-1. [Add the VN1-SRV20 to Windows Admin Center](#task-4-add-the-VN1-SRV20-to-windows-admin-center)
+1. [Set the default Administrator password on Windows Server with Desktop Experience](#task-1-set-the-default-administrator-password-on-windows-server-with-desktop-experience)
+1. [Configure the Ethernet adapter on Windows Server with Desktop Experience](#task-2-configure-the-ethernet-adapter-on-windows-server-with-desktop-experience) with the IPv4 address 10.1.1.160/24, default gateway 10.1.1.1 and DNS server 10.1.1.8
+1. [Set the computer name and join the domain on Windows Server with Desktop Experience](#task-3-set-the-computer-name-and-join-the-domain-on-windows-server-with-desktop-experience): the computer name should be VN1-SRV20
+1. [Add the Windows Server with Desktop Experience to Windows Admin Center](#task-4-add-the-windows-server-with-desktop-experience-to-windows-admin-center)
 
     > Why does single sign-on not work with the new server?
 
-1. [Set the time zone](#task-5-set-the-time-zone-on-VN1-SRV20)
+1. [Set the time zone on Windows Server with Desktop Experience](#task-5-set-the-time-zone-on-windows-server-with-desktop-experience)
 
-### Task 1: Set the default Administrator password on VN1-SRV20
+### Task 1: Set the default Administrator password on Windows Server with Desktop Experience
 
 Perform this task on VN1-SRV20.
 
 1. In Customize settings, enter a secure password in Password and **Reenter password** and click **Finish**.
 1. Logon as **Administrator** with the password from the previous step.
 
-### Task 2: Configure the Ethernet adapter on VN1-SRV20
+### Task 2: Configure the Ethernet adapter on Windows Server with Desktop Experience
 
 #### Desktop experience
 
@@ -82,7 +83,7 @@ Perform this task on VN1-SRV20.
         -ServerAddresses 10.1.1.8
     ````
 
-### Task 3: Set the computer name to VN1-SRV20 and join the domain
+### Task 3: Set the computer name and join the domain on Windows Server with Desktop Experience
 
 #### Desktop experience
 
@@ -132,7 +133,7 @@ Perform this task on VN1-SRV20.
 
 1. Enter the credentials for **ad\Administrator**.
 
-### Task 4: Add the VN1-SRV20 to Windows Admin Center
+### Task 4: Add the Windows Server with Desktop Experience to Windows Admin Center
 
 Perform this task von CL1.
 
@@ -158,7 +159,7 @@ Perform this task von CL1.
 
     > Windows Admin Center should connect to the server without additional credentials. If a pane **Specify your credentials** appears, click **Cancel** and try again.
 
-### Task 5: Set the time zone on VN1-SRV20
+### Task 5: Set the time zone on Windows Server with Desktop Experience
 
 #### Desktop Experience
 
@@ -185,16 +186,16 @@ Perform this task on CL1.
 
 ## Exercise 2: Configure password, TCP/IP, domain join and time zone on Windows Server
 
-1. [Set the default Administrator password](#task-1-set-the-default-administrator-password-on-VN1-SRV21)
-1. [Configure the Ethernet adapter with the IPv4 address 10.1.1.168/24, default gateway 10.1.1.1 and DNS server 10.1.1.8](#task-2-configure-the-ethernet-adapter-on-VN1-SRV21)
-1. [Set the computer name to VN1-SRV20 and join the domain ad.adatum.com](#task-3-set-the-computer-name-to-VN1-SRV21-and-join-the-domain)
-1. [Add the VN1-SRV20 to Windows Admin Center](#task-4-add-the-VN1-SRV21-to-windows-admin-center)
+1. [Set the default Administrator password on Windows Server](#task-1-set-the-default-administrator-password-on-windows-server)
+1. [Configure the Ethernet adapter on Windows Server](#task-2-configure-the-ethernet-adapter-on-windows-server) with the IPv4 address 10.1.1.168/24, default gateway 10.1.1.1 and DNS server 10.1.1.8
+1. [Set the computer name and join the domain on Windows Server](#task-3-set-the-computer-name-and-join-the-domain-on-windows-server): the computername should be VN1-SRV21
+1. [Add the Windows Server to Windows Admin Center](#task-4-add-the-windows-server-to-windows-admin-center)
 
     > Why does single sign-on not work with the new server?
 
-1. [Set the time zone](#task-5-set-the-time-zone-on-VN1-SRV21)
+1. [Set the time zone on Windows Server](#task-5-set-the-time-zone-on-windows-server)
 
-### Task 1: Set the default Administrator password on VN1-SRV21
+### Task 1: Set the default Administrator password on Windows Server
 
 Perform this task on VN1-SRV21.
 
@@ -203,7 +204,7 @@ Perform this task on VN1-SRV21.
 1. Beside **Confirm password**, enter the secure password again and press ENTER.
 1. Under **Your password has been changed.** press ENTER.
 
-### Task 2: Configure the Ethernet adapter on VN1-SRV21
+### Task 2: Configure the Ethernet adapter on Windows Server
 
 #### Sconfig
 
@@ -248,7 +249,7 @@ Perform this task on VN1-SRV21.
         -ServerAddresses 10.1.1.8
     ````
 
-### Task 3: Set the computer name to VN1-SRV21 and join the domain
+### Task 3: Set the computer name and join the domain on Windows Server
 
 #### SConfig
 
@@ -296,7 +297,7 @@ Perform this task on VN1-SRV21.
 
 1. Enter the credentials for **ad\Administrator**.
 
-### Task 4: Add the VN1-SRV21 to Windows Admin Center
+### Task 4: Add the Windows Server to Windows Admin Center
 
 Perform this task von CL1.
 
@@ -318,7 +319,7 @@ Perform this task von CL1.
 
     > Windows Admin Center should connect to the server without additional credentials. If it does not work initially, wait a minute, refresh the page and try again.
 
-### Task 5: Set the time zone on VN1-SRV21
+### Task 5: Set the time zone on Windows Server
 
 #### SConfig
 
@@ -350,13 +351,13 @@ Perform this task on CL1.
 
 ## Exercise 3: Install App Compatibility Feature on Demand
 
-1. [Install the Application Compatibility Feature on VN1-SRV5](#task-2-install-the-application-compatibility-feature)
-1. [Install Internet Explorer 11 on VN1-SRV5](#task-3-install-internet-explorer-11)
-1. [Verify the installation of the App Compatibility Feature](#task-4-verify-the-installation-of-the-app-compatibility-feature)
+1. [Install the Application Compatibility Feature](#task-1-install-the-application-compatibility-feature) on VN1-SRV21
+1. [Install Internet Explorer 11](#task-2-install-internet-explorer-11)
+1. [Verify the installation of the App Compatibility Feature](#task-3-verify-the-installation-of-the-app-compatibility-feature)
 
 ### Task 1: Install the Application Compatibility Feature
 
-Perform this task on VN1-SRV5.
+Perform this task on VN1-SRV21.
 
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
@@ -382,7 +383,7 @@ Perform this task on VN1-SRV5.
 
 ### Task 2: Install Internet Explorer 11
 
-Perform this task on VN1-SRV5.
+Perform this task on VN1-SRV21.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
@@ -409,7 +410,7 @@ Perform this task on VN1-SRV5.
 
 ### Task 3: Verify the installation of the App Compatibility Feature
 
-Perform this task on VN1-SRV5.
+Perform this task on VN1-SRV21.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
