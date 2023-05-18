@@ -38,6 +38,8 @@ Some time later, Adatum discovers that the domain controller at VNet3 might me c
 
 ### Task 1: Disconnect server from domain
 
+#### Desktop experience
+
 Perform this task on VN3-SRV1.
 
 1. Open **Server Manager**.
@@ -51,7 +53,22 @@ Perform this task on VN3-SRV1.
 1. In **System Properties**, click **Close**.
 1. In message box You must restart your computer tot apply these changes, click **Restart Now**.
 
+#### PowerShell
+
+Perform this task on VN3-SRV1.
+
+1. Open **Windows PowerShell**.
+1. Remove the computer from the domain.
+
+    ````powershell
+    Remove-Computer -Restart
+    ````
+
+1. At the prompt After you leave the domain, you will need to know the password of the local Administrator account to log onto this computer. Do you wish to continue, enter **y**.
+
 ### Task 2: Delete computer account
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -61,7 +78,23 @@ Perform this task on CL1.
 1. In the context-menu of **VN3-SRV1**, click **Delete**.
 1. In the message box Delete Confirmation, click **Yes**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Delete the computer account **VN3-SRV1**.
+
+    ````powershell
+    Get-ADComputer -Identity VN3-SRV1 |
+    Remove-ADObject -Recursive
+    ````
+
+1. At the prompt Performing recursive remove on Target: 'CN=VN3-SRV1,CN=Computers,DC=ad,DC=adatum,DC=com', enter **y**.
+
 ### Task 3: Create a group for administrators
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -84,7 +117,43 @@ Perform this task on CL1.
 1. In Select Users, Groups, Computers, Service Accounts, or Groups, under **Enter the object names to select**, type **Beth Burke; Logan Boyle** and click **OK**.
 1. In **Create Group: VNet3 RODC Administrators**, click **OK**.
 
+#### PowerShell
+
+1. Open **Terminal**.
+1. Create an organizational unit **Entitling groups** in the domain **clients.ad.adatum.com**.
+
+    ````powershell
+    $server = 'clients.ad.adatum.com'
+    $aDOrganizationalUnit = New-ADOrganizationalUnit `
+        -Name 'Entitling groups' `
+        -Path 'dc=clients,dc=ad,dc=adatum,dc=com' `
+        -Server $server `
+        -Passthru
+    ````
+
+1. In the the new OU, create a domain-local security group named **VNet3 RODC Administrators**.
+
+    ````powershell
+    $aDGroup = New-ADGroup `
+        -Path $aDOrganizationalUnit.DistinguishedName `
+        -Name 'VNet3 RODC Administrators' `
+        -GroupCategory Security `
+        -GroupScope DomainLocal `
+        -Server $server `
+        -Passthru
+    ````
+
+1. Add **Beth Burke** and **Logan Boyle** from domain **ad.adatum.com** to the new group.
+
+    ````powershell
+    $aDUser = Get-ADUser `
+        -Filter 'Name -eq "Beth Burke" -or Name -eq "Logan Boyle"'
+    $aDGroup | Add-ADGroupMember -Members $aDUser -Server $server
+    ````
+
 ### Task 4: Pre-create the read-only domain controller computer account
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -97,14 +166,43 @@ Perform this task on CL1.
 1. On page Specify the Computer name, in **Computer Name**, type **VN3-SRV1** and click **Next >**.
 1. On page Select a Site, click **VNet3**, and click **Next >**.
 1. On page Additional Domain Controller Options, verify **DNS server** and **Global catalog** are activated, and click **Next >**.
-1. On page Specify the Passwor Replication Policy, click **Next >**.
+1. On page Specify the Password Replication Policy, click **Next >**.
 1. On page Delegation of RODS Installation and Administration, click **Set...**.
 1. In Select User or Group, under **Enter the object names to select**, type **Vnet3 RODC Administrators** and click **OK**.
 1. In **Active Directory Domain Services Installation Wizard**, on page **Delegation of RODS Installation and Administration**, click **Next >**.
 1. On page Summary, click **Next >**.
 1. On page Completing the Active Directory Domain Services Installation Wizard, click **Finish**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Create a remote PowerShell session to **vn1-srv7.clients.ad.adatum.com**.
+
+    ````powershell
+    Enter-PSSession vn1-srv7.clients.ad.adatum.com
+    ````
+
+1. Pre-create a read-only domain controller account for **VN3-SRV1** in the domain **clients.ad.adatum.com**, in site **VNet**, and add the group **VNet3 RODC Administrators as delegated Administrators**.
+
+````powershell
+Add-ADDSReadOnlyDomainControllerAccount `
+    -DomainControllerAccountName VN3-SRV1 `
+    -DomainName clients.ad.adatum.com `
+    -SiteName VNet3 `
+    -DelegatedAdministratorAccountName 'VNet3 RODC Administrators'
+````
+
+1. Exit from the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
 ### Task 5: Install read-only domain controller
+
+#### Desktop experience
 
 Perform this task on VN3-SRV1.
 
@@ -138,7 +236,42 @@ Perform this task on VN3-SRV1.
 1. On page Prerequisites Check, click **Install**.
 1. On page Results, click **Close**.
 
+#### PowerShell
+
+Perform this task on VN3-SRV1.
+
+1. Sign in as **.\Administrator**
+1. Open **Windows PowerShell**.
+1. Store the credentials of **Beth@ad.adatum.com** in a variable.
+
+    ````powershell
+    $credential = Get-Credential `
+        -UserName Beth@ad.adatum.com -Message 'Credentials for DC installation'
+    ````
+
+1. In Windows PowerShell credential request, enter the password of Beth.
+1. Install the windows feature **Active Directory Domain Services** including management tools.
+
+    ````powershell
+    Install-WindowsFeature `
+        -Name AD-Domain-Services -IncludeManagementTools -Restart
+    ````
+
+1. Install the domain controller using an existing account.
+
+    ````powershell
+    Install-ADDSDomainController `
+        -DomainName clients.ad.adatum.com `
+        -UseExistingAccount `
+        -Credential $credential
+    ````
+
+1. At the prompts SafeModeAdministratorPassword and Confirm SafeModeAdministratorPassword, type a secure password and take a note.
+1. At the prompt The target server will be configured as a domain controller and restarted when this operation is complete, enter **Y**.
+
 ### Task 6: Change DNS client settings
+
+#### Desktop experience
 
 Perform this task on VN3-SRV1.
 
@@ -155,6 +288,22 @@ Perform this task on VN3-SRV1.
 1. In **Ethernet Properties**, click **Close**.
 1. Sign out.
 
+#### PowerShell
+
+Perform this task on VN3-SRV1.
+
+1. Sign in as **ad\Beth**
+
+    > Beth is allowed to sign in, because of membership in the local Administrators group of VN3-SRV1.
+
+1. Open **Windows PowerShell**.
+1. Set the DNS client server addresses of the network interface **Ethernet** to **10.1.1.56** and **127.0.0.1**.
+
+    ````powershell
+    Set-DnsClientServerAddress `
+        -InterfaceAlias Ethernet -ServerAddresses 10.1.1.56, 127.0.0.1
+    ````
+
 ## Exercise 2: Manage password replication
 
 1. [Connect client to site with read-only domain controller](#task-1-connect-client-to-site-with-read-only-domain-controller): CL4
@@ -165,6 +314,8 @@ Perform this task on VN3-SRV1.
 
 ### Task 1: Connect client to site with read-only domain controller
 
+#### Desktop experience
+
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
@@ -173,7 +324,21 @@ Perform this task on the host.
 1. In Settings for "Win-CL4", click **Network Adapter**.
 1. Under Network Adapter, under **Virtual Switch**, click **VNet3** and click **OK**.
 
+#### PowerShell
+
+Perform this task on the host.
+
+1. Open **Terminal** or **Windows PowerShell** as Administrator.
+1. Connect the network adapter of VM **WIN-CL4** to the virtual switch **VNet3**.
+
+    ````powershell
+    Get-VMNetworkAdapter -VMName WIN-CL4 | 
+    Connect-VMNetworkAdapter -SwitchName VNet3
+    ````
+
 ### Task 2: Configure IP address of client for new site
+
+#### Desktop experience
 
 Perform this task on CL4.
 
@@ -181,15 +346,45 @@ Perform this task on CL4.
 1. In Settings, click **Network & internet**.
 1. In Network & internet, click **Ethernet**.
 1. In Ethernet, beside **IPv4 address**, click **Edit**.
-1. In Edit IP settings, under **IP address**, type **10.1.3.129**. Under **Gateway**, type **10.1.3.1** and click **Save**.
+1. In Edit IP settings, under **IP address**, type **10.1.3.129**. Under **Gateway**, type **10.1.3.1**. Under **Preferred DNS**, type **10.1.3.8**. Under **Alternate DNS**, type **10.1.1.56**. C10lick **Save**.
 1. Click **Start**, **Power**, **Restart**.
+
+#### PowerShell
+
+Perform this task on CL4.
+
+1. Open **Terminal**.
+1. Remove all IPv4 addresses from the interface Ethernet.
+
+    ````powershell
+    $interfaceAlias = 'Ethernet'
+    Get-NetIPAddress -InterfaceAlias $interfaceAlias -AddressFamily IPv4 |
+    Remove-NetIPAddress -Confirm:$false
+    ````
+
+1. Add the IP address **10.1.3.129** with the default gateway **10.1.3.1** and a prefix lenght of **24** to the network interface **Ethernet**.
+
+    ````powershell
+    New-NetIPAddress `
+        -InterfaceAlias $interfaceAlias `
+        -IPAddress 10.1.3.129 `
+        -DefaultGateway 10.1.3.1 `
+        -PrefixLength 24
+    ````
+
+1. Set the DNS client server addresses of the network interface **Ethernet** to **10.1.3.8** and **10.1.1.56**.
+
+    ````powershell
+    Set-DnsClientServerAddress `
+        -InterfaceAlias Ethernet -ServerAddresses 10.1.3.8, 10.1.1.56
+    ````
 
 ### Task 3: Verify sign in
 
 Perform this task on CL4.
 
 1. Sign in as **ada@adatum.com**.
-1. Run **Terminal**.
+1. Open **Terminal**.
 1. Verify the site for the client computer.
 
     ````powershell
@@ -209,6 +404,8 @@ Perform this task on CL4.
 1. Sign out.
 
 ### Task 4: Configure password replication
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -237,6 +434,47 @@ Perform this task on CL1.
 1. In Preopulate Password Success, click **OK**.
 1. In **Advanced Password Replication Policy for VN3-SRV1**, click **Close**.
 1. In **VN3-SRV1**, click **OK**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In the the OU **Entitling groups** in domain **clients.ad.adatum.com**, create a domain-local security group named **VNet3 RODC password replication allowed**.
+
+    ````powershell
+    $server = 'clients.ad.adatum.com'
+    $aDGroup = New-ADGroup `
+        -Path 'OU=Entitling groups, DC=clients, DC=ad, DC=adatum, DC=com' `
+        -Name 'VNet3 RODC password replication allowed' `
+        -GroupCategory Security `
+        -GroupScope DomainLocal `
+        -Server $server `
+        -Passthru
+    ````
+
+1. From the domain **clients.ad.adatum.com**, add the group **Marketing** and the computer **CL4** to the new group.
+
+    ````powershell
+    $adObject = Get-ADObject -Identity 'Marketing' -Server $server
+    $aDGroup | Add-ADGroupMember -Members $aDObject -Server $server
+    $adObject = Get-ADComputer -Identity 'CL4' -Server $server
+    $aDGroup | Add-ADGroupMember -Members $aDObject -Server $server
+    ````
+
+1. Add the new group to the allowed list of the password replication policy of VN3-SRV1.
+
+    ````powershell
+    Add-ADDomainControllerPasswordReplicationPolicy `
+        -Identity 'VN3-SRV1'  -AllowedList $aDGroup -Server $server
+    ````
+
+1. Replicate the password of CL4 to VN3-SRV1.
+
+    ````powershell
+    Get-ADComputer -Identity CL4 -Server $server |
+    Sync-ADObject -Destination VN3-SRV1.clients.ad.adatum.com -PasswordOnly
+    ````
 
 ### Task 5: Verify sign in
 
@@ -273,11 +511,24 @@ Perform this task on CL4.
 
 ### Task 1: Take the read-only domain controller offline
 
+#### Desktop experience
+
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
 1. In Hyper-V-Manager, under **Hyper-V-Manager**, click your computer name.
 1. Under Virtual Computers, in the context-menu of **WIN-VN3-SRV1**, click **Turn off...**
+
+#### PowerShell
+
+Perform this task on the host.
+
+1. Run **Terminal** or **Windows PowerShell** as Administrator.
+1. Turn off the virtual machine **WIN-VN3-SRV1**.
+
+    ````powershell
+    Stop-VM -Name WIN-VN3-SRV1 -TurnOff
+    ````
 
 ### Task 2: Delete the read-only domain controller and reset passwords of cached user accounts
 
@@ -319,6 +570,8 @@ Perform this task on CL4.
 
 ### Task 4: Assign a new password
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
@@ -326,6 +579,27 @@ Perform this task on CL1.
 1. Under clients, double-click **Marketing**.
 1. Under Marketing, in the context-menu of **Ada Russell**, click **Reset password...**
 1. In Reset password, in **Password** and **Confirm password**, type a secure password. Deactivate **User must change password at next log on** and click **OK**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Read a password from the host.
+
+    ````powershell
+    $newPassword = Read-Host -AsSecureString -Prompt 'New password'
+    ````
+
+1. Reset the password of **Ada@adatum.com** in the domain **clients.ad.adatum.com**.
+
+    ````powershell
+    Set-ADAccountPassword `
+        -Identity 'Ada@adatum.com' `
+        -Reset `
+        -NewPassword $newPassword `
+        -Server clients.ad.adatum.com
+    ````
 
 ### Task 5: Verify sign in after password reset
 
