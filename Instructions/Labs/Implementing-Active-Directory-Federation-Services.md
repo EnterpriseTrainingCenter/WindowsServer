@@ -29,8 +29,9 @@ Adatum introduces a new web application. The new web application will support mo
 
 1. [Deploy a web application](#exercise-1-deploy-a-web-application)
 1. [Deploy Active Directory Federation Services (AD FS)](#exercise-2-deploy-active-directory-federation-services-ad-fs)
-1. Publish the web application on the Internet using Web Application Proxy (WAP)
-1. Publish Windows Admin Center on the Internet using WAP
+1. [Deploy Web Application Proxy](#exercise-3-deploy-web-application-proxy)
+1. [Publish the web application on the Internet using Web Application Proxy (WAP)](#exercise-4-publish-the-web-application-on-the-internet-using-web-application-proxy-wap)
+1. [Publish Windows Admin Center on the Internet using WAP](#exercise-5-publish-windows-admin-center-on-the-internet-using-wap)
 
 ## Exercise 1: Deploy a web application
 
