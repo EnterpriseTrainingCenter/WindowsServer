@@ -277,9 +277,9 @@ Perform this task on CL1.
 
 ## Exercise 2: Configure global catalogs
 
-Remove the global catalog from VN1-SRV5.
+[Remove the global catalog](#task-remove-the-global-catalog) from VN1-SRV5.
 
-### Detailed steps
+### Task: Remove the global catalog
 
 #### Desktop experience
 
@@ -315,7 +315,7 @@ Perform this task on CL1.
     ````powershell
     Set-ADObject `
         -Identity "CN=NTDS Settings, $($server.distinguishedName)" `
-        -Replace @{options='0'} `
+        -Replace @{ options='0'} `
     ````
 
 ## Exercise 3: Create site links
