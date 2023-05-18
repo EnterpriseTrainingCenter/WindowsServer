@@ -6,6 +6,10 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Practices
 
+1. [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md)
+1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
+1. [Configure Windows Admin Center](Practices/Configure-Windows-Admin-Center.md)
+1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
 1. [Verify the SYSVOL replication mode](Practices/Verify-the-sysvol-replication-mode.md)
 1. [Update the Active Directory schema](Practices/Update-the-active-directory-schema.md)
 1. [Delegate password reset permissions](Practices/Delegate-password-reset-permissions.md)
