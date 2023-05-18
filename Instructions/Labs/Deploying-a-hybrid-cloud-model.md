@@ -4,9 +4,6 @@
 
 * VN1-SRV5
 * VN2-SRV1
-* VN1-SRV7
-* VN1-SRV7
-* PM-SRV1
 * CL1
 * CL2
 
@@ -21,74 +18,11 @@ Adatum wants to move various services into the cloud. As a first step, Adatum wa
 
 ## Exercises
 
-1. [Create and configure an Azure Active Directory tenant](#exercise-1-create-and-configure-an-azure-active-directory-tenant)
-1. [Synchronize Active Directory with Azure Active Directory](#exercise-2-synchronize-active-directory-users-and-groups-with-azure-active-directory)
+1. [Synchronize Active Directory with Azure Active Directory](#exercise-1-synchronize-active-directory-users-and-groups-with-azure-active-directory)
 <!-- 1. Manage Active Directory in a hybrid cloud -->
-3. [Configure hybrid Azure AD domain join](#exercise-3-configure-hybrid-azure-ad-domain-join)
+1. [Configure hybrid Azure AD domain join](#exercise-2-configure-hybrid-azure-ad-domain-join)
 
-## Exercise 1: Create and configure an Azure Active Directory tenant
-
-1. [Create an Azure Active Directory tenant](#task-1-create-an-azure-active-directory-tenant)
-1. [Create a global admin](#task-2-create-a-global-admin)
-
-### Task 1: Create an Azure Active Directory tenant
-
-Perform this task on CL1 or the host.
-
-1. Using **Microsoft Edge**, navigate to <https://portal.azure.com> and sign in.
-1. In Microsoft Azure, at the top-left, click **Create a resource**.
-1. In Create a resource, click **Identity** and under **Azure Active Directory**, click **Create**.
-1. In Create a tenant, on tab Basics, beside **Select a tenant type**, ensure **Azure Active Directory** is selected and click **Next: Configuration >**.
-1. On tab Configuration, in **Organization name**, type **Adatum Corporation**. In **Initial domain name**, type **Adatum** followed by some random number. In **Country/Region**, select the country of your current location, e.g., **Austria**. Take a note of the full domain name, which will be your typed domain name, followed by onmicrosoft.com.
-
-    Important: Make sure, a green check mark appears rights to **Initial domain name**. If the message **Already in use by another directory** appears under the field, append some other number to the domain name.
-
-1. Click **Review + Create** or **Next: Review and Create >**.
-1. On tab Review + Create, ensure **Validation passed** appears at the top. Click **Create**.
-1. If a pane **Help us prove you're not a robot** appears, solve the Captcha and click **Submit**.
-
-### Task 2: Create a global admin
-
-Perform this task on CL1 or the host.
-
-1. Using **Microsoft Edge**, navigate to <https://portal.azure.com> and sign in.
-1. In Microsoft Azure, in the left pane, click **All services**.
-1. In All services, click  **Identity**.
-1. Under **Identity management**, click **Azure Active Directory**.
-1. In Azure Active Directory, at the top of the right pane, click **Manage tenants**.
-1. In Manage tenants, activate the checkbox beside **Adatum Corporation** and, at the top, click **Switch**.
-
-    Note: If Adatum Corporation does not appear, wait a few minutes and click **Refresh**.
-
-1. In the Adatum Corporation, in the left pane, click **Users**.
-
-    If the user interface appears in a different language than English, perform these steps to switch to English:
-
-    1. At the top right, click the icon *Settings*.
-
-        Note: The following steps refer to the English version, you have to find the options in the current language by yourself. Ask your instructor, if you need help.
-
-    1. In Portal settings, click **Language + Region**.
-    1. In Language + region, in **Language**, click **English**. In *Regional format*, click a format of your preference and click **Apply**.
-    1. In Change language, click **OK**.
-    1. At the top-left, click the hamburger menu and click **All Services**
-
-        Continue with step 3 of the main task.
-
-1. In users, click **New user**, **Create new user**.
-1. In New user, beside **Select template**, ensure **Create user** is selected. Under **Identity**, beside **User name**, type your firstname followed by a dot and your last name, e.g., Gregory.Salgado. Beside **Name**, type your first and last name. In First name and last name, do the same.
-
-    Take a note of the full user name, including the domain name. It will look something like Gregory.Salgado@adatum382602.onmicrosoft.com.
-
-1. Under **Group and roles**, beside **Roles**, click **User**.
-1. In the pane Directory roles, active **Global administrator** and click **Select**.
-1. Under Password, activate **Show Password** and take a note of the password.
-1. Click **Create**.
-1. In **Users**, click **Refresh**.
-
-    You should see the new user.
-
-## Exercise 2: Synchronize Active Directory users and groups with Azure Active Directory
+## Exercise 1: Synchronize Active Directory users and groups with Azure Active Directory
 
 1. [Add the Azure Active Directory domain as UPN to users](#task-1-add-the-azure-active-directory-domain-as-upn-to-users) in organization units IT, Research, and Sales
 1. [Enable Active Directory Recycle Bin](#task-2-enable-active-directory-recycle-bin)
@@ -189,7 +123,7 @@ Perform this task on VN2-SRV1.
 
     You should see users from your Active Directory.
 
-## Exercise 3: Configure hybrid Azure AD domain join
+## Exercise 2: Configure hybrid Azure AD domain join
 
 1. [Move client computers into a synchronized organizational unit](#task-1-move-client-computers-into-a-synchronized-organizational-unit)
 1. [Configure Azure AD Connect for Hybrid Azure AD join](#task-2-configure-azure-ad-connect-for-hybrid-azure-ad-join)
