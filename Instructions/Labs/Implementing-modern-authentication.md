@@ -1,4 +1,4 @@
-# Lab: Implementing modern authentication
+# Lab: Implementing Active Directory Federation Services
 
 ## Required VMs
 
