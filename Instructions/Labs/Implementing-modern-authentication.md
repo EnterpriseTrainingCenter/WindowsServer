@@ -7,6 +7,7 @@
 * VN1-SRV5
 * VN1-SRV8
 * VN1-SRV9
+* VN1-SRV10
 * PM-SRV2
 * PM-SRV3
 * PM-SRV4
@@ -14,7 +15,9 @@
 
 ## Setup
 
-* On CL1, sign in as **ad\Administrator**
+* On CL1, sign in as **ad\Administrator**.
+* On CL3, sign in as **.\Administrator**.
+* On VN1-SRV8, sign in as **ad\Administrator**.
 * On PM-SRV2, sign in as **ad\Administrator**
 * On PM-SRV3, sign in as **ad\Administrator**
 
@@ -35,11 +38,6 @@ Adatum introduces a new web application. The new web application will support mo
 1. [Install IIS Management Console](#task-2-install-iis-management-console) on CL1
 1. [Configure remote administration for IIS Manager](#task-3-configure-remote-administration-for-iis-manager) on PM-SRV2
 1. [Deploy the web application](#task-4-deploy-the-web-application) by copying the files from C:\LabResources\Authpage
-<!--
-1. [Request and export a wildcard certificate](#task-5-request-and-export-a-wildcard-certificate) for *.adatum.com
-1. [Import the wildcard certificate](#task-6-import-the-wildcard-certificate) on PM-SRV2
-1. [Configure the web application](#task-7-configure-the-web-application-for-https) for HTTPS
--->
 
 ### Task 1: Install Internet Information Services
 
@@ -53,7 +51,8 @@ Perform this task on CL1.
 1. On page Server Roles, activate **Web Server (IIS)** and click **Next >**.
 1. On page Features, click **Next >**.
 1. On page Web Server Role (IIS), click **Next >**.
-1. On page Role Services, under **Web Server**, **Security**, activate **Basic Authentication** and **Windows Authentication**. Under **Application Development**, activate **ASP.NET 4.8**.
+1. On page Role Services, under **Web Server**, **Security**, activate **Basic Authentication** and **Windows Authentication**.
+1. Expand **Application Development**, and activate **ASP.NET 4.8**.
 1. In Add features that are required for ASP.NET 4.8, click **Add Features**.
 1. In **Add Roles and Features Wizard**, on page **Role Services**, under **Management Tools**, activate **Management Service**. Click **Next >**.
 1. On page Confirmation, click **Install**.
@@ -65,9 +64,10 @@ Perform this task on CL1.
 
 1. Open **Settings**.
 1. In Settings, click **Apps**.
-1. In Apps, at the bottom, click **More Windows features**.
+1. In Apps, click **Optional features**.
+1. In Optional features, at the bottom, click **More Windows features**.
 1. In Windows Features, expand **Internet Information Services**, **Web Management Tools**, activate **IIS Management Console** and click **OK**.
-1. On Windows completed the requested changes, click **Close**.
+1. On page Windows completed the requested changes, click **Close**.
 
 ### Task 3: Configure remote administration for IIS Manager
 
@@ -151,105 +151,35 @@ Perform this task on CL1.
 
     > You should see a page like in [figure 1].
 
-<!--
-### Task 5: Request and export a wildcard certificate
-
-Perform this task on CL1.
-
-1. Open **Internet Information Services (IIS) Manager**.
-1. In Internet Information Services (IIS) Manager, click **CL1 (AD\Administrator)**.
-1. Under CL1 Home, double-click **Server Certificates**.
-1. Under Server Certificates, in the right pane, click **Create Domain Certificate...**
-1. In Create Certificate, on page Distinguished Name Properties, in **Common Name**, type **\*.adatum.com**. Fill the remaining fields with any meaningful values and click **Next**.
-1. On page Online Certification Authority, under **Specify Online Certification Authority**, click **Select...**
-1. In Select Certification Authority, click the certificate authority on computer **VN1-SRV2.ad.adatum.com** and click **OK**.
-1. In Create Certificate, on page **Online Certification Authority**, under **Friendly name**, type **Wildcard adatum.com** and click **Finish**.
-1. In **Internet Information Services (IIS) Manager**, under **Server Certificates**, click **Wildcard adatum.com** and click **Export...**
-1. In Export Certificate, under **Export to**, type **\\\\vn1-srv6\\IT\\Wildcard adatum.com.pfx**. In **Password** and **Confirm password**, type a secure password and click **OK**. 
-
-    Take a note of the password.
-
-1. In **Internet Information Services (IIS) Manager**, under **Server Certificates**, click **Wildcard adatum.com** and click **Remove**
-1. In Confirm Remove, click **Yes**.
-
-### Task 6: Import the wildcard certificate
-
-Perform this task on PM-SRV2.
-
-1. In SConfig, enter **15**.
-1. Read the password for the pfx file.
-
-    ````powershell
-    $password = Read-Host `
-        -Prompt 'Enter the password for the pfx file' -AsSecureString
-    ````
-
-1. At the prompt Enter the password for the pfx file, enter the password you noted in the previous task.
-1. Import the pfx file.
-
-    ````powershell
-    Import-PfxCertificate `
-        -Password $password `
-        -CertStoreLocation Cert:\LocalMachine\My\ `
-        -FilePath '\\vn1-srv6\it\Wildcard adatum.com.pfx'
-    ````
-
-### Task 7: Configure the web application for HTTPS
+### Task 5: Configure authentication
 
 Perform this task on CL1.
 
 1. Open **Internet Information Services (IIS) Manager**.
 1. In Internet Information Services (IIS) Manager, in the context-menu of **Start Page**, click **Connect to a Server...**
-1. In Connect to Server, on page Specify Server Connection Details, under **Server name**, type **PM-SRV2** and click **Next**.
-1. On page Provide Credentials, type the credentials of **ad\Administrator** and click **Next**.
+1. In Connect to Server wizard, on page Specify Server Connection Details, under **Server name**, type **PM-SRV2** and click **Next**.
+1. On page Provide Credentials, type the credentials of **ad\administrator** and click **Next**.
 1. In Server Certificate Alert, click **Connect**.
-1. In **Connect to Server**, on page **Created a new connection successfully**, click **Finish**.
-1. In **Internet Information Services (IIS) Manager**, expand **pm-srv2 (ad\Administrator)**, **Sites**, and click **Default Web Site**.
-1. In the context-menu of **Default Web Site**, click **Edit Bindings...**
-1. In Site Bindings, click **Add...**
-1. In Add Site Binding, under **Type**, click **https**. Under **SSL certificate**, click **Wildcard adatum.com** and click **OK**.
-1. In **Site Bindings**, click **Close**.
-1. Use Microsoft Edge to navigate to <https://pm-srv2.ad.adatum.com>
+1. In **Connect to Server Wizard**, on page Created a new connection successfully, click **Finish**.
+1. In Internet Information Services (IIS) Manager, expand **PM-SRV2 (ad\Administrator)**, **Sites**, and click **Default Web Site**.
+1. Under **Default Web Site Home**, under **IIS**, double-click **Authentication**.
+1. Under Authentication, in the context-menu of **Anonymous Authentication**, click **Disable**.
+1. In the context-menu of **Windows Authentication**, click **Enable**.
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <http://pm-srv2.ad.adatum.com>.
+1. In Windows Security, enter the credentials of any user, e.g. **ad\Ada**.
 
-    > You should see a page like in [figure 2].
-
--->
+    On the WHO Page, the Authentication Method should show Negotiate (KERBEROS).
 
 ## Exercise 2: Deploy Active Directory Federation Services (AD FS)
 
-<!--
-1. Request a certificate for sts.adatum.com on VN1-SRV8 and VN1-SRV9
--->
-1. Request and export a wildcard certificate for *.adatum.com
-1. Install Active Directory Federation services on VN1-SRV8 and VN1-SRV9
-1. Create the first federation server in a federation server farm
-1. Add a federation server in a federation server farm
-1. Add DNS A records for sts.adatum.com pointing to VN1-SRV8 and VN1-SRV9
-1. Verify the functionality of AD FS
-<!-- 
-1. Add mappings for sts.adatum.com to the hosts file of the host
+1. [Request and export a wildcard certificate](#task-1-request-and-export-a-wildcard-certificate) for *.adatum.com
+1. [Install Active Directory Federation services](#task-2-install-active-directory-federation-services) on VN1-SRV8 and VN1-SRV9
+1. [Create the first federation server in a federation server farm](#task-3-create-the-first-federation-server-in-a-federation-server-farm) using VN1-SRV8 with a federation service name sts.adatum.com and a group managed service account
+1. [Add a federation server in a federation server farm](#task-4-add-a-federation-server-in-a-federation-server-farm) using VN1-SRV9
+1. [Add DNS A records](#task-5-add-dns-a-records) for sts.adatum.com on VN1-SRV5 pointing to VN1-SRV8 and VN1-SRV9
+1. [Verify the functionality of AD FS](#task-6-verify-the-functionality-of-ad-fs)
 
-    Note: This simulates an external DNS server in the lab. In real world, you would add entries to you public DNS zone.
-
--->
-
-<!--
-### Task 1: Request a certificate
-
-Perform this task on VN1-SRV8 and VN1-SRV9.
-
-1. In Sconfig, enter **15**.
-1. Request a certificate for the machine for the DNS name **sts.adatum.com** using the template **WebServer**.
-
-    ````powershell
-    $dnsName = 'sts.adatum.com'
-    Get-Certificate `
-        -Template 'WebServer' `
-        -SubjectName "cn=$($dnsName[0])" `
-        -DnsName $dnsName  `
-        -CertStoreLocation Cert:\LocalMachine\My\
-    ````
--->
 ### Task 1: Request and export a wildcard certificate
 
 Perform this task on CL1.
@@ -262,8 +192,18 @@ Perform this task on CL1.
 1. On page Online Certification Authority, under **Specify Online Certification Authority**, click **Select...**
 1. In Select Certification Authority, click the certificate authority on computer **VN1-SRV2.ad.adatum.com** and click **OK**.
 1. In Create Certificate, on page **Online Certification Authority**, under **Friendly name**, type **Wildcard adatum.com** and click **Finish**.
+
+    If the certificate request fails with an access denied error message, leave the Create Certificate wizard open. On VN1-SRV2restart the Certification Authority service:
+
+    1. Open **Server Manager**.
+    1. In Server manager, in the left pane, click **AD CS**.
+    1. In Server manager > AD CS, under **SERVERS**, click **VN1-SRV2**.
+    1. Under **SERVICES** (you might have to scroll down), in the context-menu of **CertSvc**, click **Restart Services**.
+
+    Then, switch back to the Create Certificate wizard, and click **Finish** again.
+
 1. In **Internet Information Services (IIS) Manager**, under **Server Certificates**, click **Wildcard adatum.com** and click **Export...**
-1. In Export Certificate, under **Export to**, type **\\\\vn1-srv6\\IT\\Wildcard adatum.com.pfx**. In **Password** and **Confirm password**, type a secure password and click **OK**. 
+1. In Export Certificate, under **Export to**, type **\\\\vn1-srv10\\IT\\Wildcard adatum.com.pfx**. In **Password** and **Confirm password**, type a secure password and click **OK**.
 
     Take a note of the password.
 
@@ -298,7 +238,7 @@ Perform this task on CL1.
 1. In Credentials for deployment operation, enter the credentials for **AD\Administrator**.
 1. In **Active Directory Federation Services Configuration Wizard**, on page **Connect to AD DS**, click **Next >**.
 1. On page Specify Service Properties, beside **SSL Certificate**, click **Import...**
-1. In Open, navigate to **\\\\VN1-SRV6\\IT**, click **Wildcard adatum.com** and click **Open**.
+1. In Open, navigate to **\\\\VN1-SRV10\\IT**, click **Wildcard adatum.com** and click **Open**.
 1. In Enter certificate password, enter the password, you noted before.
 1. In **Active Directory Federation Services Configuration Wizard**, on page **Specify Service Properties**, in **Federation Service name**, type **sts.adatum.com**. In **Federation Service Display Name**, type **Adatum Corporation** and click **Next >**.
 1. On page Specify Service Account, ensure **Create a Group Managed Service Account** is selected and in **Account Name**, type **AdatumADFS**. Click **Next >**.
@@ -306,8 +246,8 @@ Perform this task on CL1.
 1. On page Review Options, click **Next >**.
 1. On page Pre-requisite Checks, click **Configure**.
 1. On page Results, click **Close**.
-1. In **Server Manager**, click **All Servers**.
-1. Under All Servers, in the context-menu of **VN1-SRV8**, click **Restart Server**.
+1. In **Server Manager**, click **AD FS**.
+1. Under AD FS, in the context-menu of **VN1-SRV8**, click **Restart Server**.
 1. In message box Are you sure you want to restart these servers, click **OK**.
 
 ### Task 4: Add a federation server in a federation server farm
@@ -320,9 +260,12 @@ Perform this task on CL1.
 1. On page Connect to AD DS, click **Change...**.
 1. In Credentials for deployment operation, enter the credentials for **AD\Administrator**.
 1. In **Active Directory Federation Services Configuration Wizard**, on page **Connect to AD DS**, click **Next >**.
-1. On page Specify Farm, ensure **Specify the primary federation server in an existing farm using Windows Internal Database** is selected. Beside **Primary Federation Server**, type **VN1-SRV8** and click **Next >**.
+1. On page Specify Farm, ensure **Specify the primary federation server in an existing farm using Windows Internal Database** is selected. Beside **Primary Federation Server**, type **VN1-SRV8.ad.adatum.com** and click **Next >**.
+
+    **Important**: Use the FQDN of the primary federation server.
+
 1. On page Specify Certificate, beside **SSL Certificate**, click **Import...**
-1. In Open, navigate to **\\\\VN1-SRV6\\IT**, click **Wildcard adatum.com** and click **Open**.
+1. In Open, navigate to **\\\\VN1-SRV10\\IT**, click **Wildcard adatum.com** and click **Open**.
 1. In Enter certificate password, enter the password, you noted before.
 1. In **Active Directory Federation Services Configuration Wizard**, on page **Specify Certificate**, click **Next >**.
 1. On page Specify Service Account, click **Select...**
@@ -331,8 +274,8 @@ Perform this task on CL1.
 1. On page Review Options, click **Next >**.
 1. On page Pre-requisite Checks, click **Configure**.
 1. On page Results, click **Close**.
-1. In **Server Manager**, click **All Servers**.
-1. Under All Servers, in the context-menu of **VN1-SRV9**, click **Restart Server**.
+1. In **Server Manager**, click **AD FS**.
+1. Under AD FS, in the context-menu of **VN1-SRV9**, click **Restart Server**.
 1. In message box Are you sure you want to restart these servers, click **OK**.
 
 ### Task 5: Add DNS A records
@@ -387,51 +330,13 @@ Perform this task on CL1.
 
 1. Click **Sign out**.
 
-## Exercise 3: Deploy Web Applation Proxy
+## Exercise 3: Deploy Web Application Proxy
 
-1. [Install the Remote Access Management Tools](#task-1-install-the-remote-access-management-tools) on CL1
-1. [Install the Web Application Proxy role service](#task-2-install-the-web-application-proxy-role-service) on PM-SRV3
-1. Import the certificate on the Web Application Proxy Server and disble TLS 1.3
-1. [Configure the Web Application Proxy role service](#task-4-configure-the-web-application-proxy-role-service) on PM-SRV3
+1. [Install the Web Application Proxy role service](#task-1-install-the-web-application-proxy-role-service) on PM-SRV3
+1. [Import the certificate on the Web Application Proxy Server and disable TLS 1.3](#task-2-import-the-wildcard-certificate-on-the-web-application-proxy-server-and-disable-tls-13) on PM-SRV3
+1. [Configure the Web Application Proxy role service](#task-3-configure-the-web-application-proxy-role-service) on PM-SRV3
 
-### Task 1: Install the Remote Access Management Tools
-
-#### Desktop experience
-
-Perform these steps on CL1.
-
-1. Sign in as **.\Administrator**.
-1. Open **Settings**.
-1. In Settings, click **Apps**.
-1. In Apps, click **Optional features**.
-1. In Optional features, click the button **View features**.
-1. In Add an optional feature, in the text field **Find an available optional feature**, type **RSAT**.
-1. Activate the check box **RSAT: Remote Access Management Tools** and click **Next**.
-1. Click **Install**.
-1. If required, restart the computer.
-
-#### PowerShell
-
-Perform these steps on CL1.
-
-1. Logon as **ad\Administrator**.
-1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. Add the windows capabilities
-    * RSAT: Active Directory Domain Services and Lightweight Directory Services Tools
-    * RSAT: File Services tools
-    * RSAT: Server Manager
-
-    ````powershell
-    <# 
-        Add-WindowsCapability does not support wildcards. Therefore, we use
-        pipelines with the Get | Add pattern
-    #>
-    Get-WindowsCapability -Online -Name 'Rsat.RemoteAccess.Management.Tools*' |
-    Add-WindowsCapability -Online
-    # With the File Services tools, Server Manager is installed automatically
-    ````
-
-### Task 2: Install the Web Application Proxy role service
+### Task 1: Install the Web Application Proxy role service
 
 Perform this task on CL1.
 
@@ -446,10 +351,13 @@ Perform this task on CL1.
 1. On page Role Services, activate **Web Application Proxy**.
 1. In Add features that are required for Web Application Proxy, click **Add Features**.
 1. In **Add Roles and Features Wizard**, on page **Role Services**, click **Next >**.
-1. On page Confirmation, click **Install**.
+1. On page Confirmation, activate **Restart the destination server automatically if required** and click **Install**.
+
+    Wait for the feature installation to complete.
+
 1. On page Installation progress, click **Close**.
 
-### Task 3: Import the certificate on the Web Application Proxy Server and disable TLS 1.3
+### Task 2: Import the wildcard certificate on the Web Application Proxy Server and disable TLS 1.3
 
 Perform this task on CL1.
 
@@ -464,7 +372,7 @@ Perform this task on CL1.
 
     ````powershell
     Copy-Item `
-        -Path '\\VN1-SRV6\IT\Wildcard adatum.com.pfx' `
+        -Path '\\VN1-SRV10\IT\Wildcard adatum.com.pfx' `
         -Destination C:\ `
         -ToSession $session
     ````
@@ -515,15 +423,13 @@ Perform this task on CL1.
     Remove-PSSession $session
     ````
 
-### Task 4: Configure the Web Application Proxy role service
+### Task 3: Configure the Web Application Proxy role service
 
-<!-- #### Desktop experience -->
+#### Desktop experience
 
-Perform this task on CL1.
+Perform this task on PM-SRV3.
 
 1. Open **Remote Access Management**.
-1. In Remote Access Management Console, in the right pane, click **Manage a Remote Server**.
-1. In Manage a Remote Server, under **Server name**, type **PM-SRV3** and click **OK**.
 1. In **Remote Access Management Console**, in the left pane, click **Web Application Proxy**.
 1. In the middle pane, under **Configure Web Application Proxy**, click **Run the Web Application Proxy Configuration Wizard**.
 1. In Web Application Proxy Configuration Wizard, on page Welcome, click **Next >**.
@@ -531,6 +437,11 @@ Perform this task on CL1.
 1. On page AD FS Proxy Certificate, under **Select a certificate to be used by the AD FS proxy**, click **\*.adatum.com** and click **Next >**.
 1. On page **Confirmation**, click **Configure**.
 1. On page Results, click **Close**.
+1. Open **Server Manager**.
+1. In Server Manager, click **Remote Access**.
+1. Close **Remote Access Management Console**.
+
+    Note: It is importnt to close Remote Access Management to discover the new configuration in the next task.
 
 #### PowerShell
 
@@ -546,9 +457,8 @@ Perform this task on CL1.
 1. Retrieve the certificate.
 
     ````powershell
-    $certificate = Get-ChildItem -Path Cert:\LocalMachine\My | Where-Object { 
-        $PSItem.Friendlyname -eq 'Wildcard adatum.com' 
-    }
+    $certificate = Get-ChildItem -Path Cert:\LocalMachine\My | 
+    Where-Object { $PSItem.Friendlyname -eq 'Wildcard adatum.com' }
 
 1. Install the Web Application Proxy using the imported certificate and the federation service name **sts.adatum.com**.
 
@@ -565,15 +475,99 @@ Perform this task on CL1.
     Exit-PSSession
     ````
 
-1. Restart the computer **PM-SRV3**.
+## Exercise 4: Publish the web application on the Internet using Web Application Proxy (WAP)
 
-    ````powershell
-    Restart-Computer -ComputerName PM-SRV3 -WsmanAuthentication Default
+1. [Add a relying party trust](#task-1-add-a-relying-party-trust) to AD FS with the identifier http://app1.adatum.com
+2. [Configure Kerberos constrained delegation](#task-2-configure-kerberos-constrained-delegation) to allow PM-SRV3 to receive service tickets for PM-SRV2 and add service principal names HTTP/PM-SRV3 and HTTP/PM-SRV3.ad.adatum.com to PM-SRV3
+3. [Publish the web application](#task-3-publish-the-web-application) using WAP and allow HTTP to HTTPS redirection
+4. [Verify the published web application](#task-4-verify-the-published-web-application) using CL3
+
+### Task 1: Add a relying party trust
+
+Perform this task on VN1-SRV8.
+
+1. Open **AD FS Management**.
+1. In AD FS, in the context menu of **AD FS**, click **Add Relying Party Trust...**
+1. In Add Relying Party Trust Wizard, on page Welcome, click **Non claims aware** and click **Start**.
+1. On page Specify Display Name, type **App1** and click **Next >**.
+1. On page Configure Identifiers, under **Relying party trust identifier**, type **http://app1.adatum.com** and click **Add**. Click **Next >**.
+1. On page **Choose Access Control policy**, ensure **Permit everyone** is selected and click **Next >**.
+1. On page Ready to Add Trust, click **Next >**.
+1. On page Finish, click **Close**.
+
+### Task 2: Configure Kerberos constrained delegation
+
+Perform this task on CL1.
+
+1. Open **Active Directory Users and Computers**.
+1. In Active Directory Users and Computers, on the menu, click **View**, **Advanced Features**.
+1. Click **Computers**.
+1. Double-click **PM-SRV3**.
+1. In PM-SRV3 Properties, click the tab **Delegation**.
+1. On tab Delegation, click **Trust this computer for delegation to specified services only**.
+1. Click **Add...**.
+1. In Add Services, click **Users or Computer...**
+1. In Select Users or Computers, under **Enter the object names to select**, type **PM-SRV2** and click **OK**.
+1. In **Add Services**, under **Available services**, click **http** **PM-SRV2** and click **OK**.
+1. In **PM-SRV3 Properties**, click the tab **Attribute Editor**.
+1. On the tab Attribute Editor, under **Attributes**, click **servicePrincipalName** and click **Edit**.
+1. In Multi-valued String Editor, under **Value to add**, type **HTTP/PM-SRV3** and click **Add**. Repeat this step for the value **HTTP/PM-SRV3.ad.adatum.com**. Click **OK**.
+1. In **PM-SRV3 Properties**, click **OK**.
+
+### Task 3: Publish the web application
+
+Perform this task on PM-SRV3.
+
+1. Open **Remote Access Management**.
+1. In Remote Access Management Console, click **Web Application Proxy**.
+1. In the pane **Tasks**, click **Publish**.
+1. In Publish New Application Wizard, on page Welcome, click **Next >**.
+1. On page Preauthentication, ensure **Active Directory Federation Service (AD FS)** is selected, and click **Next >**.
+1. On page Supported Clients, ensure **Web and MSOFBA** is selected and click **Next >**.
+1. On page Relying Party, click **App1** and click **Next >**.
+1. On page Publishing Settings, under Name, type **App 1**. Under **External URL**, type **https://app1.adatum.com**. Under **External certificate**, click **\*.adatum.com**. Activate **Enable HTTP to HTTPS redirection**. Under Backend server url, type **http://pm-srv2.ad.adatum.com**. Under Backend server SPN, type **HTTP/pm-srv2.ad.adatum.com**. Click **Next >**.
+1. On page Confirmation, click **Publish**.
+1. On page Results, click **Close**.
+1. Open **Windows Defender Firewall with Advanced Security**.
+1. In Windows Defender Firewall with Advanced Security, click **Inbound Rules**.
+1. In the context-menu of **Inbound Rules**, click **New Rule...**
+1. In the New Inbound Rule Wizard, on page Rule Type, click **Port** and click **Next >**.
+1. On page Protocol and Ports, ensure **TCP** is selected. Ensure **Specific local ports** is selected and, beside, type **80**. Click **Next >**.
+1. On page Action, ensure **Allow the connection** is selected and click **Next >**.
+1. On page Profile, ensure **Domain**, **Private**, and **Public** are selected and click **Next >**.
+1. On page Name, under **Name**, type **AD FS HTTP Services (TCP-In)** and click **Finish**.
+
+### Task 4: Verify the published web application
+
+Perform this task on CL3.
+
+1. Open **File Explorer**.
+1. In File Explorer, navigate to **C:\\Windows\\System32\\drivers\\etc**
+1. In etc, double-click **hosts**.
+1. In Select an app to open 'hosts', click **Editor** and click **Just once**.
+1. In hosts, at the end of the file, add the following lines.
+
+    ````text
+    10.1.200.24 app1.adatum.com
+    10.1.200.24 sts.adatum.com
     ````
 
-## Exercise 4: Publish the web application on the Internet using Web Application Proxy (WAP)
+1. Close **hosts** and save the file.
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <http://app1.adatum.com>.
+1. In Adatum Corporation, sign in as any user, e.g. **Ada@ad.adatum.com**
+
+    You should get redirected to https://app1.adatum.com and you should see the WHO Page with the Authentication Method Negotiate (KERBEROS).
 
 ## Exercise 5: Publish Windows Admin Center on the Internet using WAP
 
+Use the instructions from the previous exercise to publish Windows Admin Center. Use the parameters from the table below.
+
+| Label                          |                                   |
+|--------------------------------|-----------------------------------|
+| Relying party trust identifier | https://admincenter.ad.adatum.com |
+| External URL                   | https://admincenter.adatum.com    |
+| Backend server URL             | https://admincenter.ad.adatum.com |
+| Backend server SPN             | HTTP/VN1-SRV4.ad.adatum.com       |
+
 [figure 1]:/images/who-page_http_anonymous.jpeg
-[figure 2]:/images/who-page_https_anonymous.jpeg
