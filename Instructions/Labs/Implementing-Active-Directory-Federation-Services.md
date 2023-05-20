@@ -554,6 +554,9 @@ Perform this task on CL3.
     ````
 
 1. Close **hosts** and save the file.
+
+    Note: In real world, these entries should be created in a public DNS zone.
+
 1. Open **Microsoft Edge**.
 1. In Microsoft Edge, navigate to <http://app1.adatum.com>.
 1. In Adatum Corporation, sign in as any user, e.g. **Ada@ad.adatum.com**
