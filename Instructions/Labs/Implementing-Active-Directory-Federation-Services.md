@@ -40,7 +40,9 @@ Adatum introduces a new web application. The new web application will support mo
 1. [Configure remote administration for IIS Manager](#task-3-configure-remote-administration-for-iis-manager) on PM-SRV2
 1. [Deploy the web application](#task-4-deploy-the-web-application) by copying the files from C:\LabResources\Authpage
 
-### Task 1: Install Internet Information Services
+### Task 1: Install Internet Information Services´
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -52,14 +54,31 @@ Perform this task on CL1.
 1. On page Server Roles, activate **Web Server (IIS)** and click **Next >**.
 1. On page Features, click **Next >**.
 1. On page Web Server Role (IIS), click **Next >**.
-1. On page Role Services, under **Web Server**, **Security**, activate **Basic Authentication** and **Windows Authentication**.
+1. On page Role Services, under **Web Server**, **Security**, activate **Windows Authentication**.
 1. Expand **Application Development**, and activate **ASP.NET 4.8**.
 1. In Add features that are required for ASP.NET 4.8, click **Add Features**.
 1. In **Add Roles and Features Wizard**, on page **Role Services**, under **Management Tools**, activate **Management Service**. Click **Next >**.
 1. On page Confirmation, click **Install**.
 1. On page Installation progress, click **Close**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. On **PM-SRV2.ad.adatum.com**, install the features **Web Server** including **Windows Authentication**, **ASP.NET 4.8**, and the **Management Service**.
+
+    ````powershell
+    Install-WindowsFeature `
+        -ComputerName PM-SRV2.ad.adatum.com `
+        -Name Web-Server, Web-Windows-Auth, Web-Asp-Net45, Web-Mgmt-Service `
+        -IncludeManagementTools `
+        -Restart
+    ````
+
 ### Task 2: Install IIS Management Console
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -70,7 +89,20 @@ Perform this task on CL1.
 1. In Windows Features, expand **Internet Information Services**, **Web Management Tools**, activate **IIS Management Console** and click **OK**.
 1. On page Windows completed the requested changes, click **Close**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal** as Administrator.
+1. Install the IIS Management Console.
+
+    ````powershell
+    Enable-WindowsOptionalFeature `
+        -Online -FeatureName IIS-ManagementConsole -All
+
 ### Task 3: Configure remote administration for IIS Manager
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -85,6 +117,59 @@ Perform this task on CL1.
 1. On page Completed the Internet Information Service (IIS) 7+ Manager Setup Wizard, click **Finish**.
 1. Open **Terminal**.
 1. In Terminal, create a remote PowerShell session to **PM1-SRV2**.
+
+    ````powershell
+    Enter-PSSession PM-SRV2
+    ````
+
+1. Enable remote connections.
+
+    ````powershell
+    Set-ItemProperty `
+        -Path HKLM:\SOFTWARE\Microsoft\WebManagement\Server\ `
+        -Name EnableRemoteManagement `
+        -Value 1
+    ````
+
+1. Configure the service **WMSvc** to start automatically
+
+    ````powershell
+    Set-Service -Name WMSvc -StartupType Automatic
+    ````
+
+1. Start the service **WMSvc**.
+
+    ````powershell
+    Start-Service -Name WMSvc
+    ````
+
+1. Exit the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal** as Administrator.
+1. In Terminal, download **IIS Manager for Remote Administration 1.2**.
+
+    ````powershell
+    Start-BitsTransfer `
+        -Destination Downloads `
+        -Source `
+            https://download.microsoft.com/download/2/4/3/24374C5F-95A3-41D5-B1DF-34D98FF610A3/inetmgr_amd64_en-US.msi
+    ````
+
+1. Install IIS Manager for Remote Administration 1.2.
+
+    ````powershell
+    msiexec.exe /i c:\Users\Administrator.AD\Downloads\inetmgr_amd64_en-US.msi /passive
+    ````
+
+1. Create a remote PowerShell session to **PM1-SRV2**.
 
     ````powershell
     Enter-PSSession PM-SRV2
@@ -154,6 +239,8 @@ Perform this task on CL1.
 
 ### Task 5: Configure authentication
 
+#### Desktop experience
+
 Perform this task on CL1.
 
 1. Open **Internet Information Services (IIS) Manager**.
@@ -168,7 +255,60 @@ Perform this task on CL1.
 1. In the context-menu of **Windows Authentication**, click **Enable**.
 1. Open **Microsoft Edge**.
 1. In Microsoft Edge, navigate to <http://pm-srv2.ad.adatum.com>.
-1. In Windows Security, enter the credentials of any user, e.g. **ad\Ada**.
+1. In Windows Security, enter the credentials of any user, e.g. **ad\Pam**.
+
+    On the WHO Page, the Authentication Method should show Negotiate (KERBEROS).
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, create a remote PowerShell session to **PM1-SRV2**.
+
+    ````powershell
+    Enter-PSSession PM-SRV2
+    ````
+
+1. For Default Web Site, disable anonymous authentication.
+
+    ````powershell
+    $pSPath = 'IIS:\'
+    $location = 'Default Web Site'
+    $filter = '/system.webServer/security/authentication/'
+    $name = 'Enabled'
+    Set-WebConfigurationProperty `
+        -PSPath $pSPath `
+        -Location $location `
+        -Filter "$filter/anonymousAuthentication" `
+        -Name $name `
+        -Value $false `
+    ````
+
+1. For Default Web Site, enable Windows authentication
+
+    ````powershell
+    Set-WebConfigurationProperty `
+        -PSPath $pSPath `
+        -Location $location `
+        -Filter "$filter/windowsAuthentication" `
+        -Name $name `
+        -Value $true `
+    ````
+
+1. Exit from the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
+1. Open Microsoft Edge and browse to **http://pm-srv2.ad.adatum.com**.
+
+    ````powershell
+    & 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe' http://pm-srv2.ad.adatum.com
+    ````
+
+1. In Windows Security, enter the credentials of any user, e.g. **ad\Pam**.
 
     On the WHO Page, the Authentication Method should show Negotiate (KERBEROS).
 
