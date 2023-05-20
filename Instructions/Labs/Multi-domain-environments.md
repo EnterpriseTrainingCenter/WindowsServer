@@ -57,7 +57,7 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 
 ## Exercise 1: Deploy a child domain
 
-1. [Install Active Directory Domain Services on VN1-SRV7](#task-1-install-active-directory-domain-services)
+1. [Install Active Directory Domain Services](#task-1-install-active-directory-domain-services) on VN1-SRV7
 1. [Configure Active Directory Domain Services as new child domain](#task-2-configure-active-directory-domain-services-as-new-child-domain) clients.ad.adatum.com on VN1-SRV7
 1. [Optimize name resolution using conditional forwarders](#task-3-optimize-name-resolution-performance-using-conditional-forwarders) on VN1-SRV7
 
@@ -370,7 +370,7 @@ Perform this task on CL4.
 
 1. [Install Active Directory Domain Services on PM-SRV1](#task-2-install-active-directory-domain-services)
 1. [Configure Active Directory Domain Services as new tree](#task-3-configure-active-directory-domain-services-as-new-tree) named extranet.adatum.com on PM-SRV1
-1. [Configure forwarders] on PM-SRV1 as 8.8.8.8 and 8.8.4.4
+1. [Configure forwarders](#task-4-configure-forwarders) on PM-SRV1 as 8.8.8.8 and 8.8.4.4
 1. [Configure DNS client settings](#task-5-configure-dns-client-settings) on PM-SRV1 to point to its own IP address and localhost
 1. [Verify name resolution of the new tree](#task-6-verify-name-resolution-of-the-new-tree)
 
