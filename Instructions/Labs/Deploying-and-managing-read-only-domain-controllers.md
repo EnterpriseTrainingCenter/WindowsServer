@@ -31,7 +31,7 @@ Some time later, Adatum discovers that the domain controller at VNet3 might me c
 
 1. [Disconnect server from domain](#task-1-disconnect-server-from-domain): VN3-SRV1
 1. [Delete computer account](#task-2-delete-computer-account) of VN3-SRV1
-1. [Create a group for Administrators](#task-3-create-a-group-for-administrators) in VNet3
+1. [Create a group for Administrators](#task-3-create-a-group-for-administrators) of read-only domain controllers in VNet3 in the domain clients.ad.adatum.com and add Beth Burke and Logal Boyle to the group
 1. [Pre-create the read-only domain controller computer account](#task-4-pre-create-the-read-only-domain-controller-computer-account) VN3-SRV1 in domain clients.ad.adatum.com
 1. [Install read-only domain controller](#task-5-install-read-only-domain-controller)
 1. [Change DNS client settings](#task-6-change-dns-client-settings) on VN3-SRV1
