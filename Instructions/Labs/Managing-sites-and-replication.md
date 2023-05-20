@@ -286,8 +286,8 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Active Directory Sites and Services**.
-1. In Active Directory Sites and Services, expand **VNet1**, **Servers**, and **VN1-SRV7**.
-1. Under VN1-SRV7, in the context menu of **NTDS Settings**, click **Properties**.
+1. In Active Directory Sites and Services, expand **VNet1**, **Servers**, and **VN1-SRV5**.
+1. Under VN1-SRV5, in the context menu of **NTDS Settings**, click **Properties**.
 1. In NTDS Settings Properties, on tab General, deactivate **Global Catalog**.
 
 #### PowerShell
