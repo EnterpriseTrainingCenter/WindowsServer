@@ -41,7 +41,7 @@ Note: Exercise 6 is not dependent on the other exercises. To safe time, you may 
 
 1. [Install the Remote Server Administration DNS Server Tools](#task-1-install-the-remote-server-administration-dns-server-tools) on CL1
 1. [Install Active Directory Domain Services](#task-2-install-active-directory-domain-services) on VN1-SRV5 and VN2-SRV1
-1. [Configure Active Directory Domain Services as a additional domain controller in an existing domain](#task-3-configure-active-directory-domain-services-as-a-additional-domain-controller-in-an-existing-domain) on VN1-SRV5 and VN2-SRV1
+1. [Configure Active Directory Domain Services as a additional domain controller in an existing domain](#task-3-configure-active-directory-domain-services-as-an-additional-domain-controller-in-an-existing-domain) on VN1-SRV5 and VN2-SRV1
 1. [Configure forwarders](#task-4-configure-forwarders) on VN1-SRV5 and VN2-SRV1 to 8.8.8.8 and 8.8.4.4
 1. [Configure DNS client settings](#task-5-configure-dns-client-settings) on VN1-SRV5 to use VN2-SRV1 as preferred DNS server
 
