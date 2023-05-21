@@ -359,31 +359,43 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Internet Information Services (IIS) Manager**.
-1. In Internet Information Services (IIS) Manager, click **CL1 (AD\Administrator)**.
-1. Under CL1 Home, double-click **Server Certificates**.
-1. Under Server Certificates, in the right pane, click **Create Domain Certificate...**
-1. In Create Certificate, on page Distinguished Name Properties, in **Common Name**, type **\*.adatum.com**. Fill the remaining fields with any meaningful values and click **Next**.
-1. On page Online Certification Authority, under **Specify Online Certification Authority**, click **Select...**
-1. In Select Certification Authority, click the certificate authority on computer **VN1-SRV2.ad.adatum.com** and click **OK**.
-1. In Create Certificate, on page **Online Certification Authority**, under **Friendly name**, type **Wildcard adatum.com** and click **Finish**.
+1. Open **mmc.exe**.
+1. In Console1 - [Console Root], on the menu, click **File**, **Add/Remove Snap-in...**
+1. In Add or Remove Snap-ins, under **Available snap-ins**, click **Certificate** and click **Add >**.
+1. In Certificates snap-in, click **Computer account** and click **Next >**.
+1. On page Select Computer, ensure **Local computer** is selected and click **Finish**.
+1. In **Add or Remove Snap-ins**, click **OK**.
+1. In **Console1 - [Console Root]**, expand **Certificates (Local Computer)**, **Personal**, and click **Certificates**. If Certificates is not available, click **Personal** instead.
+1. In the context-menu of **Certificates** (or **Personal**), click **All Tasks**, **Request New Certificate...**
+1. In Certificate Enrollment, on page Before You Begin, click **Next**.
+1. On page Select Certificate Enrollment Policy, ensure **Active Directory Enrollment policy** is selected and click **Next**.
+1. On page Request Certificates, activate the checkbox beside **Web Server exportable** and click the link **More information is required to enroll this certificate. Click here to configure settings.**
+1. In Certificate Properties, under **Subject name**, under **Type**, click **Common name**. Under **Value**, type **\*.adatum.com** and click **Add >**. Under **Alternative name**, under **Type**, click **DNS**. Under **Value**, type **\*.adatum.com** and click **Add >**. Click **OK**.
+1. In **Certificate Enrollment**, on page **Request Certificates**, click **Enroll**.
 
-    If the certificate request fails with an access denied error message, leave the Create Certificate wizard open. On VN1-SRV2, restart the Certification Authority service:
+    If the certificate request fails with an access denied error message, on VN1-SRV2, restart the Certification Authority service.
 
     1. Open **Server Manager**.
     1. In Server manager, in the left pane, click **AD CS**.
     1. In Server manager > AD CS, under **SERVERS**, click **VN1-SRV2**.
     1. Under **SERVICES** (you might have to scroll down), in the context-menu of **CertSvc**, click **Restart Services**.
 
-    Then, switch back to the Create Certificate wizard, and click **Finish** again.
+    Then, try to request the certificate again.
 
-1. In **Internet Information Services (IIS) Manager**, under **Server Certificates**, click **Wildcard adatum.com** and click **Export...**
-1. In Export Certificate, under **Export to**, type **\\\\vn1-srv10\\IT\\Wildcard adatum.com.pfx**. In **Password** and **Confirm password**, type a secure password and click **OK**.
+1. On page **Certificate Installation Results**, click **Finish**.
+1. In **Console1 - [Console Root]**, expand **Certificates (Local Computer)**, **Personal**, and click **Certificates**.
+1. In the context-menu of the certificate **\*.adatum.com**, click **All Tasks**, **Export...**
+1. In the Certificate Export Wizard, on page Welcome to the Certificate Export Wizard, click **Next**.
+1. On page Export Private Key, click **Yes, export the private key** and click **Next**.
+1. On page Export File Format, ensure **Personal Information Exchange -PKCS #12 (.PFX)** is selected, the checkboxex **Include all certificates in the certification path if possible** and **Enable certificate privacy** are activated, and click **Next**.
+1. On page Security, activate the checkbox **Password** and, below, type a secure password. Repeat the password under **Confirm password**, take a note and click **Next**.
+1. On page File to Export, type or browse to **\\\\vn1-srv10\\IT\\Wildcard adatum.com.pfx** and click **Next**.
+1. On page Completing the Certificate Export Wizard, click **Finish**.
+1. In The export was successful, click **OK**.
+1. In **Console1 - [Console Root]**, in the context-menu of the certificate **\*.adatum.com**, click **Delete**.
+1. In the message box Certificates, click **Yes**.
 
-    Take a note of the password.
-
-1. In **Internet Information Services (IIS) Manager**, under **Server Certificates**, click **Wildcard adatum.com** and click **Remove**
-1. In Confirm Remove, click **Yes**.
+You can close the console without saving it.
 
 #### PowerShell
 
