@@ -15,11 +15,43 @@
 
 ## Setup
 
-* On CL1, sign in as **ad\Administrator**.
-* On CL3, sign in as **.\Administrator**.
-* On VN1-SRV8, sign in as **ad\Administrator**.
-* On PM-SRV2, sign in as **ad\Administrator**
-* On PM-SRV3, sign in as **ad\Administrator**
+1. On **VN1-SRV2**, sign in as **ad\Administrator**.
+1. In SConfig, enter **15**.
+1. Execute these commands:
+
+    ````powershell
+    Add-KdsRootKey -EffectiveTime (Get-Date).AddHours(-10)
+    C:\LabResources\Solutions\New-CertTemplateWebServerExportable.ps1
+    C:\LabResources\Solutions\Set-CertTemplatePermissions.ps1 `
+        -Template WebServerExportable `
+        -ComputerName CL1
+    ````
+
+1. On CL1, sign in as **ad\Administrator**.
+1. Open **Terminal** as Administrator.
+1. In Terminal, execute this command:
+
+    ````powershell
+    C:\LabResources\Solutions\New-Shares.ps1
+    ````
+
+    Note: You can safely ignore the following warnings:
+
+    ````text
+    WARNING: Certificate cannot be requested!
+    Please run Install-AdminCenter.ps1 on VN1-SRV4.
+    Windows Admin Center was not installed.
+    ````
+
+    ````text
+    WARNING: Junction cannot be created.
+    Please run New-Volumes.ps1 on VN1-SRV10.
+    ````
+
+1. On CL3, sign in as **.\Administrator**.
+1. On VN1-SRV8, sign in as **ad\Administrator**.
+1. On PM-SRV2, sign in as **ad\Administrator**.
+1. On PM-SRV3, sign in as **ad\Administrator**.
 
 ## Introduction
 
@@ -317,11 +349,13 @@ Perform this task on CL1.
 1. [Request and export a wildcard certificate](#task-1-request-and-export-a-wildcard-certificate) for *.adatum.com
 1. [Install Active Directory Federation services](#task-2-install-active-directory-federation-services) on VN1-SRV8 and VN1-SRV9
 1. [Create the first federation server in a federation server farm](#task-3-create-the-first-federation-server-in-a-federation-server-farm) using VN1-SRV8 with a federation service name sts.adatum.com and a group managed service account
-1. [Add a federation server in a federation server farm](#task-4-add-a-federation-server-in-a-federation-server-farm) using VN1-SRV9
+1. [Add a federation server to a federation server farm](#task-4-add-a-federation-server-to-a-federation-server-farm) using VN1-SRV9
 1. [Add DNS A records](#task-5-add-dns-a-records) for sts.adatum.com on VN1-SRV5 pointing to VN1-SRV8 and VN1-SRV9
 1. [Verify the functionality of AD FS](#task-6-verify-the-functionality-of-ad-fs)
 
 ### Task 1: Request and export a wildcard certificate
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -334,7 +368,7 @@ Perform this task on CL1.
 1. In Select Certification Authority, click the certificate authority on computer **VN1-SRV2.ad.adatum.com** and click **OK**.
 1. In Create Certificate, on page **Online Certification Authority**, under **Friendly name**, type **Wildcard adatum.com** and click **Finish**.
 
-    If the certificate request fails with an access denied error message, leave the Create Certificate wizard open. On VN1-SRV2restart the Certification Authority service:
+    If the certificate request fails with an access denied error message, leave the Create Certificate wizard open. On VN1-SRV2, restart the Certification Authority service:
 
     1. Open **Server Manager**.
     1. In Server manager, in the left pane, click **AD CS**.
@@ -351,7 +385,59 @@ Perform this task on CL1.
 1. In **Internet Information Services (IIS) Manager**, under **Server Certificates**, click **Wildcard adatum.com** and click **Remove**
 1. In Confirm Remove, click **Yes**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, request a wilcard certificate for **\*.adatum.com** using the template **WebServerExportable**.
+
+    ````powershell
+    $dnsName = '*.adatum.com'
+    $certificate = (
+        Get-Certificate `
+            -Template 'WebServerExportable' `
+            -SubjectName "CN=$dnsName" `
+            -DnsName $dnsName `
+            -CertStoreLocation 'Cert:\LocalMachine\My'
+    ).Certificate
+    ````
+
+    If you receive an error message
+
+    ````text
+    The revocation function was unable to check revocation because the revocation server was offline. 0x80092013 (-2146885613 CRYPT_E_REVOCATION_OFFLINE)
+    ````
+
+    restart the **Active Directory Certificate Services** on **VN1-SRV2** and run the command again.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV2 { Restart-Service -Name CertSvc }
+    ````
+
+1. Read a password for the PFX file into a variable.
+
+    ````powershell
+    $password = Read-Host -AsSecureString -Prompt 'Password for PFX file'
+    ````
+
+1. At the prompt Password for PFX file, enter a secure password and take a note.
+1. Export the certificate including the private key to **\\\\vn1-srv10\\IT\\Wildcard adatum.com.pfx**.
+
+    ````powershell
+    $certificate | Export-PfxCertificate `
+        -FilePath '\\vn1-srv10\IT\Wildcard adatum.com.pfx' -Password $password
+    ````
+
+1. Delete the certificate from CL1.
+
+    ````powershell
+    Remove-Item $certificate.PSPath
+    ````
+
 ### Task 2: Install Active Directory Federation services
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -367,8 +453,25 @@ Perform this task on CL1.
 1. On page Installation progress, click **Close**.
 
 Repeat from step 2, but on step 5, click **VN1-SRV9.ad.adatum.com**.
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, install **Active Directory Federation Services** including the management tools on **VN1-SRV8** and **VN1-SRV9**.
+
+    ````powershell
+    Invoke-Command -ComputerName VN1-SRV8, VN1-SRV9 {
+        Install-WindowsFeature
+            -Name ADFS-Federation `
+            -IncludeManagementTools `
+            -Restart 
+    }
+    ````
 
 ### Task 3: Create the first federation server in a federation server farm
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -391,7 +494,90 @@ Perform this task on CL1.
 1. Under AD FS, in the context-menu of **VN1-SRV8**, click **Restart Server**.
 1. In message box Are you sure you want to restart these servers, click **OK**.
 
-### Task 4: Add a federation server in a federation server farm
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, create a remote PowerShell session to **VN1-SRV8**.
+
+    ````powershell
+    $computerName = 'VN1-SRV8'
+    $pSSession = New-PSSession -ComputerName $computerName
+    ````
+
+1. Copy the file **\\\\VN1-SRV10\\IT\\Wildcard adatum.com.pfx** to **c:\\** in the remote session.
+
+    ````powershell
+    Copy-Item `
+        -Path '\\VN1-SRV10\IT\Wildcard adatum.com.pfx' `
+        -ToSession $pSSession `
+        -Destination c:\
+    ````
+
+1. Enter the remote session.
+
+    ````powershell
+    Enter-PSSession -Session $pSSession
+    ````
+
+1. Read a password for the PFX file into a variable.
+
+    ````powershell
+    $password = Read-Host -AsSecureString -Prompt 'Password for PFX file'
+    ````
+
+1. At the prompt Password for PFX file, enter the password of the PFX file.
+1. Import the PFX file into the local machine's certificate store and save it in a variable.
+
+    ````powershell
+    $certificate = Import-PfxCertificate `
+        -FilePath 'C:\Wildcard adatum.com.pfx'`
+        -Password $password `
+        -CertStoreLocation Cert:\LocalMachine\My\
+    ````
+
+1. Get the credential for performing configuration of ADFS.
+
+    ````powershell
+    $credential = Get-Credential
+    ````
+
+1. In Windows PowerShell credential request, enter the credentials of **ad\Administrator**
+
+1. Install the AD FS farm with the federation service name **sts.adatum.com**, the federation display name **Adatum Corporation**, and the managed group service account **AD\AdatumADFS$**.
+
+    ````powershell
+    Install-AdfsFarm `
+        -Credential $credential `
+        -CertificateThumbprint $certificate.Thumbprint `
+        -FederationServiceName 'sts.adatum.com' `
+        -FederationServiceDisplayName 'Adatum Corporation' `
+        -GroupServiceAccountIdentifier 'AD\AdatumADFS$'
+    ````
+
+1. Exit from the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
+1. Remove the remote PowerShell session.
+
+    ````powershell
+    Remove-PSSession -Session $pSSession
+    ````
+
+1. Restart **VN1-SRV8**.
+
+    ````powershell
+    Restart-Computer `
+        -ComputerName $computerName -WsmanAuthentication Default -Force
+    ````
+
+### Task 4: Add a federation server to a federation server farm
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -419,7 +605,89 @@ Perform this task on CL1.
 1. Under AD FS, in the context-menu of **VN1-SRV9**, click **Restart Server**.
 1. In message box Are you sure you want to restart these servers, click **OK**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, create a remote PowerShell session to **VN1-SRV9**.
+
+    ````powershell
+    $computerName = 'VN1-SRV9'
+    $pSSession = New-PSSession -ComputerName $computerName
+    ````
+
+1. Copy the file **\\\\VN1-SRV10\\IT\\Wildcard adatum.com.pfx** to **c:\\** in the remote session.
+
+    ````powershell
+    Copy-Item `
+        -Path '\\VN1-SRV10\IT\Wildcard adatum.com.pfx' `
+        -ToSession $pSSession `
+        -Destination c:\
+    ````
+
+1. Enter the remote session.
+
+    ````powershell
+    Enter-PSSession -Session $pSSession
+    ````
+
+1. Read a password for the PFX file into a variable.
+
+    ````powershell
+    $password = Read-Host -AsSecureString -Prompt 'Password for PFX file'
+    ````
+
+1. At the prompt Password for PFX file, enter the password of the PFX file.
+1. Import the PFX file into the local machine's certificate store and save it in a variable.
+
+    ````powershell
+    $certificate = Import-PfxCertificate `
+        -FilePath 'C:\Wildcard adatum.com.pfx'`
+        -Password $password `
+        -CertStoreLocation Cert:\LocalMachine\My\
+    ````
+
+1. Get the credential for performing configuration of ADFS.
+
+    ````powershell
+    $credential = Get-Credential
+    ````
+
+1. In Windows PowerShell credential request, enter the credentials of **ad\Administrator**
+
+1. Install the AD FS farm with the federation service name **sts.adatum.com**, the federation display name **Adatum Corporation**, and the managed group service account **AD\AdatumADFS$**.
+
+    ````powershell
+    Add-AdfsFarmNode `
+        -Credential $credential `
+        -PrimaryComputerName VN1-SRV8.ad.adatum.com `
+        -CertificateThumbprint $certificate.Thumbprint `
+        -GroupServiceAccountIdentifier 'ad\AdatumADFS$'
+    ````
+
+1. Exit from the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
+1. Remove the remote PowerShell session.
+
+    ````powershell
+    Remove-PSSession -Session $pSSession
+    ````
+
+1. Restart **VN1-SRV9**.
+
+    ````powershell
+    Restart-Computer `
+        -ComputerName $computerName -WsmanAuthentication Default -Force
+    ````
+
 ### Task 5: Add DNS A records
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -439,6 +707,33 @@ Perform this task on CL1.
 1. In **New Host**, under **IP address**, type **10.1.1.72** and click **Add Host** (leave **Name** blank).
 1. In the message box the host record sts.adatum.com was successfully created, click **OK**.
 1. In **New Host**, click **Done**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, create a new DNS primary zone with the name **sts.adatum.com**, stored in Active Directory and replicated within the forest, with dynamic updates disabled on **VN1-SRV5**.
+
+    ````powershell
+    $computerName = 'VN1-SRV5'
+    $zoneName = 'sts.adatum.com'
+    Add-DnsServerPrimaryZone `
+        -ComputerName $computerName `
+        -Name $zoneName `
+        -ReplicationScope Forest `
+        -DynamicUpdate None
+    ````
+
+1. Add A records to the new zone with the name of the zone itself and the IPv4 addresses **10.1.1.64** and **10.1.1.72**.
+
+    ````powershell
+    Add-DnsServerResourceRecordA `
+        -ComputerName $computerName `
+        -ZoneName $zoneName `
+        -Name '@' `
+        -IPv4Address 10.1.1.64, 10.1.1.72
+    ````
 
 ### Task 6: Verify the functionality of AD FS
 
@@ -464,8 +759,11 @@ Perform this task on CL1.
     ````
 
 1. Using Microsoft Edge, navigate to <https://sts.adatum.com/adfs/ls/idpinitiatedsignon.aspx>
+
+    If the web page of AD FS appears with an error, wait 2 minutes and try again. The servers may not have been synchronized yet.
+
 1. On page Adatum Corporation, click **Sign in**.
-1. On Sign in, type the credentials of any user, e.g., **Ada@adatum.com** and click **Sign in**.
+1. On Sign in, type the credentials of any user, e.g., **ad\Ida** and click **Sign in**.
 
     > You should receive **You are signed in**.
 
@@ -478,6 +776,8 @@ Perform this task on CL1.
 1. [Configure the Web Application Proxy role service](#task-3-configure-the-web-application-proxy-role-service) on PM-SRV3
 
 ### Task 1: Install the Web Application Proxy role service
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -497,6 +797,21 @@ Perform this task on CL1.
     Wait for the feature installation to complete.
 
 1. On page Installation progress, click **Close**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, install the windows feature Web Application Proxy on PM-SRV3, including management tools.
+
+    ````powershell
+    Install-WindowsFeature `
+        -ComputerName PM-SRV3 `
+        -Name Web-Application-Proxy `
+        -IncludeManagementTools `
+        -Restart
+    ````
 
 ### Task 2: Import the wildcard certificate on the Web Application Proxy Server and disable TLS 1.3
 
@@ -582,7 +897,7 @@ Perform this task on PM-SRV3.
 1. In Server Manager, click **Remote Access**.
 1. Close **Remote Access Management Console**.
 
-    Note: It is importnt to close Remote Access Management to discover the new configuration in the next task.
+    Note: It is important to close Remote Access Management to discover the new configuration in the next task.
 
 #### PowerShell
 
@@ -595,11 +910,18 @@ Perform this task on CL1.
     Enter-PSSession PM-SRV3
     ````
 
-1. Retrieve the certificate.
+1. Retrieve a valid certificate with the subject CN=*.adatum.com. If there are more certificates with this subject, retrieve the longest lasting.
 
     ````powershell
-    $certificate = Get-ChildItem -Path Cert:\LocalMachine\My | 
-    Where-Object { $PSItem.Friendlyname -eq 'Wildcard adatum.com' }
+    $now = Get-Date
+    $certificate = Get-ChildItem Cert:\LocalMachine\My\ | Where-Object { 
+        $PSItem.Subject -eq 'CN=*.adatum.com' `
+        -and $PSItem.NotBefore -lt $now `
+        -and $PSItem.NotAfter -gt $now
+    } | 
+    Sort-Object NotAfter -Descending | 
+    Select-Object -First 1
+    ````
 
 1. Install the Web Application Proxy using the imported certificate and the federation service name **sts.adatum.com**.
 
@@ -610,7 +932,7 @@ Perform this task on CL1.
     ````
 
 1. In Windows PowerShell credential request, enter the credentials of **AD\Administrator**.
-1. Exit and remove the remote PowerShell session.
+1. Exit the remote PowerShell session.
 
     ````powershell
     Exit-PSSession
@@ -625,6 +947,8 @@ Perform this task on CL1.
 
 ### Task 1: Add a relying party trust
 
+#### Desktop experience
+
 Perform this task on VN1-SRV8.
 
 1. Open **AD FS Management**.
@@ -636,7 +960,35 @@ Perform this task on VN1-SRV8.
 1. On page Ready to Add Trust, click **Next >**.
 1. On page Finish, click **Close**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **VN1-SRV8**.
+
+    ````powershell
+    Enter-PSSession -ComputerName VN1-SRV8
+    ````
+
+1. Add a non claims-aware relying party trust named **App1** with the identifiert **http://app1.adatum.com** and the access control policy **Permit everyone**.
+
+    ````powershell
+    Add-AdfsNonClaimsAwareRelyingPartyTrust `
+        -Name App1 `
+        -Identifier http://app1.adatum.com `
+        -AccessControlPolicyName 'Permit everyone'
+    ````
+
+1. Exit from the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
+
 ### Task 2: Configure Kerberos constrained delegation
+
+#### Desktop experience
 
 Perform this task on CL1.
 
@@ -655,7 +1007,25 @@ Perform this task on CL1.
 1. In Multi-valued String Editor, under **Value to add**, type **HTTP/PM-SRV3** and click **Add**. Repeat this step for the value **HTTP/PM-SRV3.ad.adatum.com**. Click **OK**.
 1. In **PM-SRV3 Properties**, click **OK**.
 
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. In Terminal, for **PM-SRV3** allow delegation of Kerberos tickets to **HTTP/PM-SRV2**. And add the service principal names **HTTP/PM-SRV3** and **HTTP/PM-SRV3.ad.adatum.com**.
+
+    ````powershell
+    Set-ADComputer -Identity PM-SRV3 -Add @{
+        'msDS-AllowedToDelegateTo' = 'HTTP/PM-SRV2'
+        'servicePrincipalName' = @(
+            'HTTP/PM-SRV3', 'HTTP/PM-SRV3.ad.adatum.com'
+        )
+    }
+    ````
+
 ### Task 3: Publish the web application
+
+#### Desktop experience
 
 Perform this task on PM-SRV3.
 
@@ -666,7 +1036,7 @@ Perform this task on PM-SRV3.
 1. On page Preauthentication, ensure **Active Directory Federation Service (AD FS)** is selected, and click **Next >**.
 1. On page Supported Clients, ensure **Web and MSOFBA** is selected and click **Next >**.
 1. On page Relying Party, click **App1** and click **Next >**.
-1. On page Publishing Settings, under Name, type **App 1**. Under **External URL**, type **https://app1.adatum.com**. Under **External certificate**, click **\*.adatum.com**. Activate **Enable HTTP to HTTPS redirection**. Under Backend server url, type **http://pm-srv2.ad.adatum.com**. Under Backend server SPN, type **HTTP/pm-srv2.ad.adatum.com**. Click **Next >**.
+1. On page Publishing Settings, under Name, type **App1**. Under **External URL**, type **https://app1.adatum.com**. Under **External certificate**, click **\*.adatum.com**. Activate **Enable HTTP to HTTPS redirection**. Under Backend server url, type **http://pm-srv2.ad.adatum.com**. Under Backend server SPN, type **HTTP/pm-srv2.ad.adatum.com**. Click **Next >**.
 1. On page Confirmation, click **Publish**.
 1. On page Results, click **Close**.
 1. Open **Windows Defender Firewall with Advanced Security**.
@@ -677,6 +1047,50 @@ Perform this task on PM-SRV3.
 1. On page Action, ensure **Allow the connection** is selected and click **Next >**.
 1. On page Profile, ensure **Domain**, **Private**, and **Public** are selected and click **Next >**.
 1. On page Name, under **Name**, type **AD FS HTTP Services (TCP-In)** and click **Finish**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Open **Terminal**.
+1. Open a remote PowerShell session to **PM-SRV3**.
+
+    ````powershell
+    Enter-PSSession -ComputerName PM-SRV3
+    ````
+
+1. Retrieve a valid certificate with the subject CN=*.adatum.com. If there are more certificates with this subject, retrieve the longest lasting.
+
+    ````powershell
+    $now = Get-Date
+    $certificate = Get-ChildItem Cert:\LocalMachine\My\ | Where-Object { 
+        $PSItem.Subject -eq 'CN=*.adatum.com' `
+        -and $PSItem.NotBefore -lt $now `
+        -and $PSItem.NotAfter -gt $now
+    } | 
+    Sort-Object NotAfter -Descending | 
+    Select-Object -First 1
+    ````
+
+1. Publish **App1** with pre-authentication using **ADFS**, the external URL **https://app1.adatum.com**, the backend server URL **http://pm-srv2.ad.adatum.com**, and the backend server SPN **HTTP/pm-srv2.ad.adatum.com**. Enable HTTP redirection.
+
+    ````powershell
+    Add-WebApplicationProxyApplication `
+        -Name App1 `
+        -ExternalPreauthentication ADFS `
+        -ADFSRelyingPartyName App1 `
+        -ExternalUrl https://app1.adatum.com `
+        -ExternalCertificateThumbprint $certificate.Thumbprint `
+        -BackendServerUrl http://pm-srv2.ad.adatum.com `
+        -BackendServerAuthenticationSPN HTTP/pm-srv2.ad.adatum.com `
+        -EnableHTTPRedirect
+    ````
+
+1. Exit from the remote PowerShell session.
+
+    ````powershell
+    Exit-PSSession
+    ````
 
 ### Task 4: Verify the published web application
 
@@ -699,7 +1113,7 @@ Perform this task on CL3.
 
 1. Open **Microsoft Edge**.
 1. In Microsoft Edge, navigate to <http://app1.adatum.com>.
-1. In Adatum Corporation, sign in as any user, e.g. **Ada@ad.adatum.com**
+1. In Adatum Corporation, sign in as any user, e.g. **ad\Ida**
 
     You should get redirected to https://app1.adatum.com and you should see the WHO Page with the Authentication Method Negotiate (KERBEROS).
 

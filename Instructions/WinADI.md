@@ -29,4 +29,4 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Deploying and managing read-only domain controllers](Labs/Deploying-and-managing-read-only-domain-controllers.md)
 1. [Implementing Active Directory Federation Services](Labs/Implementing-Active-Directory-Federation-Services.md)
 1. [Deploying a hybrid cloud model](Labs/Deploying-a-hybrid-cloud-model.md)
-1. Recovering Active Directory
+<!-- 1. Recovering Active Directory -->
