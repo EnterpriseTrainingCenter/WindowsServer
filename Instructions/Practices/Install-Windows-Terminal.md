@@ -40,6 +40,7 @@ Perform these steps on VN2-SRV1.
 
     ````powershell
     Add-AppxPackage Microsoft.VCLibs.*_x64*.appx
+    Add-AppxPackage Microsoft.UI.Xaml._x64*.appx
     ````
 
 1. Change to the folder of the downloaded Windows Terminal.
