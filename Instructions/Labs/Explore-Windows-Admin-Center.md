@@ -110,7 +110,7 @@ Perform this task on CL1.
 
 ## Exercise 2: Manage connections
 
-[In Windows Admin Center, add connections to VN1-SRV1, VN1-SRV5, VN1-SRV6, VN1-SRV2, CL1, and CL2](#task-in-windows-admin-center-add-connections).
+[In Windows Admin Center, add connections](#task-in-windows-admin-center-add-connections) to VN1-SRV1, VN1-SRV5, VN1-SRV6, VN1-SRV2, CL1, and CL2.
 
 ### Task: In Windows Admin Center, add connections
 
