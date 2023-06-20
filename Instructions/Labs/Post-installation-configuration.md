@@ -351,13 +351,13 @@ Perform this task on CL1.
 
 ## Exercise 3: Install App Compatibility Feature on Demand
 
-1. [Install the Application Compatibility Feature](#task-1-install-the-application-compatibility-feature) on VN1-SRV21
-1. [Install Internet Explorer 11](#task-2-install-internet-explorer-11)
+1. [Install the Application Compatibility Feature](#task-1-install-the-application-compatibility-feature) on VN1-SRV5
+1. [Install Internet Explorer 11](#task-2-install-internet-explorer-11) on VN1-SRV5
 1. [Verify the installation of the App Compatibility Feature](#task-3-verify-the-installation-of-the-app-compatibility-feature)
 
 ### Task 1: Install the Application Compatibility Feature
 
-Perform this task on VN1-SRV21.
+Perform this task on VN1-SRV5.
 
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
@@ -383,7 +383,7 @@ Perform this task on VN1-SRV21.
 
 ### Task 2: Install Internet Explorer 11
 
-Perform this task on VN1-SRV21.
+Perform this task on VN1-SRV5.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
@@ -410,7 +410,7 @@ Perform this task on VN1-SRV21.
 
 ### Task 3: Verify the installation of the App Compatibility Feature
 
-Perform this task on VN1-SRV21.
+Perform this task on VN1-SRV5.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
