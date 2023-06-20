@@ -18,11 +18,11 @@ You want to manage servers remotely using Microsoft Management Console snap-ins.
 
 ## Exercises
 
-1. [Evaluate remote administration using Microsoft Management Console and PowerShell](#exercise-1-evaluate-remote-administration-using-microsoft-management-console-and-powershell)
+1. [Evaluate remote administration using Microsoft Management Console](#exercise-1-evaluate-remote-administration-using-microsoft-management-console)
 1. [Configure Windows Defender Firewall rules for remote administration](#exercise-2-configure-windows-defender-firewall-rules-for-remote-administration)
 1. [Verify the ability of remote administration using Computer Management](#exercise-3-verify-the-ability-of-remote-administration-using-computer-management)
 
-## Exercise 1: Evaluate remote administration using Microsoft Management Console and PowerShell
+## Exercise 1: Evaluate remote administration using Microsoft Management Console
 
 [Use the custom console Basic Administration to open Event Viewer and Disk Management](#task-use-the-custom-console-basic-administration-to-open-event-viewer-and-disk-management) on VN1-SRV10
 
