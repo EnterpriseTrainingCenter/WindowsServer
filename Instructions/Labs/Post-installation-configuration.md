@@ -402,7 +402,7 @@ Perform this task on VN1-SRV5.
     ````powershell
     
     $packagePath = `
-        "${fodDriveLetter}:\LanguagesAndOptionalFeatures\Microsoft-Windows-InternetExplorer-Package~31bf3856ad364e35~amd64~~.cab"
+        "${fodDriveLetter}:\LanguagesAndOptionalFeatures\Microsoft-Windows-InternetExplorer-Optional-Package~31bf3856ad364e35~amd64~~.cab"
 
     Add-WindowsPackage -Online -PackagePath $packagePath
 
