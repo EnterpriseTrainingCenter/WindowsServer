@@ -63,6 +63,8 @@ Create the users according to the table above in the given organizational unit. 
 
 #### Active Directory Users and Computers
 
+Perform this task on CL1.
+
 1. On the desktop, open **Basic Administration**.
 1. In Basic Administration, expand **Active Directory Users and Computers**, **ad.adatum.com**
 1. In the context-menu of the organizational unit for the new user, click **New**, **User**.
@@ -72,6 +74,8 @@ Create the users according to the table above in the given organizational unit. 
 1. Click **Finish**.
 
 #### Active Directory Administrative Center
+
+Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **ad (local)**.
@@ -460,6 +464,8 @@ Perform this task on CL1.
 
 #### Windows Admin Center
 
+Perform this task on CL1.
+
 1. Using Microsoft edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
 1. Connected to VN1-SRV1.ad.adatum.com, under Tools, click **Active Directory**.
@@ -695,6 +701,8 @@ Perform this task on CL2.
 
 #### PowerShell
 
+Perform this task on CL1.
+
 1. Open **Terminal (Admin)**.
 1. Unjoin the computer from the domain.
 
@@ -744,6 +752,9 @@ Perform this task on CL1.
 
 #### PowerShell
 
+Perform this task on CL1.
+
+1. Open **Terminal (Admin)**.
 1. Delete the computer object.
 
     ````powershell
