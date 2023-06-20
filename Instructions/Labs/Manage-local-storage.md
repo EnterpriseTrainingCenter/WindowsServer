@@ -193,11 +193,12 @@ Perform these steps on CL1.
 1. Create a a partition.
 
     ````powershell
-    # TODO: Change the disk number and the size
+    # TODO: Change the disk number, the size, and the drive letter
     $diskNumber = 1
-    $size = 512GB
+    $size = 1TB
+    $driveLetter = 'D'
 
-    $partition = New-Partition -DiskNumber $diskNumber -Size $size
+    $partition = New-Partition -DiskNumber $diskNumber -Size $size -DriveLetter D
     ````
 
 1. Format the new partition.
