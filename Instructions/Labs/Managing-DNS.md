@@ -1200,8 +1200,8 @@ Perform this task on CL1.
     1. In the context menu of **DNS**, click **Connect to DNS Server...**.
     1. In Connect to DNS Server, click **The following computer**, type **vn1-srv1.ad.adatum.com** below and click **OK**.
 
-1. Expand **vn1-srv1.ad.adatum.com**, **Forward Lookup Zones**, and click **adatum.com**.
-1. In the context-menu of **adatum.com**, click **New Alias (CNAME)**
+1. Expand **vn1-srv1.ad.adatum.com**, **Forward Lookup Zones**, and click **GlobalNames**.
+1. In the context-menu of **GlobalNames**, click **New Alias (CNAME)**
 1. In New Resource Record, under **Alias name (uses parent domain if left blank)**, type **dc1**. Under **Fully qualified domain name (FQDN) for target host**, type **vn1-srv1.ad.adatum.com**. Click **OK**.
 
 Repeat the last two steps to create remaining aliases according to the table below.
