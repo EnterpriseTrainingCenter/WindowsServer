@@ -1323,7 +1323,7 @@ Perform this task on CL1.
     1. In the context menu of **DNS**, click **Connect to DNS Server...**.
     1. In Connect to DNS Server, click **The following computer**, type **vn2-srv1.ad.adatum.com** below and click **OK**.
 
-1. Expand **vn1-srv2.ad.adatum.com** and click **Forward Lookup Zones**.
+1. Expand **vn2-srv1.ad.adatum.com** and click **Forward Lookup Zones**.
 1. In the context-menu of **Forward Lookup Zones**, click **New Zone...**
 1. In the New Zone Wizard, on page Welcome to the New Zone Wizard, click **Next >**.
 1. On page Zone Type, click **Stub zone** and click **Next >**.
