@@ -14,6 +14,8 @@ On VN2-SRV1, delete all root hints. Verify the effect of a DNS server without fo
 
 ## Instructions
 
+### Desktop experience
+
 Perform this task on CL1.
 
 1. Sign in as **ad\Administrator**.
@@ -49,6 +51,47 @@ Perform this task on CL1.
 
 1. In **VN2-SRV1.ad.adatum.com Properties**, on tab **Root Hints**, click **OK**.
 1. Switch to **Terminal**.
+1. Resolve the name **microsoft.com** using the server **VN2-SRV1.ad.adatum.com** again.
+
+    ````powershell
+    Resolve-DnsName -Name microsoft.com -Server VN2-SRV1.ad.adatum.com
+    ````
+
+    > The query should resolve again.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. Sign in as **ad\Administrator**.
+1. Open **Terminal**.
+1. Remove all root hints on **vn2-srv1.ad.adatum.com**
+
+    ````powershell
+    $computerName = 'vn2-srv1.ad.adatum.com'
+    Get-DnsServerRootHint -ComputerName $computerName | Remove-DnsServerRootHint -ComputerName $computerName
+    ````
+
+1. Clear the DNS server cache on **vn2-srv1.ad.adatum.com**.
+
+    ````powershell
+    Clear-DnsServerCache -ComputerName $computerName -Force
+    ````
+
+1. Resolve the name **microsoft.com** using the server **VN2-SRV1.ad.adatum.com**.
+
+    ````powershell
+    Resolve-DnsName -Name microsoft.com -Server VN2-SRV1.ad.adatum.com
+    ````
+
+    > You will receive an error message, because the server cannot resolve names from the internet anymore.
+
+1. On **vn2-srv1.ad.adatum.com**, import the root hints again from **10.1.1.8**.
+
+    ````powershell
+    Import-DnsServerRootHint -NameServer 10.1.1.8 -ComputerName $computerName
+    ````
+
 1. Resolve the name **microsoft.com** using the server **VN2-SRV1.ad.adatum.com** again.
 
     ````powershell

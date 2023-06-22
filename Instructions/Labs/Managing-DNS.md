@@ -120,6 +120,7 @@ Perform this task on CL1.
 1. In **DNS Manager**, in the context-menu of **adatum.com**, click **Other New Records...**
 1. In Resource Record Type, under **Select a resource record type**, click **Text (TXT)** and click **Create Record...**
 1. In New Resource Record, leave the text field under **Record name (uses parent domain if left blank)** blank. In **Text**, type **v=spf1 include:spf.protection.outlook.com -all**. Click **OK**.
+1. In **DNS Manager**, in the context-menu of **adatum.com**, click **Other New Records...**
 1. In **Resource Record Type**, under **Select a resource record type**, click **Service Location (SRV)** and click **Create Record...**
 1. In New Resource Record, in **Service**, type **_sip**. In **Protocol**, type **_tls**. In **Priority**, type **100**. In **Weight**, type **1**. In **Port**, type **443**. In **Host offering this service**, type **sipdir.online.lync.com**. Click **OK**.
 1. In **Resource Record Type**, under **Select a resource record type**, click **Service Location (SRV)** and click **Create Record...**
