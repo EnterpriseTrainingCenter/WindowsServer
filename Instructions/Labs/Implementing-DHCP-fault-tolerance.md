@@ -407,11 +407,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **DHCP**.
-1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
-1. In Add Server, under **This server**, type **VN1-SRV6"** and click **OK**.
-1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
-1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
 1. Open **Terminal**.
 1. Release and renew the IP configuration on CL2.
 
@@ -421,14 +416,25 @@ Perform this task on CL1.
         ipconfig.exe /renew
     }
     ````
-
-1. Switch to **DHCP**.
+1. Open **DHCP**.
 1. In DHCP, expand **vn2-srv2.ad.adatum.com**, **IPv4**, **Scope [10.1.2.0] VNet2**, and click **Address Leases**.
+
+   If necessary, perform these steps to add VN2-SRV2 to the DHCP console:
+
+   1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+   1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
+
 1. In the context-menu of **Address Leases**, click **Refresh**.
 
     You should see a lease with the Name CL2.ad.adatum.com with a Lease Expiration of approximately 2 hours from now.
 
 1. In DHCP, expand **vn1-srv6 ad.adatum.com**, **IPv4**, **Scope [10.1.2.0] VNet2**, and click **Address Leases**.
+
+   If necessary, perform these steps to add VN2-SRV2 to the DHCP console:
+
+   1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+   1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
+
 1. In the context-menu of **Address Leases**, click **Refresh**.
 
     You should not see any active leases.
