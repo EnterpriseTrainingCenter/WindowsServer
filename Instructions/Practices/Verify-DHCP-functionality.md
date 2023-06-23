@@ -15,7 +15,7 @@
 
 ## Task
 
-On all servers on VNet1, except for VN1-SRV6, and CL1, change the IP assignment mode of the network adapter connected to VNet1 to use DHCP.
+On all servers on VNet1, except for VN1-SRV6, VN1-SRV7, and CL1, change the IP assignment mode of the network adapter connected to VNet1 to use DHCP.
 
 ## Instructions
 
