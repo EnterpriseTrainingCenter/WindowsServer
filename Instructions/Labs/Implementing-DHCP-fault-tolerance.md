@@ -430,16 +430,16 @@ Perform this task on CL1.
 
 1. In DHCP, expand **vn1-srv6 ad.adatum.com**, **IPv4**, **Scope [10.1.2.0] VNet2**, and click **Address Leases**.
 
-   If necessary, perform these steps to add VN2-SRV2 to the DHCP console:
+   If necessary, perform these steps to add VN1-SRV6 to the DHCP console:
 
    1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
-   1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
+   1. In Add Server, under **This server**, type **VN1-SRV6"** and click **OK**.
 
 1. In the context-menu of **Address Leases**, click **Refresh**.
 
     You should not see any active leases.
 
-    You might want to repeat from step 7 several times to verify that VN2-SRV2 always leases the IP addresses for VNet2.
+    You might want to repeat from step 2 several times to verify that VN2-SRV2 always leases the IP addresses for VNet2.
 
 1. In the context-menu of **vn2-srv2.ad.adatum.com**, click **All Tasks**, **Stop**.
 1. Switch to **Terminal**.
@@ -535,13 +535,21 @@ Perform this task on CL1.
     | 10.1.1.56  | VN1-SRV7    |
 
 1. Open **DHCP**.
-1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
-1. In Add Server, click **This authorized DHCP server**. Click **vn1-srv6.ad.adatum.com**, hold down STRG and click **vn1-srv7-ad.adatum.com**. Click **OK**.
-1. In **DHCP**, expand **vn1-srv6.ad.adatum.com**, **IPv4**, **Scope [10.1.1.0] VNet1** and click **Address Leases**.
+1. In DHCP, expand **vn1-srv6.ad.adatum.com**, **IPv4**, **Scope [10.1.1.0] VNet1** and click **Address Leases**.
+
+    If necessary, perform these steps to add VN1-SRV6 to the DHCP console:
+
+    1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+    1. In Add Server, under **This server**, type **VN1-SRV6"** and click **OK**.
 
     You should see the lease for CL1.ad.adatum.com.
 
 1. Expand **vn1-srv7.ad.adatum.com**, **IPv4**, **Scope [10.1.1.0] VNet1** and click **Address Leases**.
+
+    If necessary, perform these steps to add VN1-SRV7 to the DHCP console:
+
+    1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+    1. In Add Server, under **This server**, type **VN1-SRV7"** and click **OK**.
 
     You should see the lease for CL1.ad.adatum.com with the same data as in the previous step.
 
