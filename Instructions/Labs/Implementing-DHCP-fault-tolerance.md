@@ -227,6 +227,19 @@ Perform this task on CL1.
 
 ### Task 4: Verify DHCP functionality
 
+#### Desktop experience
+
+Perform this task on CL2.
+
+1. Sign in as **ad\Administrator**.
+1. Open **Settings**.
+1. In Settings, click **Network & internet**.
+1. In Network & internet, click **Ethernet**.
+1. In Ethernet, right to **IP assignment**, click **Edit**.
+1. In Edit IP settings, in the drop-down at the top, click **Automatic (DHCP)** and click **Save**.
+
+    In **Ethernet**, verify that the computer has received an IP address in the 10.1.2.0 subnet (such as 10.1.2.2) and IPv4 DNS servers of 10.1.1.8.
+
 #### PowerShell
 
 Perform this task on CL2.
@@ -261,19 +274,6 @@ Perform this task on CL2.
     ````shell
     ipconfig.exe /renew
     ````
-
-#### Desktop experience
-
-Perform this task on CL2.
-
-1. Sign in as **ad\Administrator**.
-1. Open **Settings**.
-1. In Settings, click **Network & internet**.
-1. In Network & internet, click **Ethernet**.
-1. In Ethernet, right to **IP assignment**, click **Edit**.
-1. In Edit IP settings, in the drop-down at the top, click **Automatic (DHCP)** and click **Save**.
-
-    In **Ethernet**, verify that the computer has received an IP address in the 10.1.2.0 subnet (such as 10.1.2.2) and IPv4 DNS servers of 10.1.1.8.
 
 ## Exercise 2: Implement DHCP relay
 
