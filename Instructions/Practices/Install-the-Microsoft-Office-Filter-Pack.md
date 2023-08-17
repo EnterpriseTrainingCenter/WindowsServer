@@ -32,4 +32,5 @@ Perform these steps on CL1.
             -FilePath msiexec.exe `
             -ArgumentList '/i C:\filterpack\FilterPack.msi', '/q' `
             -Wait
-}    ````
+    }
+    ````
