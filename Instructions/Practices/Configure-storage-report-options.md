@@ -47,7 +47,7 @@ Perform these steps on CL1.
         Join-Path -Path $reportLocation -ChildPath 'Scheduled'
     New-Item -Type Directory -Path $reportLocationScheduled
     Set-FsrmSetting `
-        -ReportLocationIncident $reportLocationScheduled
+        -ReportLocationScheduled $reportLocationScheduled
     ````
 
 1. Set the location for on-demand reports to **d:\\Shares\\IT\\StorageReports\\Interactive**.
@@ -57,7 +57,7 @@ Perform these steps on CL1.
         Join-Path -Path $reportLocation -ChildPath 'Interactive'
     New-Item -Type Directory -Path $reportLocationOnDemand
     Set-FsrmSetting `
-        -ReportLocationIncident $reportLocationOnDemand
+        -ReportLocationOnDemand $reportLocationOnDemand
     ````
 
 1. Exit the remote PowerShell session.
