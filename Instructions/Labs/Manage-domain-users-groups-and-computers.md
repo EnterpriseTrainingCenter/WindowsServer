@@ -620,7 +620,7 @@ Perform this task on CL1.
 1. Delete the group **Pilot Users**.
 
     ````powershell
-    Remove-ADGroup 'Pilot Users
+    Remove-ADGroup 'Pilot Users'
     ````
 
 1. Under the message **Performing the operation "Remove" on target "CN=Pilot Users,OU=Organizational Groups,DC=ad,DC=adatum,DC=com".**, enter **Y**.
