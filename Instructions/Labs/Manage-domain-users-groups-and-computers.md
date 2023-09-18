@@ -701,7 +701,7 @@ Perform this task on CL2.
 
 #### PowerShell
 
-Perform this task on CL1.
+Perform this task on CL2.
 
 1. Open **Terminal (Admin)**.
 1. Unjoin the computer from the domain.
