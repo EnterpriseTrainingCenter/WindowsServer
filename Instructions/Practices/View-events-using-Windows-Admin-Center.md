@@ -17,7 +17,7 @@ Perform these steps on CL1.
 1. Logon as **ad\Administrator**.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
 1. In Windows Admin Center, click **VN1-SRV1.ad.adatum.com**.
-1. Connected to VN1-SRV5.ad.adatum.com, under **Tools**, click **Events**.
+1. Connected to VN1-SRV1.ad.adatum.com, under **Tools**, click **Events**.
 1. Under Events, **Windows Logs**, click **System**.
 1. Click the icon *Filter*.
 1. Click the checkbox **Select All** to deactivate all event levels. Activate the checkboxes **Critical**, **Error**, and **Warning** and click **Apply**.
