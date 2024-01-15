@@ -799,13 +799,13 @@ Perform this task on CL1.
 
 #### Desktop experience
 
-Perform this task on VN2-SRV2.
+Perform this task on CL1.
 
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
-1. On page Server Selection, ensure **VN2-SRV2.ad.adatum.com** is selected and click **Next >**.
+1. On page Server Selection, click **VN2-SRV2.ad.adatum.com**, and click **Next >**.
 1. On page Server Roles, activate **Active Directory Domain Services**.
 1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
@@ -813,6 +813,19 @@ Perform this task on VN2-SRV2.
 1. On page **AD DS**, click **Next >**.
 1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn2-srv2.ad.adatum.com**.
+1. On the page vn1-srv5.ad.adatum.com, unter Tools, click **Roles & features**.
+1. Under Roles and features, click **Active Directory Domain Services** and click **Install**.
+1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically if required**, and click **Yes**.
+
+Wait, until you receive a notification about the successfully completed installation.
 
 #### PowerShell
 
