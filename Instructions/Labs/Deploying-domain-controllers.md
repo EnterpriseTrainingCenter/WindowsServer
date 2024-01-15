@@ -212,7 +212,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **DNS**.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
 1. In DNS Manager, click **VN1-SRV5.ad.adatum.com**.
