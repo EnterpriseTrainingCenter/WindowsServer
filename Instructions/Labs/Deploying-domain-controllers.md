@@ -498,6 +498,8 @@ Perform this task on CL1.
 1. Click **Save**.
 1. Click **Close**.
 
+Note: At this point, Windows Admin Center might stop working for you, because the DNS client server IP address of CL1 now points to an IP address not responsive anymore.
+
 #### PowerShell
 
 Perform this task on CL1.
