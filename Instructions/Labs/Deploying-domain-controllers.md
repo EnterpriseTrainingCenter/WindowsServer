@@ -325,6 +325,8 @@ Perform this task on CL1.
 
 ### Task 2: Verify shares for Active Directory
 
+Perform this task on CL1.
+
 1. Open **Server Manager**.
 1. In Server manager, click **File and Storage Services**.
 1. In File and Storage Services, click **Shares**
@@ -332,6 +334,8 @@ Perform this task on CL1.
     > The shares NETLOGON and SYSVOL should be present on VN1-SRV5 and VN2-SRV1.
 
 ### Task 3: Verify the health of AD DS
+
+Perform this task on CL1.
 
 1. Open **Server Manager**.
 1. In Server Manager, click **Dashboard**.
