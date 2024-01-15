@@ -108,7 +108,7 @@ Perform this task on CL1.
 1. Open **Microsoft Edge**.
 1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
 1. On the Windows Admin Center page, click **vn1-srv5.ad.adatum.com**.
-1. On the page vn1-srv5.ad.adatum.com, in the left pane, click **Roles & features**.
+1. On the page vn1-srv5.ad.adatum.com, unter Tools, click **Roles & features**.
 1. Under Roles and features, click **Active Directory Domain Services** and click **Install**.
 1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically if required**, and click **Yes**.
 1. At the top-left, click **Windows Admin Center**.
@@ -245,13 +245,26 @@ Perform this task on VN1-SRV5.
 
 1. Sign in as **ad\administrator**.
 1. In SConfig, enter **8**.
-1. In Network settings, enter **1**.
+1. In Network settings, enter then Index # of the network adapter with the IP address starting with 10.1.1, e.g. 1.
 1. In Network adapter settings, enter **2**.
 1. Beside Enter new preferred DNS server, enter **10.1.2.8**.
 1. Beside Enter alternate DNS server, enter **127.0.0.1**.
 1. Press ENTER to continue.
 1. In SConfig, enter **12**.
 1. Beside Are you sure you want to log off, enter **y**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn1-srv5.ad.adatum.com**.
+1. On the page vn1-srv5.ad.adatum.com, under Tools, click **Networks**.
+1. Under Networks, click **VNet1** and click **Settings**.
+1. On the tab IPv4, under Use the following DNS server addresses, under **Preferred DNS Server**, type **10.1.2.8**. Under Alternate DNS server, type **127.0.0.1**.
+1. Click **Save**.
+1. Click **Close**.
 
 #### PowerShell
 
