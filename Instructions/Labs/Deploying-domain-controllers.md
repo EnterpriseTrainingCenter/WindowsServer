@@ -99,7 +99,21 @@ Perform this task on CL1.
 1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
-Repeat these steps, but in step 5, on page **Server Selection**, click **VN2-SRV1**.
+Repeat from step 2, but in step 5, on page **Server Selection**, click **VN2-SRV1**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn1-srv5.ad.adatum.com**.
+1. On the page vn1-srv5.ad.adatum.com, in the left pane, click **Roles & features**.
+1. Under Roles and features, click **Active Directory Domain Services** and click **Install**.
+1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically if required**, and click **Yes**.
+1. At the top-left, click **Windows Admin Center**.
+
+Repeat from step 3 for **vn2-srv1.ad.adatum.com**.
 
 #### PowerShell
 
