@@ -53,7 +53,6 @@ Note: It is recommended to use another domain controller as DNS server. However,
 
 Perform these steps on CL1.
 
-1. Sign in as **ad\Administrator**.
 1. Open **Settings**.
 1. In Settings, click **Apps**.
 1. In Apps, click **Optional features**.
@@ -473,7 +472,7 @@ Perform this task on VN1-SRV1.
 1. In Network settings, enter **1**.
 1. In Network Adapter settings, enter **1**.
 1. Beside Select DHCP, Static IP, enter **s**.
-1. Beside Enter static IP address, enter **10.1.1.200**.
+1. Beside Enter static IP address, enter **10.1.1.9**.
 1. Beside Enter subnet mask, enter **255.255.255.0**.
 1. Beside Enter default gateway, enter **10.1.1.1**.
 1. In Network Adapter Settings, enter **2**.
