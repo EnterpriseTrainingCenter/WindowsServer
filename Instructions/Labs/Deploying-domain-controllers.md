@@ -53,7 +53,6 @@ Note: It is recommended to use another domain controller as DNS server. However,
 
 Perform these steps on CL1.
 
-1. Sign in as **ad\Administrator**.
 1. Open **Settings**.
 1. In Settings, click **Apps**.
 1. In Apps, click **Optional features**.
@@ -398,7 +397,7 @@ Perform this task on CL1.
 1. In Change Directory Server, click **VN1-SRV5.ad.adatum.com** and click **OK**.
 1. In the message box **Active Directory Schema snap-in is not connected to the schema operations master. You will not be able to perform any changes. Schema modifications can only be made on the schema FSMO holder.**, click **OK**.
 
-1. In the context-menu of **Active Directory Domains and Trusts**, click **Operations Master...**
+1. In the context-menu of **Active Schema**, click **Operations Master...**
 1. In Operations Master, click **Change**.
 1. In the message box **Are you sure you want to change the Operations Master?**, click **Yes**.
 1. In the message box **Operations Master successfully transferred.**, click **OK**.
