@@ -98,7 +98,21 @@ Perform this task on CL1.
 1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
-Repeat these steps, but in step 5, on page **Server Selection**, click **VN2-SRV1**.
+Repeat from step 2, but in step 5, on page **Server Selection**, click **VN2-SRV1**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn1-srv5.ad.adatum.com**.
+1. On the page vn1-srv5.ad.adatum.com, unter Tools, click **Roles & features**.
+1. Under Roles and features, click **Active Directory Domain Services** and click **Install**.
+1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically if required**, and click **Yes**.
+1. At the top-left, click **Windows Admin Center**.
+
+Repeat from step 3 for **vn2-srv1.ad.adatum.com**.
 
 #### PowerShell
 
@@ -197,7 +211,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **DNS**.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
 1. In DNS Manager, click **VN1-SRV5.ad.adatum.com**.
@@ -231,13 +244,26 @@ Perform this task on VN1-SRV5.
 
 1. Sign in as **ad\administrator**.
 1. In SConfig, enter **8**.
-1. In Network settings, enter **1**.
+1. In Network settings, enter then Index # of the network adapter with the IP address starting with 10.1.1, e.g. 1.
 1. In Network adapter settings, enter **2**.
 1. Beside Enter new preferred DNS server, enter **10.1.2.8**.
 1. Beside Enter alternate DNS server, enter **127.0.0.1**.
 1. Press ENTER to continue.
 1. In SConfig, enter **12**.
 1. Beside Are you sure you want to log off, enter **y**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn1-srv5.ad.adatum.com**.
+1. On the page vn1-srv5.ad.adatum.com, under Tools, click **Networks**.
+1. Under Networks, click **VNet1** and click **Settings**.
+1. On the tab IPv4, under Use the following DNS server addresses, under **Preferred DNS Server**, type **10.1.2.8**. Under Alternate DNS server, type **127.0.0.1**.
+1. Click **Save**.
+1. Click **Close**.
 
 #### PowerShell
 
@@ -298,6 +324,8 @@ Perform this task on CL1.
 
 ### Task 2: Verify shares for Active Directory
 
+Perform this task on CL1.
+
 1. Open **Server Manager**.
 1. In Server manager, click **File and Storage Services**.
 1. In File and Storage Services, click **Shares**
@@ -305,6 +333,8 @@ Perform this task on CL1.
     > The shares NETLOGON and SYSVOL should be present on VN1-SRV5 and VN2-SRV1.
 
 ### Task 3: Verify the health of AD DS
+
+Perform this task on CL1.
 
 1. Open **Server Manager**.
 1. In Server Manager, click **Dashboard**.
@@ -397,7 +427,7 @@ Perform this task on CL1.
 1. In Change Directory Server, click **VN1-SRV5.ad.adatum.com** and click **OK**.
 1. In the message box **Active Directory Schema snap-in is not connected to the schema operations master. You will not be able to perform any changes. Schema modifications can only be made on the schema FSMO holder.**, click **OK**.
 
-1. In the context-menu of **Active Schema**, click **Operations Master...**
+1. In the context-menu of **Active Directory Schema**, click **Operations Master...**
 1. In Operations Master, click **Change**.
 1. In the message box **Are you sure you want to change the Operations Master?**, click **Yes**.
 1. In the message box **Operations Master successfully transferred.**, click **OK**.
@@ -454,6 +484,21 @@ Perform this task on VN1-SRV1.
 1. In Server Configuration, enter **12**.
 1. In the message box **Are you sure to log off?**, click **Yes**.
 
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn1-srv1.ad.adatum.com**.
+1. On the page vn1-srv1.ad.adatum.com, under Tools, click **Networks**.
+1. Under Networks, click **Ethernet** and click **Settings**.
+1. On the tab IPv4, under Use the following IP address, under **IP Address**, type **10.1.1.9**. Under Use the following DNS server addresses, under **Preferred DNS Server**, type **10.1.1.40**. Under **Alternate DNS Server**, type **10.1.2.8**.
+1. Click **Save**.
+1. Click **Close**.
+
+Note: At this point, Windows Admin Center might stop working for you, because the DNS client server IP address of CL1 now points to an IP address not responsive anymore.
+
 #### PowerShell
 
 Perform this task on CL1.
@@ -465,7 +510,7 @@ Perform this task on CL1.
     $cimSession = New-CimSession -ComputerName VN1-SRV1
     ````
 
-1. Add the IP address **10.1.1.200**. with the prefix length of **24** to VN1-SRV1.
+1. Add the IP address **10.1.1.9**. with the prefix length of **24** to VN1-SRV1.
 
     ````powershell
     New-NetIPAddress `
@@ -753,13 +798,13 @@ Perform this task on CL1.
 
 #### Desktop experience
 
-Perform this task on VN2-SRV2.
+Perform this task on CL1.
 
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
 1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
-1. On page Server Selection, ensure **VN2-SRV2.ad.adatum.com** is selected and click **Next >**.
+1. On page Server Selection, click **VN2-SRV2.ad.adatum.com**, and click **Next >**.
 1. On page Server Roles, activate **Active Directory Domain Services**.
 1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
@@ -767,6 +812,19 @@ Perform this task on VN2-SRV2.
 1. On page **AD DS**, click **Next >**.
 1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn2-srv2.ad.adatum.com**.
+1. On the page vn1-srv5.ad.adatum.com, unter Tools, click **Roles & features**.
+1. Under Roles and features, click **Active Directory Domain Services** and click **Install**.
+1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically if required**, and click **Yes**.
+
+Wait, until you receive a notification about the successfully completed installation.
 
 #### PowerShell
 
