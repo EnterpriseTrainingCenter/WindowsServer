@@ -511,7 +511,7 @@ Perform this task on CL1.
     $cimSession = New-CimSession -ComputerName VN1-SRV1
     ````
 
-1. Add the IP address **10.1.1.200**. with the prefix length of **24** to VN1-SRV1.
+1. Add the IP address **10.1.1.9**. with the prefix length of **24** to VN1-SRV1.
 
     ````powershell
     New-NetIPAddress `
