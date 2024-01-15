@@ -485,6 +485,19 @@ Perform this task on VN1-SRV1.
 1. In Server Configuration, enter **12**.
 1. In the message box **Are you sure to log off?**, click **Yes**.
 
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn1-srv1.ad.adatum.com**.
+1. On the page vn1-srv1.ad.adatum.com, under Tools, click **Networks**.
+1. Under Networks, click **Ethernet** and click **Settings**.
+1. On the tab IPv4, under Use the following IP address, under **IP Address**, type **10.1.1.9**. Under Use the following DNS server addresses, under **Preferred DNS Server**, type **10.1.1.40**. Under **Alternate DNS Server**, type **10.1.2.8**.
+1. Click **Save**.
+1. Click **Close**.
+
 #### PowerShell
 
 Perform this task on CL1.
