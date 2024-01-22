@@ -666,7 +666,7 @@ Perform this task on CL1.
     ````powershell
     $cimSession = New-CimSession -ComputerName VN2-SRV1
     Clear-DnsClientCache -CimSession $cimSession
-    Remove-CimSession
+    Remove-CimSession $cimSession
     ````
 
 ### Task 4: Demote the old domain controller
