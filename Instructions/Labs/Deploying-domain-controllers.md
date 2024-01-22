@@ -649,10 +649,24 @@ Perform this task on CL1.
         -CimSession $cimSession
     ````
 
+1. Clear the DNS client cache on VN1-SRV5.
+
+    ````powershell
+    Clear-DnsClientCache -CimSession $cimSession
+    ````
+
 1. Remove the CIM session
 
     ````powershell
     Remove-CimSession $cimSession
+    ````
+
+1. Clear the DNS client cache on VN2-SRV1.
+
+    ````powershell
+    $cimSession = New-CimSession -ComputerName VN2-SRV1
+    Clear-DnsClientCache -CimSession $cimSession
+    Remove-CimSession
     ````
 
 ### Task 4: Demote the old domain controller
