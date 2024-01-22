@@ -3,6 +3,7 @@
 ## Required VMs
 
 * VN1-SRV1
+* VN1-SRV4
 * VN1-SRV5
 * VN2-SRV1
 * VN2-SRV2
@@ -16,7 +17,10 @@
 1. On **VN1-SRV1** sign in as **ad\\Administrator**.
 1. On **VN2-SRV2** sign in as **.\\Administrator**.
 
-If you skipped previous practices or labs, in **Terminal** on **CL1**, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
+If you skipped previous practices or labs:
+
+1. On **CL1**, in Terminal, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
+2. On **VN1-SRV4**, sign in as **ad\Administrator**, and run ````C:\LabResources\Solutions\Install-AdminCenter.ps1````.
 
 ## Known issues
 
@@ -160,30 +164,39 @@ Repeat these steps to promote VN2-SRV1 to a domain controller.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Store the credential for a domain admin in a variable.
+1. Store the password in a variable.
 
     ````powershell
-    $credential = Get-Credential
+    $username = "Administrator@ad.adatum.com"
+    Read-Host `
+        -Prompt `
+            "Password for $(
+                $username
+            ) (will also be the Directory Services Restore Mode (DSRM) password)" `
+        -MaskInput
     ````
 
 1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
-1. Store the Directory Services Restore Mode (DSRM) password in a variable.
-
-    ````powershell
-    $safeModeAdministratorPassword = Read-Host `
-        -Prompt 'Directory Services Restore Mode (DSRM) password' `
-        -AsSecureString
-    ````
-
-1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
 1. Promote **VN1-SRV5** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
 
     ````powershell
     $job = Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -AsJob -ScriptBlock {
-    Install-ADDSDomainController `
+        # Convert the password into a secure string
+        $securePassword = `
+            ConvertTo-SecureString -String $using:password -AsPlainText -Force
+        
+
+        $safeModeAdministratorPassword = $securePassword
+
+        # Create credentials
+        $credential = `
+            New-Object `
+                -TypeName pscredential `
+                -ArgumentList $using:username, $securePassword
+        Install-ADDSDomainController `
             -DomainName ad.adatum.com `
-            -Credential $using:credential `
-            -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
+            -Credential $credential `
+            -SafeModeAdministratorPassword $safeModeAdministratorPassword `
             -InstallDns `
             -Force
     }
@@ -385,8 +398,7 @@ Perform this task on CL1.
     ````powershell
     Move-ADDirectoryServerOperationMasterRole `
         -Identity VN1-SRV5 `
-        -OperationMasterRole `
-            RIDMaster, InfrastructureMaster, PDCEmulator
+        -OperationMasterRole RIDMaster, InfrastructureMaster, PDCEmulator
     ````
 
 1. At the prompt **Do you want to move role 'RIDMaster' to server 'VN1-SRV5.ad.adatum.com' ?**, enter **y**.
@@ -438,7 +450,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Move the roles **domain naming master**, **infrastructure master**, and **PDC emulator** to **VN1-SRV5**.
+1. Move the roles **domain naming master** and **schema master** to **VN1-SRV5**.
 
     ````powershell
     Move-ADDirectoryServerOperationMasterRole `
@@ -449,14 +461,40 @@ Perform this task on CL1.
 
 ## Exercise 4: Decommission a domain controller
 
-1. [Change the IP address of the domain controller to decommission](#task-1-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
-1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-2-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV5
-1. [Demote the old domain controller](#task-3-demote-the-old-domain-controller) VN1-SRV1
-1. [Remove roles from the decommissioned domain controller](#task-4-remove-roles-from-the-decommissioned-domain-controller) VN1-SRV1
+1. [Change the DNS client server addresses](#task-1-change-the-dns-client-server-addresses) on CL1 to 10.1.1.40 and 10.1.2.8.
+1. [Change the IP address of the domain controller to decommission](#task-2-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
+1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-3-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV5
+1. [Demote the old domain controller](#task-4-demote-the-old-domain-controller) VN1-SRV1
+1. [Remove roles from the decommissioned domain controller](#task-5-remove-roles-from-the-decommissioned-domain-controller) VN1-SRV1
 
 Note: In this exercise, we add the IP address of the decommissioned domain controller to the new domain controller, so we do not have to reconfigure the DNS client settings on the other computers on the network. If all computers use DHCP, you could reconfigure the DHCP option DNS server instead. You would do this before task 1 and then wait for the DHCP lease period to expire before proceeding. Moreover, you would skip task 2.
 
-### Task 1: Change the IP address of the domain controller to decommission
+### Task 1: Change the DNS client server addresses
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **Settings**.
+1. In Settings, in the left pane, click **Network & internet**.
+1. In Network & internet, click **Ethernet**.
+1. In Ethernet, beside **DNS server assignment**, click **Edit**.
+1. In Edit IP Settings, under **Preferred DNS**, type **10.1.1.40**. Under **Alternate DNS**, type **10.1.2.8**. Click **Save**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal (Admin)**.
+1. Set the DNS client server address on the interface **Ethernet** to **10.1.1.40** and **10.1.2.8**.
+
+    ````powershell
+    Set-DnsClientServerAddress `
+        -InterfaceAlias Ethernet -ServerAddresses 10.1.1.40, 10.1.2.8
+    ````
+
+
+### Task 2: Change the IP address of the domain controller to decommission
 
 #### SConfig
 
@@ -507,39 +545,39 @@ Perform this task on CL1.
 1. Create a CIM session to **VN1-SRV1**.
 
     ````powershell
-    $cimSession = New-CimSession -ComputerName VN1-SRV1
+    $computerName = 'VN1-SRV1'
+    $cimSession = New-CimSession -ComputerName $computerName
+    ````
+
+1. Find the network interface of the old IP address.
+
+    ````powershell
+    $oldIPAddress = '10.1.1.8'
+    $interfaceAlias = (
+        Get-NetIPAddress -CimSession $cimSession |
+        Where-Object { $PSItem.IPAddress -eq $oldIPAddress }
+    ).InterfaceAlias
+
     ````
 
 1. Add the IP address **10.1.1.9**. with the prefix length of **24** to VN1-SRV1.
 
     ````powershell
     New-NetIPAddress `
-        -InterfaceAlias Ethernet `
+        -InterfaceAlias $interfaceAlias `
         -IPAddress 10.1.1.9 `
         -PrefixLength 24 `
         -CimSession $cimSession
     ````
 
-1. Set the DNS server addresses for VN1-SRV1 to 10.1.1.40 and 10.1.2.8.
+1. Set the DNS server addresses for VN1-SRV1 to **10.1.1.40** and **10.1.2.8**.
 
     ````powershell
     Set-DnsClientServerAddress `
-        -InterfaceAlias Ethernet `
+        -InterfaceAlias $interfaceAlias `
         -ServerAddresses 10.1.1.40, 10.1.2.8 `
         -CimSession $cimSession
     ````
-
-1. Remove the IP address **10.1.1.8** from VN1-SRV1.
-
-    ````powershell
-    Remove-NetIPAddress `
-        -InterfaceAlias Ethernet `
-        -IPAddress 10.1.1.8 `
-        -CimSession $cimSession `
-        -Confirm: $false
-    ````
-
-    Note: During execution of the command, the network connection to VN1-SRV1 will be dropped. You do not need to wait for the reconnection, because the creconnection may take a few minutes. Continue with the next task and revisit this task afterwards for the last step.
 
 1. Remove the CIM session.
 
@@ -547,24 +585,41 @@ Perform this task on CL1.
     Remove-CimSession $cimSession
     ````
 
-### Task 2: Add the IP address of the decommissioned domain controller to the new domain controller
+1. Remove the A record **VN1-SRV1** with the IP address **10.1.1.8** from DNS.
 
-#### SConfig
+    ````powershell
+    Remove-DnsServerResourceRecord `
+        -ComputerName $computerName `
+        -ZoneName ad.adatum.com `
+        -RRType A `
+        -Name $computerName `
+        -RecordData $oldIPAddress `
+        -Force
+    ````
 
-Perform this task on VN1-SRV5.
+1. Clear the DNS client cache.
 
-1. Sign in as **ad\Administrator**.
-1. In Sconfig, enter **8**.
-1. In Network settings, enter **1**.
-1. In Network Adapter settings, enter **1**.
-1. Beside Select DHCP, Static IP, enter **s**.
-1. Beside Enter static IP address, enter **10.1.1.8**.
-1. Beside Enter subnet mask, enter **255.255.255.0**.
-1. Beside Enter default gateway, enter **10.1.1.1**.
-1. In Server Configuration, enter **12**.
-1. In message box **Are you sure to log off?**, click **Yes**.
+    ````powershell
+    Clear-DnsClientCache
+    ````
 
-#### PowerShell
+1. Remove the IP address **10.1.1.8** from VN1-SRV1.
+
+    ````powershell
+    Remove-NetIPAddress `
+        -InterfaceAlias $interfaceAlias `
+        -IPAddress $oldIPAddress `
+        -CimSession $cimSession `
+        -Confirm: $false
+    ````
+
+1. Remove the CIM session.
+
+    ````powershell
+    Remove-CimSession $cimSession
+    ````
+
+### Task 3: Add the IP address of the decommissioned domain controller to the new domain controller
 
 Perform this task on CL1.
 
@@ -575,11 +630,20 @@ Perform this task on CL1.
     $cimSession = New-CimSession -ComputerName VN1-SRV5
     ````
 
-1. Add the IP address **10.1.1.8** with the prefix length of **24** to the interface **VNet1**.
+1. Find the interface alias of subnet **10.1.1.0**.
+
+    ````powershell
+    $interfaceAlias = (
+        Get-NetIPAddress -CimSession $cimSession -AddressFamily IPv4 |
+        Where-Object { $PSItem.IPAddress -like '10.1.1.*' }
+    ).InterfaceAlias
+    ````
+
+1. Add the IP address **10.1.1.8** with the prefix length of **24** to the interface.
 
     ````powershell
     New-NetIPAddress `
-        -InterfaceAlias VNet1 `
+        -InterfaceAlias $interfaceAlias `
         -IPAddress 10.1.1.8 `
         -PrefixLength 24 `
         -CimSession $cimSession
@@ -591,7 +655,7 @@ Perform this task on CL1.
     Remove-CimSession $cimSession
     ````
 
-### Task 3: Demote the old domain controller
+### Task 4: Demote the old domain controller
 
 #### Desktop experience
 
@@ -618,12 +682,6 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Clear the DNS client cache.
-
-    ````powershell
-    Clear-DnsClientCache
-    ````
-
 1. Store the new local administrator password in a variable.
 
     ````powershell
@@ -638,8 +696,10 @@ Perform this task on CL1.
 
     ````powershell
     $job = Invoke-Command -ComputerName VN1-SRV1 -AsJob -ScriptBlock {
+        $localAdministratorPassword = ConvertTo-SecureString `
+            -String $using:localAdministratorPassword -AsPlainText -Force
         Uninstall-ADDSDomainController `
-            -LocalAdministratorPassword $using:localAdministratorPassword -Force
+            -LocalAdministratorPassword $localAdministratorPassword -Force
     }
     ````
 
@@ -659,7 +719,7 @@ Perform this task on CL1.
 
     The value of the property **Status** should be **Success**.
 
-### Task 4: Remove roles from the decommissioned domain controller
+### Task 5: Remove roles from the decommissioned domain controller
 
 #### Desktop experience
 
@@ -700,7 +760,7 @@ Perform this task on CL1.
         -ComputerName VN1-SRV1
     ````
 
-1. Shut down VN1-SRV1.
+1. Shut down **VN1-SRV1**.
 
     ````powershell
     Stop-Computer -ComputerName VN1-SRV1 -WsmanAuthentication Default
