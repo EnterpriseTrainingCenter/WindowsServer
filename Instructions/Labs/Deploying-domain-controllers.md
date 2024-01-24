@@ -467,7 +467,7 @@ Perform this task on CL1.
 1. [Demote the old domain controller](#task-4-demote-the-old-domain-controller) VN1-SRV1
 1. [Remove roles from the decommissioned domain controller](#task-5-remove-roles-from-the-decommissioned-domain-controller) VN1-SRV1
 
-Note: In this exercise, we add the IP address of the decommissioned domain controller to the new domain controller, so we do not have to reconfigure the DNS client settings on the other computers on the network. If all computers use DHCP, you could reconfigure the DHCP option DNS server instead. You would do this before task 1 and then wait for the DHCP lease period to expire before proceeding. Moreover, you would skip task 2.
+*Note:* In this exercise, we add the IP address of the decommissioned domain controller to the new domain controller, so we do not have to reconfigure the DNS client settings on the other computers on the network. If all computers use DHCP, you could reconfigure the DHCP option DNS server instead. You would do this before task 1 and then wait for the DHCP lease period to expire before proceeding. Moreover, you would skip task 2.
 
 ### Task 1: Change the DNS client server addresses
 
@@ -492,7 +492,6 @@ Perform this task on CL1.
     Set-DnsClientServerAddress `
         -InterfaceAlias Ethernet -ServerAddresses 10.1.1.40, 10.1.2.8
     ````
-
 
 ### Task 2: Change the IP address of the domain controller to decommission
 
@@ -670,6 +669,8 @@ Perform this task on CL1.
     ````
 
 ### Task 4: Demote the old domain controller
+
+*Note:*: If you receive any error message while demoting the domain controller, continue with the next exercise. You may revisit this task and the next task after some time (1 hour at least). In most cases, the error will be resolved.
 
 #### Desktop experience
 
