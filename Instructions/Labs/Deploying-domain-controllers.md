@@ -852,7 +852,7 @@ Perform this task on CL1.
 
 ### Task 4: Demote the old domain controller
 
-*Note:*: If you receive any error message while demoting the domain controller, continue with the next exercise. You may revisit this task and the next task after some time (1 hour at least). In most cases, the error will be resolved.
+*Note:*: If you receive any error message while demoting the domain controller, skip this task and the rest of the lab for now. You may revisit this lab after some time. In most cases, the error will be resolved.
 
 #### Desktop experience
 
