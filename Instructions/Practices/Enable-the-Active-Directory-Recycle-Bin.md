@@ -5,6 +5,10 @@
 * VN1-SRV1
 * CL1
 
+## Setup
+
+If you skipped the practice [Install Remote Server Administration Tools](Install-Remote-Server-Administration-Tools.md), on CL1, run ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
 ## Task
 
 Enable the Active Directory  using either Active Directory Administrative Center or PowerShell.

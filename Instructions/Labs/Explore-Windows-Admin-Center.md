@@ -26,6 +26,8 @@
 
 On **CL1**, logon as **ad\Administrator**.
 
+If you skipped the practice [Install Windows Admin Center using a script](../Practices/Install-Windows-Admin-Center-using-a-script.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Install-AdminCenter.ps1````.
+
 ## Introduction
 
 After you installed Windows Admin Center, you want to find out, what you can do with it. For this purpose, you create connections to all servers and clients and explore the available administration features. Moreover, you browse through the the available extensions and try to install one.

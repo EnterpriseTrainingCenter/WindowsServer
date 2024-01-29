@@ -13,6 +13,10 @@ On **CL1**, logon as **ad\Administrator**.
 
 On **CL2**, logon as **.\LocalAdmin**.
 
+If you skipped the practice [Create a custom Microsoft Management Console](../Practices/Manage-local-groups.md), on CL1, run ````C:\LabResources\Solutions\Add-LocalAdministratorsMember.ps1````.
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Introduction
 
 You want to manage users and groups. You want to evaluate the Active Directory Recycle Bin. Moreover, you want to evaluate several scenarios in the lifecycle the domain membership of a computer.

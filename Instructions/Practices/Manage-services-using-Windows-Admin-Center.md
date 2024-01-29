@@ -7,6 +7,10 @@
 * VN1-SRV5
 * CL1
 
+## Setup
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Task
 
 On CL1, stop the W32Time service on VN1-SRV5 and disable it. Restart VN1-SRV5 and verify the changes. Then set W32Time to start automatically and start it again.

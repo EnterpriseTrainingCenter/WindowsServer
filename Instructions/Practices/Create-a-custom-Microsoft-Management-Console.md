@@ -5,6 +5,10 @@
 * VN1-SRV1
 * CL1
 
+## Setup
+
+If you skipped the practice [Install Remote Server Administration Tools](Install-Remote-Server-Administration-Tools.md), on CL1, run ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
 ## Task
 
 On CL1, create a custom Microsoft Management Console with the snap-ins Active Directory Users and Computers and Computer Management and save it to the desktop of all users.

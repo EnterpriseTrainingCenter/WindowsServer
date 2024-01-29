@@ -23,7 +23,7 @@
 
 ## Setup
 
-If you skipped previous practices or labs, on CL1, run ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+If you skipped the practice [Install Remote Server Administration Tools](Install-Remote-Server-Administration-Tools.md), on CL1, run ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
 
 ## Task
 

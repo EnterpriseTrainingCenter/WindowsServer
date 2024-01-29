@@ -13,6 +13,10 @@
 1. On **CL1**, sign in as **ad\Administrator**.
 1. On **VN1-SRV10**, sign in as **ad\Administrator**.
 
+If you skipped the lab [Manage servers remotely using Microsoft Management Console](../Labs/Manage-servers-remotely-using-Microsoft-Management-Console.md), on CL1, run ````C:\LabResources\Solutions\Enable-ComputerRemoteManagement.ps1````.
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Introduction
 
 You want to create virtual disks with volumes, extend volumes and validate mount points.

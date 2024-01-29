@@ -51,7 +51,6 @@ Perform these steps on VN1-SRV10.
 1. On page **Where would you like the data to be saved?**, click **Next**.
 1. On page **Create the data collector set?**, click **Finish**.
 
-
 ### Task 2: Configure VN1-SRV10 with 1 GB of memory
 
 Perform these steps on the host.

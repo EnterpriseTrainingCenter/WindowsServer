@@ -7,6 +7,10 @@
 * VN1-SRV2
 * CL1
 
+## Setup
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Task
 
 On CL1, use Windows Admin Center to install the Certification Authority Web Enrollment role service on VN1-SRV2.

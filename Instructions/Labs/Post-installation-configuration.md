@@ -12,6 +12,8 @@
 
 On **CL1**, logon as **ad\Administrator**.
 
+You must have completed the practices [Install Window Server with Desktop Experience manually](../Practices/Install-Windows-Server-with-Desktop-Experience-manually.md) and [Install Window Server manually](../Practices/Install-Windows-Server-manually.md) before starting with this lab.
+
 ## Introduction
 
 After the initial setup, Windows Servers require some post-installation configuration like configuring TCP/IP. joining the domain, or setting some management options. Depending on the applications you are planning to install, you might also need the app compatiblity feature on demand.

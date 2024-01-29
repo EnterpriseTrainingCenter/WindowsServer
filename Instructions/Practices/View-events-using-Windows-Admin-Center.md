@@ -6,6 +6,10 @@
 * VN1-SRV4
 * CL1
 
+## Setup
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Task
 
 On CL1, view the events from the System log on VN1-SRV1 using Windows Admin Center. In the preview version, create a workspace that includes all warning, error, and critical events from the System and Application logs.

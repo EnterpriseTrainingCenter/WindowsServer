@@ -12,6 +12,10 @@
 On **CL1**, logon as **ad\Administrator**.
 On **VN1-SRV10**, logon as **ad\Administrator**.
 
+If you skipped the practice [Create a custom Microsoft Management Console](../Practices/Create-a-custom-Microsoft-Management-Console.md), on CL1, run ````C:\LabResources\Solutions\New-CustomMMC.ps1````.
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Introduction
 
 You want to manage servers remotely using Microsoft Management Console snap-ins. You try to connect to a server with the Computer Management snap-in, but you discover the server cannot be managed. Configure the Windows Defender Firewall to allow remote management of a server using the Computer Management snap-in.
