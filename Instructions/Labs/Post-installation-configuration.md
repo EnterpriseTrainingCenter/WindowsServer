@@ -11,6 +11,7 @@
 ## Setup
 
 On **CL1**, logon as **ad\Administrator**.
+On **VN1-SRV5**, logon as **ad\Administrator**.
 
 You must have completed the practices [Install Window Server with Desktop Experience manually](../Practices/Install-Windows-Server-with-Desktop-Experience-manually.md) and [Install Window Server manually](../Practices/Install-Windows-Server-manually.md) before starting with this lab.
 
@@ -361,11 +362,12 @@ Perform this task on CL1.
 
 Perform this task on VN1-SRV5.
 
+1. In SConfig, enter **15**.
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
     ````powershell
     $isoPath = 'C:\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso'
-    $fodIso = Mount-DiskImage –ImagePath $isoPath
+    $fodIso = Mount-DiskImage -ImagePath $isoPath
     $fodDriveLetter = ($fodIso | Get-Volume).DriveLetter
     ````
 
