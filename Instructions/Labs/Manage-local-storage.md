@@ -435,7 +435,7 @@ Perform this task on CL1.
     }
     ````
 
-    > You should receive True, which means, the files are identical.
+    > You should not receive any results, which means, the files are identical.
 
 ### Task 3: Delete the original file
 
