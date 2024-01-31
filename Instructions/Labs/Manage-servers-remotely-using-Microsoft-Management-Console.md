@@ -6,11 +6,16 @@
 * VN1-SRV4
 * VN1-SRV10
 * CL1
+* CL2
 
 ## Setup
 
 On **CL1**, logon as **ad\Administrator**.
-On **VN1-SRV10**, logon as **ad\Administrator**.
+On **CL2**, logon as **.\Administrator**.
+
+If you skipped the practice [Create a custom Microsoft Management Console](../Practices/Create-a-custom-Microsoft-Management-Console.md), on CL1, run ````C:\LabResources\Solutions\New-CustomMMC.ps1````.
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
 
 ## Introduction
 
@@ -18,11 +23,11 @@ You want to manage servers remotely using Microsoft Management Console snap-ins.
 
 ## Exercises
 
-1. [Evaluate remote administration using Microsoft Management Console and PowerShell](#exercise-1-evaluate-remote-administration-using-microsoft-management-console-and-powershell)
+1. [Evaluate remote administration using Microsoft Management Console](#exercise-1-evaluate-remote-administration-using-microsoft-management-console)
 1. [Configure Windows Defender Firewall rules for remote administration](#exercise-2-configure-windows-defender-firewall-rules-for-remote-administration)
 1. [Verify the ability of remote administration using Computer Management](#exercise-3-verify-the-ability-of-remote-administration-using-computer-management)
 
-## Exercise 1: Evaluate remote administration using Microsoft Management Console and PowerShell
+## Exercise 1: Evaluate remote administration using Microsoft Management Console
 
 [Use the custom console Basic Administration to open Event Viewer and Disk Management](#task-use-the-custom-console-basic-administration-to-open-event-viewer-and-disk-management) on VN1-SRV10
 
@@ -57,18 +62,25 @@ Perform this task on CL1.
 
 #### Desktop experience
 
-Perform this task on VN1-SRV10.
+Perform this task on CL2.
 
 1. Open **Windows Defender Firewall with Advanced Security**.
 1. In Windows Defender Firewall with Advanced Security, click **Inbound Rules**.
-1. Double-click the rule **COM+ Remote Administration (DCOM-In)**.
-1. In COM+ Network Access (DCOM-In) Properties, on tab **General**, activate the checkbox **Enabled**.
-1. Click the tab **Advanced**.
-1. On tab Advanced, deactivate the checkboxes **Private** and **Public**. Click **OK**.
-1. Repeat the steps above for the 3 rules in the group **Remote Event Log Management**.
-1. Repeat the steps above the the 3 rules in the group **Remote Volume Management**.
+1. Find rules in the group **Remote Event Log Management** in the profile **Domain**. There should be 3 rules:
 
-Repeat this task on **CL2**.
+    * Remote Event Log Management (NP-In)
+    * Remote Event Log Management (RPC)
+    * Remote Event Log Management (RPC-EPMAP)
+
+1. Click **Remote Event Log Management (NP-In)**, hold down the CTRL key and click the other two rules to select all 3 rules.
+1. In the context-menu of one of the selected rules, click **Enable Rule**.
+1. Repeat from step 3 for the rules in the group **Remote Volume Management** in the profile **Domain**. These are 3 rules:
+
+    * Remote Volume Management - Virtual Disk Service (RPC)
+    * Remote Volume Management - Virtual Disk Service Loader (RPC)
+    * Remote Volume Management (RPC-EPMAP)
+
+*Important*: To configure VN1-SRV10, you cannot use Desktop experience. Please use one of the other methods for VN1-SRV10.
 
 #### Windows Admin Center
 
@@ -78,14 +90,13 @@ Perform this task on CL1.
 1. In Windows Admin Center, click **VN1-SRV10.ad.adatum.com**.
 1. Connected to VN1-SRV10.ad.adatum.com, under Tools, click **Firewall**.
 1. Under Firewall, click the tab **Incoming rules**.
-<!-- 1. In the search box, enter **COM+ Network Access**.
-1. Click the rule **COM+ Remote Administration (DCOM-In)** and click **Settings**.
-1. In Firewall Rule COM+ Remote Administration (DCOM-In) Settings, in **General**, set **Enable Firewall Rule** to **Yes**. Under **Profiles** deactivate the checkboxes **Private** and **Public**. Click **Save**.
-1. Click **Close**. -->
 1. In the search box, enter **Remote Event Log**. 3 rules will be found.
-1. Repeat the steps above to enable each rule for the Domain profile.
+1. Click the rule **Remote Event Log Management (NP-In)** and click **Settings**.
+1. In Firewall Rule Remote Event Log Management (NP-In) Settings, in **General**, set **Enable Firewall Rule** to **Yes**. Under **Profiles** deactivate the checkboxes **Private** and **Public**. Click **Save**.
+1. Click **Close**.
+1. Repeat the steps 6 - 8 to enable each rule for the Domain profile.
 1. In the search box, enter **Remote Volume Management**. 3 rules will be found.
-1. Repeat the steps above to enable each rule for the Domain profile.
+1. Repeat the steps 6 - 8 to enable each rule for the Domain profile.
 
 Repeat from step 2 for **CL2.ad.adatum.com**.
 
@@ -100,21 +111,6 @@ Perform this task on CL1.
     Enter-PSSession VN1-SRV10
     ````
 
-<!-- 1. Find the firewall rule **COM+ Network Access**.
-
-    ````powershell
-    Get-NetFirewallRule -DisplayName 'COM+ Network Access*'
-    ````
-
-1. Enable the firewall rule **COM+ Network Access (DCOM-In)** for the domain profile only.
-
-    ````powershell
-    Set-NetFirewallRule `
-        -Name ComPlusRemoteAdministration-DCOM-In `
-        -Enabled True `
-        -Profile Domain
-    ````
- -->
 1. Enable all rules in the group **Remote Event Log Management** for the domain profile only.
 
     ````powershell

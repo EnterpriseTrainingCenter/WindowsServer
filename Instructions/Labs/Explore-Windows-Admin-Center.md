@@ -26,6 +26,8 @@
 
 On **CL1**, logon as **ad\Administrator**.
 
+If you skipped the practice [Install Windows Admin Center using a script](../Practices/Install-Windows-Admin-Center-using-a-script.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Install-AdminCenter.ps1````.
+
 ## Introduction
 
 After you installed Windows Admin Center, you want to find out, what you can do with it. For this purpose, you create connections to all servers and clients and explore the available administration features. Moreover, you browse through the the available extensions and try to install one.
@@ -110,7 +112,7 @@ Perform this task on CL1.
 
 ## Exercise 2: Manage connections
 
-[In Windows Admin Center, add connections to VN1-SRV1, VN1-SRV5, VN1-SRV6, VN1-SRV2, CL1, and CL2](#task-in-windows-admin-center-add-connections).
+[In Windows Admin Center, add connections](#task-in-windows-admin-center-add-connections) to VN1-SRV1, VN1-SRV5, VN1-SRV6, VN1-SRV2, CL1, and CL2.
 
 ### Task: In Windows Admin Center, add connections
 

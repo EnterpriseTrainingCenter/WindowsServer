@@ -486,7 +486,7 @@ Repeat this task for **\\\\VN2-SRV1\\IT** and **\\\\VN2-SRV1\\Marketing**.
 
 Perform this task on CL1.
 
-1. Open **Microsoft Edge**, navigate to <https://www.microsoft.com/en-us/download/confirmation.aspx?id=57159>
+1. Open **Microsoft Edge**, navigate to <https://download.microsoft.com/download/1/8/D/18DC8184-E7E2-45EF-823F-F8A36B9FF240/StorageSyncAgent_WS2022.msi>
 1. On the download page of Azure File Sync Agent, click **Download**.
 1. In Choose the download you want, activate **StorageSyncAgent_WS2022.msi** and click **Next**.
 1. Copy the downloaded file **StorageSyncAgent_WS2022.msi** to **\\\\VN1-SRV10\\IT**.

@@ -120,6 +120,7 @@ Perform this task on CL1.
 1. In **DNS Manager**, in the context-menu of **adatum.com**, click **Other New Records...**
 1. In Resource Record Type, under **Select a resource record type**, click **Text (TXT)** and click **Create Record...**
 1. In New Resource Record, leave the text field under **Record name (uses parent domain if left blank)** blank. In **Text**, type **v=spf1 include:spf.protection.outlook.com -all**. Click **OK**.
+1. In **DNS Manager**, in the context-menu of **adatum.com**, click **Other New Records...**
 1. In **Resource Record Type**, under **Select a resource record type**, click **Service Location (SRV)** and click **Create Record...**
 1. In New Resource Record, in **Service**, type **_sip**. In **Protocol**, type **_tls**. In **Priority**, type **100**. In **Weight**, type **1**. In **Port**, type **443**. In **Host offering this service**, type **sipdir.online.lync.com**. Click **OK**.
 1. In **Resource Record Type**, under **Select a resource record type**, click **Service Location (SRV)** and click **Create Record...**
@@ -1199,8 +1200,8 @@ Perform this task on CL1.
     1. In the context menu of **DNS**, click **Connect to DNS Server...**.
     1. In Connect to DNS Server, click **The following computer**, type **vn1-srv1.ad.adatum.com** below and click **OK**.
 
-1. Expand **vn1-srv1.ad.adatum.com**, **Forward Lookup Zones**, and click **adatum.com**.
-1. In the context-menu of **adatum.com**, click **New Alias (CNAME)**
+1. Expand **vn1-srv1.ad.adatum.com**, **Forward Lookup Zones**, and click **GlobalNames**.
+1. In the context-menu of **GlobalNames**, click **New Alias (CNAME)**
 1. In New Resource Record, under **Alias name (uses parent domain if left blank)**, type **dc1**. Under **Fully qualified domain name (FQDN) for target host**, type **vn1-srv1.ad.adatum.com**. Click **OK**.
 
 Repeat the last two steps to create remaining aliases according to the table below.
@@ -1322,7 +1323,7 @@ Perform this task on CL1.
     1. In the context menu of **DNS**, click **Connect to DNS Server...**.
     1. In Connect to DNS Server, click **The following computer**, type **vn2-srv1.ad.adatum.com** below and click **OK**.
 
-1. Expand **vn1-srv2.ad.adatum.com** and click **Forward Lookup Zones**.
+1. Expand **vn2-srv1.ad.adatum.com** and click **Forward Lookup Zones**.
 1. In the context-menu of **Forward Lookup Zones**, click **New Zone...**
 1. In the New Zone Wizard, on page Welcome to the New Zone Wizard, click **Next >**.
 1. On page Zone Type, click **Stub zone** and click **Next >**.

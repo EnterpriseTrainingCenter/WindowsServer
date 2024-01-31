@@ -26,7 +26,7 @@ Users complain about the performance of one of your servers. You analyze the per
 
 1. [Configure a data collector set with baseline performance counters](#task-1-configure-a-data-collector-set-with-baseline-performance-counters) on VN1-SRV10
 1. [Configure VN1-SRV10 with 1 GB of memory](#task-2-configure-VN1-SRV10-with-1-gb-of-memory)
-1. [Start the data collector set](#task-3-start-the-data-collector-set
+1. [Start the data collector set](#task-3-start-the-data-collector-set)
 1. [Simulate load](#task-4-simulate-load) by copying an ISO file from C:\\LabResources of VN1-SRV10 to CL1.
 1. [Analyze the performance data](#task-5-analyze-the-performance-data)
 
@@ -50,7 +50,6 @@ Perform these steps on VN1-SRV10.
 1. Click **Next**.
 1. On page **Where would you like the data to be saved?**, click **Next**.
 1. On page **Create the data collector set?**, click **Finish**.
-
 
 ### Task 2: Configure VN1-SRV10 with 1 GB of memory
 
@@ -88,7 +87,7 @@ Perform these steps on CL1.
          -Path `
             '\\VN1-SRV10\c$\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso' `
          -Destination 'c:\' `
-          -Force 
+         -Force 
       }
    Get-Date
    ````

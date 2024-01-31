@@ -19,7 +19,7 @@ Perform these steps on CL1.
 1. Generate a new root key for the Microsoft Group KdsSvc within Active Directory.
 
     ````powershell
-    Add-KdsRootKey -EffectiveImmediately
+    Add-KdsRootKey -EffectiveTime (Get-Date).AddHours(-10)
     ````
 
     Note: In real-world you should omit the parameter ````-EffectiveImmediately```` and wait some hours to replicate the key throught your forest.
@@ -79,7 +79,7 @@ Perform these steps on PM-SRV2.
 
     > The return value should bei ad\MyService$.
 
-1. Open **Task Manger**.
+1. Open **Task Manager**.
 
     ````powershell
     taskmgr.exe
@@ -95,7 +95,7 @@ Perform these steps on PM-SRV2.
 
     Note: PowerShell will seem to hang, because Notepad is not a real service. Continue to the next step. If you receive an error message before you can finish the next steps, run the command again.
 
-1. Switch to **Task Manger**.
+1. Switch to **Task Manager**.
 
     > You should see a process notepad.exe running under the user name MyService$.
 

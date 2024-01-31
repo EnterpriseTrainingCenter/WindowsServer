@@ -11,6 +11,9 @@
 ## Setup
 
 On **CL1**, logon as **ad\Administrator**.
+On **VN1-SRV5**, logon as **ad\Administrator**.
+
+You must have completed the practices [Install Window Server with Desktop Experience manually](../Practices/Install-Windows-Server-with-Desktop-Experience-manually.md) and [Install Window Server manually](../Practices/Install-Windows-Server-manually.md) before starting with this lab.
 
 ## Introduction
 
@@ -351,19 +354,20 @@ Perform this task on CL1.
 
 ## Exercise 3: Install App Compatibility Feature on Demand
 
-1. [Install the Application Compatibility Feature](#task-1-install-the-application-compatibility-feature) on VN1-SRV21
-1. [Install Internet Explorer 11](#task-2-install-internet-explorer-11)
+1. [Install the Application Compatibility Feature](#task-1-install-the-application-compatibility-feature) on VN1-SRV5
+1. [Install Internet Explorer 11](#task-2-install-internet-explorer-11) on VN1-SRV5
 1. [Verify the installation of the App Compatibility Feature](#task-3-verify-the-installation-of-the-app-compatibility-feature)
 
 ### Task 1: Install the Application Compatibility Feature
 
-Perform this task on VN1-SRV21.
+Perform this task on VN1-SRV5.
 
+1. In SConfig, enter **15**.
 1. Mount the Windows Server Languages and Optional Features ISO image file.
 
     ````powershell
     $isoPath = 'C:\LabResources\20348.1.210507-1500.fe_release_amd64fre_SERVER_LOF_PACKAGES_OEM.iso'
-    $fodIso = Mount-DiskImage –ImagePath $isoPath
+    $fodIso = Mount-DiskImage -ImagePath $isoPath
     $fodDriveLetter = ($fodIso | Get-Volume).DriveLetter
     ````
 
@@ -383,7 +387,7 @@ Perform this task on VN1-SRV21.
 
 ### Task 2: Install Internet Explorer 11
 
-Perform this task on VN1-SRV21.
+Perform this task on VN1-SRV5.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).
@@ -402,7 +406,7 @@ Perform this task on VN1-SRV21.
     ````powershell
     
     $packagePath = `
-        "${fodDriveLetter}:\LanguagesAndOptionalFeatures\Microsoft-Windows-InternetExplorer-Package~31bf3856ad364e35~amd64~~.cab"
+        "${fodDriveLetter}:\LanguagesAndOptionalFeatures\Microsoft-Windows-InternetExplorer-Optional-Package~31bf3856ad364e35~amd64~~.cab"
 
     Add-WindowsPackage -Online -PackagePath $packagePath
 
@@ -410,7 +414,7 @@ Perform this task on VN1-SRV21.
 
 ### Task 3: Verify the installation of the App Compatibility Feature
 
-Perform this task on VN1-SRV21.
+Perform this task on VN1-SRV5.
 
 1. Login as **ad\Administrator**.
 1. Ensure, you are on the command line (exit SConfig, if necessary).

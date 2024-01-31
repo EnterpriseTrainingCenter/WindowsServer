@@ -6,6 +6,10 @@
 * VN1-SRV10
 * CL1
 
+## Setup
+
+If you skipped the practice [Install Remote Server Administration Tools](Install-Remote-Server-Administration-Tools.md), on CL1, run ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
 ## Task
 
 On CL1, use Server Manager to install the File Server role on VN1-SRV10.

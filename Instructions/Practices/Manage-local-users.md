@@ -8,6 +8,13 @@
 * CL1
 * CL2
 
+## Setup
+
+If you skipped the practice [Create a custom Microsoft Management Console](Create-a-custom-Microsoft-Management-Console.md), on CL1, run ````C:\LabResources\Solutions\New-CustomMMC.ps1````.
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
+
 ## Task
 
 On CL1, CL2, and VN1-SRV10, create a local user with the name LocalAdmin. Use different tools on the machines.

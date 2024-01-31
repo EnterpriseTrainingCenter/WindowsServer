@@ -24,22 +24,24 @@ Perform these steps on VN2-SRV1.
     Set-Location $env:USERPROFILE\Downloads
     ````
 
-1. Extract the zip file **Microsoft.WindowsTerminal.\*_PreInstallKit**
+1. Expand the zip file **Microsoft.WindowsTerminal_Win10_\*PreinstallKit.zip**
 
     ````powershell
-    Expand-Archive .\Microsoft.WindowsTerminal_Win10_*PreinstallKit.zip
+    Expand-Archive `
+        .\Microsoft.WindowsTerminal_*.msixbundle_Windows10_PreinstallKit.zip
     ````
 
 1. Change to the folder of the extracted preinstall kit.
 
     ````powershell
-    Set-Location Microsoft.WindowsTerminal_Win10_*PreinstallKit
+    Set-Location `
+        .\Microsoft.WindowsTerminal_*.msixbundle_Windows10_PreinstallKit
     ````
 
 1. Install the preinstall kit.
 
     ````powershell
-    Add-AppxPackage Microsoft.VCLibs.*_x64*.appx
+    Add-AppxPackage Microsoft.UI.Xaml.*_x64__*.appx
     ````
 
 1. Change to the folder of the downloaded Windows Terminal.

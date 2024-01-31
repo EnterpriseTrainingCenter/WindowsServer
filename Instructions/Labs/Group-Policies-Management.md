@@ -11,6 +11,8 @@
 1. On **CL1**, sign in as **ad\Administrator**.
 1. On **CL2**, sign in as **ad\Administrator**.
 
+If you skipped the practice [Install Remote Server Administration Tools](Install-Remote-Server-Administration-Tools.md), on CL1, run ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
 ## Introduction
 
 Adatum wants to enable remote management for all computers in the domain without configuring each computer individually. Moreover, the Microsoft Store should be disabled for users in the organizational unit Marketing. You should use Group Policies to accomplish these requirements. Furthermore, you should create a report proofing the correct group policy settings are applied.

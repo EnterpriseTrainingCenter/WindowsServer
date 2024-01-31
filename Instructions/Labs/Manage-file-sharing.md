@@ -14,6 +14,10 @@ On **CL1**, logon as **ad\Administrator**.
 
 On **VN1-SRV10**, logon as **ad\Administrator**.
 
+If you skipped the lab [Manage local storage](../Labs/Manage-local-storage.md), on VN1-SRV10, run ````C:\LabResources\Solutions\New-Volumes.ps1````.
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Introduction
 
 You want to create shares for Finance, IT, and Marketing and configure permissions on the shares. You want to explore offline files. Finance dever should never be cached on a client, but Marketing data should automatically be cached. Finally, you want to ensure, that minor user errors like accidental deletes or modifications of files can be restored by the users in self-service.
@@ -460,7 +464,6 @@ Perform this task on CL1.
 1. Expand **Computer Management (VN1-SRV10)**, **System Tools**, **Shared Folders**, and click **Shares**.
 1. From the context-menu of the respective share, click **Properties**.
 1. In ... Properties, click **Offline Settings...**.
-1. In the tab Sharing, click **Advanced Sharing...**.
 1. In Offline Settings, click the required option and click **OK**.
 1. In **... Properties**, click **OK**.
 

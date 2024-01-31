@@ -24,6 +24,13 @@ Perform these steps on CL1.
 
     ````powershell
     Invoke-Command -ComputerName VN1-SRV10 -ScriptBlock {
-        & D:\Shares\IT\FilterPack64bit.exe /quiet
+        Start-Process `
+            -FilePath D:\Shares\IT\FilterPack64bit.exe `
+            -ArgumentList '/extract:c:\FilterPack', '/quiet' `
+            -Wait
+        Start-Process `
+            -FilePath msiexec.exe `
+            -ArgumentList '/i C:\filterpack\FilterPack.msi', '/q' `
+            -Wait
     }
     ````

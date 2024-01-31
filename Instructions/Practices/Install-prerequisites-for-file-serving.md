@@ -20,8 +20,8 @@ On **CL1**, run **C:\LabResources\Solutions\New-Shares.ps1** to configure the en
 Perform these steps on CL1.
 
 1. Logon as **ad\Administrator**.
-1. In SConfig, enter **15** and press ENTER to exit to the command line.
-1. At the command prompt run
+1. Open **Terminal**.
+1. In Terminal, run
 
     ````powershell
     C:\LabResources\Solutions\New-Shares.ps1

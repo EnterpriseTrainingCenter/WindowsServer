@@ -13,6 +13,10 @@
 1. On **CL1**, sign in as **ad\Administrator**.
 1. On **VN1-SRV10**, sign in as **ad\Administrator**.
 
+If you skipped the lab [Manage servers remotely using Microsoft Management Console](../Labs/Manage-servers-remotely-using-Microsoft-Management-Console.md), on CL1, run ````C:\LabResources\Solutions\Enable-ComputerRemoteManagement.ps1````.
+
+If you skipped the lab [Explore Windows Admin Center](../Labs/Explore-Windows-Admin-Center.md), on VN1-SRV4, run ````C:\LabResources\Solutions\Add-WACServers.ps1````.
+
 ## Introduction
 
 You want to create virtual disks with volumes, extend volumes and validate mount points.
@@ -193,11 +197,12 @@ Perform these steps on CL1.
 1. Create a a partition.
 
     ````powershell
-    # TODO: Change the disk number and the size
+    # TODO: Change the disk number, the size, and the drive letter
     $diskNumber = 1
-    $size = 512GB
+    $size = 1TB
+    $driveLetter = 'D'
 
-    $partition = New-Partition -DiskNumber $diskNumber -Size $size
+    $partition = New-Partition -DiskNumber $diskNumber -Size $size -DriveLetter D
     ````
 
 1. Format the new partition.
@@ -430,7 +435,7 @@ Perform this task on CL1.
     }
     ````
 
-    > You should receive True, which means, the files are identical.
+    > You should not receive any results, which means, the files are identical.
 
 ### Task 3: Delete the original file
 

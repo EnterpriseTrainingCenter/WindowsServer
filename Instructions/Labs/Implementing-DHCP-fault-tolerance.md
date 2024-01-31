@@ -227,6 +227,19 @@ Perform this task on CL1.
 
 ### Task 4: Verify DHCP functionality
 
+#### Desktop experience
+
+Perform this task on CL2.
+
+1. Sign in as **ad\Administrator**.
+1. Open **Settings**.
+1. In Settings, click **Network & internet**.
+1. In Network & internet, click **Ethernet**.
+1. In Ethernet, right to **IP assignment**, click **Edit**.
+1. In Edit IP settings, in the drop-down at the top, click **Automatic (DHCP)** and click **Save**.
+
+    In **Ethernet**, verify that the computer has received an IP address in the 10.1.2.0 subnet (such as 10.1.2.2) and IPv4 DNS servers of 10.1.1.8.
+
 #### PowerShell
 
 Perform this task on CL2.
@@ -261,19 +274,6 @@ Perform this task on CL2.
     ````shell
     ipconfig.exe /renew
     ````
-
-#### Desktop experience
-
-Perform this task on CL2.
-
-1. Sign in as **ad\Administrator**.
-1. Open **Settings**.
-1. In Settings, click **Network & internet**.
-1. In Network & internet, click **Ethernet**.
-1. In Ethernet, right to **IP assignment**, click **Edit**.
-1. In Edit IP settings, in the drop-down at the top, click **Automatic (DHCP)** and click **Save**.
-
-    In **Ethernet**, verify that the computer has received an IP address in the 10.1.2.0 subnet (such as 10.1.2.2) and IPv4 DNS servers of 10.1.1.8.
 
 ## Exercise 2: Implement DHCP relay
 
@@ -407,11 +407,6 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **DHCP**.
-1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
-1. In Add Server, under **This server**, type **VN1-SRV6"** and click **OK**.
-1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
-1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
 1. Open **Terminal**.
 1. Release and renew the IP configuration on CL2.
 
@@ -421,19 +416,30 @@ Perform this task on CL1.
         ipconfig.exe /renew
     }
     ````
-
-1. Switch to **DHCP**.
+1. Open **DHCP**.
 1. In DHCP, expand **vn2-srv2.ad.adatum.com**, **IPv4**, **Scope [10.1.2.0] VNet2**, and click **Address Leases**.
+
+   If necessary, perform these steps to add VN2-SRV2 to the DHCP console:
+
+   1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+   1. In Add Server, under **This server**, type **VN2-SRV2"** and click **OK**.
+
 1. In the context-menu of **Address Leases**, click **Refresh**.
 
     You should see a lease with the Name CL2.ad.adatum.com with a Lease Expiration of approximately 2 hours from now.
 
 1. In DHCP, expand **vn1-srv6 ad.adatum.com**, **IPv4**, **Scope [10.1.2.0] VNet2**, and click **Address Leases**.
+
+   If necessary, perform these steps to add VN1-SRV6 to the DHCP console:
+
+   1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+   1. In Add Server, under **This server**, type **VN1-SRV6"** and click **OK**.
+
 1. In the context-menu of **Address Leases**, click **Refresh**.
 
     You should not see any active leases.
 
-    You might want to repeat from step 7 several times to verify that VN2-SRV2 always leases the IP addresses for VNet2.
+    You might want to repeat from step 2 several times to verify that VN2-SRV2 always leases the IP addresses for VNet2.
 
 1. In the context-menu of **vn2-srv2.ad.adatum.com**, click **All Tasks**, **Stop**.
 1. Switch to **Terminal**.
@@ -529,13 +535,21 @@ Perform this task on CL1.
     | 10.1.1.56  | VN1-SRV7    |
 
 1. Open **DHCP**.
-1. In DHCP, in the context-menu of **DHCP**, click **Add Server...**
-1. In Add Server, click **This authorized DHCP server**. Click **vn1-srv6.ad.adatum.com**, hold down STRG and click **vn1-srv7-ad.adatum.com**. Click **OK**.
-1. In **DHCP**, expand **vn1-srv6.ad.adatum.com**, **IPv4**, **Scope [10.1.1.0] VNet1** and click **Address Leases**.
+1. In DHCP, expand **vn1-srv6.ad.adatum.com**, **IPv4**, **Scope [10.1.1.0] VNet1** and click **Address Leases**.
+
+    If necessary, perform these steps to add VN1-SRV6 to the DHCP console:
+
+    1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+    1. In Add Server, under **This server**, type **VN1-SRV6"** and click **OK**.
 
     You should see the lease for CL1.ad.adatum.com.
 
 1. Expand **vn1-srv7.ad.adatum.com**, **IPv4**, **Scope [10.1.1.0] VNet1** and click **Address Leases**.
+
+    If necessary, perform these steps to add VN1-SRV7 to the DHCP console:
+
+    1. In **DHCP**, in the context-menu of **DHCP**, click **Add Server...**
+    1. In Add Server, under **This server**, type **VN1-SRV7"** and click **OK**.
 
     You should see the lease for CL1.ad.adatum.com with the same data as in the previous step.
 

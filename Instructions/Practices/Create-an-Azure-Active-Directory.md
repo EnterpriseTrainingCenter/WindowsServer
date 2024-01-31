@@ -30,6 +30,11 @@ Create a new Azure Active Directory tenant.
 1. In **Search resource, services, and docs**, type and click **Azure Active Directory**.
 1. Under Adatum | Overview, click **Users**.
 1. Under Users, click **New user**, **Create new user**.
-1. Under New user, under **Select template**, ensure **Create user** is selected. Under **Identity** type a **User name** and **Name**. You may use your own name. Ensure, the domain you used to create Azure Active Directory, is selected. Under **Password**, ensure **Auto-generate password** is selected. Click **Create**.
+1. Under New user, under **Select template**, ensure **Create user** is selected.
+1. Under **Identity** type a **User name** and **Name**. You may use your own name. Ensure, the domain you used to create Azure Active Directory, is selected.
+1. Under **Password**, activate **Show Password** and take a note of the password.
+1. Under **Group and roles**, beside **Roles**, click **User**.
+1. In the pane Directory roles, active **Global administrator** and click **Select**.
+1. Click **Create**.
 
     *Important*: Take a note of the full user name including the domain and the password.

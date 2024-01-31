@@ -9,6 +9,10 @@
 * VN1-SRV10
 * CL1
 
+## Setup
+
+If you skipped the practice [Install Remote Server Administration Tools](Install-Remote-Server-Administration-Tools.md), on CL1, run ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
 ## Task
 
 On CL1, use PowerShell to install the Windows Server Backup feature on VN1-SRV1, VN1-SRV2, VN1-SRV4, VN1-SRV5, and VN1-SRV10.
