@@ -305,7 +305,7 @@ Perform this task on CL1.
 
     ````powershell
     $path = '~\Documents\computers.csv'
-    Get-ADComputer -Filter "Name -like 'VN*-*' -or Name -like 'PM-*'" |
+    Get-ADComputer -Filter { Name -like 'VN*-*' -or Name -like 'PM-*' } |
     Select-Object `
         @{ name = 'name'; expression = { $PSItem.DNSHostName } }, `
         @{
@@ -320,7 +320,7 @@ Perform this task on CL1.
 1. Append all client computers to the CSV file.
 
     ````powershell
-    Get-ADComputer -Filter "Name -like 'CL*'" |
+    Get-ADComputer -Filter { Name -like 'CL*' } |
     Select-Object `
         @{ name = 'name'; expression = { $PSItem.DNSHostName } }, `
         @{ 
@@ -346,7 +346,7 @@ Perform this task on CL1.
     Copy-Item `
         -FromSession $pSSession `
         -Path `
-            "$env:ProgramFiles\Windows Admin Center\PowerShell\Modules\ConnectionTools\" `
+            "$env:ProgramFiles\Windows Admin Center\PowerShell\Modules\*" `
         -Destination '~\Documents\Windows PowerShell\Modules' `
         -Container `
         -Recurse
