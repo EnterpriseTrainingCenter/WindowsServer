@@ -346,22 +346,22 @@ Perform this task on CL1.
     Copy-Item `
         -FromSession $pSSession `
         -Path `
-            "$env:ProgramFiles\Windows Admin Center\PowerShell\Modules\*" `
-        -Destination '~\Documents\Windows PowerShell\Modules' `
+            "$env:ProgramFiles\Windows Admin Center\PowerShell\Modules\*\" `
+        -Destination '~\Documents\WindowsPowerShell\' `
         -Container `
         -Recurse
-    ````
-
-1. Import connections from the CSV file.
-
-    ````powershell
-    Import-Connection -GatewayEndpoint admincenter.ad.adatum.com -fileName $path
     ````
 
 1. Remove the remote PowerShell session.
 
     ````Powershell
     Remove-PSSession $pSSession
+    ````
+
+1. Import connections from the CSV file.
+
+    ````powershell
+    Import-Connection -GatewayEndpoint admincenter.ad.adatum.com -fileName $path
     ````
 
 1. Open **Microsoft Edge** and navigate to <https://admincenter.ad.adatum.com>.
