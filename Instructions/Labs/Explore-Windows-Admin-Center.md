@@ -64,12 +64,7 @@ After you installed Windows Admin Center, you want to find out, what you can do 
 Perform this task on CL1.
 
 1. On the taskbar, click the **Microsoft Edge** icon.
-1. On page **Welcome to Microsoft Edge, the best performing browser on Windows** , click **Start without your data**.
-1. On page **We can help you import your browsing data from Google**, click **Continue without this data**.
-1. On page **Always have access to your recent browsing data**, click **Don't allow** and **Confirm and continue**.
-1. On page **Let's make the web work for you**, click **Don't allow** and **Confirm and start browsing**.
-1. On page **Express yourself by customizing Microsoft Edge with themes**, click **Next**.
-1. On page **Get to the sites you love right from your Windows taskbar**, click **Finish**.
+1. On page **Welcome to Microsoft Edge, the best performing browser on Windows** , press ESC.
 1. Navigate to http://admincenter.
 
     > You will be redirected to https://admincenter.
