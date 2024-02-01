@@ -464,7 +464,6 @@ Perform this task on CL1.
 1. Expand **Computer Management (VN1-SRV10)**, **System Tools**, **Shared Folders**, and click **Shares**.
 1. From the context-menu of the respective share, click **Properties**.
 1. In ... Properties, click **Offline Settings...**.
-1. In the tab Sharing, click **Advanced Sharing...**.
 1. In Offline Settings, click the required option and click **OK**.
 1. In **... Properties**, click **OK**.
 
@@ -564,7 +563,7 @@ Perform this task on the host.
 
     ````powershell
     Get-VMNetworkAdapter -VMName WIN-CL2 | 
-    Connect-VMNetworkAdapter -SwitchName VNet1
+    Connect-VMNetworkAdapter -SwitchName VNet2
     ````
 
 ### Task 6: Verify online access
