@@ -410,8 +410,8 @@ From **\\\VN2-SRV1\\C$\\Temp** open the report in a browser.
 ## Exercise 3: Create a stretched Hyper-V cluster
 
 1. [Install the failover clustering feature](#task-1-install-the-failover-clustering-feature) on VN2-SRV1 and VN3-SRV1
-1. [Add cluster nodes to group](#task-2-add-cluster-nodes-to-group) Witness VN1-CLST2 Modify: VN2-SRV1 and VN3-SRV1
-1. [Create a failover cluster](#task-3-create-a-failover-cluster) with VN2-SRV1 and VN3-SRV1 as nodes and the IP addresses 10.1.2.9 and 10.3.9; use \\\\vn1-clst1-fs\\Witness VN1-CLST2 as witness and set the resilience default period to 10; set the preffered site to the 10.1.2.0 subnet; add all available disks to the cluster
+1. [Add cluster nodes to group](#task-2-add-cluster-nodes-to-group) Witness Modify: VN2-SRV1 and VN3-SRV1
+1. [Create a failover cluster](#task-3-create-a-failover-cluster) with VN2-SRV1 and VN3-SRV1 as nodes and the IP addresses 10.1.2.9 and 10.3.9; use \\\\vn1-clst1-fs\\Witness as witness and set the resilience default period to 10; set the preffered site to the 10.1.2.0 subnet; add all available disks to the cluster
 1. [Add disk to cluster shared volume](#task-4-add-disk-to-cluster-shared-volumes): disk Data from VN2-SRV1
 1. [Configure storage replica](#task-5-configure-storage-replica) to replicate the Data volume from VN2-SRV1 to VN3-SRV1 using the Log volume as log disk
 
@@ -464,7 +464,7 @@ Perform this task on CL1.
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **ad (local)**.
 1. In ad (local), double-click **Entitling groups**.
-1. In Entitling groups, double-click **Witness VN1-CLST2 Modify**.
+1. In Entitling groups, double-click **Witness Modify**.
 1. In Witness VN1-CLST Modify, click **Members**.
 1. Under Members, click **Add...**.
 1. In Select Users, Contacts, Computers, Services Accounts, or Groups, click **Object Types...**.
@@ -554,10 +554,10 @@ Perform this task on VN2-SRV1.
       -AdministrativeAccessPoint ActiveDirectoryAndDns
    ````
 
-1. Configure the cluster quorum settings to use a file share witness using **\\\\vn1-clst1-fs\\Witness VN1-CLST2**.
+1. Configure the cluster quorum settings to use a file share witness using **\\\\vn1-clst1-fs\\Witness**.
 
    ````powershell
-   Set-ClusterQuorum -FileShareWitness '\\vn1-clst1-fs\Witness VN1-CLST2'
+   Set-ClusterQuorum -FileShareWitness '\\vn1-clst1-fs\Witness'
    ````
 
 1. Set the cluster resiliency period to **10** seconds.
