@@ -20,6 +20,7 @@
 * PM-SRV3
 * PM-SRV4
 * CL1
+* CL2
 
 ## Task
 
