@@ -24,11 +24,14 @@ Perform this task on the host.
 
 Perform this task on CL1.
 
+Note: when adding network adapters to the team you wil receive an error message "Faulted - the virtual switch lacks external connectivity".
+This is expected and should be ignored as NIC teaming isn't supported with Hyper-V internal or private switches
+
 1. Open **Server Manager**.
 1. In Server Manager, click **All Servers**.
 1. Under All Servers, in the context-menu of **PM-SRV3**, click **Configure NIC Teaming**.
 1. In NIC Teaming, under **TEAMS**, click **TASKS**, **New Team**.
-1. In NIC Teaming, under **Team name**, type **Perimeter**. Under **Member adapters**, activate **VNet1-1**. Click **Additional Properties**. Review the additional properties and click **OK**.
+1. In NIC Teaming, under **Team name**, type **Perimeter**. Under **Member adapters**, activate **Perimeter1**. Click **Additional Properties**. Review the additional properties and click **OK**.
 
     > Leave add least one adapter out of the team to not loose the remote connection to the server.
 
@@ -49,6 +52,7 @@ Perform this task on CL1.
         -PrefixLength 24 `
         -DefaultGateway 10.1.200.1 `
         -AddressFamily IPv4 `
+        -PersisentStore ActiveStore `
         -CimSession $cimSession
     ````
 

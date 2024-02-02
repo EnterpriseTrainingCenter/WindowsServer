@@ -4,6 +4,7 @@
 
 * CL1
 * VN1-SRV1
+* VN1-SRV4
 * VN1-SRV5
 * VN1-SRV10
 
@@ -360,7 +361,7 @@ Perform this task on CL1.
 1. In the message box Bring Disk Online, click **Yes**.
 1. In **Server Manager**, under **VOLUMES**, click **TASKS**, **New Volume...**.
 1. In New Volume Wizard, on page Before you begin, click **Next >**.
-1. On page Select the server and disk, under **Server**, click **VN1-SRV10**. Under **Disk**, click the disk with **Capacity** according to an entry in the table above. Click **Next >**.
+1. On page Select the server and disk, under **Server**, click **VN1-SRV5**. Under **Disk**, click the disk with **Capacity** according to an entry in the table above. Click **Next >**.
 1. In the message box **Offline or Uninitialized Disk**, click **OK**.
 1. In **New Volume Wizard**, on page **Size**, click **Next >**.
 1. On page Assign to a drive letter or folder, ensure **Drive letter** according to the table is selected and click **Next >**.

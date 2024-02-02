@@ -479,8 +479,8 @@ Perform this task on CL1.
 1. In the context-menu of **PM-SRV1**, click **Virtual Switch Manager...**.
 1. In Virtual Switch Manager for PM-SRV1, in the left pane, ensure **New virtual network switch** is selected. In the right pane, click **Internal** and click **Create Virtual Switch**.
 1. Under **Name**, type **Internal** and click **OK**.
-1. In **Hyper-V Manager**, under **Virtual Machines**, in the context-menu of **PM-SRV21**, click **Settings...**.
-1. In Settings for PM-SRV21 on PM-SRV1, click **Network Adapter**.
+1. In **Hyper-V Manager**, under **Virtual Machines**, in the context-menu of **PM-SRV20**, click **Settings...**.
+1. In Settings for PM-SRV20 on PM-SRV1, click **Network Adapter**.
 1. Under Network Adapter, under **Virtual switch**, click **Internal** and click **OK**.
 1. In **Hyper-V Manager**, under **Virtual Machines**, in the context-menu of **PM-SRV21**, click **Settings...**.
 1. In Settings for PM-SRV21 on PM-SRV1, click **Network Adapter**.
