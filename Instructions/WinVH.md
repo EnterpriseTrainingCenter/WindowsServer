@@ -7,8 +7,9 @@ The instructions are to be used in conjunction with the original presentation sl
 ## Practices
 
 1. [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md)
-1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
 1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
+1. [Configure Windows Admin Center](Practices/Configure-Windows-Admin-Center.md)
+1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
 1. [Configure nested virtualization](/Instructions/Practices/Configure-nested-virtualization.md)
 1. [Install the Hyper-V role](/Instructions/Practices/Install-the-Hyper-V-role.md)
 1. [Install the Hyper-V management tools](/Instructions/Practices/Install-the-Hyper-V-management-tools.md)
@@ -23,7 +24,6 @@ The instructions are to be used in conjunction with the original presentation sl
 
 ## Labs
 
-1. [Explore Windows Admin Center](Labs/Explore-Windows-Admin-Center.md)
 1. [Managing Hyper-V](/Instructions/Labs/Managing-Hyper-V.md)
 1. [Implementing and managing Storage Spaces and storage tiering](/Instructions/Labs/Implementing-and-managing-Storage-Spaces-and-Storage-Tiering.md)
 1. [Implementing and managing iSCSI and multipath I/O](/Instructions/Labs/Implementing-and-managing-iSCSI-and-multipath-io.md)
