@@ -98,11 +98,11 @@ Perform this task on CL1.
 1. In Create Organizational Unit, in **Name**, type **Entitling groups** and click **OK**.
 1. In **Active Directory Administrative Center**, in **ad (local)**, double-click **Entitling groups**
 1. In Entitling groups, in the pane **Tasks**, click **New**, **Group**.
-1. In Create Group, in **Group name**, enter **Witness VN1-CLST2 Modify**. Under **Group type**, ensure **Security** is selected. Under **Group scope**, click **Domain local**. On the left, click **Members**. Under Members, click **Add...**
+1. In Create Group, in **Group name**, enter **Witness Modify**. Under **Group type**, ensure **Security** is selected. Under **Group scope**, click **Domain local**. On the left, click **Members**. Under Members, click **Add...**
 1. In Select Groups, Contacts, Computers, Service Accounts, or Groups, click **Object Types...**
 1. In Object Types, activate **Computers** and click **OK**.
 1. In **Select Groups, Contacts, Computers, Service Accounts, or Groups**, in **Enter the object names to select**, type **VN1-SRV6; VN1-SRV7; VN1-SRV8; VN1-SRV9** and click **OK**.
-1. In **Create Group: Witness VN1-CLST2 Modify**, click OK.
+1. In **Create Group: Witness Modify**, click OK.
 
 ### Task 3: Create a witness share
 
@@ -113,7 +113,7 @@ Perform this task on CL1.
 1. Under Roles (2), in the context-menu of **VN1-CLST1-FS**, click **Add File Share**.
 1. In New Share Wizard, on page Select Profile, ensure **SMB Share - Quick** is selected and click **Next >**.
 1. On page Share Location, under **Server**, click **vn1-clst1-fs**. Under **Share location**, click **Select by volume**. Under **Select by volume**, ensure, **D:** is selected and click **Next >**.
-1. On page Share Name, in **Share name**, type **Witness VN1-CLST2** and click **Next >**.
+1. On page Share Name, in **Share name**, type **Witness** and click **Next >**.
 1. On page Configure share settings, configure these settings and click **Next >**:
 
    * **Enable access-based enumeration**: activate
@@ -122,26 +122,26 @@ Perform this task on CL1.
    * **Encrypt data access**: activate
 
 1. On page Permissions, click **Customize permissions...**
-1. In Advanced Security Settings for Witness VN1-CLST2, on tab Permissions, click **Disable Inheritance**.
+1. In Advanced Security Settings for Witness, on tab Permissions, click **Disable Inheritance**.
 1. In Block inheritance, click **Convert inherited permisssions into explicit permissions on this object.**
-1. In **Advanced Security Settings for Witness VN1-CLST2**, on tab **Permissions**, click one of the entries **Users** and click **Remove**. Repeat for the other entries **Users**.
+1. In **Advanced Security Settings for Witness**, on tab **Permissions**, click one of the entries **Users** and click **Remove**. Repeat for the other entries **Users**.
 1. Click **Add**.
-1. In Permissions Entry for Witness VN1-CLST2, click **Select a principal**.
-1. In Select User, Computer, Service Account or Group, under **Enter the object name to select**, type **Witness VN1-CLST2 Modify** and click **OK**.
-1. In **Permissions Entry for Witness VN1-CLST2**, activate **Modify** and click **OK**.
-1. In **Advanced Security Settings for Witness VN1-CLST2**, click the tab **Share**.
+1. In Permissions Entry for Witness, click **Select a principal**.
+1. In Select User, Computer, Service Account or Group, under **Enter the object name to select**, type **Witness Modify** and click **OK**.
+1. In **Permissions Entry for Witness**, activate **Modify** and click **OK**.
+1. In **Advanced Security Settings for Witness**, click the tab **Share**.
 1. On the tab Share, click **Everyone** and click **Remove**.
 1. Click **Add**.
-1. In Permissions Entry for Witness VN1-CLST2, click **Select a principal**.
-1. In Select User, Computer, Service Account or Group, under **Enter the object name to select**, type **Witness VN1-CLST2 Modify** and click **OK**.
-1. In **Permissions Entry for Witness VN1-CLST2**, activate **Change** and click **OK**.
-1. In **Advanced Security Settings for Witness VN1-CLST2**, on tab **Share**, click **Add**.
-1. In Permissions Entry for Witness VN1-CLST2, click **Select a principal**.
+1. In Permissions Entry for Witness, click **Select a principal**.
+1. In Select User, Computer, Service Account or Group, under **Enter the object name to select**, type **Witness Modify** and click **OK**.
+1. In **Permissions Entry for Witness**, activate **Change** and click **OK**.
+1. In **Advanced Security Settings for Witness**, on tab **Share**, click **Add**.
+1. In Permissions Entry for Witness, click **Select a principal**.
 1. In Select User, Computer, Service Account or Group, click **Locations...**
 1. In Locations, click **vn1-clst1-fs.ad.adatum.com** and click **OK**.
 1. In **Select User, Computer, Service Account or Group**, under **Enter the object name to select**, type **Administrators** and click **OK**.
-1. In **Permissions Entry for Witness VN1-CLST2**, activate **Full Control** and click **OK**.
-1. In **Advanced Security Settings for Witness VN1-CLST2**, click **OK**.
+1. In **Permissions Entry for Witness**, activate **Full Control** and click **OK**.
+1. In **Advanced Security Settings for Witness**, click **OK**.
 1. In **New Share Wizard**, on page **Permissions**, click **Next >**.
 1. On page Confirmation, click **Create**.
 1. On page Results, click **Close**.
@@ -162,11 +162,11 @@ Note: The failover cluster installation must have finished before.
       -NoStorage
    ````
 
-1. Configure the quorum to use the file share **\\\\VN1-CLST1-FS\\Witness VN1-CLST2**.
+1. Configure the quorum to use the file share **\\\\VN1-CLST1-FS\\Witness**.
 
    ````powershell
    Set-ClusterQuorum `
-      -Cluster $cluster -FileShareWitness '\\VN1-CLST1-FS\Witness VN1-CLST2\'
+      -Cluster $cluster -FileShareWitness '\\VN1-CLST1-FS\Witness\'
    ````
 
 ### Task 5: Enable Storage Spaces Direct
