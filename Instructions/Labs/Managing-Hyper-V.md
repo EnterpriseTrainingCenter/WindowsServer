@@ -224,7 +224,7 @@ Perform this task on CL1.
 1. In Hyper-V Manager, click **PM-SRV1**.
 1. Under Virtual machines, in the context-menu of **PM-SRV21**, click **Checkpoint**.
 1. In the message box Production checkpoint created, activate **Please don't show me this agein** and click **OK**.
-1. In the bottom pane, under **Checkpoints**, in the context menu of checkpoint **PM-SRV21 - (** followed by the the current date and time, **Rename...**, and enter **Pre-Configuration**.
+1. In the bottom pane, under **Checkpoints**, in the context menu of checkpoint **PM-SRV21 - (** followed by the the current date and time, click **Rename...**, and enter **Pre-Configuration**.
 1. In the context-menu of **PM-SRV21**, click **Connect**.
 1. In Connect to PM-SRV21, click **Connect**
 1. In PM-SRV21 on PM-SRV1 - Virtual Machine Connection, click on the desktop, **System tools**, **ControlPanel**.
