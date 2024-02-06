@@ -19,12 +19,12 @@ Perform this task on the host.
 1. Under Virtual Machines, in the context menu of **PM-SRV3**, click **Settings...**
 1. In Settings for PM-SRV3, expand the first **Network Adapter** and click **Advanced Features**.
 1. Under **NIC Teaming** (you might have to scroll down), activate **Enable this network adapter to be part of a team in guest operating system**.
-1. Expand the first **Network Adapter** and click **Advanced Features**.
+1. Expand the sedond **Network Adapter** and click **Advanced Features**.
 1. Under **NIC Teaming** (you might have to scroll down), activate **Enable this network adapter to be part of a team in guest operating system** and click **OK**.
 
 Perform this task on CL1.
 
-Note: when adding network adapters to the team you wil receive an error message "Faulted - the virtual switch lacks external connectivity".
+Note: When adding network adapters to the team you wil receive an error message "Faulted - the virtual switch lacks external connectivity".
 This is expected and should be ignored as NIC teaming isn't supported with Hyper-V internal or private switches
 
 1. Open **Server Manager**.
@@ -33,7 +33,7 @@ This is expected and should be ignored as NIC teaming isn't supported with Hyper
 1. In NIC Teaming, under **TEAMS**, click **TASKS**, **New Team**.
 1. In NIC Teaming, under **Team name**, type **Perimeter**. Under **Member adapters**, activate **Perimeter1**. Click **Additional Properties**. Review the additional properties and click **OK**.
 
-    > Leave add least one adapter out of the team to not loose the remote connection to the server.
+    > Leave at least one adapter out of the team to not loose the remote connection to the server.
 
 1. Open **Terminal**.
 1. Open a CIM session to **PM-SRV3**.
