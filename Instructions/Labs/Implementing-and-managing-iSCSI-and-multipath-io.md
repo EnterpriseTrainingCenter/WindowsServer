@@ -43,7 +43,7 @@ Perform this task on CL1.
 1. In the dialog **Add features that are required for iSCSI Target Server?**, click **Add Features**
 1. On page **Server Roles**, click **Next >**.
 1. On page Features, click **Next >**.
-1. On page **Confirmation**, click **Install**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
 1. On page **Results**, click **Close**.
 
 #### PowerShell
@@ -57,7 +57,8 @@ Peform this task on CL1.
     Install-WindowsFeature `
       -ComputerName VN1-SRV10 `
       -Name FS-iSCSITarget-Server `
-      -IncludeManagementTools
+      -IncludeManagementTools `
+      -Restart
     ````
 
 ### Task 2: Configure an iSCSI target
