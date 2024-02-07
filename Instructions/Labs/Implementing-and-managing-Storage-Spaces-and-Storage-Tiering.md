@@ -84,7 +84,6 @@ Perform these steps on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, click on **File and Storage Services**
 1. In File and Storage Services, click on **Storage Pools**.
-1. Under **STORAGE POOLS**, click **TieredPool1**.
 1. In Storage Pools, under **VIRTUAL DISKS**, click **Tasks**, **New Virtual Disk...**
 1. In Select the storage pool, click **Pool1** and click **OK**.
 1. In new Virtual Disk Wizard, on page Before You Begin, click **Next >**.
@@ -473,7 +472,7 @@ Perform these steps on CL1.
 1. Verify the media type of the physical disks.
 
    ````powershell
-   Get-PhysicalDisk -CimSession $cimSession
+   Get-PhysicalDisk -CimSession $cimSession | Sort-Object MediaType
    ````
 
 1. Remove the SIM session.
@@ -606,7 +605,7 @@ Perform these steps on CL1.
       -StorageTierSizes 32GB, 64GB
    ````
 
-1. Create a new volume on the new virutal disk and assign it to the drive letter D.
+1. Create a new volume on the new virtual disk and assign it to the drive letter D.
 
    ```powershell
    New-Volume `
