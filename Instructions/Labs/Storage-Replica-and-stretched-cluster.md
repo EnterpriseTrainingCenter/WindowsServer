@@ -716,7 +716,7 @@ Perform this task on CL1.
 
 Perform these steps on CL1.
 
-1. In File Explorer, copy **\\\\vn2-srv1\\c$\\LabResources\\TinyCorePure64.vhdx** to **\\vn2-srv1\\c$\\ClusterStorage\\Volume1\\Hyper-V\\Virtual Hard Disks**
+1. In File Explorer, copy **\\\\vn2-srv1\\c$\\LabResources\\TinyCorePure64.vhdx** to **\\\\vn2-srv1\\c$\\ClusterStorage\\Volume1\\Hyper-V\\Virtual Hard Disks**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN2-VN3-CLST1.ad.adatum.com** and click **Roles**.
 1. In the context-menu of **Roles**, click **Virtual Machines...**, **New Hard Disk...**
