@@ -171,7 +171,7 @@ Perform these steps on CL1.
       -ComputerName $computerName
    New-IscsiServerTarget `
       -TargetName "VN3-CLST1" `
-      -InitiatorIds ($initatiorIdPrefix + "VN3-SRV1" + $DomainSuffix) `
+      -InitiatorIds ($initiatorIdPrefix + "VN3-SRV1" + $DomainSuffix) `
       -ComputerName $computerName
    ````
 
