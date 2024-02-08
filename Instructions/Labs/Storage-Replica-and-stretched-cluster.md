@@ -178,13 +178,13 @@ Perform these steps on CL1.
 1. Add the iSCSI virtual disks to the iSCSI target.
 
    ````powershell
-   $diskParams | Where-Object { $PSItem -like "$path\VN2-*" } | ForEach-Object { 
+   $diskParams | Where-Object { $PSItem.Path -like "$path\VN2-*" } | ForEach-Object { 
       Add-IscsiVirtualDiskTargetMapping `
          -TargetName "VN2-CLST1" `
          -Path $PSItem.Path `
          -ComputerName $computerName 
    }
-   $diskParams | Where-Object { $PSItem -like "$path\VN3-*" } | ForEach-Object { 
+   $diskParams | Where-Object { $PSItem.Path -like "$path\VN3-*" } | ForEach-Object { 
       Add-IscsiVirtualDiskTargetMapping `
          -TargetName "VN3-CLST1" `
          -Path $PSItem.Path `
