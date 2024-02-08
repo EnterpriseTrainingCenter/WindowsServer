@@ -167,11 +167,11 @@ Perform these steps on CL1.
    $DomainSuffix = '.ad.adatum.com'
    New-IscsiServerTarget `
       -TargetName "VN2-CLST1" `
-      -InitiatorIds ($initatorIdPrefix + "VN2-SRV1" + $DomainSuffix) `
+      -InitiatorIds ($initiatorIdPrefix + "VN2-SRV1" + $DomainSuffix) `
       -ComputerName $computerName
    New-IscsiServerTarget `
       -TargetName "VN3-CLST1" `
-      -InitiatorIds ($initatorIdPrefix + "VN3-SRV1" + $DomainSuffix) `
+      -InitiatorIds ($initatiorIdPrefix + "VN3-SRV1" + $DomainSuffix) `
       -ComputerName $computerName
    ````
 
