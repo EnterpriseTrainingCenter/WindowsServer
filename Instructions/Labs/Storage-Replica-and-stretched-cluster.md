@@ -15,10 +15,6 @@
 1. On CL1, sign in as **ad\Administrator**.
 1. On VN2-SRV1, sign in as **ad\Administrator**.
 
-## Known issues
-
-<https://github.com/EnterpriseTrainingCenter/WindowsServer/issues/108>
-
 ## Exercises
 
 1. [Preparing for Storage Replica and stretched cluster](#exercise-1-preparing-for-storage-replica-and-stretched-cluster)
