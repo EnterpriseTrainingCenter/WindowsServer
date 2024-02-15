@@ -156,7 +156,7 @@ Perform this task on VN1-SRV4.
 
 1. In Windows Admin Center Setup, on page MICROSOFT SOFTWARE LICENSE TERMS, activate **I accept these terms** and click **Next**.
 1. On page Send diagnostic data to Microsoft, select your preferred option and click **Next**.
-1. On page Use Microsoft Updte to help keep your computer secure and up-to-date, ensure **I don't want to use Microsoft Update** is selected and click **Next**.
+1. On page Use Microsoft Update to help keep your computer secure and up-to-date, ensure **I don't want to use Microsoft Update** is selected and click **Next**.
 1. On page Install Windows Admin Center on Windows Server, click **Next**.
 1. On page Installing Windows Admin Center, leave the default options activated as follows and click **Next**.
 
@@ -166,7 +166,6 @@ Perform this task on VN1-SRV4.
     | **Use WinRM over HTTP only**                                                  | Deactivated |
     | **Automatically update Windows Admin Center**                                 | Activated   |
 
-1. On page Installing Windows Admin Center, under **Select a port for the Windows Admin Center site**, ensure **443** is filled in. Click **Use an SSL certificate installed on this computer**. Activate **Redirect HTTP port 80 traffic to HTTPS**.
 1. Switch to **C:\Windows\system32\cmd.exe**.
 1. Get the certificate. If you left everything open and the variable ````$certificate```` contains a value from the previous task, you may skip this step.
 
@@ -189,11 +188,11 @@ Perform this task on VN1-SRV4.
     ````
 
 1. Switch to **Configure Gateway Endpoint**.
-1. Under **Provide the thumbprint for the gateway SSL certificate**, paste the copied thumbprint. Click **Install**.
+1. On page Installing Windows Admin Center, under **Select a port for the Windows Admin Center site**, ensure **443** is filled in. Click **Use an SSL certificate installed on this computer**. Under **Provide the thumbprint for the gateway SSL certificate**, paste the copied thumbprint.Activate **Redirect HTTP port 80 traffic to HTTPS** and click **Install**.
 
     Wait for the installation to complete. This should take about a minute.
 
-1. In the message box Windows Admin Center Setup completed successfully, click **OK**.
+1. On page Ready to connect from a PC, click **Finish**.
 1. In C:\Windows\system32\cmd.exe, restart the computer.
 
     ````powershell
@@ -251,7 +250,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Terminal**
-1. On **VN1-SRV1**, in zone **ad.adatum.com**, create an A record with the name **admincenter** and the IPv4 address **10.1.1.48**.
+1. On **VN1-SRV1**, in zone **ad.adatum.com**, create an A record with the name **admincenter** and the IPv4 address **10.1.1.32**.
 
     ````powershell
     Add-DnsServerResourceRecordA `
@@ -347,7 +346,7 @@ Perform this task on CL1.
         -FromSession $pSSession `
         -Path `
             "$env:ProgramFiles\Windows Admin Center\PowerShell\Modules\*\" `
-        -Destination '~\Documents\WindowsPowerShell\' `
+        -Destination '~\Documents\WindowsPowerShell\Modules\' `
         -Container `
         -Recurse
     ````
