@@ -26,7 +26,7 @@
 1. On **VN1-SRV4**, sign in as **ad\Administrator**.
 1. In SConfig, enter **15**.
 
-You need sign-in credentials for an active Azure Subscription in which you have the permissions to create resources. Moreover, you need to have the Global Administrator role in Azure Active Directory. Ask your instructor for help, if you are unsure.
+You need sign-in credentials for an active Azure Subscription in which you have the permissions to create resources. Moreover, you need to have the Global Administrator role in Microsoft Entra ID. Ask your instructor for help, if you are unsure.
 
 ## Introduction
 
@@ -458,12 +458,12 @@ Perform this task on CL1.
 
     1. Open a new tab.
     1. Navigate to <https://portal.azure.com> and sign in if necessary.
-    1. In the search box at the top, type **Azure Active Directory** and click **Azure Active Directory**.
-    1. In Azure Active Directory, on the page **Overview**, take a note of **Tenant ID**.
+    1. In the search box at the top, type **Microsoft Entra ID** and click **Microsoft Entra ID**.
+    1. In Microsoft Entra ID, on the page **Overview**, take a note of **Tenant ID**.
 
 1. Under **Azure Active Directory application**, ensure **Create new** is selected and click **Connect**.
 
-    Wait for the message **Now connected to Azure AD** to appear.
+    Wait for the message **Now connected to Microsoft Entra ID** to appear. This can take a few minutes.
 
 1. Click **Sign in**.
 1. In the dialog Permissions requested, click **Accept**.

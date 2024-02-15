@@ -1,4 +1,4 @@
-# Practice: Create an Azure Active Directory
+# Practice: Create an Entra ID tenant
 
 ## Setup
 
@@ -8,7 +8,7 @@ Take a note of the credentials for Azure.
 
 ## Task
 
-Create a new Azure Active Directory tenant.
+Create a new Microsoft Entra ID tenant.
 
 ## Instructions
 
