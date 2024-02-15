@@ -278,7 +278,6 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. On **CL1**, sign in as **ad\Administrator**.
 1. Open **Terminal**.
 1. Increase the private memory limit of the WsusPool application pool to 3 GB.
 
