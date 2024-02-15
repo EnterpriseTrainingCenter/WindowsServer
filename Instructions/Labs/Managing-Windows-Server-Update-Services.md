@@ -57,43 +57,19 @@ To finish configuration of Windows Server Update Services, you need to configure
 
 ## Exercise 1: Configure clients for Windows Server Update Services
 
-1. [Create organizational units](#task-1-create-organizational-units) Devices, and under Devices, Clients
-1. [Move clients to organizational unit](#task-2-move-clients-to-organizational-unit) clients
-1. [Configure Windows Update settings](#task-3-configure-windows-update-settings):
+1. [Configure Windows Update settings](#task-1-configure-windows-update-settings):
 
     * Auto-restart must not happen during 8 AM and 6 PM.
     * Quality updates must be installed within 7 days, and the restart must happen within 1 day.
     * Feature updates must be installed within 30 days, and the restart must happen within 7 days.
     * Pause update must not be allowed.
 
-1. [Configure clients to use WSUS server](#task-4-configure-clients-to-use-wsus-server) VN1-SRV5
-1. [Update group policies on clients](#task-5-update-group-policies-on-clients) CL1, CL2, and CL3
-1. [Check for Windows updates](#task-6-check-for-windows-updates) on CL1, CL2, and CL3
-1. [Move computers into computer groups](#task-7-move-computers-into-groups): CL1 to Insider, CL2 to Target, and CL3 to Standard
+1. [Configure clients to use WSUS server](#task-2-configure-clients-to-use-wsus-server) VN1-SRV5
+1. [Update group policies on clients](#task-3-update-group-policies-on-clients) CL1, CL2, and CL3
+1. [Check for Windows updates](#task-4-check-for-windows-updates) on CL1, CL2, and CL3
+1. [Move computers into computer groups](#task-5-move-computers-into-groups): CL1 to Insider, CL2 to Target, and CL3 to Standard
 
-### Task 1: Create organizational units
-
-Perform this task on CL1.
-
-1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, cick **ad (local)**.
-1. In the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
-1. In Create Organizational Unit, beside **Name**, type **Devices** and click **OK**.
-1. In **Active Directory Administrative Center**, under **ad (local)**, in the context-menu of **Devices**, click **New**, **Organizational Unit**.
-1. In Create Organizational Unit, beside **Name**, type **Clients** and click **OK**.
-
-### Task 2: Move clients to organizational unit
-
-Perform this task on CL1.
-
-1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **Global Search**.
-1. Under Global Search, in **Search**, type **CL** and click **Search**.
-1. Click **CL1**, hold down SHIFT and click **CL3**.
-1. In the context-menu of **CL1**, **CL2**, or **CL3**, click **Move...**
-1. In Move, click **Devices** and click **Clients**. Click **OK**.
-
-### Task 3: Configure Windows Update settings
+### Task 1: Configure Windows Update settings
 
 Perform this task on CL1.
 
@@ -114,7 +90,7 @@ Perform this task on CL1.
 1. In Specify settings for optional component installation and component repair, click **Enabled** and **Download repair content and optional features directly from Windows Update instead of Windows Server Update Services (WSUS)**. Click **OK**.
 1. Close **Group Policy Management Editor**.
 
-### Task 4: Configure clients to use WSUS server
+### Task 2: Configure clients to use WSUS server
 
 Perform this task on CL1.
 
@@ -128,7 +104,7 @@ Perform this task on CL1.
 1. In Specify intranet Microsoft update service location, click **Enabled**. Under **Set the intranet update service for detecting updates** and beside **Set the intranet statics server**, type **http://vn1-srv5.ad.adatum.com:8530**. Click **OK**.
 1. Close **Group Policy Management Editor**.
 
-### Task 5: Update group policies on clients
+### Task 3: Update group policies on clients
 
 Perform this task on CL1.
 
@@ -148,7 +124,7 @@ Perform this task on CL1.
     }
     ````
 
-### Task 6: Check for Windows updates
+### Task 4: Check for Windows updates
 
 Perform this task on CL1, CL2, and CL3.
 
@@ -158,7 +134,7 @@ Perform this task on CL1, CL2, and CL3.
 
 This might take some time. Do not wait for the process to finish.
 
-### Task 7: Move computers into groups
+### Task 5: Move computers into groups
 
 Perform this task on CL1.
 
