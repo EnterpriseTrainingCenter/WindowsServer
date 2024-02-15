@@ -20,11 +20,10 @@ Perform this task on CL1.
 1. In Azure Arc, in Overview, on tab Get started, under **Add your infrastructure for free**, click **Add**.
 1. On tab Infrastructure, under **Servers**, click **Add**.
 1. Under **Add a single server**, click **Generate script**.
-1. In the Add a server with Azure Arc wizard, on page 1 Prerequisites, click **Next**.
-1. On page 2 Resource details, beside **Subscription** click the subscription of your choice. Beside **Resource group**, click **Create new**, type **WinFAD** and click **OK**.
-1. Beside **Region**, select a region close to you, e.g., (Europe) West Europe. Beside **Operating System**, ensure **Windows** is selected. Beside **Connectivity method**, ensure **Puplic endpoint** is selected. Click **Next**.
-1. On page 3 Tags, beside **Datacenter**, type **VN1**. Beside the other tags enter values of your choice. You may leave tags empty. Click **Next**.
-1. On page 4 Download and run script, click **Download** and make sure, the download succeeds. Click **Close**.
+1. On page Basics, beside **Subscription** click the subscription of your choice. Beside **Resource group**, click **WinFAD**.
+1. Beside **Region**, select a region close to you, e.g., (Europe) West Europe. Beside **Operating System**, ensure **Windows** is selected. Beside **Connectivity method**, ensure **Public endpoint** is selected. Click **Next**.
+1. On page Tags, beside **Datacenter**, type **VN1**. Beside the other tags enter values of your choice. You may leave tags empty. Click **Next**.
+1. On page Download and run script, click **Download** and make sure, the download succeeds. Click **Close**.
 
     You may have to continue on security warnings for the file to download.
 
@@ -89,4 +88,4 @@ Perform this task on CL1.
 
 1. Switch to Microsoft Edge with the Azure Portal open.
 1. In **Search resources, services and docs (G+/)**, type **VN1-SRV5** and click it.
-1. In **VN1-SRV5**, in **Overview**, click the tab **Recommendations**.
+1. In VN1-SRV5, in Overview, click the tab **Recommendations**.
