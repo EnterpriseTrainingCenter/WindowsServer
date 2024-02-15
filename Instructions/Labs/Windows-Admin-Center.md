@@ -516,13 +516,13 @@ Perform this task on CL1.
 1. In Active Directory Users and Computers, in the left pane, click **Entitling Groups**.
 1. In the context-menu of Entitling Groups, click **New**, **Group**.
 1. In New Object - Group, in **Group name**, type **Windows Admin Center users**. **Group scope** should be **Domain local** and **Group type** should be **Security**. Click **OK**.
-1. In the context-menu of Entitling Groups, click **New**, **Group**.
-1. In New Object - Group, in **Group name**, type **Windows Admin Center administrators**. **Group scope** should be **Domain local** and **Group type** should be **Security**. Click **OK**.
 1. Double-click the group **Windows Admin Center users**.
 1. In Windows Admin Center users Properties, click the tab **Members**.
 1. On the tab Members, click **Add...**.
 1. In Select Groups, Contacts, Computers, Service Accounts, or Groups, in **Enter the object names to select**, type **IT** and click **OK**.
 1. In Windows Admin Center users Properties, on the tab **Members**, click **OK**.
+1. In the context-menu of Entitling Groups, click **New**, **Group**.
+1. In New Object - Group, in **Group name**, type **Windows Admin Center administrators**. **Group scope** should be **Domain local** and **Group type** should be **Security**. Click **OK**.
 
 #### Active Directory Administrative Center
 
@@ -660,9 +660,9 @@ Perform this task on CL1.
 1. Open **Microsoft Edge** and navigate to <https://admincenter>.
 1. In Windows Admin Center, click **vn1-srv5.ad.adatum.com**.
 1. Connected to vn1-srv5.ad.adatum.com, under **Tools**, click **Firewall**.
-1. Under Firewall, click **File and Printer Sharing (SMB-in)** and click **Enable**.
-1. Under **Tools**, click **Settings**.
-
+1. Under Firewall, click the tab **Incoming rules**.
+1. On the tab Incoming rules, click **File and Printer Sharing (SMB-in)** and click **Enable**.
+1. In the left pane, click **Settings**.
 1. In Settings, click **Role-based Access control**.
 1. Under Role-based access control, click **Apply**.
 1. In message box Restart the WinRM service, click **Yes**.
@@ -674,10 +674,12 @@ Perform this task on CL1.
 1. On the tab Groups, click **Windows Admin Center Administrators**.
 1. In the bottom pane, Details - Windows Admin Center Administrators, click **Add user**.
 1. In Add a user to the Windows Admin Center Administrators group, under **Username**, type **ad\IT** and click **Submit**.
+1. In the left pane, click **Overview**.
+1. Under Overview, click **Restart**.
 
 ### Task 6: Verify role-based access control
 
-Perform this task on CL2.
+Perform this task on CL2. You should still be signed in with ad\Ida.
 
 1. Open **Microsoft Edge** and navigate to <https://admincenter>.
 1. Click **vn1-srv5.ad.adatum.com**.
