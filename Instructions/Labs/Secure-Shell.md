@@ -214,13 +214,12 @@ Perform this task on CL1.
 
 1. At the prompt Enter passphrase for .ssh\\Administrator@ad.adatum.com, type the passphrase you created an took note of in a previous task.
 
-
 ### Task 5: Verify the connectivity with ssh-agent
 
 Perform this task on CL1.
 
 1. Open **Terminal**.
-1. Connect to **vn1-srv1.ad.adatum.com**.
+1. Connect to **vn1-srv5.ad.adatum.com**.
 
     ````powershell
     ssh.exe vn1-srv5.ad.adatum.com
