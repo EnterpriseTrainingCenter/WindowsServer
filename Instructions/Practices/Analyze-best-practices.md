@@ -35,7 +35,7 @@ Perform these steps on CL1.
 1. Create a remote PowerShell session to **VN1-SRV1** and store it in a variable.
 
     ````powershell
-    $pSSession = New-PSSession -ComputerName VN1-SRV11. Query the BPA models on **VN1-SRV1**.
+    $pSSession = New-PSSession -ComputerName VN1-SRV1
     ````
 
 1. On VN1-SRV1, query the available BPA models.
