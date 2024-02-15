@@ -31,6 +31,8 @@ Perform this task on CL1.
 1. In Active Directory Administrative Center, double-click **ad (local)**.
 1. Under **ad (local)**, in the context-menu of **Devices**, click **New**, **Organizational Unit**.
 1. In Create Organizational Unit, beside **Name**, type **Servers** and click **OK**.
+1. Under **ad (local)**, in the context-menu of **Devices**, click **New**, **Organizational Unit**.
+1. In Create Organizational Unit, beside **Name**, type **Clients** and click **OK**.
 1. In **Active Directory Administrative Center**, click **ad (local)**.
 1. Under **ad (local)**, double-click **Computers**.
 1. Under **Computers**, ensure the list is sorted by **Name**. If not, click on the column header **Name**.
@@ -86,12 +88,12 @@ Perform this task on CL1.
 1. In the context-menu of Software installation, click **New**, **Package...**
 1. In Open, open **\\\\ad.adatum.com\\NETLOGON\\LAPS_x64.msi**.
 1. In Deploy Software, ensure **Assigned** is selected and click **OK**.
-1. In **Group Policy Management**, expand **Administrative Templates** and click **LAPS**.
+1. In **Group Policy Management Editor**, expand **Administrative Templates** and click **LAPS**.
 1. Under LAPS, double-click **Enable local admin password management**.
 1. In Enable local admin password management, cick **Enabled** and click **OK**.
-1. In **Group Policy Management**, under **LAPS**, double-click **Password Settings**.
+1. In **Group Policy Management Editor**, under **LAPS**, double-click **Password Settings**.
 1. In Password Settings, click **Enabled**. Under **Password Complexity**, ensure **Large Letters + small letters + number + specials** is selected. Beside **Password Length**, ensure **14** is filled in. Beside **Password Age (Days)**, ensure **30** is filled in. Click **OK**.
-1. In **Group Policy Management**, under **LAPS**, double-click **Do not allow password expiration time longer than required by policy**.
+1. In **Group Policy Management Eidtor**, under **LAPS**, double-click **Do not allow password expiration time longer than required by policy**.
 1. In Do not allow password expiration time longer than required by policy, click **Enabled** and click **OK**.
 1. Close **Group Policy Management Editor**.
 1. In **Group Policy Management**, in the context-menu of **Devices**, click **Link an Existing GPO...**
