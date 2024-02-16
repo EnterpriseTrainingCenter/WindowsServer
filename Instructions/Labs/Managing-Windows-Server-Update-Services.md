@@ -16,7 +16,11 @@
 
     ````powershell
     C:\Labs\Resources\Move-VMtoVNet.ps1 `
-        -VMName WIN-CL3 -SwitchName VNet2 -NewSwitchName VNet3 -SubnetValue 3
+        -VMName WIN-CL3 `
+        -SwitchName VNet2 `
+        -NewSwitchName VNet3 `
+        -SubnetValue 3 `
+        -Verbose
     ````
 
 1. At the prompt Enter the password of the local Administrator account of WIN-CL3, enter the local Administrator password of CL3.
@@ -74,7 +78,7 @@ To finish configuration of Windows Server Update Services, you need to configure
 Perform this task on CL1.
 
 1. Open **Group Policy Management**.
-1. In Group Policy Management, expand **Domains**, **ad.adatum.com**, **Device**, and click **Clients**.
+1. In Group Policy Management, expand **Domains**, **ad.adatum.com**, **Devices**, and click **Clients**.
 1. In the context-menu of **Clients**, click **Create a GPO in this domain, and Link it here...**
 1. In New GPO, under **Name**, type **Custom Computer Windows Update** and click **OK**.
 1. In **Group Policy Management**, in the context-menu of **Custom Computer Windows Update**, click **Edit**.
