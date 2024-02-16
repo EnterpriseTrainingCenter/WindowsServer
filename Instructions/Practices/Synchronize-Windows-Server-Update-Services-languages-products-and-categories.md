@@ -18,7 +18,13 @@ Perform these steps on CL1.
 
 1. On **CL1**, sign in as **ad\Administrator**.
 1. Open **Terminal**.
-1. Increase the private memory limit of the **WsusPool** application pool to **3 GB**.
+1. Set the following properties for the **WsusPool** application pool (see [Disable recycling and configure memory limits](https://learn.microsoft.com/en-us/troubleshoot/mem/configmgr/update-management/windows-server-update-services-best-practices#disable-recycling-and-configure-memory-limits) for details):
+
+    * Queue length: 2000
+    * Idle timeout: 0
+    * Pinging enabled: False
+    * Limit for private memory: 0 (unlimited)
+    * Periodic restart: 0 (disabled)
 
     ````powershell
     Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
