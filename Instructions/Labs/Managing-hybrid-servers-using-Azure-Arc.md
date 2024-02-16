@@ -16,6 +16,10 @@ You need sign-in credentials for an active Azure Subscription in which you have 
 
 To increase manageability and security of servers, Adatum wants to add on-premises servers as Azure resources using Azure Arc. Policies should be implemented to monitor configuration glitches. Data should be collected from the connected servers for further analysis in the Azure Portal. Moreover, Adatum wants to manage the on-premises server using Windows Admin Center without an on-premises Windows Admin Center installation. Finally, Adatum wants to manage updates for servers using the Azure Portal and ensure, the servers are up-to-date.
 
+## Known issues
+
+In some cases, the permissions to create policies must be assigned in the Azure subscription. the role **Resource Policy Contributor** must be assigned to the student's account. It can take 5 - 15 minutes until the change is applied. See <https://learn.microsoft.com/en-us/answers/questions/8713/what-is-the-min-iam-role-required-to-create-azure>.
+
 ## Exercises
 
 1. [Working with policies](#exercise-1-working-with-policies)
@@ -94,9 +98,7 @@ Perform this task on the host computer.
 1. Sign in to Azure.
 1. In **Search resources, services and docs (G+/)**, type **VN1-SRV5** and click it.
 1. In VN1-SRV5, from the left-pane under the **Monitoring** section, click **Insights**.
-1. In VN1-SRV5 | Insights, at the top, click **Azure Monitor**.
-1. In Insights, on tab Get started, click **Configure Insights**.
-1. In Insights, on tab Overview, expand your subscription, **winfad** and, beside **VN1-SRV5**, click **Enable**.
+1. In VN1-SRV5 | Insights, click **Enable**.
 1. On the pane Azure Monitor, click **Enable**.
 1. On the pane Monitoring configuration, beside **Subscription**, click the subscription you used for this lab. Beside **Data collection rule**, click **Create New**.
 1. Under Create new rule, beside **Data collection rule name**, type **Adatum-Log-Analytics-Workspace**. Activate the checkbox **Enable processes and dependencies (Map)**. Beside **Subscription**, ensure the subsription used for this lab is selected. Beside **Log Analytics workspaces**, click **Adatum-Log-Analytics-Workspace**. Click **Create**.
@@ -132,6 +134,8 @@ Perform this task on the host computer.
 
 ### Task 1: Enable change tracking
 
+Perform this task on the host computer.
+
 1. Open **Microsoft Edge** and navigate to <https://portal.azure.com>
 1. Sign in to Azure.
 1. In **Search resources, services and docs (G+/)**, type **Adatum-Automation-Account** and click it.
@@ -145,6 +149,8 @@ Perform this task on the host computer.
 1. In the pane Manage machines, ensure **Enable on all available machines** is selected and click **Enable**.
 
 ### Task 2: Validate change tracking
+
+Perform this task on the host computer.
 
 1. Open **Microsoft Edge** and navigate to <https://portal.azure.com>
 1. Sign in to Azure.
@@ -265,9 +271,9 @@ Perform this task on the host computer.
 
 1. Open **Microsoft Edge**.
 1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
-1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
-1. In Update management center (Preview), click **Getting started**.
-1. In Update management center (Preview) | Getting started, under **On-demand assessment and updates**, click **Check for updates**.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Azure Update Manager** and click it.
+1. In Azure Update Manager, click **Get started**.
+1. In Azure Update Manager | Get started, under **On-demand assessment and updates**, click **Check for updates**.
 1. Under Select resources and check for updates, activate the checkbox left to **VN1-SRV5** and click **Check for updates**.
 
     If you do not see VN1-SRV5, ensure that the filter **Subscription** shows the correct subscription.
@@ -280,12 +286,12 @@ Perform this task on the host computer.
 
 1. Open **Microsoft Edge**.
 1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
-1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
-1. In Update management center (Preview), click **Overview**.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Azure Update Manager** and click it.
+1. In Azure Update Manager, click **Overview**.
 
     Review the data on the page.
 
-1. Click **Update settings**.
+1. Click **Settings** and then **Update settings**.
 1. In Change update settings, click **Add machine**.
 1. In Select resources, activate the checkbox left to **VN1-SRV5** and click **Add**.
 1. In **Change update settings**, under **Windows (1)**, in the top row, in column **Periodic assessment**, click **Enable**. Click **Save**.
@@ -298,9 +304,9 @@ Perform this task on the host computer.
 
 1. Open **Microsoft Edge**.
 1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
-1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
-1. In Update management center (Preview), under **Manage**, click **Machines**.
-1. Under Update management center (Preview) | Machines, activate the checkbox **Select all**, click **One-time update** and click **Install Now**.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Azure Update Manager** and click it.
+1. In Azure Update Manager, under **Manage**, click **Machines**.
+1. Under Azure Update Manager | Machines, activate the checkbox **Select all**, click **One-time update** and click **Install Now**.
 1. In Install one-time updates, on tab Machines, ensure **VN1-SRV5** was added, and click **Next**.
 1. On tab Updates, review the Windows updates to install and click **Next**.
 1. On tab Properties, beside **Reboot option**, click **Reboot of required**. Beside **Maintenance windows (in minutes)**, type **60**. Click **Next**.
@@ -312,14 +318,19 @@ Perform this task on the host computer.
 
 1. Open **Microsoft Edge**.
 1. Navigate to <https://portal.azure.com> and sign in to Azure, if necessary.
-1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
-1. In Update management center (Preview), under **Manage**, click **Machines**.
-1. In Update management center (Preview) | Machines, activate the checkbox **Select all**.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Azure Update Manager** and click it.
+1. In Azure Update Manager, under **Manage**, click **Machines**.
+1. In Azure Update Manager | Machines, activate the checkbox **Select all**.
 1. Click **Schedule updates**.
 1. In Create a maintenance configuration, on the tab Basics, ensure that beside **Subscription** the subscription for this lab is selected. Beside **Resource Group**, click **WinFAD**. Beside **Configuration name**, type **adatum-server-updates**. Beside **Region**, click a region close to you, e.g. (Europe) West Europe. Beside **Maintenance scope**, ensure **Guest (Azure VM, Arc-enabled VMs/servers)** is selected. Beside **Reboot setting**, ensure **Reboot if required** is selected. Click **Add a schedule**.
 1. In the pane Add/Modify schedule, beside **Start on**, select today's date and enter **7:00 PM**. Click **Save**.
-1. In **Create a maintenance configuration**, on tab **Basics**, click **Next: Machines>**.
-1. On tab machines, ensure **VN1-SRV5** is added, and click **Next: Updates**.
+1. In **Create a maintenance configuration**, on tab **Basics**, click **Next: DynamicScopes>**.
+1. On tab Dynamic scopes, click **Add a dynamic scope**.
+1. In Add a dynamic scope, beside **Subscriptions**, select the subscription for this lab. Beside Filter by, click **Select**.
+1. In the pane Select filter by, under **Resource groups**, click **No items selected**, then activate the checkbox beside **WinFAD**. Click on the pane **Select filter by**, then click **OK**.
+1. In **Add a dynamic scope**, ensure **VN1-SRV5** is listed. Click **Save**.
+1. Back in **Create a maintenance configuration**, on tab **Dynamic scopes**, click **Next: Resources >**.
+1. On tab Resources, ensure **VN1-SRV5** is listed and click **Next: Updates**.
 1. On tab Updates, click **Include update classification**.
 1. In the pane Include update classification, under **Windows machines**, activate **Select all** and click **Add**.
 1. In **Create a maintenance configuration**, click **Review + create**.
@@ -337,8 +348,8 @@ Perform this task on the host computer.
 1. Under Maintenance Configurations, click **adatum-server-updates**.
 1. In adatum-server-updates, under **Settings**, click **Properties**.
 1. Under adatum-server-updates | Properties, beside **Id**, click the icon *Copy to clipboard*.
-1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Update management center (Preview)** and click it.
-1. In Update management center (Preview), click **Getting started**.
+1. In Microsoft Azure, in **Search resource, service, and docs (G+/)**, type **Azure Update Manager** and click it.
+1. In Azure Update Manager, click **Getting started**.
 1. Under Update management center (Previes) | Getting started, under **Update automatically at scale**, click **Assign policy**.
 1. In Definitions, click **[Preview]: Schedule recurring updates using Update Management Center**.
 1. In [Preview]: Schedule recurring updates using Update Management Center, click **Assign**.
