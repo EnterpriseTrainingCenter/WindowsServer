@@ -235,7 +235,7 @@ Perform this task on CL1.
     | Size     | 16          |
     | Type     | MSR         |
 
-1. Repeat steps 13 and 14 to create partitions according to the table below. For all partitions, set **Action** to **AddListItem**.
+1. Repeat steps 10 and 11 to create partitions according to the table below. For all partitions, set **Action** to **AddListItem**.
 
     | Extend | Order | Size | Type    |
     |--------|-------|------|---------|
