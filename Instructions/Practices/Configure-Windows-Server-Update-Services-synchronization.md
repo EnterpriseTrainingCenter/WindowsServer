@@ -6,19 +6,9 @@
 * VN1-SRV5
 * CL1
 
-## Task
+## Setup (for desktop experience only)
 
-Continue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md) and configure it to synchronize all languages, products, and categories except Drivers once a day during off-peak hours. Initiate the initial synchronization of the server.
-
-*Note*: In real world, you should leave Drivers activated. For this lab, Drivers is deactivated for performance reasons, because all computers are virtual machines.
-
-## Instructions
-
-### Desktop experience
-
-Perform these steps on CL1.
-
-*Important*: If the Windows Server Update Services Configuration Wizard:VN1-SRV5 is not running anymore, perform these steps:
+On CL1, the Windows Server Update Services Configuration Wizard:VN1-SRV5 should still be running. If not, perform these steps:
 
 1. On **CL1**, sign in as **ad\Administrator**.
 1. Open **Windows Server Update Services**.
@@ -38,7 +28,17 @@ Perform these steps on CL1.
 1. On page Specify Proxy Server, ensure, **Use a proxy server when synchronizing** is deactivated and click **Next >**.
 1. Click **Start Connecting**.
 
-Continue with the configuration.
+## Task
+
+Continue configuration of VN1-SRV5 from practice [Synchronize Windows Server Update Services languages, products, and categories](Synchronize-Windows-Server-Update-Services-languages-products-and-categories.md) and configure it to synchronize all languages, products, and categories except Drivers once a day during off-peak hours. Initiate the initial synchronization of the server.
+
+*Note*: In real world, you should leave Drivers activated. For this lab, Drivers is deactivated for performance reasons, because all computers are virtual machines.
+
+## Instructions
+
+### Desktop experience
+
+Perform these steps on CL1.
 
 1. On page Connect to Upstream Server, click **Next >**.
 1. On page Choose Languages, ensure **Download updates in all languages, including new languages** is selected and click **Next >**.
