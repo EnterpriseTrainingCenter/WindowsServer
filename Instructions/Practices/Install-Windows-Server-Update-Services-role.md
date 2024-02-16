@@ -52,7 +52,7 @@ Perform these steps on CL1.
 
 1. Sign in as **ad\Administrator**.
 1. Using Microsoft Edge, navigate to <https://admincenter>.
-1. In Windows Admin Center, on the connections page, click **vn1-srv6.ad.adatum.com**.
+1. In Windows Admin Center, on the connections page, click **vn1-srv5.ad.adatum.com**.
 1. Connected to vn1-srv5.ad.adatum.com, under **Tools**, click **Roles & features**.
 1. In Roles and Features, click **Windows Server Update Services**. Deactivate the checkbox beside **SQL Server Connectivity**. Click **Install**.
 1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically, if required** and click **Yes**.
