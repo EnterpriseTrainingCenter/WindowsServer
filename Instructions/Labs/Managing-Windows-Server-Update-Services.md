@@ -9,29 +9,6 @@
 * CL2
 * CL3
 
-## Setup
-
-1. On the host, run **Windows PowerShell** as Administrator.
-1. In Windows PowerShell, connect WIN-CL3 to VNet3.
-
-    ````powershell
-    C:\Labs\Resources\Move-VMtoVNet.ps1 `
-        -VMName WIN-CL3 `
-        -SwitchName VNet2 `
-        -NewSwitchName VNet3 `
-        -SubnetValue 3 `
-        -Verbose
-    ````
-
-1. At the prompt Enter the password of the local Administrator account of WIN-CL3, enter the local Administrator password of CL3.
-1. Join CL3 to the domain.
-
-    ````powershell
-    C:\Labs\Resources\Add-VMToDomain.ps1 -VMName WIN-CL3
-    ````
-
-1. At the prompt Enter the password of the local Administrator account of WIN-C3*, enter the local Administrator password of CL3.
-1. At the prompt Enter credentials of an account with permissions to join the computer to domain ad.adatum.com, enter the credentials of **Administrator@ad.adatum.com**.
 1. On **CL1**, sign in as **ad\administrator**.
 1. On **CL2**, sign in as **ad\administrator**.
 1. On **CL3**, sign in as **ad\administrator**.
@@ -204,7 +181,6 @@ Perform this task on CL1.
 1. In Approve Updates, click the icon left to **All Computers**, and click **Aproved for Install**. Click the icon again, and cick **Apply to Children**.
 1. Click **OK**.
 1. In Approval Progress, wait for the approval to have a result of **Success** and click **Close**.
-
 
 ## Exercise 3: Configure Windows Server Update Services for a branch office
 

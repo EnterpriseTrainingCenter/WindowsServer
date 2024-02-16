@@ -8,6 +8,29 @@
 
 ## Setup
 
+## Setup
+
+1. On the host, run **Windows PowerShell** as Administrator.
+1. In Windows PowerShell, connect WIN-CL3 to VNet3.
+
+    ````powershell
+    C:\Labs\Resources\Move-VMtoVNet.ps1 `
+        -VMName WIN-CL3 `
+        -SwitchName VNet2 `
+        -NewSwitchName VNet3 `
+        -SubnetValue 3 `
+        -Verbose
+    ````
+
+1. At the prompt Enter the password of the local Administrator account of WIN-CL3, enter the local Administrator password of CL3.
+1. Join CL3 to the domain.
+
+    ````powershell
+    C:\Labs\Resources\Add-VMToDomain.ps1 -VMName WIN-CL3
+    ````
+
+1. At the prompt Enter the password of the local Administrator account of WIN-C3*, enter the local Administrator password of CL3.
+1. At the prompt Enter credentials of an account with permissions to join the computer to domain ad.adatum.com, enter the credentials of **Administrator@ad.adatum.com**.
 1. On **CL1**, sign in as **ad\Administrator**.
 1. On **CL2**, sign in as **Administrator**.
 
@@ -18,7 +41,7 @@
 
 ## Exercise 1: Implement Local Administrator Password Solution
 
-1. [Create organization units and move all servers and clients](#task-1-create-organizational-unit-and-move-all-servers-and-client) except for VN1-SRV1 into the OUs
+1. [Create organization units and move all servers and clients](#task-1-create-organizational-unit-and-move-all-servers-and-client): At domain level, create an OU named Devices, then within the OU Devices, create OUs Clients and Servers. Move all computers starting with CL to the OU clients. Move all servers starting with VN or PM, except for VN1-SRV1 into the OU Servers.
 1. [Download LAPS and install the management tools](#task-2-download-laps-and-install-the-management-tools) on CL1
 1. [Configure LAPS for all servers and clients](#task-3-configure-laps-for-all-servers-and-clients) except for VN1-SRV1
 
@@ -28,7 +51,8 @@ Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **ad (local)**.
-1. In Active Directory Administrative Center, double-click **ad (local)**.
+1. In Active Directory Administrative Center, in the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
+1. In Create Organizational Unit, beside **Name**, type **Devices** and click **OK**.
 1. Under **ad (local)**, in the context-menu of **Devices**, click **New**, **Organizational Unit**.
 1. In Create Organizational Unit, beside **Name**, type **Servers** and click **OK**.
 1. Under **ad (local)**, in the context-menu of **Devices**, click **New**, **Organizational Unit**.
