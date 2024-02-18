@@ -33,7 +33,7 @@
 1. Join CL3 to the domain.
 
     ````powershell
-    C:\Labs\Resources\Add-VMToDomain.ps1 -VMName WIN-CL3
+    C:\Labs\Resources\Add-VMToDomain.ps1 -VMName $vMName
     ````
 
 1. At the prompt Enter the password of the local Administrator account of WIN-C3*, enter the local Administrator password of CL3.
