@@ -43,9 +43,15 @@ Perform these steps on CL1.
 1. On page Connect to Upstream Server, click **Next >**.
 1. On page Choose Languages, ensure **Download updates in all languages, including new languages** is selected and click **Next >**.
 1. On page Choose Products, activate the checkbox **All Products** and click **Next >**.
+
+    *Important:* Although it is recommended to synchronize all products, the first synchronization with all products will take approximately 15 hours. To save time and complete the initial synchronization in approximately 15 minutes, deactivate the checkbox **All Products**, and, under **Microsoft**, **Windows**, activate **Windows 11** only.
+
 1. On page Choose Classifications, activate the checkbox **All Classifications** and deactivate the checkbox **Drivers**. Click **Next >**.
 1. On page Configure Sync Schedule, click **Synchronize automatically**. Beside **First synchronization**, enter a time during off-peak hours, e.g. 18:00:00. Beside **Synchronizations per day**, ensure **1** is filled in. Click **Next >**.
 1. On page Finished, ensure **Begin initial synchronization** is deactivated and click **Next >**.
+
+    *Important:* Make sure, the checkbox **Begin initial synchronization is *not* activated. Otherwise, the next practice cannot be performed before the initial synchronization is finished, which can take up to 15 hours.
+
 1. On page What's Next, click **Finish**.
 
 ### PowerShell
@@ -74,17 +80,34 @@ Perform these steps on CL1.
     Get-WsusProduct -UpdateServer $wsusServer | Set-WsusProduct
     ````
 
+    *Important:* Although it is recommended to synchronize all products, the first synchronization with all products will take approximately 15 hours. To save time and complete the initial synchronization in approximately 15 minutes, activate products in the lab environment only.
+
+    ````powershell
+    $title = @(
+        'Windows 11'
+    )
+
+    $wsusProduct = Get-WsusProduct -UpdateServer $wsusServer
+    $wsusProduct | Set-WsusProduct -Disable
+    
+    $wsusProduct |
+    Where-Object { $PSItem.Product.Title -in $title } |
+    Set-WsusProduct
+    ````
+
 1. Enable all classifications except for drivers.
 
     ````powershell
     <#
-        You might have to replace 'Treiber' with a similiar word in your local
-        language, such as 'Driver'. If you are unsure, run
+        You might have to replace 'Driver' with a similiar word in your local
+        language, such as 'Treiber'. If you are unsure, run
+
         Get-WsusClassification -UpdateServer $wsusServer
+        
         first and look out for the correct title.
     #>
     Get-WsusClassification -UpdateServer $wsusServer | 
-    Where-Object { $PSItem.Classification.Title -ne 'Treiber' } | 
+    Where-Object { $PSItem.Classification.Title -ne 'Driver' } | 
     Set-WsusClassification
     ````
 

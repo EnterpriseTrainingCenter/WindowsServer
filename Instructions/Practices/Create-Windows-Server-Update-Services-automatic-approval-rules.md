@@ -70,4 +70,4 @@ Perform this task on CL1.
 1. In **Update Services**, click **Synchronizations**.
 1. In the context-menu of **Synchronizations**, click **Synchronize Now**.
 
-The first synchronization may run for a few hours.
+Depending on the product selection, the first synchronization will run for 15 minutes up to 15 hours or even longer.
