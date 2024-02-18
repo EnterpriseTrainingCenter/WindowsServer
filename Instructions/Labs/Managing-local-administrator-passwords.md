@@ -11,11 +11,18 @@
 ## Setup
 
 1. On the host, run **Windows PowerShell** as Administrator.
-1. In Windows PowerShell, connect WIN-CL3 to VNet3.
+1. In Windows PowerShell, ensure WIN-CL3 is running.
+
+    ````powershell
+    $vMName = 'WIN-CL3'
+    Start-VM -VMName $vMName
+    ````
+
+1. Connect WIN-CL3 to VNet3.
 
     ````powershell
     C:\Labs\Resources\Move-VMtoVNet.ps1 `
-        -VMName WIN-CL3 `
+        -VMName $vMName `
         -SwitchName VNet2 `
         -NewSwitchName VNet3 `
         -SubnetValue 3 `
