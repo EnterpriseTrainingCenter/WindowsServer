@@ -33,7 +33,6 @@
     ````
 
 1. On **VN1-SRV1**, sign in as **ad\\Administrator**.
-1. On **VN1-SRV2**, sign in as **ad\\Administrator**.
 
 ## Introduction
 

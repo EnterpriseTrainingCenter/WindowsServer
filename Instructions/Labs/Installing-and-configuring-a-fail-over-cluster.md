@@ -12,7 +12,7 @@
 ## Setup
 
 1. On **VN1-SRV2**, sign in as **ad\Administrator**.
-1. In SConfig, enter **15**.
+1. Open **Windows PowerShell** as Administrator.
 1. Execute these commands:
 
     ````powershell
