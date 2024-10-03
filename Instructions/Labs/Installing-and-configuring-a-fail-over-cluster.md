@@ -358,10 +358,12 @@ Perform this task on CL1.
 
 1. Set the cluster quorum to node and disk majority.
 
+    *Important*: Replace the name **Cluster Disk 1** with the name you took note of.
+
     ````powershell
     # Replace the name 'Cluster Disk 1' with the name you took note of.
 
-    Set-ClusterQuorum -Cluster $cluster -NodeAndDiskMajority 'Cluster Disk 2'
+    Set-ClusterQuorum -Cluster $cluster -NodeAndDiskMajority 'Cluster Disk 1'
     ````
 
 ### Task 6: Configure Cluster Shared Volumes
@@ -411,6 +413,8 @@ Perform this task on CL1.
     Take a note of the GPT disk's name with a total size corresponding to the capacity in the table above. Complete the column name in the table.
 
 1. Add the disks from the table as cluster shared volume.
+
+    *Important*: Replace the names **Cluster Disk 1** and **Cluster Disk 4** with the name you took note of.
 
     ````powershell
     # Replace the names with the names from the table.
@@ -521,6 +525,8 @@ Perform this task on CL1.
     ````
 
 1. On **VN1-SRV4** and **VN1-SRV5**, set the default stores to the cluster shared volume of 80 GB capacity, you recorded in the previous exercise.
+
+    *Important*: In the first line, replace *4* with the volume number recorded for 80 GB disk.
 
     ````powershell
     $volumeNumber = 4 # Replace with the volume number recorded for 80 GB disk
@@ -709,12 +715,16 @@ Perform this task on VN1-SRV4.
 
 1. Unblock the installation script, so that it can be executed without changing the execution policy.
 
+    *Important*: Replace **x** with the volume with 10 GB capacity, e.g., 1.
+
     ````powershell
     # Replace x with the volume with 10 GB capacity, e.g., 1
     Unblock-File C:\ClusterStorage\Volumex\Install-WindowsAdminCenterHA.ps1
     ````
 
 1. Install Windows Admin Center with high availability using the CSV with 10 GB capacity and the static address 10.1.1.34.
+
+    If you receive an error message running the script, restart VN1-SRV4 and try again.
 
     ````powershell
     $staticAddress = '10.1.1.34'
@@ -730,7 +740,7 @@ Perform this task on VN1-SRV4.
 
     This will take about 10 minutes.
 
-1. On **VN1-SRV1**, add a DNS host record for the admincenter.
+1. Add a DNS host record for the admincenter to the DNS server **VN1-SRV1**.
 
     ````powershell
     Add-DnsServerResourceRecordA `
@@ -863,9 +873,11 @@ Perform this task on the host.
 1. Open **Hyper-V-Manager**.
 1. In Hyper-V-Manager, in the context-menu of the virtual computer, running the cluster roles, click **Turn off...**.
 
-> After a few seconds, in **Failover Cluster Manager**, **Roles** the **amincenter** should move to the other node and the Windows Admin Center should stay available.
+    > After a few seconds, in **Failover Cluster Manager**, **Roles** the **amincenter** should move to the other node and the Windows Admin Center should stay available.
 
-> After a few seconds, **VN1-SRV23** will become **Unmonitored**. After some minutes, the virtual machine, will start on **VN1-SRV5**. The network connection should work again, but you will need to reconnect.
+    > After a few seconds, **VN1-SRV23** will become **Unmonitored**. After some minutes, the virtual machine, will start on **VN1-SRV5**. The network connection should work again, but you will need to reconnect.
+
+1. In the context-menu of the virtual computer you just turned off, click **Start**.
 
 ## Exercise 7: Use cluster-aware updating
 

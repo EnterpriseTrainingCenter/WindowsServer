@@ -223,7 +223,7 @@ Perform this task on CL1.
 1. Open **Hyper-V Manager**.
 1. In Hyper-V Manager, click **PM-SRV1**.
 1. Under Virtual machines, in the context-menu of **PM-SRV21**, click **Checkpoint**.
-1. In the message box Production checkpoint created, activate **Please don't show me this agein** and click **OK**.
+1. In the message box Production checkpoint created, activate **Please don't show me this again** and click **OK**.
 1. In the bottom pane, under **Checkpoints**, in the context menu of checkpoint **PM-SRV21 - (** followed by the the current date and time, click **Rename...**, and enter **Pre-Configuration**.
 1. In the context-menu of **PM-SRV21**, click **Connect**.
 1. In Connect to PM-SRV21, click **Connect**
@@ -232,9 +232,9 @@ Perform this task on CL1.
 1. In Network, under **IP Address**, type  **10.1.200.168**. Under **Gateway**, type **10.1.200.1**. Under **NameServers**, type **10.1.1.8**. Ensure that under **Save Configuration**, **Yes** is selected. Click **Apply** and click **Exit**.
 1. Close **ControlPanel**.
 1. In the menu of PM-SRV21 on PM-SRV1 - Virtual Machine Connection, click **Action**, **Checkpoint...**.
-1. In Chekpoint Name, type **Pre-Package-Install** and click **Yes**.
+1. In Checkpoint Name, type **Pre-Package-Install** and click **Yes**.
 1. In **PM-SRV21 on PM-SRV1 - Virtual Machine Connection**, click on the desktop, **SystemTools**, **Apps**.
-1. In First run - would you like the sysstem to pick the fastest mirror, click **Yes**.
+1. In First run - would you like the system to pick the fastest mirror, click **Yes**.
 1. In Mirror picker, click **OK**.
 1. In Apps: Regular Applications (tcz), click **Apps**, **Cloud (Remote)**, **Browse**.
 1. Beside **Search**, enter **chromium**.
@@ -256,7 +256,7 @@ Perform this task on CL1.
 
     > The Chromium browser is not available anymore.
 
-1. In PM-SRV21 on PM-SRV1 - Virtual Machine Connection, click on the desktop, **Applicaitons**, **Terminal**.
+1. In PM-SRV21 on PM-SRV1 - Virtual Machine Connection, click on the desktop, **Applications**, **Terminal**.
 1. In Terminal, query the interface configuration.
 
     ````shell
@@ -272,7 +272,7 @@ Perform this task on CL1.
 
     > The Chromium browser is not available still.
 
-1. Click on the desktop, **Applicaitons**, **Terminal**.
+1. Click on the desktop, **Applications**, **Terminal**.
 1. In Terminal, query the interface configuration.
 
     ````shell
@@ -335,7 +335,7 @@ Perform this task on CL1.
 
     Configure any new network adapter on PM-SRV1 with the IP address 10.0.201.1/24.
 
-    Change the IP addresses of PM-SRV21 and PM-SRV21 to 10.0.201.160/24 and 10.0.201.168/24.
+    Change the IP addresses of PM-SRV20 and PM-SRV21 to 10.0.201.160/24 and 10.0.201.168/24.
 
     > Can the virtual machines connect to the host?
 
@@ -417,9 +417,8 @@ Perform this task on CL1.
 1. In **Hyper-V Manager**, under **Virtual Machines**, in the context-menu of **PM-SRV20**, click **Settings...**.
 1. In Settings for PM-SRV20 on PM-SRV1, click **Network Adapter**.
 1. Under Network Adapter, under **Virtual switch**, click **Private** and click **OK**.
-1. In **Hyper-V Manager**, under **Virtual Machines**, in the context-menu of **PM-SRV21**, click **Settings...**.
-1. In Settings for PM-SRV21 on PM-SRV1, click **Network Adapter**.
-1. Under Network Adapter, under **Virtual switch**, click **Private** and click **OK**.
+
+Repeat from from step 6 for PM-SRV21.
 
 ### Task 3: Verify the functionality of a private virtual switch
 
@@ -482,9 +481,8 @@ Perform this task on CL1.
 1. In **Hyper-V Manager**, under **Virtual Machines**, in the context-menu of **PM-SRV20**, click **Settings...**.
 1. In Settings for PM-SRV20 on PM-SRV1, click **Network Adapter**.
 1. Under Network Adapter, under **Virtual switch**, click **Internal** and click **OK**.
-1. In **Hyper-V Manager**, under **Virtual Machines**, in the context-menu of **PM-SRV21**, click **Settings...**.
-1. In Settings for PM-SRV21 on PM-SRV1, click **Network Adapter**.
-1. Under Network Adapter, under **Virtual switch**, click **Internal** and click **OK**.
+
+Repeat from from step 6 for PM-SRV21.
 
 ### Task 5: Verify the functionality of an internal virtual switch
 
@@ -692,7 +690,7 @@ Perform these steps on CL1.
 1. On page **Choose Replication VHDs**, ensure all Virtual Hard Disks are activated and click **Next >**.
 1. On page Configure Replication Frequency, under **Chose the frequency at which changes will be sent to the Replica Server**, click **30 seconds** and click on **Next >**.
 1. On page Configure Additional Recovery Points, select **Create additional hourly recovery points**. In **Coverage provided by additional recovery points (in hours)** type 12. Activate **Volume Shadow Copy Service (VSS) snapshot frequency (in hours)** and enter 2. Click **Next >**.
-1. On page Choose Initial Replication Method, ensure **Send initial copy immediately over the network** and **Start replication immediately** is selected. Click **Next >**.
+1. On page Choose Initial Replication Method, ensure **Send initial copy over the network** and **Start replication immediately** is selected. Click **Next >**.
 1. On page Summary, click **Finish**.
 1. In **Hyper-V Manager**, click **PM-SRV21**.
 1. In the bottom pane, click the tab **Replication**. Wait until the initial replication has finished. The **Replication State** changes to **Replication enabled**.
@@ -790,5 +788,5 @@ Perform this task on CL1.
 1. On page Specify Connection Parameters, ensure **Use Kerberos authentication (HTTP)** is selected and click **Next >**.
 1. On page Configure Replication Frequency, under **Chose the frequency at which changes will be sent to the Replica Server**, ensure **30 seconds** is selected and click on **Next >**.
 1. On page Configure Additional Recovery Points, ensure **Create additional hourly recovery points** is selected. In **Coverage provided by additional recovery points (in hours)**, ensure **12** is filled in. Ensure, **Volume Shadow Copy Service (VSS) snapshot frequency (in hours)** is activated and **2** is filled in. Click **Next >**.
-1. On page Choose Initial Replication Method, ensure **Send initial copy immediately over the network** and **Start replication immediately** is selected. Click **Next >**.
+1. On page Choose Initial Replication Method, ensure **Send initial copy over the network** and **Start replication immediately** is selected. Click **Next >**.
 1. On page Summary, click **Finish**.

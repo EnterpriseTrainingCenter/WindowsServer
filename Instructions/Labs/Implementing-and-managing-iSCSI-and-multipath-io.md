@@ -333,7 +333,7 @@ Perform this task on CL1.
       -IsPersistent $true
       ````
 
-1. Connect to the target using multi-path. Use the IP address **10.1.128.40** on the initiator side, and **10.1.128.80** on the target side.
+1. Connect to the target using multi-path. Use the IP address **10.1.128.40** on the initiator side, and **10.1.144.80** on the target side.
 
    ````powershell
    $iscsiTarget | Connect-IscsiTarget `
