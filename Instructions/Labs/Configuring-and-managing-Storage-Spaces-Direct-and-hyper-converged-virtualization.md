@@ -380,24 +380,24 @@ Perform this task on CL1.
 1. On page Permissions, click **Customize permissions...**
 1. In Advanced Security Settings for Hyper-V Data, on tab Permissions, click **Disable Inheritance**.
 1. In Block inheritance, click **Convert inherited permisssions into explicit permissions on this object.**
-1. In **Advanced Security Settings for Witness Hyper-V Data**, on tab **Permissions**, click one of the entries **Users** and click **Remove**. Repeat for the other entries other than **Administrators**, **SYSTEM**, and **CREATOR Owner**, e.g., **Everyone**
+1. In **Advanced Security Settings for Hyper-V Data**, on tab **Permissions**, click one of the entries **Users** and click **Remove**. Repeat for the other entries other than **Administrators**, **SYSTEM**, and **CREATOR Owner**, e.g., **Everyone**
 1. Click **Add**.
 1. In Permissions Entry for Hyper-V Data, click **Select a principal**.
 1. In Select User, Computer, Service Account or Group, under **Enter the object name to select**, type **Hyper-V Data Full Control** and click **OK**.
-1. In **Permissions Entry for Witness Hyper-V Data**, activate **Full Control** and click **OK**.
-1. In **Advanced Security Settings for Witness Hyper-V Data**, click the tab **Share**.
+1. In **Permissions Entry for Hyper-V Data**, activate **Full Control** and click **OK**.
+1. In **Advanced Security Settings for Hyper-V Data**, click the tab **Share**.
 1. On the tab Share, click **Everyone** and click **Remove**.
 1. Click **Add**.
-1. In Permissions Entry for Witness Hyper-V Data, click **Select a principal**.
+1. In Permissions Entry for Hyper-V Data, click **Select a principal**.
 1. In Select User, Computer, Service Account or Group, under **Enter the object name to select**, type **Hyper-V Data Full Control** and click **OK**.
-1. In **Permissions Entry for Witness Hyper-V Data**, activate **Full Control** and click **OK**.
-1. In **Advanced Security Settings for Witness Hyper-V Data**, on tab **Share**, click **Add**.
-1. In Permissions Entry for Witness Hyper-V Data, click **Select a principal**.
+1. In **Permissions Entry for Hyper-V Data**, activate **Full Control** and click **OK**.
+1. In **Advanced Security Settings for Hyper-V Data**, on tab **Share**, click **Add**.
+1. In Permissions Entry for Hyper-V Data, click **Select a principal**.
 1. In Select User, Computer, Service Account or Group, click **Locations...**
 1. In Locations, click **vn1-clst2-sofs.ad.adatum.com** and click **OK**.
 1. In **Select User, Computer, Service Account or Group**, under **Enter the object name to select**, type **Administrators** and click **OK**.
-1. In **Permissions Entry for Witness Hyper-V Data**, activate **Full Control** and click **OK**.
-1. In **Advanced Security Settings for Witness Hyper-V Data**, click **OK**.
+1. In **Permissions Entry for Hyper-V Data**, activate **Full Control** and click **OK**.
+1. In **Advanced Security Settings for Hyper-V Data**, click **OK**.
 1. In **New Share Wizard**, on page **Permissions**, click **Next >**.
 1. On page Confirmation, click **Create**.
 1. On page Results, click **Close**.
@@ -427,7 +427,7 @@ Perform this task on the owner node of VN1-SRV23.
 
 Perform this task on CL1.
 
-1. In **File Explorer** navigate to **\\\\vn1-clst2-sofs2\\Hyper-V Data** and browse through the folders.
+1. In **File Explorer** navigate to **\\\\vn1-clst2\\Hyper-V Data** and browse through the folders.
 
    > The following folders are in the share:
    >
@@ -551,7 +551,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **File Explorer**.
-1. In File Explorer, copy **\\\\VN1-SRV6\\C$\\LabResources\\TinyCorePure64.vhdx** to **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks**. Replace x with the volume number of the 80 GB disk.
+1. In File Explorer, copy **\\\\VN1-SRV6\\C$\\LabResources\\TinyCorePure64.vhdx** to **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks**.
 1. Rename **\\\\VN1-SRV6\\C$\\ClusterStorage\\Hyper-converged disk\\Hyper-V\\Virtual Hard Disks\\TinyCorePure64.vhdx** to **VN1-SRV24.vhdx**
 1. Open **Failover Cluster Manager**.
 1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
@@ -596,7 +596,7 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
-1. In Failover Cluster Manager, expand **VN1-CLST1.ad.adatum.com** and click **Roles**. Take a note of the **Owner Node** of **VN1-SRV24**.
+1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**. Take a note of the **Owner Node** of **VN1-SRV24**.
 1. Under Roles (1), in the context-menu of **VN1-SRV24**, click **Connect...**.
 1. Open **Terminal**.
 1. In Terminal, test the connection to 10.1.1.192 or a long period.
