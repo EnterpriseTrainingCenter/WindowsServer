@@ -336,7 +336,7 @@ Peform this task on CL1.
 Perform this task on CL1.
 
 1. Open **Failover Cluster Manager**.
-1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com**, **Storage**, and click **Roles**.
+1. In Failover Cluster Manager, expand **VN1-CLST2.ad.adatum.com** and click **Roles**.
 1. In the context-menu of **Roles**, click **Configure Role...**
 1. In High Availability Wizard, on page Before You Begin, click **Next >**.
 1. On page Server Role, click **File Server** and click **Next >**.
@@ -351,9 +351,6 @@ Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **ad (local)**.
-1. In the context-menu of **ad (local)**, click **New**, **Organizational Unit**.
-1. In Create Organizational Unit, in **Name**, type **Entitling groups** and click **OK**.
-1. In **Active Directory Administrative Center**, in **ad (local)**, double-click **Entitling groups**
 1. In Entitling groups, in the pane **Tasks**, click **New**, **Group**.
 1. In Create Group, in **Group name**, enter **Hyper-V Data Full Control**. Under **Group type**, ensure **Security** is selected. Under **Group scope**, click **Domain local**. On the left, click **Members**. Under Members, click **Add...**
 1. On the left, click **Members**.
