@@ -15,7 +15,7 @@ In the clients.ad.adatum.com, create a group Client Computer Administrators and 
 
 Perform these steps on CL1.
 
-1. Sign in as **Administrator@cients.ad.adatum.com**.
+1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **clients (local)**.
 1. In clients (local), in the **Tasks** pane, under **clients (local)**, click **New**, **Organizational Unit**.

@@ -17,10 +17,9 @@
 1. On **VN1-SRV1** sign in as **ad\\Administrator**.
 1. On **VN2-SRV2** sign in as **.\\Administrator**.
 
-If you skipped previous practices or labs:
+You must have completed the practice [Explore Server Manager](../Practices/Explore-Server-Manager.md). If you skipped the practice, on **CL1**, in Terminal, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
 
-1. On **CL1**, in Terminal, run ````C:\LabResources\Solutions\Add-ServerManagerServers.ps1````.
-2. On **VN1-SRV4**, sign in as **ad\Administrator**, and run ````C:\LabResources\Solutions\Install-AdminCenter.ps1````.
+You must have completed the practice [Install Windows Admin Center using a script](../Practices/Install-Windows-Admin-Center-using-a-script.md). If you skipped the practice, on **VN1-SRV4**, sign in as **ad\Administrator**, and run ````C:\LabResources\Solutions\Install-AdminCenter.ps1````.
 
 ## Known issues
 
@@ -168,12 +167,20 @@ Perform this task on CL1.
 
     ````powershell
     $username = "Administrator@ad.adatum.com"
-    Read-Host `
+    $securePassword = Read-Host `
         -Prompt `
             "Password for $(
                 $username
             ) (will also be the Directory Services Restore Mode (DSRM) password)" `
-        -MaskInput
+        -AsSecureString
+    
+    # Convert the secure string back to a plain text string
+
+    $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $securePassword
+        )
+    ) 
     ````
 
 1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
@@ -644,7 +651,7 @@ Perform this task on CL1.
 ## Exercise 5: Decommission a domain controller
 
 1. [Change the DNS client server addresses](#task-1-change-the-dns-client-server-addresses) on CL1 to 10.1.1.40 and 10.1.2.8.
-1. [Change the IP address of the domain controller to decommission](#task-2-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
+1. [Change the IP address of the domain controller to decommission](#task-2-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.9 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
 1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-3-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV5
 1. [Demote the old domain controller](#task-4-demote-the-old-domain-controller) VN1-SRV1
 1. [Remove roles from the decommissioned domain controller](#task-5-remove-roles-from-the-decommissioned-domain-controller) VN1-SRV1

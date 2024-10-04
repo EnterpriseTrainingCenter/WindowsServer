@@ -16,7 +16,7 @@ Configure a password lockout policy after 100 invalid attempts in 10 minutes. Th
 
 Perform these steps on CL1.
 
-1. Sign in as **Administrator@cients.ad.adatum.com**.
+1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. Open **Group Policy Management**.
 1. In Group Policy Management, expand **Forest: ad.adatum.com**, **Domains**, and click **clients.ad.adatum.com**.
 1. In the context-menu of **clients.ad.adatum.com**, click **Create a GPO in this domain, and Link it here...**

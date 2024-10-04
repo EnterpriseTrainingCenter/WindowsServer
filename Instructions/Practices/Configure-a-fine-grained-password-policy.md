@@ -14,7 +14,7 @@ In the clients.ad.adatum.com, configure password settings for Domain Admins, tha
 
 Perform these steps on CL1.
 
-1. Sign in as **Administrator@cients.ad.adatum.com**.
+1. Sign in as **Administrator@clients.ad.adatum.com**.
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **clients (local)**.
 1. In client (local), double-click **System**.
@@ -24,16 +24,16 @@ Perform these steps on CL1.
 
     * **Name**: Domain Administrators Password Settings
     * **Precendence**: 10
-    * **Enfoce minimum password length**: Activated
+    * **Enforce minimum password length**: Activated
     * **Minimum password length (characters)**: 10
-    * **Enfoce password history**: Activated
+    * **Enforce password history**: Activated
     * **Number of passwords remembered**: 24
     * **Password must meet complexity requirements**: Activated
     * **Store password using reversible encryption**: Deactivated
     * **Protect from accidental deletion**: Activated
     * **Enforce minimum password age**: Deactivated
     * **Enforce maximum password age**: Deactivated
-    * **Enfoce account lockout policy**: Deactivated
+    * **Enforce account lockout policy**: Deactivated
 
 1. Under **Directly Applies To**, click **Add...**
 1. In Select Users or Groups, in **Enter the object names to select**, type **Domain Admins** and click **OK**.
