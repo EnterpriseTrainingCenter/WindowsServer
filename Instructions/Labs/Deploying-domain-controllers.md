@@ -167,12 +167,20 @@ Perform this task on CL1.
 
     ````powershell
     $username = "Administrator@ad.adatum.com"
-    Read-Host `
+    $securePassword = Read-Host `
         -Prompt `
             "Password for $(
                 $username
             ) (will also be the Directory Services Restore Mode (DSRM) password)" `
-        -MaskInput
+        -AsSecureString
+    
+    # Convert the secure string back to a plain text string
+
+    $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $securePassword
+        )
+    ) 
     ````
 
 1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
