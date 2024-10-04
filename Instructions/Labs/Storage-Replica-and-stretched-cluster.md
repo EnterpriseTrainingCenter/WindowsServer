@@ -132,9 +132,9 @@ Perform these steps on CL1.
 
    | File name             | Size   |
    |-----------------------|--------|
-   | VN2-CLST1-Data.vhdx   | 20 GB |
+   | VN2-CLST1-Data.vhdx   | 20 GB  |
    | VN2-CLST1-Log.vhdx    | 10 GB  |
-   | VN3-CLST1-Data.vhdx   | 20 GB |
+   | VN3-CLST1-Data.vhdx   | 20 GB  |
    | VN3-CLST1-Log.vhdx    | 10 GB  |
 
    ````powershell
@@ -744,8 +744,6 @@ Perform these steps on CL1.
 1. In **Failover Cluster Manager**, under **Roles (1)**, in the context-menu of **VN2-SRV20**, click **Start**.
 1. In the context-menu of **VN2-SRV20**, click **Connect...**.
 
-SConfig will appear.
-
 ### Task 3: Simulate a failure
 
 Perform this task on the host.
@@ -778,11 +776,20 @@ Perform these steps on CL1.
 
 Perform this task on the host computer.
 
-Perform this task on the host.
-
 1. Open **Hyper-V Manager**.
 1. Click the name of your computer.
 1. Under Virtual Machines, in the context-menu of **VN2-SRV1**, click **Start**.
+
+#### PowerShell
+
+Perform this task on the host.
+
+1. Open **Windows PowerShell (Admin)**.
+1. In Windows PowerShell (Admin), start the VM **WIN-VN2-SRV1**.
+
+   ````powershell
+   Start-VM -VMName WIN-VN2-SRV1
+   ````
 
 ### Task 6: Verify recovery
 

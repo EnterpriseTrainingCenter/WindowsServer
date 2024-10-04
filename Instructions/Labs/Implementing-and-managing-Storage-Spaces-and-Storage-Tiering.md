@@ -182,7 +182,7 @@ Perform this task on CL1.
 1. Open **Server Manager**.
 1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
 1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-based installation** is selected and click **Next >**.
 1. On page Server Selection, click **VN1-SRV10.ad.adatum.com** and click **Next >**.
 1. On page Server Roles, expand **File and Storage Services (1 of 12 installed)**, **File and iSCSI Services**, and activate **File Server** and click **Next >**.
 1. On page Features, click **Next >**.
@@ -305,7 +305,7 @@ Perform this task on the host.
    $vhd = 0..1 | ForEach-Object { 
       New-VHD `
          -Path `
-            "C:\Labs\WS2022\VMVirtualHardDisks\WIN-VN-SRV10-Replacement-$PSItem.VHDX" `
+            "C:\Labs\WS2022\VMVirtualHardDisks\WIN-VN1-SRV10-Replacement-$PSItem.VHDX" `
          -SizeBytes 1TB
       }
    ````
@@ -390,11 +390,11 @@ Perform this task on CL1.
    ````
 
 1. Remove the virtual disk **Data**.
-   
+
    ````powershell
    Remove-VirtualDisk -FriendlyName Data -CimSession $cimSession
    ````
- 
+
 1. At the prompt VN1-SRV10: This will remove the VirtualDisk "Data" and will erase all of the data that it contains, enter **y**.
 1. Remove the storage pool **Pool1**.
 
@@ -430,9 +430,10 @@ Perform these steps on the host.
    $vhd = 2..4 | ForEach-Object { 
       New-VHD `
          -Path `
-            "C:\Labs\WS2022\VMVirtualHardDisks\WIN-VN-SRV10-Replacement-$PSItem.VHDX" `
+            "C:\Labs\WS2022\VMVirtualHardDisks\WIN-VN1-SRV10-Replacement-$PSItem.VHDX" `
          -SizeBytes 1TB
       }
+   ````
 
 1. Add the new virtual hard disks to WIN-VN1-SRV10.
 
@@ -560,7 +561,7 @@ Perform these steps on CL1.
 1. On page Confirmation, click **Create**.
 1. On page Results, click **Close**.
 1. In **New Volume Wizard**, on page Before You Begin, click **Next >**.
-1. On page Server and Disk, under **Server**, ensure **VN1-SRV10** is selected. Under Disk, ensure the **Virtual Disk** **Data** is selected. Click **Next >**.
+1. On page Server and Disk, under **Server**, ensure **VN1-SRV10** is selected. Under Disk, ensure the **Virtual Disk** **Tiered Disk 1** is selected. Click **Next >**.
 1. On page Size, click **Next >**.
 1. On page Drive Letter or Folder, ensure, beside **Drive letter**, **D** is selected and click **Next >**.
 1. On page File System settings, in **Volume label**, type **Data**. Click **Next >**.
