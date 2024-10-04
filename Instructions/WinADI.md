@@ -10,7 +10,6 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Install Windows Admin Center using a script](Practices/Install-Windows-Admin-Center-using-a-script.md)
 1. [Configure Windows Admin Center](Practices/Configure-Windows-Admin-Center.md)
 1. [Explore Server Manager](Practices/Explore-Server-Manager.md)
-1. [Verify the SYSVOL replication mode](Practices/Verify-the-sysvol-replication-mode.md)
 1. [Update the Active Directory schema](Practices/Update-the-active-directory-schema.md)
 1. [Delegate password reset permissions](Practices/Delegate-password-reset-permissions.md)
 1. [Configure password and account lockout policies](Practices/Configure-password-and-account-lockout-policies.md)
@@ -19,6 +18,7 @@ The instructions are to be used in conjunction with the original presentation sl
 1. [Use a Group Managed Service Account](Practices/Use-a-group-managed-service-account.md)
 1. [Configure Kerberos constrained delegation](Practices/Configure-Kerberos-contrained-delegation.md)
 1. [Explore intra-site replication](Practices/Explore-intra-site-replication.md)
+1. [Verify the SYSVOL replication mode](Practices/Verify-the-sysvol-replication-mode.md)
 1. [Create an Azure Active Directory](Practices/Create-an-Azure-Active-Directory.md)
 
 ## Labs
