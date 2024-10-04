@@ -390,11 +390,11 @@ Perform this task on CL1.
    ````
 
 1. Remove the virtual disk **Data**.
-   
+
    ````powershell
    Remove-VirtualDisk -FriendlyName Data -CimSession $cimSession
    ````
- 
+
 1. At the prompt VN1-SRV10: This will remove the VirtualDisk "Data" and will erase all of the data that it contains, enter **y**.
 1. Remove the storage pool **Pool1**.
 
@@ -433,6 +433,7 @@ Perform these steps on the host.
             "C:\Labs\WS2022\VMVirtualHardDisks\WIN-VN1-SRV10-Replacement-$PSItem.VHDX" `
          -SizeBytes 1TB
       }
+   ````
 
 1. Add the new virtual hard disks to WIN-VN1-SRV10.
 
