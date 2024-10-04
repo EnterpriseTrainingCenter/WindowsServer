@@ -4,6 +4,7 @@
 
 * VN1-SRV4
 * VN1-SRV5
+* VN1-SRV7
 * CL1
 * CL2
 * CL4
@@ -46,7 +47,7 @@ Perform these steps on CL1.
     ````powershell
     Set-ADComputer `
         -Identity CL4 `
-        -Server VN1-SRV8 `
+        -Server VN1-SRV7 `
         -PrincipalsAllowedToDelegateToAccount $wacComputer
     ````
 
