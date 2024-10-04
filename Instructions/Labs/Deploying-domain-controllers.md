@@ -651,7 +651,7 @@ Perform this task on CL1.
 ## Exercise 5: Decommission a domain controller
 
 1. [Change the DNS client server addresses](#task-1-change-the-dns-client-server-addresses) on CL1 to 10.1.1.40 and 10.1.2.8.
-1. [Change the IP address of the domain controller to decommission](#task-2-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.200 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
+1. [Change the IP address of the domain controller to decommission](#task-2-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.9 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
 1. [Add the IP address of the decommissioned domain controller to the new domain controller](#task-3-add-the-ip-address-of-the-decommissioned-domain-controller-to-the-new-domain-controller): Add 10.1.1.8 to VN1-SRV5
 1. [Demote the old domain controller](#task-4-demote-the-old-domain-controller) VN1-SRV1
 1. [Remove roles from the decommissioned domain controller](#task-5-remove-roles-from-the-decommissioned-domain-controller) VN1-SRV1
