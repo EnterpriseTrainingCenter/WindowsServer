@@ -156,22 +156,63 @@ Perform this task on CL1.
 1. Store the Directory Services Restore Mode (DSRM) password in a variable.
 
     ````powershell
-    $safeModeAdministratorPassword = Read-Host `
+    $safeModeAdministratorPasswordSecure = Read-Host `
         -Prompt 'Directory Services Restore Mode (DSRM) password' `
         -AsSecureString
     ````
 
 1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
+1. Store the credentials for the Enterprise admin in variables.
+
+    ````powershell
+    $username = "Administrator@ad.adatum.com"
+    $securePassword = Read-Host -Prompt "Password for $username" -AsSecureString
+    ````
+
+1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
 1. Install a child domain **clients** with the parent domain **ad.adatum.com** on VN1-SRV7. Install DNS at the same time, but do not make it a Global Catalog server.
 
     ````powershell
-    $job = Invoke-Command -ComputerName VN1-SRV7 -AsJob -ScriptBlock {
+    # Convert the secure strings back to a plain text string
+
+    $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $securePassword
+        )
+    ) 
+
+    $safeModeAdministratorPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $safeModeAdministratorPasswordSecure
+        )
+    ) 
+
+    $job = Invoke-Command `
+        -ComputerName VN1-SRV7.ad.adatum.com `
+        -AsJob `
+        -ScriptBlock {
+        # Convert the passwords into a secure strings
+        
+        $securePassword = `
+            ConvertTo-SecureString -String $using:password -AsPlainText -Force
+        $secureSafeModeAdministratorPassword = `
+            ConvertTo-SecureString `
+                -String $using:safeModeAdministratorPassword `
+                -AsPlainText `
+                -Force
+
+        # Create credentials
+        $credential = New-Object `
+            -TypeName pscredential `
+            -ArgumentList $using:username, $securePassword
+
         Install-ADDSDomain `
             -DomainType ChildDomain `
             -ParentDomainName ad.adatum.com `
             -NewDomainName clients `
-            -Credential $using:credential `
-            -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
+            -Credential $credential `
+            -SafeModeAdministratorPassword `
+                $secureSafeModeAdministratorPassword `
             -InstallDns `
             -Force
     }
@@ -191,7 +232,7 @@ Perform this task on CL1.
     $job | Receive-Job
     ````
 
-    The error message ````[VN1-SRV7] Closing the remote server shell instance failed with the following error message : Access is denied.```` can be ignored safely.
+    The error message ````[VN1-SRV7.ad.adatum.com] Closing the remote server shell instance failed with the following error message : Access is denied.```` can be ignored safely.
 
 ### Task 3: Optimize name resolution performance using conditional forwarders
 
@@ -227,12 +268,12 @@ Perform this task on CL1.
     $computerName = 'VN1-SRV7.clients.ad.adatum.com'
     ````
 
-1. On **VN1-SRV7**, add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.40** and **10.1.2.8**. The forwarder should be replicated forest-wide.
+1. On **VN1-SRV7**, add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.8** and **10.1.2.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name ad.adatum.com `
-        -MasterServers 10.1.1.40, 10.1.2.8 `
+        -MasterServers 10.1.1.8, 10.1.2.8 `
         -ReplicationScope Forest `
         -ComputerName $computerName
     ````
