@@ -18,7 +18,7 @@
 1. In the context menu of **Start**, click **Terminal**.
 1. In Terminal, execute ````C:\LabResources\Solutions\New-Shares.ps1````.
 
-    You do not have to wait for the script to finish. You can safely ignore the following warnings:
+    You do not have to wait for the script to finish. You can safely ignore the following warnings and error messages:
 
     ````text
     WARNING: Certificate cannot be requested!
@@ -26,6 +26,14 @@
 
     ````text
     WARNING: This script cannot add computers to Windows Admin Center
+    ````
+
+    ````text
+    WARNING: Extension cannot be installed by script.
+    ````
+
+    ````text
+    New-CimSession: WinRM cannot complete the operation.
     ````
 
     ````text
