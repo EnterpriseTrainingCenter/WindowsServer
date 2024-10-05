@@ -173,7 +173,12 @@ Perform this task on CL1.
                 $username
             ) (will also be the Directory Services Restore Mode (DSRM) password)" `
         -AsSecureString
-    
+    ````
+
+1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
+1. Promote **VN1-SRV5** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
+
+    ````powershell
     # Convert the secure string back to a plain text string
 
     $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
@@ -181,14 +186,10 @@ Perform this task on CL1.
             $securePassword
         )
     ) 
-    ````
 
-1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
-1. Promote **VN1-SRV5** and **VN2-SRV1** to domain controllers in the domain **ad.adatum.com**. Install DNS at the same time.
-
-    ````powershell
     $job = Invoke-Command -ComputerName VN1-SRV5, VN2-SRV1 -AsJob -ScriptBlock {
         # Convert the password into a secure string
+
         $securePassword = `
             ConvertTo-SecureString -String $using:password -AsPlainText -Force
         
@@ -196,10 +197,10 @@ Perform this task on CL1.
         $safeModeAdministratorPassword = $securePassword
 
         # Create credentials
-        $credential = `
-            New-Object `
-                -TypeName pscredential `
-                -ArgumentList $using:username, $securePassword
+        $credential = New-Object `
+            -TypeName pscredential `
+            -ArgumentList $using:username, $securePassword
+        
         Install-ADDSDomainController `
             -DomainName ad.adatum.com `
             -Credential $credential `
