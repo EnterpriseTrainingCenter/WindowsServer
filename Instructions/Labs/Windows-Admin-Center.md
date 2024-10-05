@@ -339,6 +339,13 @@ Perform this task on CL1.
     $pSSession = New-PSSession -ComputerName VN1-SRV4
     ````
 
+1. Create the path for Windows PowerShell modules.
+
+    ````powershell
+    $destination = '~\Documents\WindowsPowerShell\Modules\'
+    New-Item -Path $destination -ItemType Directory
+    ````
+
 1. Copy the Windows Admin Center Connection Tools module to the client.
 
     ````powershell
@@ -346,7 +353,7 @@ Perform this task on CL1.
         -FromSession $pSSession `
         -Path `
             "$env:ProgramFiles\Windows Admin Center\PowerShell\Modules\*\" `
-        -Destination '~\Documents\WindowsPowerShell\Modules\' `
+        -Destination $destination `
         -Container `
         -Recurse
     ````
