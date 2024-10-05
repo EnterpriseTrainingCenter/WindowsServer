@@ -32,8 +32,8 @@
     WARNING: Junction cannot be created.
     ````
 
-1. On **CL3**, sign in ad **.\\Administrator**.
-1. On **CL4**, sign in ad **.\\Administrator**.
+1. On **CL3**, sign in as **.\\Administrator**.
+1. On **CL4**, sign in as **.\\Administrator**.
 1. On **VN2-SRV2** sign in as **contoso\\Administrator**.
 
 ## Introduction
