@@ -9,11 +9,15 @@
 * CL1
 * CL4
 
+If you did not complete the lab [Deploying domain controllers](Deploying-domain-controllers.md), in addition to the VMs above, **VN1-SRV1** is required. If VN1-SRV1 is already shut down after the lab, do not start it.
+
 ## Setup
 
 1. On VN3-SRV1, sign in as **ad\Administrator**.
 1. On CL1, sign in as **ad\Administrator**.
 1. On CL4, sign in as **.\Administrator**.
+
+If you skipped the practice [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md), on **CL1**, in **Terminal**, execute ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
 
 ## Introduction
 

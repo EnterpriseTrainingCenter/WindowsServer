@@ -7,6 +7,10 @@
 
 If you did not complete the lab [Deploying domain controllers](Deploying-domain-controllers.md), in addition to the VMs above, **VN1-SRV1** is required. If VN1-SRV1 is already shut down after the lab, do not start it.
 
+## Setup
+
+If you skipped the practice [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md), on **CL1**, in **Terminal**, execute ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
 ## Task
 
 For the ad.adatum.com domain, configure the password policy to require passwords of at least 8 character in length. The passwords should not need to be complex and should not need to be changed regularly.
