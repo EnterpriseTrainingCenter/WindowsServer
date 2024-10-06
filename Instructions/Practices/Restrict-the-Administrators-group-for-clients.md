@@ -7,6 +7,10 @@
 * CL1
 * CL4
 
+## Setup
+
+For this practice, you must have completed exercise 2 of the lab [Multi domain environments](../Labs/Multi-domain-environments.md#exercise-2-deploy-a-child-domain). In this exercise you deployed the clients.ad.adatum.com domain. If you did not deploy this domain, skip this exercise.
+
 ## Task
 
 In the clients.ad.adatum.com, create a group Client Computer Administrators and add the Helpdesk group as a member. Restrict the Administrators group of client computer in the domain to contain only the Client Computer Administrators group and the default Administrator only.
