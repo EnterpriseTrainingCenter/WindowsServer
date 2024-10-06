@@ -7,6 +7,12 @@
 * CL1
 * CL4
 
+If you did not complete the lab [Deploying domain controllers](Deploying-domain-controllers.md), in addition to the VMs above, **VN1-SRV1** is required. If VN1-SRV1 is already shut down after the lab, do not start it.
+
+## Setup
+
+For this practice, you must have completed exercise 2 of the lab [Multi domain environments](../Labs/Multi-domain-environments.md#exercise-2-deploy-a-child-domain). In this exercise you deployed the clients.ad.adatum.com domain. If you did not deploy this domain, skip this exercise.
+
 ## Task
 
 In the clients.ad.adatum.com, create a group Client Computer Administrators and add the Helpdesk group as a member. Restrict the Administrators group of client computer in the domain to contain only the Client Computer Administrators group and the default Administrator only.

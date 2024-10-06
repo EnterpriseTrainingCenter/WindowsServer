@@ -9,10 +9,16 @@
 * CL1
 * CL2
 
+If you did not complete the lab [Deploying domain controllers](Deploying-domain-controllers.md), in addition to the VMs above, **VN1-SRV1** is required. If VN1-SRV1 is already shut down after the lab, do not start it.
+
 ## Setup
 
 On **CL1**, sign in as **ad\\Administrator**.
 On **CL2**, sign in as **ad\\Administrator**.
+
+If you skipped the practice [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md), on **CL1**, in **Terminal**, execute ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
+If you did not complete exercise 1 of lab [Deploying domain controllers](Deploying-domain-controllers.md#exercise-1-deploy-additional-domain-controllers) and exercises 2 and 3 of lab [Multi-domain environments](Multi-domain-environments.md), you will not be able to perform all steps in this lab. However, try as many steps as possible in this lab to get used to the tools.
 
 ## Introduction
 
@@ -48,7 +54,7 @@ The virtual networks in Adatum represent different locations. Adatum wants to mi
 
     > What is the domain controller, CL2 authenticated with after configuring sites?
 
-1. [Verify sites in DNS]
+1. [Verify sites in DNS](#task-6-verify-sites-in-dns)
 
 ### Task 1: Verify the site of client
 

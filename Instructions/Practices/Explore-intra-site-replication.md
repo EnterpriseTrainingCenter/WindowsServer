@@ -5,6 +5,14 @@
 * VN1-SRV5
 * CL1
 
+If you did not complete the lab [Deploying domain controllers](Deploying-domain-controllers.md), in addition to the VMs above, **VN1-SRV1** is required. If VN1-SRV1 is already shut down after the lab, do not start it.
+
+## Setup
+
+If you skipped the practice [Install Remote Server Administration Tools](Practices/Install-Remote-Server-Administration-Tools.md), on **CL1**, in **Terminal**, execute ````C:\LabResources\Solutions\Install-RemoteServerAdministrationTools.ps1````.
+
+If you did not deploy additional domain controllers and domains in the previous labs, the results of this practice may be limited.
+
 ## Task
 
 Explore the automatically created connection objects and write a documentation of the replication topology for each naming context.

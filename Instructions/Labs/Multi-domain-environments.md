@@ -12,7 +12,15 @@
 * CL3
 * CL4
 
+If you did not complete the lab [Deploying domain controllers](Deploying-domain-controllers.md), in addition to the VMs above, **VN1-SRV1** is required. If VN1-SRV1 is already shut down after the lab, do not start it.
+
 ## Setup
+
+You must have completed the lab [Deploying Domain Controllers](Deploying-domain-controllers.md). If you skipped the lab, on **CL1**, in **Terminal**, run ````Get-WindowsCapability -Online -Name 'Rsat.Dns.Tools*' | Add-WindowsCapability -Online````
+
+You do not have to wait for the command to complete.
+
+For exercises 5 and 6, if you skipped exercise 6 of the lab [Deploying Domain Controllers](Deploying-domain-controllers.md#exercise-6-deploy-a-new-forest) (meaning, you do not have the CONTOSO domain), on **CL3**, in **Terminal**, run ````C:\LabResources\Solutions\Install-Forest.ps1````.
 
 1. On **CL1**, sign in as **ad\\Administrator**.
 1. In the context menu of **Start**, click **Terminal**.
@@ -56,14 +64,162 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 
 ## Exercises
 
-1. [Deploy a child domain](#exercise-1-deploy-a-child-domain)
-1. [Deploy a domain in a new tree](#exercise-2-deploy-a-domain-in-a-new-tree)
-1. [Managing user principal names](#exercise-3-managing-user-principal-names)
+1. [Managing user principal names](#exercise-1-managing-user-principal-names)
+1. [Deploy a child domain](#exercise-2-deploy-a-child-domain)
+1. [Deploy a domain in a new tree](#exercise-3-deploy-a-domain-in-a-new-tree)
 1. [Create and validate shortcut trusts](#exercise-4-create-and-validate-shortcut-trusts)
 1. [Create and validate a forest trust](#exercise-5-create-and-validate-a-forest-trust)
 1. [Migrating users between domains](#exercise-6-migrating-users-between-domains)
 
-## Exercise 1: Deploy a child domain
+## Exercise 1: Managing user principal names
+
+1. [Add an UPN suffix](#task-1-add-an-upn-suffix) adatum.com to the forest ad.adatum.com
+1. [Change the UPN of all users](#task-2-change-the-upn-of-all-users) in the organizational units
+
+    * Development
+    * IT
+    * Managers
+    * Marketing
+    * Research
+    * Sales
+
+1. [Verify the login with the user principal name](#task-3-verify-the-login-with-the-user-principal-name) Larry@adatum.com
+1. [Add an UPN suffix](#task-4-add-an-upn-suffix) contoso.com to the forest ad.contoso.com
+1. [Create a new user with an alternative UPN suffix](#task-5-create-a-new-user-with-an-alternative-upn-suffix) in ad.contoso.com
+
+### Task 1: Add an UPN suffix
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **Active Directory Domains and Trusts**.
+1. In Active Directory Domains and Trusts, in the context-menu of **Active Directory Domain and Trusts**, click **Properties**.
+1. In Active Directory Domains and Trusts, on tab UPN Suffixes, under **Alternative UPN suffixes**, enter **adatum.com** and click **Add**.
+1. Click **OK**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. Add the UPN suffix **adatum.com** to the forest **ad.adatum.com**.
+
+    ````powershell
+    Set-ADForest -Identity ad.adatum.com -UPNSuffixes @{ add = 'adatum.com' }
+    ````
+
+### Task 2: Change the UPN of all users
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, click **ad (local)**.
+1. In ad (local), double-click **Development**.
+1. In Development, click the column header **Type**, click any object in Development and press CTRL + A to select all objects. Hold down CTRL and click the group **Development** to unselect it.
+1. In the context menu of any selected user object, click **Properties**.
+1. In Multiple Users, activate **Logon UPN Suffix**, click **adatum.com**, and click **OK**.
+
+Repeat the steps 2 - 6 for the organizational units
+
+* IT
+* Managers
+* Marketing
+* Research
+* Sales
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. For users in the organizational units **Development**, **IT**, **Marketing**, **Research**, and **Sales**, replace the domain part of the user principal name with **adatum.com**.
+
+    ````powershell
+    @('Development', 'IT', 'Marketing', 'Research', 'Sales') | ForEach-Object { 
+        Get-ADUser `
+            -SearchBase "ou=$PSItem, dc=ad, dc=adatum, dc=com" `
+            -Filter * | 
+        ForEach-Object { 
+            $PSItem | Set-ADUser `
+                -UserPrincipalName (
+                    $PSItem.UserPrincipalName -replace `
+                        # https://regex101.com/r/DaI5XD/1
+                        '^(.*)(@ad.adatum.com)$', '$1@adatum.com'
+                )
+        }
+    }
+    ````
+
+### Task 3: Verify the login with the user principal name
+
+Perform this task on CL2.
+
+1. Sign in as **Larry@adatum.com**
+
+    > Larry Rayford should be able to sign in successfully.
+
+1. Sign out.
+
+### Task 5: Create a new user with an alternative UPN suffix
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, click **ad (local)**.
+1. In ad (local), double-click **IT**.
+1. In the pane **Tasks**, under **IT**, click **New**, **User**.
+1. Create User, in **First name**, type **Wil**. In **Last name**, type **Ruiz**. In **User UPN logon**, type **Wil** and, beside **@**, click **adatum.com**. In User SamAccountName logon, before the backslash, ensure **ad** is typed in, and after the backslash, ensure **Wil** is typed in. In **Password** and **Confirm password**, type a secure password and take a note. Click **OK**.
+
+#### PowerShell
+
+Perform this task on CL1.
+
+1. In the context menu of **Start**, click **Terminal**.
+1. In Terminal, set up parameter variables for the new user.
+
+    ````powershell
+    $firstName = 'Wil'
+    $lastName = 'Ruiz'
+
+    $name = "$firstName $lastName"
+    $userPrincipalName = "$firstname@adatum.com"
+    ````
+
+1. Create the new user.
+
+    ````powershell
+    $aDUser = New-ADUser `
+        -Path 'ou=IT, dc=ad, dc=adatum, dc=com' `
+        -Name $name `
+        -GivenName $firstName `
+        -Surname $lastName `
+        -DisplayName  $name `
+        -UserPrincipalName $userPrincipalName `
+        -SamAccountName $firstName `
+        -PassThru
+    ````
+
+1. Reset the password.
+
+    ````powershell
+    $aDUser | Set-ADAccountPassword -Reset
+    $aDUser | Set-ADUser -ChangePasswordAtLogon $true
+    ````
+
+    Beside **Password** and **Repeat Password**, enter a secure password.
+
+1. Enable the user.
+
+    ````powershell
+    $aDUser | Enable-ADAccount
+    ````
+
+## Exercise 2: Deploy a child domain
 
 1. [Install Active Directory Domain Services](#task-1-install-active-directory-domain-services) on VN1-SRV7
 1. [Configure Active Directory Domain Services as new child domain](#task-2-configure-active-directory-domain-services-as-new-child-domain) clients.ad.adatum.com on VN1-SRV7
@@ -78,9 +234,9 @@ Currently, Contoso users cannot access resources in Adatum. Because Contoso coll
 
     > Which IP addresses are returned when executing a query for ad.adatum.com on VN1-SRV7?
 
-    > Which IP address is returned when executing a query for clients.ad.adatum.com on VN1-SRV5?
+    > Which IP address is returned when executing a query for clients.ad.adatum.com on 10.1.1.8 (10.1.1.8 is either VN1-SRV1 or VN1-SRV5)?
 
-    > Why does name resolution for clients.ad.adatum.com work on VN1-SRV5 without further configuration?
+    > Why does name resolution for clients.ad.adatum.com work on VN1-SRV1 or VN1-SRV5 without further configuration?
 
 1. [Change the DNS client settings](#task-6-change-the-dns-client-settings) on CL4 to use 10.1.1.56 (VN1-SRV7)
 1. [Connect to domain](#task-7-connect-to-domain) clients.ad.contoso.com on CL4.
@@ -146,32 +302,66 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. Store the credential for the enterprise admin in a variable.
-
-    ````powershell
-    $credential = Get-Credential
-    ````
-
-1. In Windows PowerShell Credential Request, enter the credentials for **Administrator@ad.adatum.com**.
 1. Store the Directory Services Restore Mode (DSRM) password in a variable.
 
     ````powershell
-    $safeModeAdministratorPassword = Read-Host `
+    $safeModeAdministratorPasswordSecure = Read-Host `
         -Prompt 'Directory Services Restore Mode (DSRM) password' `
         -AsSecureString
     ````
 
 1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
+1. Store the credentials for the Enterprise admin in variables.
+
+    ````powershell
+    $username = "Administrator@ad.adatum.com"
+    $securePassword = Read-Host -Prompt "Password for $username" -AsSecureString
+    ````
+
+1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
 1. Install a child domain **clients** with the parent domain **ad.adatum.com** on VN1-SRV7. Install DNS at the same time, but do not make it a Global Catalog server.
 
     ````powershell
-    $job = Invoke-Command -ComputerName VN1-SRV7 -AsJob -ScriptBlock {
+    # Convert the secure strings back to a plain text string
+
+    $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $securePassword
+        )
+    ) 
+
+    $safeModeAdministratorPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $safeModeAdministratorPasswordSecure
+        )
+    ) 
+
+    $job = Invoke-Command `
+        -ComputerName VN1-SRV7.ad.adatum.com `
+        -AsJob `
+        -ScriptBlock {
+        # Convert the passwords into a secure strings
+        
+        $securePassword = `
+            ConvertTo-SecureString -String $using:password -AsPlainText -Force
+        $secureSafeModeAdministratorPassword = `
+            ConvertTo-SecureString `
+                -String $using:safeModeAdministratorPassword `
+                -AsPlainText `
+                -Force
+
+        # Create credentials
+        $credential = New-Object `
+            -TypeName pscredential `
+            -ArgumentList $using:username, $securePassword
+
         Install-ADDSDomain `
             -DomainType ChildDomain `
             -ParentDomainName ad.adatum.com `
             -NewDomainName clients `
-            -Credential $using:credential `
-            -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
+            -Credential $credential `
+            -SafeModeAdministratorPassword `
+                $secureSafeModeAdministratorPassword `
             -InstallDns `
             -Force
     }
@@ -191,7 +381,9 @@ Perform this task on CL1.
     $job | Receive-Job
     ````
 
-    The error message ````[VN1-SRV7] Closing the remote server shell instance failed with the following error message : Access is denied.```` can be ignored safely.
+    The error message ````[VN1-SRV7.ad.adatum.com] Closing the remote server shell instance failed with the following error message : Access is denied.```` can be ignored safely.
+
+Before continuing to the next task, wait for the sign in prompt to appear on **VN1-SRV7**.
 
 ### Task 3: Optimize name resolution performance using conditional forwarders
 
@@ -203,7 +395,7 @@ Perform this task on CL1.
 1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV7.clients.ad.adatum.com**, and click **OK**.
 1. In DNS Manager, click and expand **VN1-SRV7.clients.ad.adatum.com**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
-1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.40** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, in the drop-downbelow, click **All DNS servers in this forsst**. Click **OK**.
+1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.8** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, in the drop-downbelow, click **All DNS servers in this forsst**. Click **OK**.
 1. In **DNS Manager**, click **VN1-SRV7.clients.ad.adatum.com**.
 1. In the right pane, double-click **Forwarders**.
 1. In VN1-SRV7.clients.ad.adatum.com Properties, on tab Forwarders, click **Edit...**
@@ -227,12 +419,12 @@ Perform this task on CL1.
     $computerName = 'VN1-SRV7.clients.ad.adatum.com'
     ````
 
-1. On **VN1-SRV7**, add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.40** and **10.1.2.8**. The forwarder should be replicated forest-wide.
+1. On **VN1-SRV7**, add a conditional forwarder for zone **ad.adatum.com** pointing to **10.1.1.8** and **10.1.2.8**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name ad.adatum.com `
-        -MasterServers 10.1.1.40, 10.1.2.8 `
+        -MasterServers 10.1.1.8, 10.1.2.8 `
         -ReplicationScope Forest `
         -ComputerName $computerName
     ````
@@ -243,7 +435,7 @@ Perform this task on CL1.
     Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4 -ComputerName $computerName 
     ````
 
-    > The name resolution to the root domain worked, because of the general forwarder.
+> The name resolution to the root domain worked, because of the general forwarder.
 
 > You should prefer conditional forwarders, because general forwarding of all unresolved queries may impact the performance of external Internet services negatively.
 
@@ -312,7 +504,7 @@ Perform this task on CL1.
 1. Try to resolve the DNS name **clients.ad.adatum.com** on the DNS server **VN1-SRV5.ad.adatum.com**.
 
     ````powershell
-    Resolve-DnsName -Name clients.ad.adatum.com -Server VN1-SRV5.ad.adatum.com
+    Resolve-DnsName -Name clients.ad.adatum.com -Server 10.1.1.8
     ````
 
     > The IP address 10.1.1.56 should be returned.
@@ -370,9 +562,9 @@ Perform this task on CL4.
 
 1. In **Windows PowerShell credential request**, enter the the credentials of **Administrator@clients.ad.adatum.com**.
 
-## Exercise 2: Deploy a domain in a new tree
+## Exercise 3: Deploy a domain in a new tree
 
-1. [Add Conditional Forwarders](#task-1-add-conditional-forwarders) on VN1-SRV5 for extranet.adatum.com pointing to the IP address of PM-SRV1 (10.1.200.8)
+1. [Add Conditional Forwarders](#task-1-add-conditional-forwarders) on 10.1.1.8 (VN1-SRV1 or VN1-SRV5) for extranet.adatum.com pointing to the IP address of PM-SRV1 (10.1.200.8)
 
     > Why do you need to add this conditional forwarder before deploying the new tree?
 
@@ -390,7 +582,6 @@ Perform this task on CL4.
 
     > Which IP address is returned when querying for clients.ad.adatum.com on PM-SRV1.extranet.adatum.com?
 
-
 ### Task 1: Add Conditional Forwarders
 
 #### Desktop experience
@@ -399,8 +590,11 @@ Perform this task on CL1.
 
 1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **DNS**.
-1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
-1. In **DNS Manager**, click and expand **VN1-SRV5.ad.adatum.com**, and click **Conditional Forwarders**.
+1. In **Connect to DNS Server**, click **The following computer**, type **10.1.1.8**, and click **OK**.
+
+    10.1.1.8 is either VN1-SRV1 or VN1-SRV5.
+
+1. In **DNS Manager**, click and expand **10.1.1.8**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
 1. In New Conditional Forwarder, under **DNS Domain**, type **extranet.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.200.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
 
@@ -419,7 +613,7 @@ Perform this task on CL1.
         -Name extranet.adatum.com `
         -MasterServers 10.1.200.8 `
         -ReplicationScope Forest `
-        -ComputerName VN1-SRV5.ad.adatum.com
+        -ComputerName 10.1.1.8
     ````
 
 > You need to add this conditional forwarder to ensure name resolution for the new tree from the existing root domain. Without this name resolution, creation of the trust between the root domain and the new tree fails.
@@ -512,13 +706,6 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. Run **Terminal**.
-1. Store the credential for the enterprise admin in a variable.
-
-    ````powershell
-    $credential = Get-Credential
-    ````
-
-1. In Windows PowerShell Credential Request, enter the credentials for **Administrator@ad.adatum.com**.
 1. Store the Directory Services Restore Mode (DSRM) password in a variable.
 
     ````powershell
@@ -528,16 +715,55 @@ Perform this task on CL1.
     ````
 
 1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
+1. Store the credentials for the Enterprise admin in variables.
+
+    ````powershell
+    $username = "Administrator@ad.adatum.com"
+    $securePassword = Read-Host -Prompt "Password for $username" -AsSecureString
+    ````
+
+1. When prompted, enter the credentials for **Administrator@ad.adatum.com**.
 1. Install a new tree **extranet.adatum.com** with the parent domain **ad.adatum.com** on VN1-SRV7. Install DNS at the same time, but do not make it a Global Catalog server.
 
     ````powershell
+    # Convert the secure strings back to a plain text string
+
+    $password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $securePassword
+        )
+    ) 
+
+    $safeModeAdministratorPassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto(
+        [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR(
+            $safeModeAdministratorPasswordSecure
+        )
+    ) 
+
     $job = Invoke-Command -ComputerName PM-SRV1 -AsJob -ScriptBlock {
+        # Convert the passwords into a secure strings
+        
+        $securePassword = `
+            ConvertTo-SecureString -String $using:password -AsPlainText -Force
+        $secureSafeModeAdministratorPassword = `
+            ConvertTo-SecureString `
+                -String $using:safeModeAdministratorPassword `
+                -AsPlainText `
+                -Force
+
+        # Create credentials
+
+        $credential = New-Object `
+            -TypeName pscredential `
+            -ArgumentList $using:username, $securePassword
+
+
         Install-ADDSDomain `
             -DomainType TreeDomain `
             -ParentDomainName ad.adatum.com `
             -NewDomainName extranet.adatum.com `
-            -Credential $using:credential `
-            -SafeModeAdministratorPassword $using:safeModeAdministratorPassword `
+            -Credential $credential `
+            -SafeModeAdministratorPassword $secureSafeModeAdministratorPassword `
             -InstallDns `
             -Force
     }
@@ -561,13 +787,7 @@ Perform this task on CL1.
 
     The error message ````[PM-SRV1] Closing the remote server shell instance failed with the following error message : Access is denied.```` can be ignored safely.
 
-1. Sign out.
-
-    ````powershell
-    logoff
-    ````
-
-    Wait until the sign in screen appears on PM-SRV1.
+Wait until the sign in screen appears on PM-SRV1.
 
 ### Task 4: Configure forwarders
 
@@ -624,13 +844,18 @@ Perform this task on CL1.
     $cimSession = New-CimSession -ComputerName PM-SRV1.extranet.adatum.com
     ````
 
-1. Set the DNS client server address for **PM-SRV1** to **10.1.200.8** and **127.0.0.1**.
+    If you receive the following error message, wait a few minutes and try again or use the SConfig method.
+
+    ````text
+    New-CimSession : WinRM cannot process the request. The following error occurred while using Kerberos authentication: Cannot find the computer PM-SRV1.extranet.adatum.com. Verify that the computer exists on the network and that the name provided is spelled correctly.
+    ````
+
+1. For all net adapters, set the DNS client server address for **PM-SRV1** to **10.1.200.8** and **127.0.0.1**.
 
     ````powershell
+    Get-NetAdapter -CimSession $cimSession |
     Set-DnsClientServerAddress `
-        -InterfaceAlias Ethernet `
-        -ServerAddresses 10.1.200.8, 127.0.0.1 `
-        -CimSession $cimSession
+        -ServerAddresses 10.1.200.8, 127.0.0.1 -CimSession $cimSession
     ````
 
     Note: In real world, you should enter the IP address of a another DC of the same domain.
@@ -646,20 +871,22 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Resolve the DNS name **extranet.adatum.com** on server **VN1-SRV5.ad.adatum.com**.
+1. Resolve the DNS name **extranet.adatum.com** on server **10.1.1.8**.
 
     ````powershell
-    Resolve-DnsName -Name extranet.adatum.com -Server VN1-SRV5.ad.adatum.com
+    Resolve-DnsName -Name extranet.adatum.com -Server 10.1.1.8
     ````
 
-    > The IP address 10.1.200.8 should be returned.
+    > The IP addresses 10.1.200.8 and 10.1.200.9 should be returned.
 
-    Note: If you do not get the IP address, restart the DNS service on VN1-SRV5 and try again.
+    Note: If you do not get the IP address, restart the DNS service on 10.1.1.8 and try again.
 
     ````powershell
-    Invoke-Command -ComputerName VN1-SRV5 -ScriptBlock {
+    $computerName = (Resolve-DnsName 10.1.1.8).NameHost
+    Invoke-Command -ComputerName $computerName -ScriptBlock {
         Restart-Service -Name DNS
     }
+    ````
 
 1. Resolve the DNS name **extranet.adatum.com** on server **VN1-SRV7.clients.ad.adatum.com**.
 
@@ -667,7 +894,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name extranet.adatum.com -Server VN1-SRV7.clients.ad.adatum.com
     ````
 
-    > The IP address 10.1.200.8 should be returned.
+    > The IP addresses 10.1.200.8 and 10.1.200.9 should be returned.
 
 1. Resolve the DNS name **ad.adatum.com** on server **PM-SRV1.extranet.adatum.com**.
 
@@ -675,7 +902,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name ad.adatum.com -Server PM-SRV1.extranet.adatum.com
     ````
 
-    > The IP addresses 10.1.1.8, 10.1.1.40, and 10.1.2.8 should be returned.
+    > The IP addresses 10.1.1.8 should be returned. Depending on the number of domain controllers, additional IP addresses may be returned.
 
 1. Resolve the DNS name **clients.ad.adatum.com** on server **PM-SRV1.extranet.adatum.com**.
 
@@ -684,175 +911,6 @@ Perform this task on CL1.
     ````
 
     > The IP address 10.1.1.56 should be returned.
-
-## Exercise 3: Managing user principal names
-
-1. [Add an UPN suffix](#task-1-add-an-upn-suffix) adatum.com to the forest ad.adatum.com
-1. [Change the UPN of all users](#task-2-change-the-upn-of-all-users) in the organizational units
-
-    * Development
-    * IT
-    * Managers
-    * Marketing
-    * Research
-    * Sales
-
-1. [Verify the login with the user principal name](#task-3-verify-the-login-with-the-user-principal-name) Larry@adatum.com
-1. [Add an UPN suffix](#task-4-add-an-upn-suffix) contoso.com to the forest ad.contoso.com
-1. [Create a new user with an alternative UPN suffix](#task-5-create-a-new-user-with-an-alternative-upn-suffix) in ad.contoso.com
-
-### Task 1: Add an UPN suffix
-
-#### Desktop experience
-
-Perform this task on CL1.
-
-1. Open **Active Directory Domains and Trusts**.
-1. In Active Directory Domains and Trusts, in the context-menu of **Active Directory Domain and Trusts**, click **Properties**.
-1. In Active Directory Domains and Trusts, on tab UPN Suffixes, under **Alternative UPN suffixes**, enter **adatum.com** and click **Add**.
-1. Click **OK**.
-
-#### PowerShell
-
-Perform this task on CL1.
-
-1. In the context menu of **Start**, click **Terminal**.
-1. Add the UPN suffix **adatum.com** to the forest **ad.adatum.com**.
-
-    ````powershell
-    Set-ADForest -Identity ad.adatum.com -UPNSuffixes @{ add = 'adatum.com' }
-    ````
-
-### Task 2: Change the UPN of all users
-
-#### Desktop experience
-
-Perform this task on CL1.
-
-1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **ad (local)**.
-1. In ad (local), double-click **Development**.
-1. In Development, click the column header **Type**, click any object in Development and press CTRL + A to select all objects. Hold down CTRL and click the group **Development** to unselect it.
-1. In the context menu of any selected user object, click **Properties**.
-1. In Multiple Users, activate **Logon UPN Suffix**, click **adatum.com**, and click **OK**.
-
-Repeat the steps 2 - 6 for the organizational units
-
-* IT
-* Managers
-* Marketing
-* Research
-* Sales
-
-#### PowerShell
-
-Perform this task on CL1.
-
-1. In the context menu of **Start**, click **Terminal**.
-1. For users in the organizational units **Development**, **IT**, **Marketing**, **Research**, and **Sales**, replace the domain part of the user principal name with **adatum.com**.
-
-    ````powershell
-    @('Development', 'IT', 'Marketing', 'Research', 'Sales') | ForEach-Object { 
-        Get-ADUser `
-            -SearchBase "ou=$PSItem, dc=ad, dc=adatum, dc=com" `
-            -Filter * | 
-        ForEach-Object { 
-            $PSItem | Set-ADUser `
-                -UserPrincipalName (
-                    $PSItem.UserPrincipalName -replace `
-                        # https://regex101.com/r/DaI5XD/1
-                        '^(.*)(@ad.adatum.com)$', '$1@adatum.com'
-                )
-        }
-    }
-
-### Task 3: Verify the login with the user principal name
-
-Perform this task on CL2.
-
-1. Sign in as **Larry@adatum.com**
-
-    > Larry Rayford should be able to sign in successfully.
-
-1. Sign out.
-
-### Task 4: Add an UPN suffix
-
-#### Desktop experience
-
-Perform this task on VN2-SRV2.
-
-1. Sign in as **Administrator@ad.contoso.com**.
-1. Open **Active Directory Domains and Trusts**.
-1. In Active Directory Domains and Trusts, in the context-menu of **Active Directory Domain and Trusts**, click **Properties**.
-1. In Active Directory Domains and Trusts, on tab UPN Suffixes, under **Alternative UPN suffixes**, enter **contoso.com** and click **Add**.
-1. Click **OK**.
-
-#### PowerShell
-
-Perform this task on VN2-SRV2.
-
-1. Sign in as **Administrator@ad.contoso.com**.
-1. In the context menu of **Start**, click **Windows PowerShell**.
-1. Add the UPN suffix **contoso.com** to the forest **ad.contoso.com**.
-
-    ````powershell
-    Set-ADForest -Identity ad.contoso.com -UPNSuffixes @{ add = 'contoso.com' }
-    ````
-
-### Task 5: Create a new user with an alternative UPN suffix
-
-#### Desktop experience
-
-Perform this task on VN2-SRV2.
-
-1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **ad (local)**.
-1. In ad (local), double-click **Users**.
-1. In the context-menu of an empty space in the middle-pane, click **New**, **User**.
-1. Create User, in **First name**, type **Wil**. In **Last name**, type **Ruiz**. In **User UPN logon**, type **Wil** and, beside **@**, click **contoso.com**. In User SamAccountName logon, before the backslash, type **CONTOSO**, and after the backslash, type **Wil**. In **Password** and **Confirm password**, type a secure password and take a note. Click **OK**.
-
-#### PowerShell
-
-1. In the context menu of **Start**, click **Windows PowerShell**.
-1. Set up parameter variables for the new user.
-
-    ````powershell
-    $firstName = 'Wil'
-    $lastName = 'Ruiz'
-
-    $name = "$firstName $lastName"
-    $userPrincipalName = "$firstname@contoso.com"
-    ````
-
-1. Create the new user.
-
-    ````powershell
-    $aDUser = New-ADUser `
-        -Path 'cn=users, dc=ad, dc=contoso, dc=com' `
-        -Name $name `
-        -GivenName $firstName `
-        -Surname $lastName `
-        -DisplayName  $name `
-        -UserPrincipalName $userPrincipalName `
-        -SamAccountName $firstName `
-        -PassThru
-    ````
-
-1. Reset the password.
-
-    ````powershell
-    $aDUser | Set-ADAccountPassword -Reset
-    $aDUser | Set-ADUser -ChangePasswordAtLogon $true
-    ````
-
-    Beside **Password** and **Repeat Password**, enter a secure password.
-
-1. Enable the user.
-
-    ````powershell
-    $aDUser | Enable-ADAccount
-    ````
 
 ## Exercise 4: Create and validate shortcut trusts
 
@@ -885,18 +943,23 @@ Perform this task on VN2-SRV2.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Suspend**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV1**, **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+
+    If WIN-VN1-SRV1 is not running anymore, do not select it.
+
+1. In the context menu of **WIN-VN1-SRV1**, **WIN-VN1-SRV5**, or **WIN-VN2-SRV1**, click **Suspend**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Suspend the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
+1. Suspend the virtual machines **WIN-VN1-SRV1**, **WIN-VN1-SRV5** and **WIN-VN2-SRV1** if they are running.
 
     ````powershell
-    Suspend-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
+    Get-VM -Name WIN-VN1-SRV1, WIN-VN1-SRV5, WIN-VN2-SRV1 |
+    Where-Object { $PSItem.State -eq 'Running' } |
+    Suspend-VM
     ````
 
 ### Task 2: Validate the effects of an failure of an intermediate domain
@@ -927,7 +990,10 @@ Perform this task on CL4.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV1, **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+
+    Select WIN-VN1-SRV1 only, if it is in the suspended state and not turned off.
+
 1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Resume**.
 
 #### PowerShell
@@ -935,10 +1001,12 @@ Perform this task on the host.
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Resume the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
+1. Resume the paused virtual machines **WIN-VN1-SRV1**, **WIN-VN1-SRV5**, and **WIN-VN2-SRV1**.
 
     ````powershell
-    Resume-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
+    Get-VM -Name WIN-VN1-SRV1, WIN-VN1-SRV5, WIN-VN2-SRV1 |
+    Where-Object { $PSItem.State -eq 'Paused' } |
+    Resume-VM
     ````
 
 ### Task 4: Create a shortcut trust
@@ -1005,18 +1073,23 @@ Perform this task on CL1.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Suspend**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV1**, **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+
+    If WIN-VN1-SRV1 is not running anymore, do not select it.
+
+1. In the context menu of **WIN-VN1-SRV1**, **WIN-VN1-SRV5**, or **WIN-VN2-SRV1**, click **Suspend**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Suspend the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
+1. Suspend the virtual machines **WIN-VN1-SRV1**, **WIN-VN1-SRV5** and **WIN-VN2-SRV1** if they are running.
 
     ````powershell
-    Suspend-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
+    Get-VM -Name WIN-VN1-SRV1, WIN-VN1-SRV5, WIN-VN2-SRV1 |
+    Where-Object { $PSItem.State -eq 'Running' } |
+    Suspend-VM
     ````
 
 ### Task 6: Validate the effects of the shortcut trust
@@ -1042,18 +1115,23 @@ Perform this task on CL4.
 Perform this task on the host.
 
 1. Open **Hyper-V-Manager**.
-1. In Hyper-V-Manager click **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
-1. In the context menu of **WIN-VN1-SRV5** or **WIN-VN2-SRV1**, click **Resume**.
+1. In Hyper-V-Manager click **WIN-VN1-SRV1**, **WIN-VN1-SRV5**, hold down CTRL and click **WIN-VN2-SRV1**.
+
+    If WIN-VN1-SRV1 is not running anymore, do not select it.
+
+1. In the context menu of **WIN-VN1-SRV1**, **WIN-VN1-SRV5**, or **WIN-VN2-SRV1**, click **Suspend**.
 
 #### PowerShell
 
 Perform this task on the host.
 
 1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Resume the virtual machines **WIN-VN1-SRV5** and **WIN-VN2-SRV1**.
+1. Suspend the virtual machines **WIN-VN1-SRV1**, **WIN-VN1-SRV5** and **WIN-VN2-SRV1** if they are running.
 
     ````powershell
-    Resume-VM -Name WIN-VN1-SRV5, WIN-VN2-SRV1
+    Get-VM -Name WIN-VN1-SRV1, WIN-VN1-SRV5, WIN-VN2-SRV1 |
+    Where-Object { $PSItem.State -eq 'Running' } |
+    Suspend-VM
     ````
 
 ## Exercise 5: Create and validate a forest trust
@@ -1075,8 +1153,8 @@ Perform this task on the host.
 Perform this task on CL1.
 
 1. Open **DNS**.
-1. In **Connect to DNS Server**, click **The following computer**, type **VN1-SRV5.ad.adatum.com**, and click **OK**.
-1. In **DNS Manager**, click and expand **VN1-SRV5.ad.adatum.com**, and click **Conditional Forwarders**.
+1. In **Connect to DNS Server**, click **The following computer**, type **10.1.1.8**, and click **OK**.
+1. In **DNS Manager**, click and expand **10.1.1.8**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
 1. In New Conditional Forwarder, under **DNS Domain**, type **ad.contoso.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.2.16**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
 
@@ -1085,14 +1163,14 @@ Perform this task on CL1.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. On **VN1-SRV5**, add a conditional forwarder for zone **ad.contoso.com** pointing to **10.1.2.16**. The forwarder should be replicated forest-wide.
+1. On **10.1.1.8**, add a conditional forwarder for zone **ad.contoso.com** pointing to **10.1.2.16**. The forwarder should be replicated forest-wide.
 
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name ad.contoso.com `
         -MasterServers 10.1.2.16 `
         -ReplicationScope Forest `
-        -ComputerName VN1-SRV5.ad.adatum.com
+        -ComputerName 10.1.1.8
     ````
 
 ### Task 2: Implement DNS name resolution of ad.adatum.com
@@ -1104,7 +1182,9 @@ Perform this task on VN2-SRV2.
 1. Open **DNS**.
 1. In **DNS Manager**, click and expand **VN2-SRV2**, and click **Conditional Forwarders**.
 1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
-1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.40** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
+1. In New Conditional Forwarder, under **DNS Domain**, type **ad.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.1.8** and **10.1.2.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
+1. In the context-menu of **Conditional Forwarders**, click **New Conditional Forwarder...**
+1. In New Conditional Forwarder, under **DNS Domain**, type **extranet.adatum.com**. Under **IP addresses of the master servers**, click **\<Click here to add an IP Address or DNS Name\>**, and enter **10.1.200.8**. Activate the checkbox **Store this conditional forwarder in Active Directory** and, below, click **All DNS servers in this forest**. Click **OK**.
 
 #### PowerShell
 
@@ -1116,7 +1196,7 @@ Perform this task on VN2-SRV2.
     ````powershell
     Add-DnsServerConditionalForwarderZone `
         -Name ad.adatum.com `
-        -MasterServers 10.1.1.40, 10.1.2.8 `
+        -MasterServers 10.1.1.8, 10.1.2.8 `
         -ReplicationScope Forest
     ````
 
@@ -1134,7 +1214,7 @@ Perform this task on VN2-SRV2.
 Perform this task on CL1.
 
 1. In the context menu of **Start**, click **Terminal**.
-1. Verify the DNS name resolution for **ad.contoso.com** on the server **10.1.1.40**.
+1. Verify the DNS name resolution for **ad.contoso.com** on the server **10.1.1.8**.
 
     ````powershell
     Resolve-DnsName -Name ad.contoso.com -Server 10.1.1.40
@@ -1148,7 +1228,7 @@ Perform this task on CL1.
     Resolve-DnsName -Name ad.adatum.com -Server 10.1.2.16
     ````
 
-    > You should get the IP addresses 10.1.1.8, 10.1.1.40, and 10.1.2.8.
+    > You should get the IP address 10.1.1.8. Additional IP addresses may be returned.
 
 1. Verify the DNS name resolution for **clients.ad.adatum.com** on the server **10.1.2.16**.
 
@@ -1193,26 +1273,23 @@ Perform this task on CL1.
 
 Perform this task on CL1.
 
-1. Open **Active Users and Computers**.
-1. In Active Directory Users and Computers, click **Entitling groups**.
+1. Open **Active Directory Administrative Center**.
+1. In Active Directory Administrative Center, click **ad (local)**.
+1. In ad (local), double-click **Entitling groups**.
 1. In Entitling groups, double-click **Marketing Read**.
-1. In Marketing Read Properties, click the tab **Members**.
-1. On tab Members, click **Add...**.
+1. In Marketing Read, in the left pane, click **Members**.
+1. Under Members, click **Add...**.
 1. In Select Users, Contacts, or Other Objects, click **Locations...**.
 1. In Locations, click **ad.contoso.com** and click **OK**.
-1. In **Select Users, Contacts, or Other Objects**, in **Enter the object names to select**, type Wil and click **Check Names**.
-1. In Windows Security, enter the credentials of **Administrator@ad.contoso.com**.
-
-    > Now, the user name should read **Wil Ruiz (Wil@contoso.com)**.
-
+1. In **Select Users, Contacts, or Other Objects**, in **Enter the object names to select**, type Administrator and click **Check Names**.
 1. In **Select Users, Contacts, or Other Objects**, click **OK**.
-1. In **Marketing Read Properties**, click **OK**.
+1. In **Marketing Read**, click **OK**.
 
 ### Task 6: Verify the effect of selective authentication accessing resources
 
 Perform this task on CL3.
 
-1. Sign in as **wil@contoso.com** and change the password.
+1. Sign in as **Administrator@ad.contoso.com**.
 1. Using **File Explorer**, navigate to \\\\VN1-SRV10.ad.adatum.com.
 
     > You will receive an error message like in [figure 1].
@@ -1221,7 +1298,7 @@ Perform this task on CL3.
 
 Perform this task on CL4.
 
-1. Sign in as **wil@contoso.com**.
+1. Sign in as **Administrator@ad.contoso.com**.
 
     > You will receive an error message like in [figure 2].
 
@@ -1246,19 +1323,15 @@ Perform this task on CL1.
 1. In Extensions, on tab **Security**, click **Add...**.
 1. In Select Users, Computers, Service Accounts, or Groups, click **Locations...**.
 1. In Locations, click **ad.contoso.com** and click **OK**.
-1. In **Select Users, Contacts, or Other Objects**, in **Enter the object names to select**, type Wil and click **Check Names**.
-1. In Windows Security, enter the credentials of **Administrator@ad.contoso.com**.
-
-    > Now, the user name should read **Wil Ruz (Wil@contoso.com)**.
-
+1. In **Select Users, Contacts, or Other Objects**, in **Enter the object names to select**, type Administrator and click **Check Names**.
 1. In **Select Users, Contacts, or Other Objects**, click **OK**.
-1. In **CL4**, under **Permissions for Wil Ruiz**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
+1. In **CL4**, under **Permissions for Administrator**, in column **Allow**, activate the checkbox **Allowed to authenticate** and click **OK**.
 
 ### Task 9: Verify sign in and resource access over a forest trust
 
 Perform this task on CL4.
 
-1. Sign in as **Wil@contoso.com**.
+1. Sign in as **Administrator@ad.contoso.com**.
 
     > You should be able sign in.
 
@@ -1300,6 +1373,12 @@ Perform this task on CL1.
 
 1. Open **Active Directory Administrative Center**.
 1. In Active Directory Administrative Center, click **clients**.
+
+    If you do not have a **clients** node in Active Directory Administrative Center, add the navigation node:
+
+    1. In **Active Directory Administrative Center**, on the menu, click **Manage**, **Add Navigation Nodes...**
+    1. In Add Navigation Nodes, in the middle pane, click **clients**, click **>>**, and click **OK**.
+
 1. In the context-menu of **clients (local)**, click **New**, **Organizational Unit**.
 1. In Create Organizational Unit, in **Name**, type **Marketing** and click **OK**.
 
@@ -1393,6 +1472,9 @@ Perform this task on CL2.
 Perform this task on VN2-SRV2.
 
 1. Open **Active Directory Users and Computers**.
+
+    Note: Because of a bug in Active Directory Administrative center, you must use Active Directory Users and Computers in this task.
+
 1. In Active Directory Users and Computers, expand **ad.contoso.com** and click **Builtin**.
 1. In Builtin, double-click **Administrators**.
 1. In Administrators Properties, click the tab **Members**.
@@ -1442,7 +1524,7 @@ Perform this task on CL1.
 1. In **User Account Migration Wizard**, on page **User Account**, type the credentials of **Administrator** in the Domain **AD**.
 1. On page User Options, ensure the checkboxes **Migrate associated user groups**, **Update previously migrated objects** and **Fix users' group memberships** are activated, and click **Next >**.
 1. On page Object Property Exclusion, ensure the checkbox **Exclude specific object properties from migration** is deactivated and click **Next >**.
-1. On page Conflict Management, ensure **Do no migrate source object if a conflict is detected in the target domain** is selected and click **Next >**.
+1. On page Conflict Management, ensure **Do not migrate source object if a conflict is detected in the target domain** is selected and click **Next >**.
 1. On page Completing the User Account Migration Wizard, click **Finish**.
 1. In Migration Process, wait until **Status** changes to **Completed** and click **Close**.
 
@@ -1457,8 +1539,7 @@ Perform this task on CL1.
     > All users in the organizational unit should be disabled.
 
 1. On the menu, click **Manage**, **Add Navigation Nodes...**
-1. In Add Navigation Nodes, click **Connect to other domains...** (in the bottom right).
-1. In **Connect to**, type **ad.contoso.com** and click **OK**.
+1. In Add Navigation Nodes, click **Connect to other domains...** (in the bottom right). Beside **Connect to**, type **ad.contoso.com** and click **OK**.
 1. In **Active Directory Users and Computers**, in the context-menu of **ad.adatum.com**, click **Change Domain...**
 1. In Change domain, type **ad.contoso.com** and click **OK**.
 1. In the left pane, ensure **ad** is selected and click **>>** and click **OK**.
@@ -1477,7 +1558,9 @@ Perform this task on CL1.
 1. Click **Cancel**.
 1. In **Active Directory Administrative Center**, in the organizational unit **Development**, double-click **Anete Auzina**.
 
-    > The User UPN logon shuld be Anete@contoso.com.
+    If you receive an error message Failed to retrieve the object, close Active Directory Administrative Center and open it again.
+
+    > The User UPN logon shuld be Anete@ad.contoso.com.
 
 1. Click **Extensions**.
 1. Click the tab **Attribute Editor**.
@@ -1492,9 +1575,11 @@ Perform this task on CL1.
 
 Perform this task on CL3.
 
-1. Sign in as **anete@contoso.com**.
+1. Sign in as **anete@ad.contoso.com**.
 
-    > You will have to change the password.
+    You will have to change the password.
+
+    > The sign in should succeed.
 
 1. Sign out.
 
