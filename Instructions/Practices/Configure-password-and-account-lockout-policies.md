@@ -8,7 +8,7 @@
 
 ## Task
 
-For the clients.ad.adatum.com domain, configure the password policy to require passwords of at least 8 character in length. The passwords should not need to be complex and should not need to be changed regularly.
+For the ad.adatum.com domain, configure the password policy to require passwords of at least 8 character in length. The passwords should not need to be complex and should not need to be changed regularly.
 
 Configure a password lockout policy after 100 invalid attempts in 10 minutes. The account should be locked out for 10 minutes. Exclude the default administrator from the lockout policy.
 
@@ -16,10 +16,10 @@ Configure a password lockout policy after 100 invalid attempts in 10 minutes. Th
 
 Perform these steps on CL1.
 
-1. Sign in as **Administrator@clients.ad.adatum.com**.
+1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **Group Policy Management**.
-1. In Group Policy Management, expand **Forest: ad.adatum.com**, **Domains**, and click **clients.ad.adatum.com**.
-1. In the context-menu of **clients.ad.adatum.com**, click **Create a GPO in this domain, and Link it here...**
+1. In Group Policy Management, expand **Forest: ad.adatum.com**, **Domains**, and click **ad.adatum.com**.
+1. In the context-menu of **ad.adatum.com**, click **Create a GPO in this domain, and Link it here...**
 1. In New GPO, under **Name**, type **Custom Domain Account Policies** and click **OK**.
 1. In **Group Policy Management**, in the context-menu of **Custom Domain Account Policies**, click **Edit...**
 1. In Group Policy Management Editor, under **Computer Configuration**, expand **Policies**, **Windows Settings**, **Security Settings**, **Account Policies** and click **Password Policy**.
@@ -39,17 +39,13 @@ Perform these steps on CL1.
 1. In **Group Policy Management Editor**, in **Account Lockout**, double-click **Allow Administrator account lockout**.
 1. In Allow Administrator account lockout Properties, ensure **Define this policy setting** is activated, click **Disabled**, and click **OK**.
 1. Close **Group Policy Management Editor**.
-1. In **Group Policy Management**, in **clients.ad.adatum.com**, click the tab **Linked Group Policy Objects**.
-1. On the taq Linked Group Policy Objects, click **Custom Domain Account Policies** and to the left, click the icon *Move link up*.
-1. Open **Terminal**.
-1. Invoke the group policy update on **VN1-SRV7**.
-
-    ````powershell
-    Invoke-GPUpdate -Computer VN1-SRV7.clients.ad.adatum.com
-    ````
-
+1. In **Group Policy Management**, in **ad.adatum.com**, click the tab **Linked Group Policy Objects**.
+1. On the tab Linked Group Policy Objects, click **Custom Domain Account Policies** and to the left, click the icon *Move link up*.
+1. In the left pane, in the context menu of **Domain Controllers**, click **Group Policy Update...**
+1. In Force Group Policy update, click **Yes**.
+1. In Remote Group Policy update results, ensure the update has succeeded on all computers and click **Close**.
 1. Sign out.
-1. Sign as **Leo@adatum.com**.
+1. Sign as **Dita@ad.adatum.com**.
 1. If you are not prompted to change the password at sign in, invoke CTRL+ALT+DEL (you might use the menu on the virtual machine connection) and click **Change a password**.
 1. Try to set a password shorter than 8 characters.
 
