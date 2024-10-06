@@ -3,24 +3,25 @@
 ## Required VMs
 
 * VN1-SRV5
-* VN1-SRV7
 * CL1
+
+If you did not complete the lab [Deploying domain controllers](Deploying-domain-controllers.md), in addition to the VMs above, **VN1-SRV1** is required. If VN1-SRV1 is already shut down after the lab, do not start it.
 
 ## Task
 
-In the clients.ad.adatum.com, configure password settings for Domain Admins, that require complex passwords of at least 10 character in length.
+In the ad.adatum.com, configure password settings for Domain Admins, that require complex passwords of at least 10 character in length.
 
 ## Instructions
 
 Perform these steps on CL1.
 
-1. Sign in as **Administrator@clients.ad.adatum.com**.
+1. Sign in as **Administrator@ad.adatum.com**.
 1. Open **Active Directory Administrative Center**.
-1. In Active Directory Administrative Center, click **clients (local)**.
+1. In Active Directory Administrative Center, click **ad (local)**.
 1. In client (local), double-click **System**.
 1. In System, double-click **Password Settings Container**.
 1. In Password Settings Container, in the **Tasks** pane, click **New**, **Password Settings**.
-1. In Create Password Settings, confire the following settings:
+1. In Create Password Settings, configure the following settings:
 
     * **Name**: Domain Administrators Password Settings
     * **Precendence**: 10
