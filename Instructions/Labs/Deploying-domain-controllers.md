@@ -27,16 +27,16 @@ You must have completed the practice [Install Windows Admin Center using a scrip
 
 ## Introduction
 
-The domain controller still running Windows Server 2019 must be replaced by a Windows Server 2022 domain controller. Moreover, Adatum is expanding to a new location. An additional domain controller must be installed at the new location. Moreover, Adatum launches a new subsidiary with the name Contoso. Because it is expected, that the subsidiary will be sold soon, a new forest needs to be created for the subsidiary.
+The domain controller still running Windows Server 2019 must be replaced by a Windows Server 2022 domain controller. Moreover, Adatum is expanding to a new location. An additional domain controller must be installed at the new location. Furthermore, Adatum launches a new subsidiary with the name Contoso. Because it is expected, that the subsidiary will be sold soon, a new forest needs to be created for the subsidiary.
 
 ## Exercises
 
 1. [Deploy additional domain controllers](#exercise-1-deploy-additional-domain-controllers)
 1. [Check domain controller health](#exercise-2-check-domain-controller-health)
-1. [Deploy a new forest](#exercise-3-deploy-a-new-forest)
-1. [Transfer flexible single master operation roles](#exercise-4-transfer-flexible-single-master-operation-roles)
-1. [Decommission a domain controller](#exercise-5-decommission-a-domain-controller)
-1. [Raise domain and forest functional level](#exercise-6-raise-the-domain-and-forest-functional-level)
+1. [Transfer flexible single master operation roles](#exercise-3-transfer-flexible-single-master-operation-roles)
+1. [Decommission a domain controller](#exercise-4-decommission-a-domain-controller)
+1. [Raise domain and forest functional level](#exercise-5-raise-the-domain-and-forest-functional-level)
+1. [Deploy a new forest](#exercise-6-deploy-a-new-forest)
 
 Note: Exercise 6 is not dependent on the other exercises. To safe time, you may run the tasks of exercise 6 while you are waiting for execution of tasks in the other exercises.
 
@@ -368,189 +368,7 @@ Perform this task on CL1.
 
 If time permits, you can try to fix the warning and errors and run the the BPA scan again.
 
-## Exercise 3: Deploy a new forest
-
-1. [Install Active Directory Domain Services on VN2-SRV2](#task-1-install-active-directory-domain-services-on-vn2-srv2)
-1. [Configure Active Directory Domain Services as new forest](#task-2-configure-active-directory-domain-services-as-new-forest) with the name ad.contoso.com on VN2-SRV2.
-1. [Change the DNS client settings](#task-3-change-the-dns-client-settings) on CL3 to use 10.1.2.16 (VN2-SRV2)
-1. [Connect to domain](#task-4-connect-to-domain) ad.contoso.com on CL3.
-1. [Configure forwarders](#task-5-configure-forwarders) on VN2-SRV2 to use 8.8.8.8 and 8.8.4.4.
-
-### Task 1: Install Active Directory Domain Services on VN2-SRV2
-
-#### Desktop experience
-
-Perform this task on CL1.
-
-1. Open **Server Manager**.
-1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
-1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
-1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
-1. On page Server Selection, click **VN2-SRV2.ad.adatum.com**, and click **Next >**.
-1. On page Server Roles, activate **Active Directory Domain Services**.
-1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
-1. On page **Server Roles**, click **Next >**.
-1. On page Features, click **Next >**.
-1. On page **AD DS**, click **Next >**.
-1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
-1. On page **Results**, click **Close**.
-
-#### Windows Admin Center
-
-Perform this task on CL1.
-
-1. Open **Microsoft Edge**.
-1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
-1. On the Windows Admin Center page, click **vn2-srv2.ad.adatum.com**.
-1. On the page vn1-srv5.ad.adatum.com, unter Tools, click **Roles & features**.
-1. Under Roles and features, click **Active Directory Domain Services** and click **Install**.
-1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically if required**, and click **Yes**.
-
-Wait, until you receive a notification about the successfully completed installation.
-
-#### PowerShell
-
-Peform this task on VN2-SRV2.
-
-1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Install the windows feature **Active Directory Domain Services**.
-
-    ````powershell
-    Install-WindowsFeature `
-        -Name AD-Domain-Services -IncludeManagementTools -Restart
-    ````
-
-### Task 2: Configure Active Directory Domain Services as new forest
-
-#### Desktop experience
-
-Perform this task on VN2-SRV2.
-
-1. Open **Server Manager**.
-1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN2-SRV2**, click **Promote this server to a domain controller**.
-1. In Active Directory Domain Services Configuration Wizard, on page Deployment Configuration, click **Add a new forest**. In **Root domain name**, type **ad.contoso.com** and click **Next >**.
-1. On page **Domain Controller Options**, ensure **Domain Name System (DNS) server** and **Global Catalog (GC)** are activated. Under **Type the Directory Services Restore Mode (DSRM) password**, in **Password** and **Confirm password**, type a secure password and take a note. You will need the password for a later lab. Click **Next >**.
-1. On page DNS Options, click **Next >**.
-1. On page Additional Options, in **The NetBIOS domain name**, type **CONTOSO** and click **Next >**.
-1. On page **Paths**, click **Next >**.
-
-    Note: In real world, it is recommended to have the paths on a separate drive.
-
-1. On page Review Options, click **Next >**.
-1. On page Prerequisites Check, click **Install**.
-
-Continue to the next task. The server will restart automatically.
-
-#### PowerShell
-
-Perform this task on VN2-SRV2.
-
-1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
-1. Store the Directory Services Restore Mode (DSRM) password in a variable.
-
-    ````powershell
-    $safeModeAdministratorPassword = Read-Host `
-        -Prompt 'Directory Services Restore Mode (DSRM) password' `
-        -AsSecureString
-    ````
-
-1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
-1. Install a new forest with the domain name **ad.contoso.com** and the NetBIOS name **CONTOSO**.
-
-    ````powershell
-    Install-ADDSForest `
-        -DomainName ad.contoso.com `
-        -DomainNetbiosName CONTOSO `
-        -SafeModeAdministratorPassword $safeModeAdministratorPassword
-    ````
-
-1. At the prompt **The target server will be configured as a domain controller and restarted when this operation is complete.** type **y**.
-
-Continue to the next task. The server will restart automatically.
-
-### Task 3: Change the DNS client settings
-
-#### Desktop experience
-
-Perform this task on CL3.
-
-1. Open **Settings**.
-1. In Settings, in the left pane, click **Network & internet**.
-1. In Network & internet, click **Ethernet**.
-1. In Ethernet, beside **DNS server assignment**, click **Edit**.
-1. In Edit IP Settings, under **Preferred DNS**, type **10.1.2.16** and click **Save**.
-1. Sign out.
-
-#### PowerShell
-
-Perform this task on CL3.
-
-1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. Set the DNS client server address on the interface **Ethernet** to **10.1.2.16**.
-
-    ````powershell
-    Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 10.1.2.16
-    ````
-
-### Task 4: Connect to domain
-
-Note: Wait for VN2-SRV2 to reboot before starting with this task.
-
-#### Desktop experience
-
-Perform this task on CL3.
-
-1. Open **Settings**.
-1. In Settings, in the left pane, click **Accounts**.
-1. In Accounts, click **Access work or school**.
-1. In Access work or school, beside **Add a work or school account**, click **Connect**.
-1. In Set up a work or school account, click the link **Join this device to a local Active Directory domain**.
-1. In Join a domain, under **Domain name**, type **ad.contoso.com** and click **Next**.
-1. In Windows Security, enter the credentials for **Administrator@ad.contoso.com**.
-1. In Add an account, click **Skip**.
-1. In Restart your PC, click **Restart now**.
-
-#### PowerShell
-
-Perform this task on CL3.
-
-1. In the context menu of **Start**, click **Terminal (Admin)**.
-1. Add the computer to the domain **ad.contoso.com** and restart it.
-
-    ````powershell
-    Add-Computer -DomainName ad.contoso.com -Restart
-    ````
-
-1. In **Windows PowerShell credential request**, enter the the credentials of **Administrator@ad.contoso.com**.
-
-### Task 5: Configure forwarders
-
-#### Desktop experience
-
-Perform this task on VN2-SRV2.
-
-1. Sign in as **Administrator@ad.contoso.com**.
-1. Open **DNS**.
-1. In DNS Manager, click **VN2-SRV2**.
-1. In vn2-srv2, double-click **Forwarders**.
-1. In vn2-srv2 Properties, on tab Forwarders, click **Edit...**
-1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
-1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
-1. In **vn2-srv2 Properties**, click **OK**.
-
-#### PowerShell
-
-Perform this task on VN2-SRV2.
-
-1. Sign in as **Administrator@ad.contoso.com**.
-1. Run **Windows PowerShell (Admin)**.
-1. In Windows PowerShell (Admin), configure the forwarder to **8.8.8.8** and **8.8.4.4**.
-
-    ````powershell
-    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4
-    ````
-
-## Exercise 4: Transfer flexible single master operation roles
+## Exercise 3: Transfer flexible single master operation roles
 
 1. Transfer the domain-wide flexible single master operation roles
 1. Transfer the forest-wide flexible single master operation roles
@@ -649,7 +467,7 @@ Perform this task on CL1.
         -Confirm:$false
     ````
 
-## Exercise 5: Decommission a domain controller
+## Exercise 4: Decommission a domain controller
 
 1. [Change the DNS client server addresses](#task-1-change-the-dns-client-server-addresses) on CL1 to 10.1.1.40 and 10.1.2.8.
 1. [Change the IP address of the domain controller to decommission](#task-2-change-the-ip-address-of-the-domain-controller-to-decommission) VN1-SRV1 to 10.1.1.9 and the DNS client server addresses to 10.1.1.40 and 10.1.2.8
@@ -971,7 +789,7 @@ Perform this task on CL1.
     Stop-Computer -ComputerName VN1-SRV1 -WsmanAuthentication Default
     ````
 
-## Exercise 6: Raise the domain and forest functional level
+## Exercise 5: Raise the domain and forest functional level
 
 1. Raise the domain functional level
 
@@ -1050,3 +868,185 @@ Perform this task on CL1.
     ````
 
     > The value for ForestMode should be Windows2016Forest.
+
+## Exercise 6: Deploy a new forest
+
+1. [Install Active Directory Domain Services on VN2-SRV2](#task-1-install-active-directory-domain-services-on-vn2-srv2)
+1. [Configure Active Directory Domain Services as new forest](#task-2-configure-active-directory-domain-services-as-new-forest) with the name ad.contoso.com on VN2-SRV2.
+1. [Change the DNS client settings](#task-3-change-the-dns-client-settings) on CL3 to use 10.1.2.16 (VN2-SRV2)
+1. [Connect to domain](#task-4-connect-to-domain) ad.contoso.com on CL3.
+1. [Configure forwarders](#task-5-configure-forwarders) on VN2-SRV2 to use 8.8.8.8 and 8.8.4.4.
+
+### Task 1: Install Active Directory Domain Services on VN2-SRV2
+
+#### Desktop experience
+
+Perform this task on CL1.
+
+1. Open **Server Manager**.
+1. In Server Manager, in the menu, click **Manage**, **Add Roles and Features**.
+1. In Add Roles and Features Wizard, on page Before You Begin, click **Next >**.
+1. On page Installation Type, ensure **Role-based or feature-basedd installation** is selected and click **Next >**.
+1. On page Server Selection, click **VN2-SRV2.ad.adatum.com**, and click **Next >**.
+1. On page Server Roles, activate **Active Directory Domain Services**.
+1. In the dialog **Add features that are required for Active Directory Domain Services?**, click **Add Features**
+1. On page **Server Roles**, click **Next >**.
+1. On page Features, click **Next >**.
+1. On page **AD DS**, click **Next >**.
+1. On page **Confirmation**, activate the checkbox **Restart the destination server automatically if required** and click **Install**.
+1. On page **Results**, click **Close**.
+
+#### Windows Admin Center
+
+Perform this task on CL1.
+
+1. Open **Microsoft Edge**.
+1. In Microsoft Edge, navigate to <https://admincenter.ad.adatum.com/>
+1. On the Windows Admin Center page, click **vn2-srv2.ad.adatum.com**.
+1. On the page vn1-srv5.ad.adatum.com, unter Tools, click **Roles & features**.
+1. Under Roles and features, click **Active Directory Domain Services** and click **Install**.
+1. In the pane Install Role and Features, activate the checkbox **Reboot the server automatically if required**, and click **Yes**.
+
+Wait, until you receive a notification about the successfully completed installation.
+
+#### PowerShell
+
+Peform this task on VN2-SRV2.
+
+1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
+1. Install the windows feature **Active Directory Domain Services**.
+
+    ````powershell
+    Install-WindowsFeature `
+        -Name AD-Domain-Services -IncludeManagementTools -Restart
+    ````
+
+### Task 2: Configure Active Directory Domain Services as new forest
+
+#### Desktop experience
+
+Perform this task on VN2-SRV2.
+
+1. Open **Server Manager**.
+1. In Server Manager, click *Notifications* (the flag with the yellow warning triangle), and under the message **Configuration required for Active Directory Domain Services at VN2-SRV2**, click **Promote this server to a domain controller**.
+1. In Active Directory Domain Services Configuration Wizard, on page Deployment Configuration, click **Add a new forest**. In **Root domain name**, type **ad.contoso.com** and click **Next >**.
+1. On page **Domain Controller Options**, ensure **Domain Name System (DNS) server** and **Global Catalog (GC)** are activated. Under **Type the Directory Services Restore Mode (DSRM) password**, in **Password** and **Confirm password**, type a secure password and take a note. You will need the password for a later lab. Click **Next >**.
+1. On page DNS Options, click **Next >**.
+1. On page Additional Options, in **The NetBIOS domain name**, type **CONTOSO** and click **Next >**.
+1. On page **Paths**, click **Next >**.
+
+    Note: In real world, it is recommended to have the paths on a separate drive.
+
+1. On page Review Options, click **Next >**.
+1. On page Prerequisites Check, click **Install**.
+
+Continue to the next task. The server will restart automatically.
+
+#### PowerShell
+
+Perform this task on VN2-SRV2.
+
+1. In the context menu of **Start**, click **Windows PowerShell (Admin)**.
+1. Store the Directory Services Restore Mode (DSRM) password in a variable.
+
+    ````powershell
+    $safeModeAdministratorPassword = Read-Host `
+        -Prompt 'Directory Services Restore Mode (DSRM) password' `
+        -AsSecureString
+    ````
+
+1. At the prompt **Directory Services Restore Mode (DSRM) password** enter a secure password and take a note.
+1. Install a new forest with the domain name **ad.contoso.com** and the NetBIOS name **CONTOSO**.
+
+    ````powershell
+    Install-ADDSForest `
+        -DomainName ad.contoso.com `
+        -DomainNetbiosName CONTOSO `
+        -SafeModeAdministratorPassword $safeModeAdministratorPassword
+    ````
+
+1. At the prompt **The target server will be configured as a domain controller and restarted when this operation is complete.** type **y**.
+
+Continue to the next task. The server will restart automatically.
+
+### Task 3: Change the DNS client settings
+
+#### Desktop experience
+
+Perform this task on CL3.
+
+1. Open **Settings**.
+1. In Settings, in the left pane, click **Network & internet**.
+1. In Network & internet, click **Ethernet**.
+1. In Ethernet, beside **DNS server assignment**, click **Edit**.
+1. In Edit IP Settings, under **Preferred DNS**, type **10.1.2.16** and click **Save**.
+1. Sign out.
+
+#### PowerShell
+
+Perform this task on CL3.
+
+1. In the context menu of **Start**, click **Terminal (Admin)**.
+1. Set the DNS client server address on the interface **Ethernet** to **10.1.2.16**.
+
+    ````powershell
+    Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses 10.1.2.16
+    ````
+
+### Task 4: Connect to domain
+
+Note: Wait for VN2-SRV2 to reboot before starting with this task.
+
+#### Desktop experience
+
+Perform this task on CL3.
+
+1. Open **Settings**.
+1. In Settings, in the left pane, click **Accounts**.
+1. In Accounts, click **Access work or school**.
+1. In Access work or school, beside **Add a work or school account**, click **Connect**.
+1. In Set up a work or school account, click the link **Join this device to a local Active Directory domain**.
+1. In Join a domain, under **Domain name**, type **ad.contoso.com** and click **Next**.
+1. In Windows Security, enter the credentials for **Administrator@ad.contoso.com**.
+1. In Add an account, click **Skip**.
+1. In Restart your PC, click **Restart now**.
+
+#### PowerShell
+
+Perform this task on CL3.
+
+1. In the context menu of **Start**, click **Terminal (Admin)**.
+1. Add the computer to the domain **ad.contoso.com** and restart it.
+
+    ````powershell
+    Add-Computer -DomainName ad.contoso.com -Restart
+    ````
+
+1. In **Windows PowerShell credential request**, enter the the credentials of **Administrator@ad.contoso.com**.
+
+### Task 5: Configure forwarders
+
+#### Desktop experience
+
+Perform this task on VN2-SRV2.
+
+1. Sign in as **Administrator@ad.contoso.com**.
+1. Open **DNS**.
+1. In DNS Manager, click **VN2-SRV2**.
+1. In vn2-srv2, double-click **Forwarders**.
+1. In vn2-srv2 Properties, on tab Forwarders, click **Edit...**
+1. In Edit Forwarders, click **10.1.1.8** and click **Delete**.
+1. In **\<Click here to add an IP Address or DNS Name\>**, enter **8.8.8.8**. Repeat this step with **8.8.4.4** and click **OK**.
+1. In **vn2-srv2 Properties**, click **OK**.
+
+#### PowerShell
+
+Perform this task on VN2-SRV2.
+
+1. Sign in as **Administrator@ad.contoso.com**.
+1. Run **Windows PowerShell (Admin)**.
+1. In Windows PowerShell (Admin), configure the forwarder to **8.8.8.8** and **8.8.4.4**.
+
+    ````powershell
+    Set-DnsServerForwarder -IPAddress 8.8.8.8, 8.8.4.4
+    ````
