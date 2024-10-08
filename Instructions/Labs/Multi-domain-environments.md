@@ -27,6 +27,14 @@ If you did not complete the lab [Deploying domain controllers](Deploying-domain-
     ````
 
     ````text
+    Copy-Item : Cannot find path 'C:\Program Files\Windows Admin Center\PowerShell\Modules\*\' because it does not exist.
+    ````
+
+    ````text
+    Import-Connection : The term 'Import-Connection' is not recognized as the name of a cmdlet, function, script file, or   operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+    ````
+    
+    ````text
     WARNING: This script cannot add computers to Windows Admin Center
     ````
 
@@ -51,8 +59,6 @@ You must have completed the lab [Deploying Domain Controllers](Deploying-domain-
 You do not have to wait for the command to complete.
 
 For exercises 5 and 6, if you skipped exercise 6 of the lab [Deploying Domain Controllers](Deploying-domain-controllers.md#exercise-6-deploy-a-new-forest) (meaning, you do not have the CONTOSO domain), on **CL3**, in **Terminal**, run ````C:\LabResources\Solutions\Install-Forest.ps1````.
-
-
 
 ## Introduction
 
