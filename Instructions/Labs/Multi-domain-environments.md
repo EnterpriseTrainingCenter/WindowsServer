@@ -50,15 +50,14 @@ If you did not complete the lab [Deploying domain controllers](Deploying-domain-
     WARNING: Junction cannot be created.
     ````
 
-1. On **CL3**, sign in as **.\\Administrator**.
+    You do not have to wait for the command to complete until exercise 2, task 3.
+
 1. On **CL4**, sign in as **.\\Administrator**.
 1. On **VN2-SRV2** sign in as **contoso\\Administrator**.
 
-You must have completed the lab [Deploying Domain Controllers](Deploying-domain-controllers.md). If you skipped the lab, on **CL1**, in **Terminal**, run ````Get-WindowsCapability -Online -Name 'Rsat.Dns.Tools*' | Add-WindowsCapability -Online````
+You must have completed the lab [Deploying Domain Controllers](Deploying-domain-controllers.md). If you skipped the lab, on **CL1**, in **Terminal**, run ````Get-WindowsCapability -Online -Name 'Rsat.Dns.Tools*' | Add-WindowsCapability -Online````. You do not have to wait for the command to complete until exercise 2, task 3.
 
-You do not have to wait for the command to complete.
-
-For exercises 5 and 6, if you skipped exercise 6 of the lab [Deploying Domain Controllers](Deploying-domain-controllers.md#exercise-6-deploy-a-new-forest) (meaning, you do not have the CONTOSO domain), on **CL3**, in **Terminal**, run ````C:\LabResources\Solutions\Install-Forest.ps1````.
+For exercises 5 and 6, if you skipped exercise 6 of the lab [Deploying Domain Controllers](Deploying-domain-controllers.md#exercise-6-deploy-a-new-forest) (meaning, you do not have the CONTOSO domain), on **CL3**, in **Terminal**, on **CL3**, sign in as **.\\Administrator** and, in **Terminal**, run run ````C:\LabResources\Solutions\Install-Forest.ps1````. You do not have to wait for the command to complete until exercise 5.
 
 ## Introduction
 
