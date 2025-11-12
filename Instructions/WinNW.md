@@ -1,5 +1,11 @@
 # Windows Server: Network services
 
+---
+
+**Attention:** This repository is outdated and no longer actively maintained. New content and updates will be published in our new repository: [Windows Server Lab Guides](https://github.com/EnterpriseTrainingCenter/Windows-Server).
+
+---
+
 For information about the course see <https://www.etc.at/seminare/winnw/>.
 
 The instructions are to be used in conjunction with the original presentation slides and virtual machine images only. The slides and virtual machine images are not contained in this repository. Licensing is possible, please contact us.

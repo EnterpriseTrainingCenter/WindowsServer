@@ -1,5 +1,11 @@
 # smart Windows Server Lab Guides
 
+---
+
+**Attention:** This repository is outdated and no longer actively maintained. New content and updates will be published in our new repository: [Windows Server Lab Guides](https://github.com/EnterpriseTrainingCenter/Windows-Server).
+
+---
+
 This repository contains labs for various courses. For each course, there is a page containing a numbered and hyperlinked list of labs.
 
 Currently, this repository contains labs for these courses:
